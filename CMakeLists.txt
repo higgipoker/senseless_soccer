@@ -63,8 +63,11 @@ src/pitch/pitch.cpp
 src/player/locomotion/locomotion_manager.cpp
 src/player/locomotion/locomotion.cpp
 src/player/locomotion/arrive.cpp
+src/player/locomotion/pursue.cpp
 
 src/player/brain/brain.cpp
+
+src/game/game.cpp
 
 )
 
