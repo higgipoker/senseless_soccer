@@ -37,6 +37,8 @@ public:
 		return GameLib::Circle( physical->position.x, physical->position.y, radius);
 	}
 
+	virtual void Call(std::vector<std::string> params) override;
+
 protected:
 
     /**

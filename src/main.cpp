@@ -16,6 +16,7 @@
 #include "ball/ball.h"
 #include "graphics/ball_sprite.h"
 #include "metrics/metrics.h"
+#include "game/game.h"
 
 const static std::string &senseless_soccer_version = "0.0.1";
 
@@ -70,6 +71,7 @@ int main(int argc, char *argv[]) {
 	//
 	GameLib::Game senseless("Senseless Soccer", 1920, 0, 1200, 900, true);
 	senseless.working_directory = GetCurrentWorkingDirectory();
+	SenselessSoccer::SenselessGame::game = &senseless;
 
 	//
 	// players

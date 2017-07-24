@@ -31,12 +31,12 @@ void Pursue::OnStep(const float dt) {
 
   GameLib::Vector3 new_distance = target->position - player->position;
 
-  /* reached destination? */
+  // reached destination?
   if (player->position.equals(destination, 5)) {
     destination_reached = true;
     player->ResetVelocity();
   } else {
-    /* adjust for misses due to 45 degree precision */
+    // adjust for misses due to 45 degree precision
     if (new_distance.magnitude() > last_distance.magnitude()) {
       player->velocity = target->position - player->position;
     }

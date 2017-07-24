@@ -6,8 +6,10 @@
  */
 #include "player.h"
 
+#include "../game/game.h"
 #include "player_states/standing.h"
 #include "locomotion/arrive.h"
+#include "locomotion/pursue.h"
 
 namespace SenselessSoccer {
 
@@ -329,13 +331,34 @@ void Player::SetBehaviour(const std::string &new_behaviour, std::vector<std::str
 }
 
 // ------------------------------------------------------------
+// SetBehaviour
+// ------------------------------------------------------------
+void Player::SetBehaviour(const std::string &new_behaviour, GameLib::GameEntity *e) {
+	if (new_behaviour == "pursue") {
+		Pursue *pur = new Pursue(this->physical);
+		pur->Init(e->physical);
+
+		brain.SetLocomotion(pur);
+	}
+}
+
+// ------------------------------------------------------------
 // Call
 // ------------------------------------------------------------
 void Player::Call(std::vector<std::string> params){
 	if(params[0] == "arrive"){
 		std::vector<std::string> new_params(params.begin() + 1, params.end());
 		SetBehaviour("arrive", new_params);
+		return;
 	}
+
+	if(params[0] == "pursue"){
+		std::vector<std::string> new_params(params.begin() + 1, params.end());
+		GameEntity *entity = SenselessGame::game->GetEntity(new_params[0]);
+		SetBehaviour("pursue", entity);
+		return;
+	}
+	GameLib::GameEntity::Call(params);
 };
 
 }// SenselessSoccer

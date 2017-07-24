@@ -161,4 +161,11 @@ void Ball::rebound (GameLib::Vector3 wall, float damp, bool damp_z) {
 		physical->velocity.z *= damp;
 	}
 }
+// ------------------------------------------------------------
+// Call
+// ------------------------------------------------------------
+void Ball::Call(std::vector<std::string> params){
+
+	GameLib::GameEntity::Call(params);
+};
 }// SenselessSoccer

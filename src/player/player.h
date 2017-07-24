@@ -51,6 +51,7 @@ public:
 	 * \brief manually set behaviour
 	 */
 	void SetBehaviour(const std::string &new_behaviour, std::vector<std::string> params);
+    void SetBehaviour(const std::string &new_behaviour, GameLib::GameEntity *e);
 
 	virtual void Call(std::vector<std::string> params) override;
 
