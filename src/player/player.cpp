@@ -18,7 +18,7 @@ Ball *Player::ball = nullptr;
 // ------------------------------------------------------------
 // Constructor
 // ------------------------------------------------------------
-Player::Player() :
+Player::Player(GameLib::Physical *p) : GameLib::GameEntity(p),
 
 	// sprite will be attached later
 	player_sprite(nullptr),
@@ -317,45 +317,27 @@ void Player::kick(float force) {
 
 	ball->ApplyForce(kick_force);
 }
-// ------------------------------------------------------------
-// SetBehaviour
-// ------------------------------------------------------------
-void Player::SetBehaviour(const std::string &new_behaviour, std::vector<std::string> params) {
-	if (new_behaviour == "arrive") {
-		Arrive *arr = new Arrive(this->physical);
-		arr->Init(GameLib::Vector3(atoi(params[0].c_str()),
-		                           atoi(params[1].c_str())));
-
-		brain.SetLocomotion(arr);
-	}
-}
-
-// ------------------------------------------------------------
-// SetBehaviour
-// ------------------------------------------------------------
-void Player::SetBehaviour(const std::string &new_behaviour, GameLib::GameEntity *e) {
-	if (new_behaviour == "pursue") {
-		Pursue *pur = new Pursue(this->physical);
-		pur->Init(e->physical);
-
-		brain.SetLocomotion(pur);
-	}
-}
 
 // ------------------------------------------------------------
 // Call
 // ------------------------------------------------------------
-void Player::Call(std::vector<std::string> params){
-	if(params[0] == "arrive"){
+void Player::Call(std::vector<std::string> params) {
+
+	if (params[0] == "arrive") {
 		std::vector<std::string> new_params(params.begin() + 1, params.end());
-		SetBehaviour("arrive", new_params);
+		brain.locomotion.ActivateArrive(GameLib::Vector3(atoi(new_params[0].c_str()),
+		                                                 atoi(new_params[1].c_str())));
 		return;
 	}
 
-	if(params[0] == "pursue"){
+	if (params[0] == "pursue") {
 		std::vector<std::string> new_params(params.begin() + 1, params.end());
 		GameEntity *entity = SenselessGame::game->GetEntity(new_params[0]);
-		SetBehaviour("pursue", entity);
+		brain.locomotion.ActivatePursue(entity->physical);
+		return;
+	}
+	if (params[0] == "cancel") {
+		brain.locomotion.Cancel();
 		return;
 	}
 	GameLib::GameEntity::Call(params);

@@ -3,7 +3,9 @@
 #include <queue>
 #include <gamelib/statemachine/state_machine.h>
 #include <gamelib/physics/physical.h>
-#include "locomotion.h"
+#include <gamelib/physics/physical.h>
+#include "arrive.h"
+#include "pursue.h"
 
 namespace SenselessSoccer{
 
@@ -30,6 +32,18 @@ class LocomotionManager : public GameLib::StateMachine {
    * \param l pointer to new locomotion
    */
   void SetLocomotion(Locomotion *l);
+
+  /**
+   * \brief turn on arrive behavior
+   * \param dest destination
+   */
+  void ActivateArrive(GameLib::Vector3 dest);
+
+  /**
+   * \brief turn on pursue behavior
+   * \param follow entity to ppursue
+   */
+  void ActivatePursue(GameLib::Physical *follow);
 
 //   /**
 //    * @brief turnOnWandering
@@ -142,6 +156,12 @@ class LocomotionManager : public GameLib::StateMachine {
 
   /// point to currently active behavoiur
   Locomotion *behaviour;
+
+  /// an arrive behaviour
+  Arrive *arrive;
+
+  /// a pursue behaviour
+  Pursue *pursue;
 
 //   /// cover behaviour
 //   Cover *behaviour_cover;

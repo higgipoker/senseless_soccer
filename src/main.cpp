@@ -76,8 +76,8 @@ int main(int argc, char *argv[]) {
 	//
 	// players
 	//
-	SenselessSoccer::Player player;
 	GameLib::Physical physical;
+	SenselessSoccer::Player player(&physical);
 	player.physical = &physical;
 	SenselessSoccer::PlayerSprite player_sprite("gfx/player/player.png", 6, 24);
 	SenselessSoccer::PlayerSprite player_shadow_sprite("gfx/player/player_shadow.png", 6, 24);
@@ -158,9 +158,9 @@ int main(int argc, char *argv[]) {
 
 
 	std::vector<std::string> params;
-	params.push_back("300");
-	params.push_back("300");
-	player.SetBehaviour("arrive", params);
+	params.push_back("500");
+	params.push_back("500");
+
 	//
 	// main loop
 	//

@@ -18,11 +18,5 @@ Brain::Brain(Player *p) :
 void Brain::Step(float dt){
 	locomotion.UpdateLocomotion(dt);
 }
-//  --------------------------------------------------
-//  SetLocomotion
-//  --------------------------------------------------
-void Brain::SetLocomotion(Locomotion *l){
-	locomotion.SetLocomotion(l);
-}
 
 }// namespace SenselessSoccer

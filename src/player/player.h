@@ -21,7 +21,7 @@ public:
     /**
      * \brief constructor
      */
-    Player();
+    Player(GameLib::Physical *p);
 
 	/**
      * \brief derived entities can do their own extra handling
@@ -48,11 +48,9 @@ public:
     void DetatchInput();
 
 	/**
-	 * \brief manually set behaviour
+	 * \brief rpc call for player
+	 * \param params list of params
 	 */
-	void SetBehaviour(const std::string &new_behaviour, std::vector<std::string> params);
-    void SetBehaviour(const std::string &new_behaviour, GameLib::GameEntity *e);
-
 	virtual void Call(std::vector<std::string> params) override;
 
     /// convenient access to the ball

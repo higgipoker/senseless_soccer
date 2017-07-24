@@ -20,19 +20,13 @@ public:
      */
     void Step(float dt);
 
-	/**
-	 * \brief change locomotion
-	 * \param l new locomotion
-	 */
-	void SetLocomotion(Locomotion *l);
+	/// brain manages locomotion
+	LocomotionManager locomotion;
 
 private:
 
 	/// pointer back to player
 	Player *player;
-
-	/// brain manages locomotion
-	LocomotionManager locomotion;
 
 };
 

@@ -5,6 +5,8 @@ namespace SenselessSoccer {
 LocomotionManager::LocomotionManager(GameLib::Physical *physical) {
 	player = physical;
 	behaviour = NULL;
+	arrive = new Arrive(player);
+	pursue = new Pursue(player);
 // 	behaviour_cover = new Cover(player);
 // 	behaviour_seek = new Seek(player);
 // 	behaviour_heading = new Heading(player);
@@ -17,6 +19,8 @@ LocomotionManager::LocomotionManager(GameLib::Physical *physical) {
 }
 
 LocomotionManager::~LocomotionManager() {
+	delete arrive;
+	delete pursue;
 // 	delete behaviour_cover;
 // 	delete behaviour_seek;
 // 	delete behaviour_heading;
@@ -167,6 +171,24 @@ LocomotionManager::~LocomotionManager() {
 // //  turnOffDive
 // //  --------------------------------------------------
 // void LocomotionManager::turnOffDive() {}
+
+//  --------------------------------------------------
+//  ActivateArrive
+//  --------------------------------------------------
+void LocomotionManager::ActivateArrive(GameLib::Vector3 dest){
+
+	arrive->Init(dest);
+	change_locomotion(arrive);
+}
+
+//  --------------------------------------------------
+//  ActivatePursue
+//  --------------------------------------------------
+void LocomotionManager::ActivatePursue(GameLib::Physical *follow){
+
+	pursue->Init(follow);
+	change_locomotion(pursue);
+}
 
 //  --------------------------------------------------
 //  updateLocomotion
