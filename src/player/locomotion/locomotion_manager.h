@@ -51,7 +51,7 @@ class LocomotionManager : public GameLib::StateMachine {
   void Cancel(void);
 
  private:
-  //. sm context
+  /// sm context
   GameLib::Physical *player;
 
   /// point to currently active behavoiur
