@@ -4,8 +4,10 @@
 
 namespace SenselessSoccer{
 
-    class Pursue : public Locomotion{
-    public:
+/** \brief "chase after" behaviour
+  */
+class Pursue : public Locomotion{
+public:
 
 	/**
 	 * \brief constructor
@@ -45,7 +47,7 @@ namespace SenselessSoccer{
 	void Init(GameLib::Physical *t);
 
     protected:
-    
+
     /// physical entity to pursue
     GameLib::Physical *target;
 
