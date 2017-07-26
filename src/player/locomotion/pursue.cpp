@@ -5,14 +5,14 @@ namespace SenselessSoccer {
 // --------------------------------------------------
 // Pursue
 // --------------------------------------------------
-Pursue::Pursue(GameLib::Physical *physical) : Locomotion(physical) {
-}
+Pursue::Pursue(GameLib::Physical *physical) : Locomotion(physical) {}
 
 // --------------------------------------------------
 // OnStart
 // --------------------------------------------------
 void Pursue::OnStart() {
-	destination_reached = false;
+  state_over = false;
+  destination_reached = false;
 }
 
 // --------------------------------------------------
@@ -49,29 +49,23 @@ void Pursue::OnStep(const float dt) {
 // OnEnd
 // --------------------------------------------------
 void Pursue::OnEnd() {
-	destination_reached = true;
-	state_over = true;
+  destination_reached = true;
+  state_over = true;
 }
 
 // --------------------------------------------------
 // StateOver
 // --------------------------------------------------
-bool Pursue::StateOver() {
-	return state_over;
-}
+bool Pursue::StateOver() { return state_over; }
 
 // --------------------------------------------------
 // ChangeToNextState
 // --------------------------------------------------
-void Pursue::ChangeToNextState() {
-
-}
+void Pursue::ChangeToNextState() {}
 
 // --------------------------------------------------
 // Init
 // --------------------------------------------------
-void Pursue::Init(GameLib::Physical *t) {
-	target = t;
-}
+void Pursue::Init(GameLib::Physical *t) { target = t; }
 
-}// namespace SenselessSoccer
+}  // namespace SenselessSoccer
