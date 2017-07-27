@@ -19,24 +19,17 @@ void Pursue::OnStart() {
 // OnStep
 // --------------------------------------------------
 void Pursue::OnStep(const float dt) {
-  destination = target->position;
-  destination.z = 0;
-  destination_reached = false;
-
-  player->velocity = target->position - player->position;
-
-  last_distance = target->position - player->position;
-
   if (destination_reached) return;
 
+  player->velocity = target->position - player->position;
+  last_distance = target->position - player->position;
   GameLib::Vector3 new_distance = target->position - player->position;
 
-  // reached destination?
   if (player->position.equals(destination, 5)) {
     destination_reached = true;
     player->ResetVelocity();
+
   } else {
-    // adjust for misses due to 45 degree precision
     if (new_distance.magnitude() > last_distance.magnitude()) {
       player->velocity = target->position - player->position;
     }

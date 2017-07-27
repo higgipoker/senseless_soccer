@@ -31,7 +31,7 @@ Player::Player(GameLib::Physical *p)
       brain(this),
 
       // how fast the player moves
-      running_speed(2000),
+      running_speed(3000),
 
       // tracker
       changed_direction(false) {

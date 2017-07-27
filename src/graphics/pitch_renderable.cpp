@@ -22,7 +22,7 @@ void PitchTiled::Render(GameLib::Window &window) {
   GameLib::Primitives::outline_color.b = 255;
   GameLib::Primitives::outline_color.a = 50;
 
-  int thickness = 4;
+  int thickness = 1;
   // straight lines (configed list in InitMetrics)
   GameLib::Primitives::Lines(window, lines, thickness);
 
@@ -42,7 +42,7 @@ void PitchTiled::Render(GameLib::Window &window) {
   GameLib::Primitives::Arc(window, metrics.pitch_rect.GetCenter().x,
                            metrics.pitch_rect.y + metrics.pitch_rect.h -
                                Metrics::YardsToPixels(18) + 100,
-                           Metrics::MetersToPixels(9.15f), 209, 332, 100,
+                           Metrics::MetersToPixels(9.15f), 210, 330.5, 100,
                            thickness);
 }
 
