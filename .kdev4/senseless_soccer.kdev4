@@ -1,0 +1,35 @@
+[CMake]
+Build Directory Count=1
+Current Build Directory Index=0
+
+[CMake][CMake Build Directory 0]
+Build Directory Path=/home/higgi/gamedev/senseless_soccer/Debug
+Build Type=Debug
+CMake Binary=/usr/bin/cmake
+Environment Profile=
+Extra Arguments=
+Install Directory=
+
+[Launch]
+Launch Configurations=Launch Configuration 0
+
+[Launch][Launch Configuration 0]
+Configured Launch Modes=execute
+Configured Launchers=nativeAppLauncher
+Name=New Compiled Binary Launcher
+Type=Native Application
+
+[Launch][Launch Configuration 0][Data]
+Arguments=
+Dependencies=@Variant(\x00\x00\x00\t\x00\x00\x00\x00\x00)
+Dependency Action=Nothing
+EnvironmentGroup=
+Executable=file:///home/higgi/gamedev/senseless_soccer/bin/senseless_soccer
+External Terminal=konsole --noclose --workdir %workdir -e %exe
+Project Target=senseless_soccer,senseless_soccer
+Use External Terminal=false
+Working Directory=file:///home/higgi/gamedev/senseless_soccer/bin
+isExecutable=true
+
+[Project]
+VersionControlSupport=kdevgit

@@ -1,0 +1,3 @@
+/home/higgi/gamedev/senseless_soccer/Debug/CMakeFiles/rebuild_cache.dir
+/home/higgi/gamedev/senseless_soccer/Debug/CMakeFiles/edit_cache.dir
+/home/higgi/gamedev/senseless_soccer/Debug/CMakeFiles/senseless_soccer.dir

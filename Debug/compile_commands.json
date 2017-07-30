@@ -1,0 +1,117 @@
+[
+{
+  "directory": "/home/higgi/gamedev/senseless_soccer/Debug",
+  "command": "/usr/bin/c++    -I/home/higgi/gamedev/senseless_soccer/src -I/usr/local/include  -g   -std=c++11 -o CMakeFiles/senseless_soccer.dir/src/main.cpp.o -c /home/higgi/gamedev/senseless_soccer/src/main.cpp",
+  "file": "/home/higgi/gamedev/senseless_soccer/src/main.cpp"
+},
+{
+  "directory": "/home/higgi/gamedev/senseless_soccer/Debug",
+  "command": "/usr/bin/c++    -I/home/higgi/gamedev/senseless_soccer/src -I/usr/local/include  -g   -std=c++11 -o CMakeFiles/senseless_soccer.dir/src/graphics/pitch_renderable.cpp.o -c /home/higgi/gamedev/senseless_soccer/src/graphics/pitch_renderable.cpp",
+  "file": "/home/higgi/gamedev/senseless_soccer/src/graphics/pitch_renderable.cpp"
+},
+{
+  "directory": "/home/higgi/gamedev/senseless_soccer/Debug",
+  "command": "/usr/bin/c++    -I/home/higgi/gamedev/senseless_soccer/src -I/usr/local/include  -g   -std=c++11 -o CMakeFiles/senseless_soccer.dir/src/graphics/player_sprite.cpp.o -c /home/higgi/gamedev/senseless_soccer/src/graphics/player_sprite.cpp",
+  "file": "/home/higgi/gamedev/senseless_soccer/src/graphics/player_sprite.cpp"
+},
+{
+  "directory": "/home/higgi/gamedev/senseless_soccer/Debug",
+  "command": "/usr/bin/c++    -I/home/higgi/gamedev/senseless_soccer/src -I/usr/local/include  -g   -std=c++11 -o CMakeFiles/senseless_soccer.dir/src/graphics/ball_sprite.cpp.o -c /home/higgi/gamedev/senseless_soccer/src/graphics/ball_sprite.cpp",
+  "file": "/home/higgi/gamedev/senseless_soccer/src/graphics/ball_sprite.cpp"
+},
+{
+  "directory": "/home/higgi/gamedev/senseless_soccer/Debug",
+  "command": "/usr/bin/c++    -I/home/higgi/gamedev/senseless_soccer/src -I/usr/local/include  -g   -std=c++11 -o CMakeFiles/senseless_soccer.dir/src/player/player.cpp.o -c /home/higgi/gamedev/senseless_soccer/src/player/player.cpp",
+  "file": "/home/higgi/gamedev/senseless_soccer/src/player/player.cpp"
+},
+{
+  "directory": "/home/higgi/gamedev/senseless_soccer/Debug",
+  "command": "/usr/bin/c++    -I/home/higgi/gamedev/senseless_soccer/src -I/usr/local/include  -g   -std=c++11 -o CMakeFiles/senseless_soccer.dir/src/player/player_states/player_state.cpp.o -c /home/higgi/gamedev/senseless_soccer/src/player/player_states/player_state.cpp",
+  "file": "/home/higgi/gamedev/senseless_soccer/src/player/player_states/player_state.cpp"
+},
+{
+  "directory": "/home/higgi/gamedev/senseless_soccer/Debug",
+  "command": "/usr/bin/c++    -I/home/higgi/gamedev/senseless_soccer/src -I/usr/local/include  -g   -std=c++11 -o CMakeFiles/senseless_soccer.dir/src/player/player_states/standing.cpp.o -c /home/higgi/gamedev/senseless_soccer/src/player/player_states/standing.cpp",
+  "file": "/home/higgi/gamedev/senseless_soccer/src/player/player_states/standing.cpp"
+},
+{
+  "directory": "/home/higgi/gamedev/senseless_soccer/Debug",
+  "command": "/usr/bin/c++    -I/home/higgi/gamedev/senseless_soccer/src -I/usr/local/include  -g   -std=c++11 -o CMakeFiles/senseless_soccer.dir/src/player/player_states/running.cpp.o -c /home/higgi/gamedev/senseless_soccer/src/player/player_states/running.cpp",
+  "file": "/home/higgi/gamedev/senseless_soccer/src/player/player_states/running.cpp"
+},
+{
+  "directory": "/home/higgi/gamedev/senseless_soccer/Debug",
+  "command": "/usr/bin/c++    -I/home/higgi/gamedev/senseless_soccer/src -I/usr/local/include  -g   -std=c++11 -o CMakeFiles/senseless_soccer.dir/src/ball/ball.cpp.o -c /home/higgi/gamedev/senseless_soccer/src/ball/ball.cpp",
+  "file": "/home/higgi/gamedev/senseless_soccer/src/ball/ball.cpp"
+},
+{
+  "directory": "/home/higgi/gamedev/senseless_soccer/Debug",
+  "command": "/usr/bin/c++    -I/home/higgi/gamedev/senseless_soccer/src -I/usr/local/include  -g   -std=c++11 -o CMakeFiles/senseless_soccer.dir/src/match/match.cpp.o -c /home/higgi/gamedev/senseless_soccer/src/match/match.cpp",
+  "file": "/home/higgi/gamedev/senseless_soccer/src/match/match.cpp"
+},
+{
+  "directory": "/home/higgi/gamedev/senseless_soccer/Debug",
+  "command": "/usr/bin/c++    -I/home/higgi/gamedev/senseless_soccer/src -I/usr/local/include  -g   -std=c++11 -o CMakeFiles/senseless_soccer.dir/src/match/match_states/match_state.cpp.o -c /home/higgi/gamedev/senseless_soccer/src/match/match_states/match_state.cpp",
+  "file": "/home/higgi/gamedev/senseless_soccer/src/match/match_states/match_state.cpp"
+},
+{
+  "directory": "/home/higgi/gamedev/senseless_soccer/Debug",
+  "command": "/usr/bin/c++    -I/home/higgi/gamedev/senseless_soccer/src -I/usr/local/include  -g   -std=c++11 -o CMakeFiles/senseless_soccer.dir/src/match/match_states/state_play.cpp.o -c /home/higgi/gamedev/senseless_soccer/src/match/match_states/state_play.cpp",
+  "file": "/home/higgi/gamedev/senseless_soccer/src/match/match_states/state_play.cpp"
+},
+{
+  "directory": "/home/higgi/gamedev/senseless_soccer/Debug",
+  "command": "/usr/bin/c++    -I/home/higgi/gamedev/senseless_soccer/src -I/usr/local/include  -g   -std=c++11 -o CMakeFiles/senseless_soccer.dir/src/team/team.cpp.o -c /home/higgi/gamedev/senseless_soccer/src/team/team.cpp",
+  "file": "/home/higgi/gamedev/senseless_soccer/src/team/team.cpp"
+},
+{
+  "directory": "/home/higgi/gamedev/senseless_soccer/Debug",
+  "command": "/usr/bin/c++    -I/home/higgi/gamedev/senseless_soccer/src -I/usr/local/include  -g   -std=c++11 -o CMakeFiles/senseless_soccer.dir/src/team/team_states/team_state.cpp.o -c /home/higgi/gamedev/senseless_soccer/src/team/team_states/team_state.cpp",
+  "file": "/home/higgi/gamedev/senseless_soccer/src/team/team_states/team_state.cpp"
+},
+{
+  "directory": "/home/higgi/gamedev/senseless_soccer/Debug",
+  "command": "/usr/bin/c++    -I/home/higgi/gamedev/senseless_soccer/src -I/usr/local/include  -g   -std=c++11 -o CMakeFiles/senseless_soccer.dir/src/team/team_states/team_play.cpp.o -c /home/higgi/gamedev/senseless_soccer/src/team/team_states/team_play.cpp",
+  "file": "/home/higgi/gamedev/senseless_soccer/src/team/team_states/team_play.cpp"
+},
+{
+  "directory": "/home/higgi/gamedev/senseless_soccer/Debug",
+  "command": "/usr/bin/c++    -I/home/higgi/gamedev/senseless_soccer/src -I/usr/local/include  -g   -std=c++11 -o CMakeFiles/senseless_soccer.dir/src/metrics/metrics.cpp.o -c /home/higgi/gamedev/senseless_soccer/src/metrics/metrics.cpp",
+  "file": "/home/higgi/gamedev/senseless_soccer/src/metrics/metrics.cpp"
+},
+{
+  "directory": "/home/higgi/gamedev/senseless_soccer/Debug",
+  "command": "/usr/bin/c++    -I/home/higgi/gamedev/senseless_soccer/src -I/usr/local/include  -g   -std=c++11 -o CMakeFiles/senseless_soccer.dir/src/pitch/pitch.cpp.o -c /home/higgi/gamedev/senseless_soccer/src/pitch/pitch.cpp",
+  "file": "/home/higgi/gamedev/senseless_soccer/src/pitch/pitch.cpp"
+},
+{
+  "directory": "/home/higgi/gamedev/senseless_soccer/Debug",
+  "command": "/usr/bin/c++    -I/home/higgi/gamedev/senseless_soccer/src -I/usr/local/include  -g   -std=c++11 -o CMakeFiles/senseless_soccer.dir/src/player/locomotion/locomotion_manager.cpp.o -c /home/higgi/gamedev/senseless_soccer/src/player/locomotion/locomotion_manager.cpp",
+  "file": "/home/higgi/gamedev/senseless_soccer/src/player/locomotion/locomotion_manager.cpp"
+},
+{
+  "directory": "/home/higgi/gamedev/senseless_soccer/Debug",
+  "command": "/usr/bin/c++    -I/home/higgi/gamedev/senseless_soccer/src -I/usr/local/include  -g   -std=c++11 -o CMakeFiles/senseless_soccer.dir/src/player/locomotion/locomotion.cpp.o -c /home/higgi/gamedev/senseless_soccer/src/player/locomotion/locomotion.cpp",
+  "file": "/home/higgi/gamedev/senseless_soccer/src/player/locomotion/locomotion.cpp"
+},
+{
+  "directory": "/home/higgi/gamedev/senseless_soccer/Debug",
+  "command": "/usr/bin/c++    -I/home/higgi/gamedev/senseless_soccer/src -I/usr/local/include  -g   -std=c++11 -o CMakeFiles/senseless_soccer.dir/src/player/locomotion/arrive.cpp.o -c /home/higgi/gamedev/senseless_soccer/src/player/locomotion/arrive.cpp",
+  "file": "/home/higgi/gamedev/senseless_soccer/src/player/locomotion/arrive.cpp"
+},
+{
+  "directory": "/home/higgi/gamedev/senseless_soccer/Debug",
+  "command": "/usr/bin/c++    -I/home/higgi/gamedev/senseless_soccer/src -I/usr/local/include  -g   -std=c++11 -o CMakeFiles/senseless_soccer.dir/src/player/locomotion/pursue.cpp.o -c /home/higgi/gamedev/senseless_soccer/src/player/locomotion/pursue.cpp",
+  "file": "/home/higgi/gamedev/senseless_soccer/src/player/locomotion/pursue.cpp"
+},
+{
+  "directory": "/home/higgi/gamedev/senseless_soccer/Debug",
+  "command": "/usr/bin/c++    -I/home/higgi/gamedev/senseless_soccer/src -I/usr/local/include  -g   -std=c++11 -o CMakeFiles/senseless_soccer.dir/src/player/brain/brain.cpp.o -c /home/higgi/gamedev/senseless_soccer/src/player/brain/brain.cpp",
+  "file": "/home/higgi/gamedev/senseless_soccer/src/player/brain/brain.cpp"
+},
+{
+  "directory": "/home/higgi/gamedev/senseless_soccer/Debug",
+  "command": "/usr/bin/c++    -I/home/higgi/gamedev/senseless_soccer/src -I/usr/local/include  -g   -std=c++11 -o CMakeFiles/senseless_soccer.dir/src/game/game.cpp.o -c /home/higgi/gamedev/senseless_soccer/src/game/game.cpp",
+  "file": "/home/higgi/gamedev/senseless_soccer/src/game/game.cpp"
+}
+]
