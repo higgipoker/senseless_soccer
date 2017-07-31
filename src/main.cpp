@@ -73,12 +73,10 @@ int main(int argc, char *argv[]) {
     return 0;
   }
 
-  // more git testing
-
   //
   // main game
   //
-  GameLib::Game senseless("Senseless Soccer", 1920, 0, 800, 600, false);
+  GameLib::Game senseless("Senseless Soccer", 1980, 0, 1200, 900, false);
   senseless.working_directory = GetCurrentWorkingDirectory();
   SenselessSoccer::SenselessGame::game = &senseless;
 
@@ -109,7 +107,7 @@ int main(int argc, char *argv[]) {
   SenselessSoccer::BallSprite ball_sprite("gfx/ball_new.png", 4, 2);
   SenselessSoccer::BallShadowSprite ball_shadow_sprite("gfx/ball_shadow.png", 1, 1);
   ball.ConnectSprite(ball_sprite, ball_shadow_sprite);
-  ball.SetPosition(800, 2000, 0);
+  ball.SetPosition(100, 100, 0);
   SenselessSoccer::Match::ball = &ball;
   SenselessSoccer::Player::ball = &ball;
 
@@ -123,7 +121,7 @@ int main(int argc, char *argv[]) {
       SenselessSoccer::Metrics::MetersToPixels(100.5f)
   );
 
-  SenselessSoccer::PitchTiled pitch_renderable("gfx/grass_dry.png", senseless.camera);
+  SenselessSoccer::PitchTiled pitch_renderable("gfx/grass_plain.png", senseless.camera);
   pitch.ConnectRenderable(pitch_renderable);
 
   //
