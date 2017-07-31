@@ -1,10 +1,11 @@
-#include <string.h>
-#include <unistd.h>
 #include <iostream>
 #include <sstream>
+#include <string.h>
+#include <unistd.h>
 
-#include <gamelib/gamelib.h>
 #include <SFML/Graphics.hpp>
+#include <gamelib/gamelib.h>
+#include <gamelib/utils/log.h>
 
 #include "graphics/pitch_renderable.h"
 #include "graphics/player_sprite.h"
@@ -20,9 +21,6 @@
 
 const static std::string &senseless_soccer_version = "0.0.1";
 
-using std::cout;
-using std::endl;
-
 // ------------------------------------------------------------
 // GetCurrentWorkingDirectory
 // ------------------------------------------------------------
@@ -30,12 +28,7 @@ std::string GetCurrentWorkingDirectory(void) {
 
   char path[1024];
   getcwd(path, sizeof(path));
-
-  cout << endl;
-  cout << "============================" << endl;
-  std::cout << "Working Directory: " << path << std::endl;
-  cout << "============================" << endl;
-  cout << endl;
+  GameLib::Log("Working Directory: " + std::string(path));
 
   return path;
 }
@@ -47,17 +40,17 @@ static bool parse_args(int argc, char *argv[]) {
 
   for (unsigned int i = 0; i < argc; ++i) {
     std::string str(argv[i]);
+
     if (str == "--gamelib_version") {
       if (argc >= i) {
-        std::cout << "GameLib version: " << GameLib::gamelib_version
-                  << std::endl;
+        GameLib::Log("GameLib version: " + GameLib::gamelib_version);
         return false;
       }
     }
 
     else if (str == "--version") {
       if (argc >= i) {
-        std::cout << "Version: " << senseless_soccer_version << std::endl;
+        GameLib::Log("Version: " + senseless_soccer_version);
         return false;
       }
     }
@@ -87,7 +80,8 @@ int main(int argc, char *argv[]) {
   SenselessSoccer::Player player(&physical);
   player.physical = &physical;
   SenselessSoccer::PlayerSprite player_sprite("gfx/player/player.png", 6, 24);
-  SenselessSoccer::PlayerSprite player_shadow_sprite("gfx/player/player_shadow.png", 6, 24);
+  SenselessSoccer::PlayerSprite player_shadow_sprite(
+      "gfx/player/player_shadow.png", 6, 24);
   player.ConnectSprite(player_sprite, player_shadow_sprite);
   player.SetPosition(100, 100);
   player.SetName("player1");
@@ -105,7 +99,8 @@ int main(int argc, char *argv[]) {
   GameLib::Physical ball_physical;
   ball.physical = &ball_physical;
   SenselessSoccer::BallSprite ball_sprite("gfx/ball_new.png", 4, 2);
-  SenselessSoccer::BallShadowSprite ball_shadow_sprite("gfx/ball_shadow.png", 1, 1);
+  SenselessSoccer::BallShadowSprite ball_shadow_sprite("gfx/ball_shadow.png", 1,
+                                                       1);
   ball.ConnectSprite(ball_sprite, ball_shadow_sprite);
   ball.SetPosition(100, 100, 0);
   SenselessSoccer::Match::ball = &ball;
@@ -118,10 +113,10 @@ int main(int argc, char *argv[]) {
       SenselessSoccer::Metrics::MetersToPixels(5),
       SenselessSoccer::Metrics::MetersToPixels(5),
       SenselessSoccer::Metrics::MetersToPixels(68.5),
-      SenselessSoccer::Metrics::MetersToPixels(100.5f)
-  );
+      SenselessSoccer::Metrics::MetersToPixels(100.5f));
 
-  SenselessSoccer::PitchTiled pitch_renderable("gfx/grass_plain.png", senseless.camera);
+  SenselessSoccer::PitchTiled pitch_renderable("gfx/grass_plain.png",
+                                               senseless.camera);
   pitch.ConnectRenderable(pitch_renderable);
 
   //
@@ -147,7 +142,8 @@ int main(int argc, char *argv[]) {
   // test some text
   //
   GameLib::GameEntity text;
-  GameLib::Label label("fonts/swos.ttf", 20, "senseless soccer " + senseless_soccer_version);
+  GameLib::Label label("fonts/swos.ttf", 20,
+                       "senseless soccer " + senseless_soccer_version);
   label.SetPosition(12, 24);
   text.renderable = &label;
   text.hud = true;
@@ -167,8 +163,8 @@ int main(int argc, char *argv[]) {
   //
   senseless.camera.view.setSize(800, 600);
   senseless.camera.SetWorldRect(GameLib::Rectangle(0, 0, 1900, 2600));
-  senseless.camera.Follow(&ball);
-  // senseless.camera.Follow(&player);
+  // senseless.camera.Follow(&ball);
+  senseless.camera.Follow(&player);
 
   //
   // main loop
@@ -178,10 +174,6 @@ int main(int argc, char *argv[]) {
     senseless.Loop(dt);
   }
 
-  cout << endl;
-  cout << "============================" << endl;
-  cout << "Exiting successfully" << endl;
-  cout << "============================" << endl;
-  cout << endl;
+  GameLib::Log("Exiting successfully");
   return 0;
 }
