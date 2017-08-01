@@ -1,0 +1,86 @@
+Senseless Soccer Roadmap
+
+====================================================================================================
+LANDMARK 1:
+====================================================================================================
+
+A. AI v AI match
+
+	1. Player Behaviours - phase 1
+		Pursue
+		Arrive
+		Cover
+			Press
+			Shadow
+		Support
+			Pass
+			Backup
+			Run
+		Dribble
+		Pass
+		Shoot
+		Tackle
+		Clear
+		Goalkeeper
+
+	2. Match Mechanics
+		 Match States
+			Enter Pitch
+			Lineup
+			Kickoff
+			Play
+			GoalKick
+			Corner
+			Throw
+			Free Kick
+			Penalty
+			Goal
+
+	3. Team Mechanics
+		Team States
+			Enter Pitch
+			Lineup
+			Kickoff
+			Attack
+			Defend
+
+	4. Team AI - phase 1 (basic ai)
+		Formations
+		Tactics
+		Attacking
+			OpenPlay
+			Set Pieces
+		Defending
+			Open Play
+			Set Pieces
+
+	5. Player AI - phase 1 (basic ai)
+		Positions
+			Attacking
+				Dribble
+				Pass
+				Shoot
+				Clear
+			Defending
+				Cover
+				Press
+				Tackle
+		Instructions
+
+	6. Ball / Net Physics
+
+
+B. User Controlled
+
+	1. Input
+		Keyboard
+		Joystick / gamepad
+
+	2. Input switching
+	3. Aftertouch
+
+C. Release version 0.1 "Full Match"
+
+====================================================================================================
+LANDMARK 2:
+====================================================================================================
