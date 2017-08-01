@@ -15,6 +15,11 @@ public:
 	 */
 	Team();
 
+    /**
+      \brief destruct
+      */
+    ~Team();
+
 	/**
      * \brief on step
      * \param dt time delta

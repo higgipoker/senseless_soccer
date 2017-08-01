@@ -8,9 +8,20 @@ namespace SenselessSoccer {
 // ------------------------------------------------------------
 Team::Team(){
 	name = "team";
+    physical = new GameLib::Physical();
+    renderable = new GameLib::Renderable();
 	InitState(new TeamStatePlay());
 	current_state->OnStart();
 }
+
+// ------------------------------------------------------------
+// Destructor
+// ------------------------------------------------------------
+Team::~Team(){
+    delete physical;
+    delete renderable;
+}
+
 // ------------------------------------------------------------
 // Update
 // ------------------------------------------------------------

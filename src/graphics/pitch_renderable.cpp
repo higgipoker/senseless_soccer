@@ -129,7 +129,7 @@ void PitchTiled::Render(GameLib::Window &window) {
 	                         metrics.pitch_rect.y + metrics.pitch_rect.h -
 	                         Metrics::YardsToPixels(18) + 100,
 	                         Metrics::MetersToPixels(9.15f), 210, 330.5, 100,
-	                         thickness);
+	                         thickness);  
 
 }
 
