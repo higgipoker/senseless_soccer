@@ -1,7 +1,7 @@
 #pragma once
 
 #include <gamelib/statemachine/state.h>
-#include <gamelib/physics/physical.h>
+#include <gamelib/math/vector3.h>
 #include <string>
 
 namespace SenselessSoccer {
@@ -22,16 +22,16 @@ class Locomotion : public GameLib::State {
    * @brief constructor
    * @param physical pointer back to sm context
    */
-  Locomotion(GameLib::Physical *physical);
+  Locomotion(Player *p);
 
   /**
    * @brief destructor
    */
   virtual ~Locomotion();
 
-    /**
-   * \brief onStart
-   */
+  /**
+ * \brief onStart
+ */
   virtual void OnStart() = 0;
 
   /**
@@ -56,9 +56,8 @@ class Locomotion : public GameLib::State {
   virtual void ChangeToNextState() = 0;
 
  protected:
-
   /// pointer back to player
-  GameLib::Physical *player;
+  Player *player;
 
   /// tracking
   bool state_over;

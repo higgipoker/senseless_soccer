@@ -8,7 +8,7 @@ namespace SenselessSoccer {
 //  constructor
 //  --------------------------------------------------
 Brain::Brain(Player *p) :
-	locomotion(p->physical) {
+    locomotion(p) {
 	player = p;
 }
 

@@ -11,6 +11,8 @@
 #include "../ball/ball.h"
 #include "../graphics/player_sprite.h"
 #include "brain/brain.h"
+#include "../team/roles/role.h"
+#include "../pitch/pitch.h"
 
 namespace SenselessSoccer {
 
@@ -52,8 +54,12 @@ class Player : public GameLib::StateMachine, public GameLib::GameEntity {
    */
   virtual void Call(std::vector<std::string> params) override;
 
-  /// convenient access to the ball
-  static Ball *ball;
+  /// a player can have a playing role (eg right back)
+  Role *role;
+
+  /// convenient access to match stuff
+  static Ball *ball;  
+  static Pitch *pitch;
 
  protected:
   /// to access the sprite specific functionality of renderable (eg animate)

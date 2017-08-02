@@ -1,13 +1,16 @@
 #include "locomotion.h"
+
 #include <iostream>
+
+#include "../player.h"
 
 namespace SenselessSoccer {
 
 // --------------------------------------------------
 // Locomotion
 // --------------------------------------------------
-Locomotion::Locomotion(GameLib::Physical *physical) {
-	player = physical;
+Locomotion::Locomotion(Player *p) {
+    player = p;
 	state_over = false;
 	destination_reached = false;
 }

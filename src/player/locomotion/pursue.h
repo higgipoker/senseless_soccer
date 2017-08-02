@@ -1,5 +1,6 @@
 #pragma once
 
+#include <gamelib/physics/physical.h>
 #include "locomotion.h"
 
 namespace SenselessSoccer{
@@ -13,7 +14,7 @@ public:
 	 * \brief constructor
 	 * \param physical pointer to a physical object to move
 	 */
-	Pursue(GameLib::Physical *physical);
+    Pursue(Player *p);
 
 	/**
 	* \brief onStart

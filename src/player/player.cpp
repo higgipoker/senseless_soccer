@@ -14,6 +14,7 @@
 namespace SenselessSoccer {
 
 Ball *Player::ball = nullptr;
+Pitch *Player::pitch = nullptr;
 
 // ------------------------------------------------------------
 // Constructor
@@ -62,12 +63,9 @@ void Player::Update(float dt) {
   // hz order
   renderable->z_order = physical->position.y;
 
-  // for direct control (no intertia), reset velocity each frame and re-analyse
-  // input status
-  physical->ResetVelocity();
-
   // only if input is attached
   if (input) {
+    physical->ResetVelocity();
     handle_input();
   } else {
     brain.Step(dt);
@@ -331,6 +329,10 @@ void Player::Call(std::vector<std::string> params) {
       GameEntity *entity = SenselessGame::game->GetEntity(new_params[0]);
       brain.locomotion.ActivatePursue(entity->physical);
     }
+    return;
+  }
+  if (params[0] == "cover") {
+    brain.locomotion.ActivateCover();
     return;
   }
   if (params[0] == "cancel") {

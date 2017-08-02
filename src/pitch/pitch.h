@@ -31,16 +31,15 @@ public:
 	*/
 	void ConnectRenderable(PitchTiled &renderable);
 
+    /// grid system
+    GameLib::Grid grid;
+
 protected:
 	/// renderable
 	PitchTiled *renderable_pitch;
 
 	/// pitch metrics
-	PitchMetrics metrics;
-
-    /// grid system
-    GameLib::Grid grid;
-
+	PitchMetrics metrics; 
 };
 
 }// SenselessSoccer

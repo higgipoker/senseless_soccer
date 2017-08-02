@@ -1,11 +1,13 @@
 #include "pursue.h"
 
+#include "../player.h"
+
 namespace SenselessSoccer {
 
 // --------------------------------------------------
 // Pursue
 // --------------------------------------------------
-Pursue::Pursue(GameLib::Physical *physical) : Locomotion(physical) {}
+Pursue::Pursue(Player *p) : Locomotion(p) {}
 
 // --------------------------------------------------
 // OnStart
@@ -21,21 +23,21 @@ void Pursue::OnStart() {
 void Pursue::OnStep(const float dt) {
   if (destination_reached) return;
 
-  player->velocity = target->position - player->position;
-  last_distance = target->position - player->position;
-  GameLib::Vector3 new_distance = target->position - player->position;
+  player->physical->velocity = target->position - player->physical->position;
+  last_distance = target->position - player->physical->position;
+  GameLib::Vector3 new_distance = target->position - player->physical->position;
 
-  if (player->position.equals(destination, 5)) {
+  if (player->physical->position.equals(destination, 5)) {
     destination_reached = true;
-    player->ResetVelocity();
+    player->physical->ResetVelocity();
 
   } else {
     if (new_distance.magnitude() > last_distance.magnitude()) {
-      player->velocity = target->position - player->position;
+      player->physical->velocity = target->position - player->physical->position;
     }
   }
 
-  last_distance = target->position - player->position;
+  last_distance = target->position - player->physical->position;
 }
 
 // --------------------------------------------------

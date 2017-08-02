@@ -1,17 +1,21 @@
 #include "locomotion_manager.h"
 
+#include "../player.h"
+
 namespace SenselessSoccer {
 
-LocomotionManager::LocomotionManager(GameLib::Physical *physical) {
-	player = physical;
+LocomotionManager::LocomotionManager(Player *p) {
+    player = p;
 	behaviour = NULL;
 	arrive = new Arrive(player);
 	pursue = new Pursue(player);
+    cover = new Cover(player);
 }
 
 LocomotionManager::~LocomotionManager() {
 	delete arrive;
 	delete pursue;
+    delete cover;
 }
 
 //  --------------------------------------------------
@@ -30,6 +34,13 @@ void LocomotionManager::ActivatePursue(GameLib::Physical *follow){
 
 	pursue->Init(follow);
 	change_locomotion(pursue);
+}
+
+//  --------------------------------------------------
+//  ActivateCover
+//  --------------------------------------------------
+void LocomotionManager::ActivateCover(){
+    change_locomotion(cover);
 }
 
 //  --------------------------------------------------

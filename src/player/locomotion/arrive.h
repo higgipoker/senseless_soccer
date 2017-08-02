@@ -15,7 +15,7 @@ public:
 	 * \brief constructor
 	 * \param physical pointer to a physical object to move
 	 */
-	Arrive(GameLib::Physical *physical);
+    Arrive(Player *p);
 
 	/**
 	* \brief onStart
