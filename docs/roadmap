@@ -10,6 +10,7 @@ A. AI v AI match
 		Pursue
 		Arrive
 		Cover
+			*arrising: grid system for pitch locations
 			Press
 			Shadow
 		Support
@@ -68,6 +69,9 @@ A. AI v AI match
 		Instructions
 
 	6. Ball / Net Physics
+
+	7. Graphics
+		Kit Skinning (colour replacer)
 
 
 B. User Controlled
