@@ -19,21 +19,20 @@ LocomotionManager::~LocomotionManager() {
 }
 
 void LocomotionManager::ActivateArrive(GameLib::Vector3 dest) {
-
     arrive->Init(dest);
     change_locomotion(arrive);
 }
 
 void LocomotionManager::ActivatePursue(GameLib::Physical *follow) {
-
     pursue->Init(follow);
     change_locomotion(pursue);
 }
 
-void LocomotionManager::ActivateCover() { change_locomotion(cover); }
+void LocomotionManager::ActivateCover() {
+    change_locomotion(cover);
+}
 
 void LocomotionManager::UpdateLocomotion(float dt) {
-
     // check for pending behaviour
     if (!behaviour_queue.empty()) {
         Locomotion *next = behaviour_queue.back();
@@ -51,7 +50,9 @@ void LocomotionManager::UpdateLocomotion(float dt) {
     }
 }
 
-void LocomotionManager::SetLocomotion(Locomotion *l) { change_locomotion(l); }
+void LocomotionManager::SetLocomotion(Locomotion *l) {
+    change_locomotion(l);
+}
 
 void LocomotionManager::change_locomotion(Locomotion *b) {
     if (b != nullptr) {

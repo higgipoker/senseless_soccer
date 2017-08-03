@@ -95,7 +95,7 @@ int main(int argc, char *argv[]) {
     //
     // main game
     //
-    GameLib::Game senseless("Senseless Soccer", 1980, 0, 1200, 900, false);
+    GameLib::Game senseless("Senseless Soccer", 1980, 0, 1200, 900, true);
     senseless.working_directory = GetCurrentWorkingDirectory();
     SenselessGame::game = &senseless;
 
@@ -167,7 +167,7 @@ int main(int argc, char *argv[]) {
     // input
     //
     GameLib::Keyboard keyboard;
-    // player.AttachInput(&keyboard);
+    player1->AttachInput(&keyboard);
 
     //
     // test some text

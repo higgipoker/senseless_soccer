@@ -5,11 +5,14 @@
 
 namespace SenselessSoccer {
 
-Cover::Cover(Player *p) : Locomotion(p) { last_ball_sector = -1; }
+Cover::Cover(Player *p) : Locomotion(p) {
+    last_ball_sector = -1;
+}
 
 void Cover::OnStart() {
     state_over = false;
     destination_reached = false;
+    modifier = COVER_SHADOW;
 }
 
 void Cover::OnStep(const float dt) {
@@ -21,8 +24,10 @@ void Cover::OnStep(const float dt) {
         // modify?
         switch (modifier) {
         case COVER_PRESS:
+            target_sector = player->pitch->grid.OffsetSectorY(target_sector, -2);
             break;
         case COVER_SHADOW:
+            target_sector = player->pitch->grid.OffsetSectorY(target_sector, 2);
             break;
 
         default:
@@ -50,10 +55,15 @@ void Cover::OnEnd() {
     state_over = true;
 }
 
-bool Cover::StateOver() { return state_over; }
+bool Cover::StateOver() {
+    return state_over;
+}
 
-void Cover::ChangeToNextState() {}
+void Cover::ChangeToNextState() {
+}
 
-void Cover::Modify(Modifier mod) { modifier = mod; }
+void Cover::Modify(Modifier mod) {
+    modifier = mod;
+}
 
 } // namespace SenselessSoccer
