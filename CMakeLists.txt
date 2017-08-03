@@ -55,6 +55,7 @@ src/match/match_states/state_play.cpp
 src/team/team.cpp
 src/team/team_states/team_state.cpp
 src/team/team_states/team_play.cpp
+src/team/roles/role.cpp
 
 src/metrics/metrics.cpp
 
@@ -64,6 +65,7 @@ src/player/locomotion/locomotion_manager.cpp
 src/player/locomotion/locomotion.cpp
 src/player/locomotion/arrive.cpp
 src/player/locomotion/pursue.cpp
+src/player/locomotion/cover.cpp
 
 src/player/brain/brain.cpp
 

@@ -1,69 +1,31 @@
 #pragma once
 
-#include <gamelib/statemachine/state.h>
 #include <gamelib/math/vector3.h>
+#include <gamelib/statemachine/state.h>
 #include <string>
 
 namespace SenselessSoccer {
 
-/* declare the player class */
+enum Modifier { NONE, COVER_PRESS, COVER_SHADOW };
+
 class Player;
-
-/**
- --------------------------------------------------
-
- @brief Movement behaviour base class
-
- --------------------------------------------------
- */
 class Locomotion : public GameLib::State {
- public:
-  /**
-   * @brief constructor
-   * @param physical pointer back to sm context
-   */
-  Locomotion(Player *p);
+  public:
+    Locomotion(Player *p);
+    virtual ~Locomotion();
 
-  /**
-   * @brief destructor
-   */
-  virtual ~Locomotion();
+    virtual void OnStart() = 0;
+    virtual void OnStep(const float _dt) = 0;
+    virtual void OnEnd() = 0;
+    virtual bool StateOver() = 0;
+    virtual void ChangeToNextState() = 0;
+    virtual void Modify(Modifier mod) = 0;
 
-  /**
- * \brief onStart
- */
-  virtual void OnStart() = 0;
-
-  /**
-   * \brief onStep
-   * \param _dt time delta
-   */
-  virtual void OnStep(const float _dt) = 0;
-
-  /**
-   * \brief onEnd
-   */
-  virtual void OnEnd() = 0;
-
-  /**
-   * \brief stateOver
-   */
-  virtual bool StateOver() = 0;
-
-  /**
-   * \brief changeToNextState
-   */
-  virtual void ChangeToNextState() = 0;
-
- protected:
-  /// pointer back to player
-  Player *player;
-
-  /// tracking
-  bool state_over;
-
-  /// track destination
-  GameLib::Vector3 destination;
-  bool destination_reached;
+  protected:
+    Player *player;
+    bool state_over;
+    GameLib::Vector3 destination;
+    bool destination_reached;
+    Modifier modifier;
 };
-}  // namespace SenselessSoccer
+} // namespace SenselessSoccer

@@ -4,63 +4,45 @@
 
 namespace SenselessSoccer {
 
-// --------------------------------------------------
-// Pursue
-// --------------------------------------------------
 Pursue::Pursue(Player *p) : Locomotion(p) {}
 
-// --------------------------------------------------
-// OnStart
-// --------------------------------------------------
 void Pursue::OnStart() {
-  state_over = false;
-  destination_reached = false;
+    state_over = false;
+    destination_reached = false;
 }
 
-// --------------------------------------------------
-// OnStep
-// --------------------------------------------------
 void Pursue::OnStep(const float dt) {
-  if (destination_reached) return;
+    if (destination_reached)
+        return;
 
-  player->physical->velocity = target->position - player->physical->position;
-  last_distance = target->position - player->physical->position;
-  GameLib::Vector3 new_distance = target->position - player->physical->position;
+    player->physical->velocity = target->position - player->physical->position;
+    last_distance = target->position - player->physical->position;
+    GameLib::Vector3 new_distance = target->position - player->physical->position;
 
-  if (player->physical->position.equals(destination, 5)) {
-    destination_reached = true;
-    player->physical->ResetVelocity();
+    if (player->physical->position.equals(destination, 5)) {
+        destination_reached = true;
+        player->physical->ResetVelocity();
 
-  } else {
-    if (new_distance.magnitude() > last_distance.magnitude()) {
-      player->physical->velocity = target->position - player->physical->position;
+    } else {
+        if (new_distance.magnitude() > last_distance.magnitude()) {
+            player->physical->velocity = target->position - player->physical->position;
+        }
     }
-  }
 
-  last_distance = target->position - player->physical->position;
+    last_distance = target->position - player->physical->position;
 }
 
-// --------------------------------------------------
-// OnEnd
-// --------------------------------------------------
 void Pursue::OnEnd() {
-  destination_reached = true;
-  state_over = true;
+    destination_reached = true;
+    state_over = true;
 }
 
-// --------------------------------------------------
-// StateOver
-// --------------------------------------------------
 bool Pursue::StateOver() { return state_over; }
 
-// --------------------------------------------------
-// ChangeToNextState
-// --------------------------------------------------
 void Pursue::ChangeToNextState() {}
 
-// --------------------------------------------------
-// Init
-// --------------------------------------------------
 void Pursue::Init(GameLib::Physical *t) { target = t; }
 
-}  // namespace SenselessSoccer
+void Pursue::Modify(Modifier mod) {}
+
+} // namespace SenselessSoccer

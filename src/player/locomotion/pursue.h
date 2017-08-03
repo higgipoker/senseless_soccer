@@ -1,57 +1,27 @@
 #pragma once
 
-#include <gamelib/physics/physical.h>
 #include "locomotion.h"
+#include <gamelib/physics/physical.h>
 
-namespace SenselessSoccer{
+namespace SenselessSoccer {
 
 /** \brief "chase after" behaviour
   */
-class Pursue : public Locomotion{
-public:
-
-	/**
-	 * \brief constructor
-	 * \param physical pointer to a physical object to move
-	 */
+class Pursue : public Locomotion {
+  public:
     Pursue(Player *p);
 
-	/**
-	* \brief onStart
-	*/
-	virtual void OnStart();
+    virtual void OnStart();
+    virtual void OnStep(const float dt);
+    virtual void OnEnd();
+    virtual bool StateOver();
+    virtual void ChangeToNextState();
+    virtual void Modify(Modifier mod) override;
 
-	/**
-	 * \brief onStep
-	 * \param dt time delta
-	 */
-	virtual void OnStep(const float dt);
+    void Init(GameLib::Physical *t);
 
-	/**
-	 * \brief onEnd
-	 */
-	virtual void OnEnd();
-
-	/**
-	 * \brief stateOver
-	 */
-	virtual bool StateOver();
-
-	/**
-	 * \brief changeToNextState
-	 */
-	virtual void ChangeToNextState();
-
-	/**
-	 * \brief init specific to arrive
-	 */
-	void Init(GameLib::Physical *t);
-
-    protected:
-
-    /// physical entity to pursue
+  protected:
     GameLib::Physical *target;
-
     GameLib::Vector3 last_distance;
-    };
+};
 }
