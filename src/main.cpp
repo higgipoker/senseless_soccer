@@ -3,22 +3,21 @@
 #include <string.h>
 #include <unistd.h>
 
-#include <SFML/Graphics.hpp>
-#include <gamelib/gamelib.h>
 #include <gamelib/utils/log.h>
-
-#include "graphics/pitch_renderable.h"
-#include "graphics/player_sprite.h"
-#include "player/player.h"
-#include "team/team.h"
 
 #include "ball/ball.h"
 #include "game/game.h"
+#include "globals.h"
 #include "graphics/ball_sprite.h"
+#include "graphics/pitch_renderable.h"
+#include "graphics/player_sprite.h"
 #include "match/match.h"
 #include "metrics/metrics.h"
 #include "pitch/pitch.h"
+#include "player/player.h"
+#include "player/player_factory.h"
 #include "team/roles/role.h"
+#include "team/team.h"
 
 using namespace SenselessSoccer;
 
@@ -35,19 +34,6 @@ std::string filenames[] = {"LEFT_BACK_POSITIONS.pos",
                            "RIGHT_CENTER_BACK_POSITIONS.pos",
                            "RIGHT_CENTER_MIDFIELDER_POSITIONS.pos",
                            "RIGHT_MIDFIELDER_POSITIONS.pos"};
-
-Player *make_player(const std::string &rolefile) {
-    GameLib::Physical *physical = new GameLib::Physical;
-    Player *player = new Player(physical);
-    PlayerSprite *player_sprite = new PlayerSprite("gfx/player/player.png", 6, 24);
-    PlayerSprite *player_shadow_sprite = new PlayerSprite("gfx/player/player_shadow.png", 6, 24);
-    Role *role = new Role("data/" + rolefile);
-    player->ConnectSprite(*player_sprite, *player_shadow_sprite);
-    player->SetPosition(100, 100);
-    player->SetName("player1");
-    player->role = role;
-    return player;
-}
 
 // ------------------------------------------------------------
 // GetCurrentWorkingDirectory
@@ -95,38 +81,33 @@ int main(int argc, char *argv[]) {
     //
     // main game
     //
-    GameLib::Game senseless("Senseless Soccer", 1980, 0, 1200, 900, true);
+    SenselessGame senseless("Senseless Soccer", 1980, 0, 1200, 900, false);
+    Globals::sensi = &senseless;
     senseless.working_directory = GetCurrentWorkingDirectory();
-    SenselessGame::game = &senseless;
 
     //
     // players
     //
-    Player *player1 = make_player(filenames[0]);
-    Player *player2 = make_player(filenames[1]);
-    Player *player3 = make_player(filenames[2]);
-    Player *player4 = make_player(filenames[3]);
-    Player *player5 = make_player(filenames[4]);
-    Player *player6 = make_player(filenames[5]);
-    Player *player7 = make_player(filenames[6]);
-    Player *player8 = make_player(filenames[7]);
-    Player *player9 = make_player(filenames[8]);
-    Player *player10 = make_player(filenames[9]);
+    PlayerFactory player_factory;
+    std::vector<Player *> players;
+    players.push_back(player_factory.MakePlayer(filenames[0]));
+    players.push_back(player_factory.MakePlayer(filenames[1]));
+    players.push_back(player_factory.MakePlayer(filenames[2]));
+    players.push_back(player_factory.MakePlayer(filenames[3]));
+    players.push_back(player_factory.MakePlayer(filenames[4]));
+    players.push_back(player_factory.MakePlayer(filenames[5]));
+    players.push_back(player_factory.MakePlayer(filenames[6]));
+    players.push_back(player_factory.MakePlayer(filenames[7]));
+    players.push_back(player_factory.MakePlayer(filenames[8]));
+    players.push_back(player_factory.MakePlayer(filenames[9]));
 
     //
     // team
     //
     Team team1;
-    team1.AddPlayer(player1);
-    team1.AddPlayer(player2);
-    team1.AddPlayer(player3);
-    team1.AddPlayer(player4);
-    team1.AddPlayer(player5);
-    team1.AddPlayer(player6);
-    team1.AddPlayer(player7);
-    team1.AddPlayer(player8);
-    team1.AddPlayer(player9);
-    team1.AddPlayer(player10);
+    for (auto it = players.begin(); it != players.end(); ++it) {
+        team1.AddPlayer(*it);
+    }
 
     //
     // ball
@@ -167,7 +148,7 @@ int main(int argc, char *argv[]) {
     // input
     //
     GameLib::Keyboard keyboard;
-    player1->AttachInput(&keyboard);
+    players[0]->AttachInput(&keyboard);
 
     //
     // test some text
@@ -184,16 +165,9 @@ int main(int argc, char *argv[]) {
     //
     senseless.AddEntity(pitch);
     senseless.AddEntity(team1);
-    senseless.AddEntity(*player1);
-    senseless.AddEntity(*player2);
-    senseless.AddEntity(*player3);
-    senseless.AddEntity(*player4);
-    senseless.AddEntity(*player5);
-    senseless.AddEntity(*player6);
-    senseless.AddEntity(*player7);
-    senseless.AddEntity(*player8);
-    senseless.AddEntity(*player9);
-    senseless.AddEntity(*player10);
+    for (auto it = players.begin(); it != players.end(); ++it) {
+        senseless.AddEntity(*(*it));
+    }
     senseless.AddEntity(ball);
     senseless.AddEntity(goal_north);
     senseless.AddEntity(text);
@@ -208,16 +182,9 @@ int main(int argc, char *argv[]) {
 
     std::vector<std::string> call;
     call.push_back("cover");
-    player1->Call(call);
-    player2->Call(call);
-    player3->Call(call);
-    player4->Call(call);
-    player5->Call(call);
-    player6->Call(call);
-    player7->Call(call);
-    player8->Call(call);
-    player9->Call(call);
-    player10->Call(call);
+    for (auto it = players.begin(); it != players.end(); ++it) {
+        (*it)->Call(call);
+    }
 
     //
     // run the game

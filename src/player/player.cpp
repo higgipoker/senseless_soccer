@@ -7,6 +7,7 @@
 #include "player.h"
 
 #include "../game/game.h"
+#include "../globals.h"
 #include "locomotion/arrive.h"
 #include "locomotion/pursue.h"
 #include "player_states/standing.h"
@@ -118,9 +119,7 @@ void Player::ConnectSprite(PlayerSprite &sprite, PlayerSprite &shadow) {
 // ------------------------------------------------------------
 // AttachInput
 // ------------------------------------------------------------
-void Player::AttachInput(GameLib::Input *i) {
-    input = i;
-}
+void Player::AttachInput(GameLib::Input *i) { input = i; }
 
 // ------------------------------------------------------------
 // DetatchInput
@@ -322,7 +321,7 @@ void Player::Call(std::vector<std::string> params) {
     if (params[0] == "pursue") {
         std::vector<std::string> new_params(params.begin() + 1, params.end());
         if (new_params.size() >= 1) {
-            GameEntity *entity = SenselessGame::game->GetEntity(new_params[0]);
+            GameEntity *entity = Globals::sensi->GetEntity(new_params[0]);
             brain.locomotion.ActivatePursue(entity->physical);
         }
         return;

@@ -10,11 +10,7 @@ const float TOL = 0.05f;
 const float GRAVITY = 98.0f;
 const float AIR_FACTOR = 0.04f;
 
-// ------------------------------------------------------------
-// Constructor
-// ------------------------------------------------------------
 Ball::Ball::Ball() : radius(3), co_friction(30), co_bounciness(0.7f), sprite_scale_factor(0.0f) {
-
     name = "ball";
     anchor_type = GameLib::ANCHOR_NONE;
 }
@@ -22,9 +18,6 @@ Ball::Ball::Ball() : radius(3), co_friction(30), co_bounciness(0.7f), sprite_sca
 // tmp
 const int SHADOW_OFFSET = 2;
 
-// ------------------------------------------------------------
-// Update
-// ------------------------------------------------------------
 void Ball::Update(float dt) {
     GameLib::GameEntity::Update(dt);
 
@@ -56,16 +49,10 @@ void Ball::Update(float dt) {
     ball_shadow->Scale(sprite_scale_factor);
 }
 
-// ------------------------------------------------------------
-// ApplyForce
-// ------------------------------------------------------------
 void Ball::ApplyForce(GameLib::Vector3 force) {
     physical->acceleration += force;
 }
 
-// ------------------------------------------------------------
-// ConnectSprite
-// ------------------------------------------------------------
 void Ball::ConnectSprite(BallSprite &sprite, BallShadowSprite &shadow) {
 
     // game entity renderable member
@@ -81,9 +68,6 @@ void Ball::ConnectSprite(BallSprite &sprite, BallShadowSprite &shadow) {
     ball_shadow->SetOrigin(ball_shadow->GetWidth() / 2, ball_shadow->GetHeight() / 2);
 }
 
-// ------------------------------------------------------------
-// do_physics
-// ------------------------------------------------------------
 void Ball::do_physics(float dt) {
 
     //
@@ -137,16 +121,10 @@ void Ball::do_physics(float dt) {
     physical->ResetAcceleration();
 }
 
-// ------------------------------------------------------------
-// set_sprite_rotation
-// ------------------------------------------------------------
 void Ball::set_sprite_rotation() {
     ball_sprite->SetRotation(physical->GetAngle());
 }
 
-//  --------------------------------------------------
-//  rebound
-//  --------------------------------------------------
 void Ball::rebound(GameLib::Vector3 wall, float damp, bool damp_z) {
     wall = wall.normalised();
     physical->velocity = physical->velocity.Reflect(wall);
@@ -158,11 +136,8 @@ void Ball::rebound(GameLib::Vector3 wall, float damp, bool damp_z) {
         physical->velocity.z *= damp;
     }
 }
-// ------------------------------------------------------------
-// Call
-// ------------------------------------------------------------
-void Ball::Call(std::vector<std::string> params) {
 
+void Ball::Call(std::vector<std::string> params) {
     GameLib::GameEntity::Call(params);
-};
+}
 } // SenselessSoccer

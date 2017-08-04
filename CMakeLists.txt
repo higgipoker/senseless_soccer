@@ -42,6 +42,7 @@ src/graphics/player_sprite.cpp
 src/graphics/ball_sprite.cpp
 
 src/player/player.cpp
+src/player/player_factory.cpp
 src/player/player_states/player_state.cpp
 src/player/player_states/standing.cpp
 src/player/player_states/running.cpp
@@ -70,6 +71,8 @@ src/player/locomotion/cover.cpp
 src/player/brain/brain.cpp
 
 src/game/game.cpp
+
+src/globals.cpp
 
 )
 
