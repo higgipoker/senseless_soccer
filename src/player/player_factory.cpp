@@ -11,7 +11,7 @@ PlayerFactory::~PlayerFactory() {
     }
 }
 
-Player *PlayerFactory::MakePlayer(const std::string &role_filename) {
+Player *PlayerFactory::MakePlayer(const std::string entityname, const std::string &role_filename) {
 
     // things that a player needs
     GameLib::Physical *physical = new GameLib::Physical;
@@ -21,9 +21,9 @@ Player *PlayerFactory::MakePlayer(const std::string &role_filename) {
 
     // set up the player
     Player *player = new Player(physical);
+    player->SetName(entityname);
     player->ConnectSprite(*player_sprite, *player_shadow_sprite);
     player->SetPosition(100, 100);
-    player->SetName("player1");
     player->role = role;
 
     // save for deleting memory later

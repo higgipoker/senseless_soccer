@@ -119,7 +119,9 @@ void Player::ConnectSprite(PlayerSprite &sprite, PlayerSprite &shadow) {
 // ------------------------------------------------------------
 // AttachInput
 // ------------------------------------------------------------
-void Player::AttachInput(GameLib::Input *i) { input = i; }
+void Player::AttachInput(GameLib::Input *i) {
+    input = i;
+}
 
 // ------------------------------------------------------------
 // DetatchInput
@@ -173,6 +175,13 @@ void Player::update_position(float dt) {
 
     // update position according to velocity and individual running speed
     physical->position += physical->velocity * dt * running_speed;
+}
+
+GameLib::Vector3 Player::project_position(float dt) {
+    GameLib::Vector3 projected = physical->position;
+    projected += physical->velocity * dt * running_speed;
+
+    return projected;
 }
 
 // ------------------------------------------------------------
@@ -328,6 +337,32 @@ void Player::Call(std::vector<std::string> params) {
     }
     if (params[0] == "cover") {
         brain.locomotion.ActivateCover();
+        return;
+    }
+    if (params[0] == "head") {
+        std::vector<std::string> new_params(params.begin() + 1, params.end());
+        if (new_params.size() >= 1) {
+            GameLib::Vector3 dir;
+            if (new_params[0] == "north") {
+                dir = Metrics::compasstoVector(NORTH);
+            } else if (new_params[0] == "north_east") {
+                dir = Metrics::compasstoVector(NORTH_EAST);
+            } else if (new_params[0] == "east") {
+                dir = Metrics::compasstoVector(EAST);
+            } else if (new_params[0] == "south_east") {
+                dir = Metrics::compasstoVector(SOUTH_EAST);
+            } else if (new_params[0] == "south") {
+                dir = Metrics::compasstoVector(SOUTH);
+            } else if (new_params[0] == "south_west") {
+                dir = Metrics::compasstoVector(SOUTH_WEST);
+            } else if (new_params[0] == "west") {
+                dir = Metrics::compasstoVector(WEST);
+            } else if (new_params[0] == "north_west") {
+                dir = Metrics::compasstoVector(NORTH_WEST);
+            }
+
+            brain.locomotion.ActivateHead(dir);
+        }
         return;
     }
     if (params[0] == "cancel") {

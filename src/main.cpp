@@ -35,6 +35,11 @@ std::string filenames[] = {"LEFT_BACK_POSITIONS.pos",
                            "RIGHT_CENTER_MIDFIELDER_POSITIONS.pos",
                            "RIGHT_MIDFIELDER_POSITIONS.pos"};
 
+std::string playernames[] = {
+    "player1", "player2", "player3", "player4", "player5", "player6", "player7", "player8", "player9", "player10",
+
+};
+
 // ------------------------------------------------------------
 // GetCurrentWorkingDirectory
 // ------------------------------------------------------------
@@ -90,16 +95,9 @@ int main(int argc, char *argv[]) {
     //
     PlayerFactory player_factory;
     std::vector<Player *> players;
-    players.push_back(player_factory.MakePlayer(filenames[0]));
-    players.push_back(player_factory.MakePlayer(filenames[1]));
-    players.push_back(player_factory.MakePlayer(filenames[2]));
-    players.push_back(player_factory.MakePlayer(filenames[3]));
-    players.push_back(player_factory.MakePlayer(filenames[4]));
-    players.push_back(player_factory.MakePlayer(filenames[5]));
-    players.push_back(player_factory.MakePlayer(filenames[6]));
-    players.push_back(player_factory.MakePlayer(filenames[7]));
-    players.push_back(player_factory.MakePlayer(filenames[8]));
-    players.push_back(player_factory.MakePlayer(filenames[9]));
+    for (unsigned int i = 0; i < 10; ++i) {
+        players.push_back(player_factory.MakePlayer(playernames[i], filenames[i]));
+    }
 
     //
     // team
@@ -125,7 +123,7 @@ int main(int argc, char *argv[]) {
     //
     // pitch
     //
-    Pitch pitch(Metrics::MetersToPixels(5), Metrics::MetersToPixels(5), Metrics::MetersToPixels(68.5), Metrics::MetersToPixels(100.5f));
+    Pitch pitch(250, 250, Metrics::MetersToPixels(68.5), Metrics::MetersToPixels(100.5f));
 
     PitchTiled pitch_renderable(senseless.working_directory + "/gfx/grass_dry.png", senseless.camera);
     pitch.ConnectRenderable(pitch_renderable);

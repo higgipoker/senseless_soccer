@@ -97,6 +97,7 @@ class Player : public GameLib::StateMachine, public GameLib::GameEntity {
      * \param dt time delta
      */
     void update_position(float dt);
+    GameLib::Vector3 project_position(float dt);
 
     /**
      * \brief helper to normalize the velocity
@@ -142,6 +143,9 @@ class Player : public GameLib::StateMachine, public GameLib::GameEntity {
     // ------------------------------------------------------------
     friend class Standing;
     friend class Running;
+    friend class Brain;
+    friend class BrainIdle;
+    friend class BrainDribble;
 };
 
 } // SenselessSoccer

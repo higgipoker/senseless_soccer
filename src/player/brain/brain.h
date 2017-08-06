@@ -1,33 +1,22 @@
 #pragma once
 
-#include <gamelib/statemachine/state_machine.h>
 #include "../locomotion/locomotion_manager.h"
+#include <gamelib/statemachine/state_machine.h>
 
 namespace SenselessSoccer {
 class Player;
 class Brain : public GameLib::StateMachine {
-public:
-
-	/**
-	 * \brief constructor
-	 * \param p pointer to player
-	 */
-	Brain(Player *p);
-
-	/**
-     * \brief on step
-     * \param dt time delta
-     */
+  public:
+    Brain(Player *p);
     void Step(float dt);
+    LocomotionManager locomotion;
 
-	/// brain manages locomotion
-	LocomotionManager locomotion;
+  protected:
+    Player *player;
+    bool in_pitch(float dt);
 
-private:
-
-	/// pointer back to player
-	Player *player;
-
+  public:
+    friend class BrainDribble;
 };
 
-}// namespace SenselessSoccer
+} // namespace SenselessSoccer

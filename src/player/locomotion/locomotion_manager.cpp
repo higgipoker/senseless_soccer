@@ -10,12 +10,14 @@ LocomotionManager::LocomotionManager(Player *p) {
     arrive = new Arrive(player);
     pursue = new Pursue(player);
     cover = new Cover(player);
+    head = new Head(player);
 }
 
 LocomotionManager::~LocomotionManager() {
     delete arrive;
     delete pursue;
     delete cover;
+    delete head;
 }
 
 void LocomotionManager::ActivateArrive(GameLib::Vector3 dest) {
@@ -30,6 +32,11 @@ void LocomotionManager::ActivatePursue(GameLib::Physical *follow) {
 
 void LocomotionManager::ActivateCover() {
     change_locomotion(cover);
+}
+
+void LocomotionManager::ActivateHead(GameLib::Vector3 dir) {
+    head->Init(dir);
+    change_locomotion(head);
 }
 
 void LocomotionManager::UpdateLocomotion(float dt) {
