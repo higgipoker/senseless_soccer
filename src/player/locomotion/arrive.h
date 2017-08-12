@@ -9,11 +9,11 @@ class Arrive : public Locomotion {
   public:
     Arrive(Player *p);
 
-    virtual void OnStart();
-    virtual void OnStep(const float dt);
-    virtual void OnEnd();
-    virtual bool StateOver();
-    virtual void ChangeToNextState();
+    virtual void OnStart() override;
+    virtual void OnStep(const float dt) override;
+    virtual void OnEnd() override;
+    virtual bool StateOver() override;
+    virtual void ChangeToNextState() override;
     void Init(GameLib::Vector3 target);
     virtual void Modify(Modifier mod) override;
 

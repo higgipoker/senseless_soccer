@@ -1,7 +1,7 @@
 #pragma once
 
+#include <gamelib/game/game_entity.h>
 #include "../graphics/ball_sprite.h"
-#include <gamelib/gamelib.h>
 
 namespace SenselessSoccer {
 

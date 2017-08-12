@@ -1,7 +1,5 @@
 #pragma once
-
-#include <gamelib/gamelib.h>
-
+#include <gamelib/statemachine/state.h>
 namespace SenselessSoccer {
 
 /** \brief possible player states */

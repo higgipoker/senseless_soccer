@@ -1,12 +1,7 @@
-/*
- * player.h
- *
- *  Created on: Jun 10, 2017
- *      Author: higgi
- */
+
 #pragma once
 
-#include <gamelib/gamelib.h>
+#include <gamelib/input/input.h>
 
 #include "../ball/ball.h"
 #include "../graphics/player_sprite.h"

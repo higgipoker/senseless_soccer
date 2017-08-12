@@ -1,10 +1,7 @@
-/*
- * player.cpp
- *
- *  Created on: Jun 10, 2017
- *      Author: higgi
- */
+
 #include "player.h"
+
+#include <gamelib/physics/collision_detector.h>
 
 #include "../game/game.h"
 #include "../globals.h"

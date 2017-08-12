@@ -2,6 +2,7 @@
 
 #include <cmath>
 #include <iostream>
+#include <gamelib/math/vector3.h>
 
 namespace SenselessSoccer {
 

@@ -3,7 +3,9 @@
 #include <string.h>
 #include <unistd.h>
 
+#include <gamelib/gamelib.h>
 #include <gamelib/utils/log.h>
+#include <gamelib/input/keyboard.h>
 
 #include "ball/ball.h"
 #include "game/game.h"
@@ -58,7 +60,7 @@ static bool parse_args(int argc, char *argv[]) {
     for (unsigned int i = 0; i < argc; ++i) {
         std::string str(argv[i]);
 
-        if (str == "--gamelib_version") {
+        if (str == "--gamelib-version") {
             if (argc >= i) {
                 GameLib::Log("GameLib version: " + GameLib::gamelib_version);
                 return false;
@@ -67,7 +69,7 @@ static bool parse_args(int argc, char *argv[]) {
 
         else if (str == "--version") {
             if (argc >= i) {
-                GameLib::Log("Version: " + senseless_soccer_version);
+                GameLib::Log("Senseless Soccer Version: " + senseless_soccer_version);
                 return false;
             }
         }
