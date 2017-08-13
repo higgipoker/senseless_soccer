@@ -4,13 +4,23 @@
 
 namespace SenselessSoccer {
 
-Pursue::Pursue(Player *p) : Locomotion(p) {}
+// ------------------------------------------------------------
+// Pursue
+// ------------------------------------------------------------
+Pursue::Pursue(Player *p) : Locomotion(p) {
+}
 
+// ------------------------------------------------------------
+// OnStart
+// ------------------------------------------------------------
 void Pursue::OnStart() {
     state_over = false;
     destination_reached = false;
 }
 
+// ------------------------------------------------------------
+// OnStep
+// ------------------------------------------------------------
 void Pursue::OnStep(const float dt) {
     if (destination_reached)
         return;
@@ -19,7 +29,7 @@ void Pursue::OnStep(const float dt) {
     last_distance = target->position - player->physical->position;
     GameLib::Vector3 new_distance = target->position - player->physical->position;
 
-    if (player->physical->position.equals(destination, 5)) {
+    if (new_distance.magnitude() < 100) {
         destination_reached = true;
         player->physical->ResetVelocity();
 
@@ -32,17 +42,28 @@ void Pursue::OnStep(const float dt) {
     last_distance = target->position - player->physical->position;
 }
 
+// ------------------------------------------------------------
+// OnEnd
+// ------------------------------------------------------------
 void Pursue::OnEnd() {
+    Locomotion::OnEnd();
+
     destination_reached = true;
     state_over = true;
 }
 
-bool Pursue::StateOver() { return state_over; }
+// ------------------------------------------------------------
+// StateOver
+// ------------------------------------------------------------
+bool Pursue::StateOver() {
+    return state_over;
+}
 
-void Pursue::ChangeToNextState() {}
-
-void Pursue::Init(GameLib::Physical *t) { target = t; }
-
-void Pursue::Modify(Modifier mod) {}
+// ------------------------------------------------------------
+// Init
+// ------------------------------------------------------------
+void Pursue::Init(GameLib::Physical *t) {
+    target = t;
+}
 
 } // namespace SenselessSoccer

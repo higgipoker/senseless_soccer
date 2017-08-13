@@ -18,13 +18,13 @@ set(LIBRARY_OUTPUT_PATH ${CMAKE_BINARY_DIR})
 # --------------------------------------------------
 # include dirs
 # --------------------------------------------------
-include_directories(${PROJECT_SOURCE_DIR}/src)
-include_directories(/usr/local/include)
+#include_directories(${PROJECT_SOURCE_DIR}/src)
+include_directories(${CMAKE_SOURCE_DIR}/include)
 
 # --------------------------------------------------
 # lib dirs
 # --------------------------------------------------
-link_directories(/usr/local/lib)
+link_directories(${PROJECT_SOURCE_DIR}/libs)
 
 # --------------------------------------------------
 # compiler flags
@@ -45,10 +45,17 @@ src/player/player_states/player_state.cpp
 src/player/player_states/standing.cpp
 src/player/player_states/running.cpp
 src/player/brain/brain.cpp
-src/player/brain/brainstate.cpp
-src/player/brain/brainstate_idle.cpp
-src/player/brain/brainstate_dribble.cpp
-src/player/brain/brainstate_getball.cpp
+src/player/brain/brainstates/brainstate.cpp
+src/player/brain/brainstates/brainstate_idle.cpp
+src/player/brain/brainstates/brainstate_dribble.cpp
+src/player/brain/brainstates/brainstate_getball.cpp
+src/player/brain/brainstates/brainstate_cover.cpp
+src/player/brain/brainstates/brainstate_support.cpp
+src/player/locomotion/locomotion_manager.cpp
+src/player/locomotion/locomotion.cpp
+src/player/locomotion/arrive.cpp
+src/player/locomotion/pursue.cpp
+src/player/locomotion/head.cpp
 src/ball/ball.cpp
 src/match/match.cpp
 src/match/match_states/match_state.cpp
@@ -59,12 +66,6 @@ src/team/team_states/team_play.cpp
 src/team/roles/role.cpp
 src/metrics/metrics.cpp
 src/pitch/pitch.cpp
-src/player/locomotion/locomotion_manager.cpp
-src/player/locomotion/locomotion.cpp
-src/player/locomotion/arrive.cpp
-src/player/locomotion/pursue.cpp
-src/player/locomotion/cover.cpp
-src/player/locomotion/head.cpp
 src/game/game.cpp
 src/globals.cpp
 )
@@ -76,3 +77,4 @@ target_link_libraries (senseless_soccer gamelib)
 target_link_libraries (senseless_soccer sfml-graphics)
 target_link_libraries (senseless_soccer sfml-window)
 target_link_libraries (senseless_soccer sfml-system)
+

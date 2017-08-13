@@ -17,4 +17,6 @@ bool BrainState::StateOver() {
 }
 void BrainState::ChangeToNextState() {
 }
+void BrainState::Modify(modifier mod) {
+}
 }

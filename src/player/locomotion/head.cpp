@@ -5,33 +5,46 @@
 
 namespace SenselessSoccer {
 
+// ------------------------------------------------------------
+// Head
+// ------------------------------------------------------------
 Head::Head(Player *p) : Locomotion(p) {
 }
 
+// ------------------------------------------------------------
+// OnStart
+// ------------------------------------------------------------
 void Head::OnStart() {
     state_over = false;
     player->physical->velocity = direction;
 }
 
+// ------------------------------------------------------------
+// OnStep
+// ------------------------------------------------------------
 void Head::OnStep(const float dt) {
 }
 
+// ------------------------------------------------------------
+// OnEnd
+// ------------------------------------------------------------
 void Head::OnEnd() {
+    Locomotion::OnEnd();
+
     player->physical->ResetVelocity();
     state_over = true;
 }
 
+// ------------------------------------------------------------
+// StateOver
+// ------------------------------------------------------------
 bool Head::StateOver() {
     return state_over;
 }
 
-void Head::ChangeToNextState() {
-}
-
-void Head::Modify(Modifier mod) {
-    modifier = mod;
-}
-
+// ------------------------------------------------------------
+// Init
+// ------------------------------------------------------------
 void Head::Init(GameLib::Vector3 dir) {
     direction = dir;
     direction.normalizeToUnits();

@@ -4,8 +4,8 @@
 #include <unistd.h>
 
 #include <gamelib/gamelib.h>
-#include <gamelib/utils/log.h>
 #include <gamelib/input/keyboard.h>
+#include <gamelib/utils/log.h>
 
 #include "ball/ball.h"
 #include "game/game.h"
@@ -27,15 +27,15 @@ const static std::string &senseless_soccer_version = "0.0.1";
 
 // temp testing
 std::string filenames[] = {"LEFT_BACK_POSITIONS.pos",
-                           "LEFT_CENTER_ATTACKER_POSITIONS.pos",
-                           "LEFT_CENTER_BACK_POSITIONS.pos",
-                           "LEFT_CENTER_MIDFIELDER_POSITIONS.pos",
-                           "LEFT_MIDFIELDER_POSITIONS.pos",
                            "RIGHT_BACK_POSITIONS.pos",
-                           "RIGHT_CENTER_ATTACKER_POSITIONS.pos",
+                           "LEFT_CENTER_BACK_POSITIONS.pos",
                            "RIGHT_CENTER_BACK_POSITIONS.pos",
+                           "LEFT_CENTER_MIDFIELDER_POSITIONS.pos",
                            "RIGHT_CENTER_MIDFIELDER_POSITIONS.pos",
-                           "RIGHT_MIDFIELDER_POSITIONS.pos"};
+                           "LEFT_MIDFIELDER_POSITIONS.pos",
+                           "RIGHT_MIDFIELDER_POSITIONS.pos",
+                           "LEFT_CENTER_ATTACKER_POSITIONS.pos",
+                           "RIGHT_CENTER_ATTACKER_POSITIONS.pos"};
 
 std::string playernames[] = {
     "player1", "player2", "player3", "player4", "player5", "player6", "player7", "player8", "player9", "player10",
@@ -181,7 +181,7 @@ int main(int argc, char *argv[]) {
     // senseless.camera.Follow(player1);
 
     std::vector<std::string> call;
-    call.push_back("cover");
+    call.push_back("support");
     for (auto it = players.begin(); it != players.end(); ++it) {
         (*it)->Call(call);
     }

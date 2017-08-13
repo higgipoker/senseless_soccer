@@ -1,7 +1,11 @@
 #include "brain.h"
 
 #include "../player.h"
-#include "brainstate_idle.h"
+#include "brainstates/brainstate_cover.h"
+#include "brainstates/brainstate_dribble.h"
+#include "brainstates/brainstate_getball.h"
+#include "brainstates/brainstate_idle.h"
+#include "brainstates/brainstate_support.h"
 
 namespace SenselessSoccer {
 
@@ -10,7 +14,7 @@ namespace SenselessSoccer {
 //  --------------------------------------------------
 Brain::Brain(Player *p) : locomotion(p) {
     player = p;
-    current_state = new BrainIdle(player);
+    current_state = new BrainSupport(player);
 }
 
 //  --------------------------------------------------
@@ -31,5 +35,41 @@ bool Brain::in_pitch(float dt) {
     }
 
     return false;
+}
+
+// ------------------------------------------------------------
+// ActivateState
+// ------------------------------------------------------------
+void Brain::ActivateState(brainstate bs) {
+
+    switch (bs) {
+    default:
+    case BRAINSTATE_NONE:
+        break;
+    case BRAIN_COVER:
+        ChangeState(new BrainCover(player));
+        break;
+    case BRAIN_DRIBBLE:
+        ChangeState(new BrainDribble(player));
+        break;
+    case BRAIN_GETBALL:
+        ChangeState(new BrainGetBall(player));
+        break;
+    case BRAIN_IDLE:
+        ChangeState(new BrainIdle(player));
+        break;
+    case BRAIN_SUPPORT:
+        ChangeState(new BrainSupport(player));
+        break;
+    }
+}
+
+// ------------------------------------------------------------
+// SetModifier
+// ------------------------------------------------------------
+void Brain::SetModifier(const modifier m) {
+    if (current_state != nullptr) {
+        ((BrainState *)(current_state))->Modify(m);
+    }
 }
 } // namespace SenselessSoccer

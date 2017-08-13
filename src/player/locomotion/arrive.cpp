@@ -4,50 +4,67 @@
 
 namespace SenselessSoccer {
 
-Arrive::Arrive(Player *p) : Locomotion(p) {}
+// ------------------------------------------------------------
+// Arrive
+// ------------------------------------------------------------
+Arrive::Arrive(Player *p) : Locomotion(p) {
+}
 
+// ------------------------------------------------------------
+// OnStart
+// ------------------------------------------------------------
 void Arrive::OnStart() {
-	state_over = false;
-	destination_reached = false;
-	player->physical->velocity = destination - player->physical->position;
-	last_distance = player->physical->position - destination;
+    state_over = false;
+    destination_reached = false;
+    player->physical->velocity = destination - player->physical->position;
+    last_distance = player->physical->position - destination;
 }
 
+// ------------------------------------------------------------
+// OnStep
+// ------------------------------------------------------------
 void Arrive::OnStep(const float dt) {
-	GameLib::Vector3 new_distance = destination - player->physical->position;
+    GameLib::Vector3 new_distance = destination - player->physical->position;
 
-	if (player->physical->position.equals(destination, 20)) {
-		// reached destination?
-		state_over = true;
-		destination_reached = true;
-		player->physical->ResetVelocity();
+    if (player->physical->position.equals(destination, 20)) {
+        // reached destination?
+        state_over = true;
+        destination_reached = true;
+        player->physical->ResetVelocity();
 
-	} else {
-		// adjust for misses due to 45 degree precision
-		if (new_distance.magnitude() <= last_distance.magnitude()) {
-			player->physical->velocity = destination - player->physical->position;
-		}
-	}
+    } else {
+        // adjust for misses due to 45 degree precision
+        if (new_distance.magnitude() <= last_distance.magnitude()) {
+            player->physical->velocity = destination - player->physical->position;
+        }
+    }
 
-	last_distance = player->physical->position - destination;
+    last_distance = player->physical->position - destination;
 }
 
+// ------------------------------------------------------------
+// OnEnd
+// ------------------------------------------------------------
 void Arrive::OnEnd() {
-	destination = player->physical->position;
-	destination_reached = true;
-	state_over = true;
+    Locomotion::OnEnd();
+
+    destination = player->physical->position;
+    destination_reached = true;
+    state_over = true;
 }
 
+// ------------------------------------------------------------
+// StateOver
+// ------------------------------------------------------------
 bool Arrive::StateOver() {
-	return state_over;
+    return state_over;
 }
 
-void Arrive::ChangeToNextState() {}
-
+// ------------------------------------------------------------
+// Init
+// ------------------------------------------------------------
 void Arrive::Init(GameLib::Vector3 target) {
-	destination = target;
+    destination = target;
 }
-
-void Arrive::Modify(Modifier mod) {}
 
 } // namespace SenselessSoccer

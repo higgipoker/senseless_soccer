@@ -141,6 +141,8 @@ class Player : public GameLib::StateMachine, public GameLib::GameEntity {
     friend class Brain;
     friend class BrainIdle;
     friend class BrainDribble;
+    friend class BrainCover;
+    friend class BrainSupport;
 };
 
 } // SenselessSoccer

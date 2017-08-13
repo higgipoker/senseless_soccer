@@ -333,7 +333,11 @@ void Player::Call(std::vector<std::string> params) {
         return;
     }
     if (params[0] == "cover") {
-        brain.locomotion.ActivateCover();
+        brain.ActivateState(BRAIN_COVER);
+        return;
+    }
+    if (params[0] == "support") {
+        brain.ActivateState(BRAIN_SUPPORT);
         return;
     }
     if (params[0] == "head") {
@@ -361,6 +365,12 @@ void Player::Call(std::vector<std::string> params) {
             brain.locomotion.ActivateHead(dir);
         }
         return;
+    }
+    if (params[0] == "modify") {
+        std::vector<std::string> new_params(params.begin() + 1, params.end());
+        if (new_params.size() >= 1) {
+            brain.SetModifier(modifier(atoi(new_params[0].c_str())));
+        }
     }
     if (params[0] == "cancel") {
         brain.locomotion.Cancel();

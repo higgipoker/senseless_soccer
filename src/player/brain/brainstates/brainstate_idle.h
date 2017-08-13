@@ -1,11 +1,14 @@
 #pragma once
-#include "../player.h"
-#include <gamelib/statemachine/state.h>
+
+#include "../../player.h"
+#include "brainstate.h"
 
 namespace SenselessSoccer {
-class BrainState : public GameLib::State {
+
+class BrainIdle : public BrainState {
   public:
-    BrainState(Player *p);
+    BrainIdle(Player *player);
+
     virtual void OnStart() override;
     virtual void OnStep(const float _dt) override;
     virtual void OnEnd() override;
@@ -13,6 +16,5 @@ class BrainState : public GameLib::State {
     virtual void ChangeToNextState() override;
 
   protected:
-    Player *player;
 };
 }

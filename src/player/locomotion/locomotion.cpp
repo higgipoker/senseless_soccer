@@ -6,19 +6,32 @@
 
 namespace SenselessSoccer {
 
+// ------------------------------------------------------------
+// Locomotion
+// ------------------------------------------------------------
 Locomotion::Locomotion(Player *p) {
     player = p;
     state_over = false;
     destination_reached = false;
-    modifier = NONE;
 }
 
-Locomotion::~Locomotion(void) {}
+// ------------------------------------------------------------
+// OnStart
+// ------------------------------------------------------------
+void Locomotion::OnStart(void) {
+    state_over = false;
+}
 
-void Locomotion::OnStart(void) { state_over = false; }
+// ------------------------------------------------------------
+// OnStep
+// ------------------------------------------------------------
+void Locomotion::OnStep(float _dt) {
+}
 
-void Locomotion::OnStep(float _dt) {}
-
-void Locomotion::OnEnd(void) {}
+// ------------------------------------------------------------
+// OnEnd
+// ------------------------------------------------------------
+void Locomotion::OnEnd(void) {
+}
 
 } // namespace SenselessSoccer

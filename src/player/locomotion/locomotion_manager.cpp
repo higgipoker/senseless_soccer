@@ -4,47 +4,46 @@
 
 namespace SenselessSoccer {
 
-LocomotionManager::LocomotionManager(Player *p) {
-    player = p;
-    behaviour = NULL;
-    arrive = new Arrive(player);
-    pursue = new Pursue(player);
-    cover = new Cover(player);
-    head = new Head(player);
+// ------------------------------------------------------------
+// LocomotionManager
+// ------------------------------------------------------------
+LocomotionManager::LocomotionManager(Player *p) : player(*p), arrive(&player), pursue(&player), head(&player) {
+    behaviour = nullptr;
 }
 
-LocomotionManager::~LocomotionManager() {
-    delete arrive;
-    delete pursue;
-    delete cover;
-    delete head;
-}
-
+// ------------------------------------------------------------
+// ActivateArrive
+// ------------------------------------------------------------
 void LocomotionManager::ActivateArrive(GameLib::Vector3 dest) {
-    arrive->Init(dest);
+    arrive.Init(dest);
     change_locomotion(arrive);
 }
 
+// ------------------------------------------------------------
+// ActivatePursue
+// ------------------------------------------------------------
 void LocomotionManager::ActivatePursue(GameLib::Physical *follow) {
-    pursue->Init(follow);
+    pursue.Init(follow);
     change_locomotion(pursue);
 }
 
-void LocomotionManager::ActivateCover() {
-    change_locomotion(cover);
-}
-
+// ------------------------------------------------------------
+// ActivateHead
+// ------------------------------------------------------------
 void LocomotionManager::ActivateHead(GameLib::Vector3 dir) {
-    head->Init(dir);
+    head.Init(dir);
     change_locomotion(head);
 }
 
+// ------------------------------------------------------------
+// UpdateLocomotion
+// ------------------------------------------------------------
 void LocomotionManager::UpdateLocomotion(float dt) {
     // check for pending behaviour
     if (!behaviour_queue.empty()) {
         Locomotion *next = behaviour_queue.back();
         behaviour_queue.pop();
-        change_locomotion(next);
+        change_locomotion(*next);
     }
 
     if (behaviour) {
@@ -57,39 +56,36 @@ void LocomotionManager::UpdateLocomotion(float dt) {
     }
 }
 
-void LocomotionManager::SetLocomotion(Locomotion *l) {
-    change_locomotion(l);
-}
+// ------------------------------------------------------------
+// change_locomotion
+// ------------------------------------------------------------
+void LocomotionManager::change_locomotion(Locomotion &b) {
 
-void LocomotionManager::change_locomotion(Locomotion *b) {
-    if (b != nullptr) {
+    // a behaviour is currently running
+    if (behaviour) {
+        // behaviours override the stop method, so some are not able to be stopped
+        // manually
+        behaviour->OnEnd();
 
-        // a behaviour is currently running
-        if (behaviour) {
-            // behaviours override the stop method, so some are not able to be stopped
-            // manually
-            behaviour->OnEnd();
+        if (behaviour->StateOver()) {
+            behaviour = &b;
 
-            if (behaviour->StateOver()) {
-                behaviour = b;
-
-                if (behaviour) {
-                    behaviour->OnStart();
-                }
-            } else {
-                behaviour_queue.push(b);
+            if (behaviour) {
+                behaviour->OnStart();
             }
         } else {
-            // no behaviour running
-            behaviour = b;
-            behaviour->OnStart();
+            behaviour_queue.push(&b);
         }
     } else {
-        behaviour->OnEnd();
-        behaviour = nullptr;
+        // no behaviour running
+        behaviour = &b;
+        behaviour->OnStart();
     }
 }
 
+// ------------------------------------------------------------
+// Cancel
+// ------------------------------------------------------------
 void LocomotionManager::Cancel(void) {
     if (behaviour) {
         behaviour->OnEnd();
