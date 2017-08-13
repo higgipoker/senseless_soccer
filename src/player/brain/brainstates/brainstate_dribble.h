@@ -5,15 +5,43 @@ namespace SenselessSoccer {
 
 class BrainDribble : public BrainState {
   public:
+    /**
+     * @brief BrainDribble
+     * @param p
+     */
     BrainDribble(Player *p);
 
+    /**
+     * @brief OnStart
+     */
     virtual void OnStart() override;
+
+    /**
+     * @brief OnStep
+     * @param _dt
+     */
     virtual void OnStep(const float _dt) override;
+
+    /**
+     * @brief OnEnd
+     */
     virtual void OnEnd() override;
+
+    /**
+     * @brief StateOver
+     * @return
+     */
     virtual bool StateOver() override;
+
+    /**
+     * @brief ChangeToNextState
+     */
     virtual void ChangeToNextState() override;
 
   protected:
+    /**
+     * @brief change_direction
+     */
     void change_direction();
     GameLib::Timer timer;
 };

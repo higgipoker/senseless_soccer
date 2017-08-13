@@ -11,24 +11,24 @@ class Team : public GameLib::StateMachine, public GameLib::GameEntity{
 public:
 
 	/**
-	 * \brief constuct
+	 * @brief constuct
 	 */
 	Team();
 
     /**
-      \brief destruct
+      @brief destruct
       */
     ~Team();
 
 	/**
-     * \brief on step
-     * \param dt time delta
+     * @brief on step
+     * @param dt time delta
      */
     void Update(float dt);
 
 	/**
-	 * \brief add a player
-	 * \param player pointer to player to add
+	 * @brief add a player
+	 * @param player pointer to player to add
 	 */
 	void AddPlayer( Player *player );
 

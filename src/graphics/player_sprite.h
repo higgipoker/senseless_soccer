@@ -10,14 +10,14 @@ public:
     explicit PlayerSprite(const std::string& filename, unsigned int number_rows, unsigned int number_cols);
 
     /**
-     * \brief update the running animation depending on direction
-     * \param vel velocity
-     * \param angle angle in the case that vel is zero
+     * @brief update the running animation depending on direction
+     * @param vel velocity
+     * @param angle angle in the case that vel is zero
      */
     void UpdateAnimation(GameLib::Vector3 &vel, float angle);
 
     /**
-     * \brief render
+     * @brief render
      */
     virtual void Render(GameLib::Window &window) override;
 

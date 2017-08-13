@@ -14,8 +14,21 @@ enum modifier { MODIFIER_NONE, COVER_PRESS, COVER_PRESS_HIGH, COVER_SHADOW, COVE
 class Player;
 class Brain : public GameLib::StateMachine {
   public:
+    /**
+     * @brief Brain
+     * @param p
+     */
     Brain(Player *p);
+
+    /**
+     * @brief Step
+     * @param dt
+     */
     void Step(float dt);
+
+    /**
+     * @brief locomotion
+     */
     LocomotionManager locomotion;
 
     /**

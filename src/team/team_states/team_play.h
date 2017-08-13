@@ -7,7 +7,7 @@ namespace SenselessSoccer{
 class TeamStatePlay : public TeamState{
 public:
   /**
-   * \brief onStart
+   * @brief onStart
    */
   virtual void OnStart() override;
 

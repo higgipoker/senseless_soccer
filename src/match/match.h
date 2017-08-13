@@ -7,12 +7,12 @@
 
 namespace SenselessSoccer{
 
-/** \brief match class */
+/** @brief match class */
 class Match : public GameLib::StateMachine, public GameLib::GameEntity{
 
 public:
 	/**
-	 * \brief constructor
+	 * @brief constructor
 	 */
 	Match(){
 		name = "match";

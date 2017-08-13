@@ -6,39 +6,39 @@ namespace SenselessSoccer {
 // ------------------------------------------------------------
 // Constructor
 // ------------------------------------------------------------
-Standing::Standing (Player &p) : PlayerState (p) {
+Standing::Standing(Player &p) : PlayerState(p) {
 }
-
 
 // ------------------------------------------------------------
 // OnStart
 // ------------------------------------------------------------
 void Standing::OnStart() {
-	player.player_sprite->SetAnimation ("stand_south");
+    player.player_sprite->SetAnimation("stand_south");
 }
 
 // ------------------------------------------------------------
 // OnStep
 // ------------------------------------------------------------
-void Standing::OnStep (const float dt) {
+void Standing::OnStep(const float dt) {
 }
 
 // ------------------------------------------------------------
 // OnEnd
 // ------------------------------------------------------------
-void Standing::OnEnd() {}
+void Standing::OnEnd() {
+}
 
 // ------------------------------------------------------------
 // StateOver
 // ------------------------------------------------------------
 bool Standing::StateOver() {
 
-	if (player.physical->velocity.magnitude()) {
-		next_state = PLAYER_STATE_RUN;
-		return true;
-	}
+    if (player.physical->velocity.magnitude()) {
+        next_state = PLAYER_STATE_RUN;
+        return true;
+    }
 
-	return false;
+    return false;
 }
 
-}// SenselessSoccer
+} // SenselessSoccer

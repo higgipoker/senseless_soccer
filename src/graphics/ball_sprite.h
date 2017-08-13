@@ -8,18 +8,18 @@ public:
     explicit BallSprite(const std::string& filename, unsigned int number_rows, unsigned int number_cols);
 
     /**
-     * \brief update animation
+     * @brief update animation
      */
     virtual void Animate() override;
 
     /**
-     * \brief the ball sprite has special roll rotation
-     * \param degrees self explanatory!
+     * @brief the ball sprite has special roll rotation
+     * @param degrees self explanatory!
      */
     void SetRotation(int degrees);
 
     /**
-    * \brief render
+    * @brief render
     */
     virtual void Render(GameLib::Window &window) override;
 
@@ -34,7 +34,7 @@ public:
     explicit BallShadowSprite(const std::string& filename, unsigned int number_rows, unsigned int number_cols);
 
     /**
-    * \brief render
+    * @brief render
     */
     virtual void Render(GameLib::Window &window) override;
 

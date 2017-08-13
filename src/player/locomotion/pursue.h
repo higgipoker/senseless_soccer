@@ -2,7 +2,7 @@
  * \file 	src/player/locomotion/pursue.h
  * \author 	Paul Higgins
  * \date 	14.08.2017
- * \brief 	cover type locomotion
+ * @brief 	cover type locomotion
  *
  * Description
  *
@@ -16,37 +16,37 @@
 namespace SenselessSoccer {
 
 /**
- * \brief player follows a specified target
+ * @brief player follows a specified target
  */
 class Pursue : public Locomotion {
   public:
     /**
-     *\brief constructor
+     *@brief constructor
      */
     Pursue(Player *p);
 
     /**
-     *\brief state start
+     *@brief state start
      */
     virtual void OnStart();
 
     /**
-     *\brief state step
+     *@brief state step
      */
     virtual void OnStep(const float dt);
 
     /**
-     *\brief state end
+     *@brief state end
      */
     virtual void OnEnd();
 
     /**
-     *\brief check for state over condition
+     *@brief check for state over condition
      */
     virtual bool StateOver();
 
     /**
-     *\brief Init
+     *@brief Init
      */
     void Init(GameLib::Physical *t);
 

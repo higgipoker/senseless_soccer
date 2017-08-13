@@ -12,34 +12,34 @@ class Player;
 class LocomotionManager : public GameLib::StateMachine {
   public:
     /**
-     * \brief constructor
-     * \param [in] p pointer back to player for state machine context
+     * @brief constructor
+     * @param [in] p pointer back to player for state machine context
      */
     LocomotionManager(Player *p);
 
     /**
-     * \brief update
-     * \param [in] dt time delta
+     * @brief update
+     * @param [in] dt time delta
      */
     void UpdateLocomotion(float dt);
 
     /**
-     * \brief activate the arrive locomotion
+     * @brief activate the arrive locomotion
      */
     void ActivateArrive(GameLib::Vector3 dest);
 
     /**
-     * \brief activate the pursue locomotion
+     * @brief activate the pursue locomotion
      */
     void ActivatePursue(GameLib::Physical *follow);
 
     /**
-     * \brief activate the head locomotion
+     * @brief activate the head locomotion
      */
     void ActivateHead(GameLib::Vector3 dir);
 
     /**
-     * \brief cancel all locomotion
+     * @brief cancel all locomotion
      */
     void Cancel(void);
 

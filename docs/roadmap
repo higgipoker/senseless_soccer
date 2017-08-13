@@ -7,22 +7,21 @@ LANDMARK 1:
 A. AI v AI match
 
 	1. Player Behaviours - phase 1
+            Locomotion:
                 Pursue (done)
                 Arrive (done)
                 Head (done)
+
+            Brain:
                 Cover (done)
                         *arrising: grid system for pitch locations (done)
                         Press (done)
                         Shadow (done 12/8/17)
                 *arising: Cover should really be a bran state, not a locomotion state -> refactor (done 12/8/17)
-		Support
-                        *arising:
-                            these modifiers depend on knowledge about the player with the ball:
-                                need to implement team class to track such info
-                        *arising: need a higher level ai module to control these states
-                        Backup
-			Pass			
-			Run
+		Support                                                
+                        Backup (done)
+                        Pass (done)
+                        Run (done 13/8/17)
 		Dribble
 		Pass
 		Shoot

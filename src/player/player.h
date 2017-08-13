@@ -11,41 +11,41 @@
 
 namespace SenselessSoccer {
 
-/** \brief class to represent a player entity */
+/** @brief class to represent a player entity */
 class Player : public GameLib::StateMachine, public GameLib::GameEntity {
   public:
     /**
-     * \brief constructor
+     * @brief constructor
      */
     Player(GameLib::Physical *p);
 
     /**
-     *\brief derived entities can do their own extra handling
-     *\param dt time delta
+     *@brief derived entities can do their own extra handling
+     *@param dt time delta
      */
     virtual void Update(float dt) override;
 
     /**
-     * \brief connect the player sprite
-     * \param sprite reference to a sprite to use
-     * \param shadow reference to shadow sprite
+     * @brief connect the player sprite
+     * @param sprite reference to a sprite to use
+     * @param shadow reference to shadow sprite
      */
     void ConnectSprite(PlayerSprite &sprite, PlayerSprite &shadow);
 
     /**
-     * \brief connect an input
-     * \param i pointer to input device (can be null)
+     * @brief connect an input
+     * @param i pointer to input device (can be null)
      */
     void AttachInput(GameLib::Input *i);
 
     /**
-     * \brief detatch an input
+     * @brief detatch an input
      */
     void DetatchInput();
 
     /**
-     * \brief rpc call for player
-     * \param params list of params
+     * @brief rpc call for player
+     * @param params list of params
      */
     virtual void Call(std::vector<std::string> params) override;
 
@@ -83,52 +83,52 @@ class Player : public GameLib::StateMachine, public GameLib::GameEntity {
     GameLib::Vector3 last_direction;
 
     /**
-     * \brief process input
+     * @brief process input
      */
     void handle_input();
 
     /**
-     * \brief helper to update player position
-     * \param dt time delta
+     * @brief helper to update player position
+     * @param dt time delta
      */
     void update_position(float dt);
     GameLib::Vector3 project_position(float dt);
 
     /**
-     * \brief helper to normalize the velocity
+     * @brief helper to normalize the velocity
      */
     void normalize_velocity();
 
     /**
-     * \brief helper to set the sprite animation
+     * @brief helper to set the sprite animation
      */
     void animate();
 
     /**
-     * \brief dribble circle must be updated every frame depending on players
+     * @brief dribble circle must be updated every frame depending on players
      * current position
      */
     void update_dribble_circle();
 
     /**
-     * \brief push the ball forward
-     * \param direction dribbling direction
+     * @brief push the ball forward
+     * @param direction dribbling direction
      */
     void do_dribble(const GameLib::Vector3 &direction);
 
     /**
-     * \brief close control mechanism
+     * @brief close control mechanism
      */
     void do_close_control();
 
     /**
-     * \brief test if ball is under control
+     * @brief test if ball is under control
      */
     bool ball_under_control();
 
     /**
      * \breif kick the ball
-     * \param force force to kick ball with
+     * @param force force to kick ball with
      */
     void kick(float force);
 

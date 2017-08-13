@@ -9,34 +9,34 @@ class Standing : public PlayerState {
 public:
 
     /**
-    * \brief constructor
-	* \param p reference to player for sm context
+    * @brief constructor
+	* @param p reference to player for sm context
     */
     explicit Standing(Player &p);
 
     /**
-     * \brief onStart
+     * @brief onStart
      */
     virtual void OnStart() override;
 
     /**
-     * \brief onStep
-     * \param dt time delta
+     * @brief onStep
+     * @param dt time delta
      */
     virtual void OnStep(const float dt) override;
 
     /**
-     * \brief onEnd
+     * @brief onEnd
      */
     virtual void OnEnd() override;
 
     /**
-     * \brief stateOver
+     * @brief stateOver
      */
     virtual bool StateOver() override;
 
     /**
-     * \brief stateName
+     * @brief stateName
      */
     std::string StateName() const {
         return name;

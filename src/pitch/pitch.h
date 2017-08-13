@@ -11,22 +11,22 @@ namespace SenselessSoccer {
 class Pitch : public GameLib::GameEntity {
   public:
     /**
-    * \brief constructor
-    * \param x x
-    * \param y y
-    * \param width width
-    * \param height height
+    * @brief constructor
+    * @param x x
+    * @param y y
+    * @param width width
+    * @param height height
     */
     Pitch(int x, int y, int width, int height);
 
     /*
-     * \brief destruct
+     * @brief destruct
      */
     ~Pitch();
 
     /**
-    * \brief connect the pitch renderable
-    * \param renderable reference to a renderable to use
+    * @brief connect the pitch renderable
+    * @param renderable reference to a renderable to use
     */
     void ConnectRenderable(PitchTiled &renderable);
 

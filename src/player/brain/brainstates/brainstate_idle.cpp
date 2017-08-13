@@ -2,17 +2,34 @@
 #include "brainstate_dribble.h"
 
 namespace SenselessSoccer {
+
+// ------------------------------------------------------------
+// BrainIdle
+// ------------------------------------------------------------
 BrainIdle::BrainIdle(Player *player) : BrainState(player) {
 }
+
+// ------------------------------------------------------------
+// OnStart
+// ------------------------------------------------------------
 void BrainIdle::OnStart() {
 }
 
+// ------------------------------------------------------------
+// OnStep
+// ------------------------------------------------------------
 void BrainIdle::OnStep(const float _dt) {
 }
 
+// ------------------------------------------------------------
+// OnEnd
+// ------------------------------------------------------------
 void BrainIdle::OnEnd() {
 }
 
+// ------------------------------------------------------------
+// StateOver
+// ------------------------------------------------------------
 bool BrainIdle::StateOver() {
     if (player->ball_under_control()) {
         return true;
@@ -20,6 +37,9 @@ bool BrainIdle::StateOver() {
     return false;
 }
 
+// ------------------------------------------------------------
+// ChangeToNextState
+// ------------------------------------------------------------
 void BrainIdle::ChangeToNextState() {
     player->brain.ChangeState(new BrainDribble(player));
 }

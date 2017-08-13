@@ -53,6 +53,7 @@ src/player/brain/brainstates/brainstate_dribble.cpp
 src/player/brain/brainstates/brainstate_getball.cpp
 src/player/brain/brainstates/brainstate_cover.cpp
 src/player/brain/brainstates/brainstate_support.cpp
+src/player/brain/brainstates/brainstate_dribble.cpp
 src/player/locomotion/locomotion_manager.cpp
 src/player/locomotion/locomotion.cpp
 src/player/locomotion/arrive.cpp

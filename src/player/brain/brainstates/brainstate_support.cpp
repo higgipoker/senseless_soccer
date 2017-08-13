@@ -38,15 +38,25 @@ void BrainSupport::OnStep(const float dt) {
         if (modifiers.size()) {
             switch (modifiers[0]) {
 
+            //
+            // stay a couple of sectors back
+            //
             case SUPPORT_BACKUP:
                 target_sector = mod_for_backup(target_sector);
                 break;
 
+            //
+            // run towards the ball
+            //
             case SUPPORT_PASS:
                 player->brain.locomotion.ActivatePursue(player->ball->physical);
                 break;
 
+            //
+            // bomb forward
+            //
             case SUPPORT_RUN:
+                player->brain.locomotion.ActivateHead(Metrics::compasstoVector(NORTH));
                 break;
 
             case MODIFIER_NONE:
@@ -90,8 +100,11 @@ bool BrainSupport::StateOver() {
 // ------------------------------------------------------------
 void BrainSupport::Modify(modifier mod) {
     modifiers.clear();
-    modifiers.push_back(mod);
+    if (mod != MODIFIER_NONE) {
+        modifiers.push_back(mod);
+    }
     last_ball_sector = -1;
+    last_target_sector = -1;
 }
 
 // ------------------------------------------------------------

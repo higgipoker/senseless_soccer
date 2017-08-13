@@ -2,7 +2,7 @@
  * \file 	src/player/locomotion/locomption.h
  * \author 	Paul Higgins
  * \date 	14.08.2017
- * \brief 	base locomotion
+ * @brief 	base locomotion
  *
  * Description
  *
@@ -20,33 +20,33 @@ namespace SenselessSoccer {
 class Player;
 
 /**
- * \brief base class for locomotion
+ * @brief base class for locomotion
  */
 class Locomotion {
   public:
     /**
-     * \brief constructor
-     * \param [in] p pointer back to player
+     * @brief constructor
+     * @param [in] p pointer back to player
      */
     Locomotion(Player *p);
 
     /**
-     * \brief on state start
+     * @brief on state start
      */
     virtual void OnStart() = 0;
 
     /**
-     * \brief on state step
+     * @brief on state step
      */
     virtual void OnStep(const float _dt) = 0;
 
     /**
-     * \brief on state end
+     * @brief on state end
      */
     virtual void OnEnd() = 0;
 
     /**
-     * \brief check if state end condition is met
+     * @brief check if state end condition is met
      */
     virtual bool StateOver() = 0;
 

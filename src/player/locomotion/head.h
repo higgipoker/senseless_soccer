@@ -5,40 +5,40 @@
 namespace SenselessSoccer {
 
 /**
- * \brief player runs in a specific direction until state is stopped
+ * @brief player runs in a specific direction until state is stopped
  */
 class Head : public Locomotion {
   public:
     /**
-     * \brief constructor
-     * \param [in] p pointer back to player for state machine context
+     * @brief constructor
+     * @param [in] p pointer back to player for state machine context
      */
     Head(Player *p);
 
     /**
-     * \brief state start
+     * @brief state start
      */
     virtual void OnStart() override;
 
     /**
-     * \brief state step
-     * \param [in] dt time delta
+     * @brief state step
+     * @param [in] dt time delta
      */
     virtual void OnStep(const float dt) override;
 
     /**
-     * \brief state end
+     * @brief state end
      */
     virtual void OnEnd() override;
 
     /**
-     * \brief check for end condition
+     * @brief check for end condition
      */
     virtual bool StateOver() override;
 
     /**
-     * \brief init the state
-     * \param [in] dir direction
+     * @brief init the state
+     * @param [in] dir direction
      */
     void Init(GameLib::Vector3 dir);
 

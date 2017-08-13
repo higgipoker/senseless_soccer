@@ -10,12 +10,37 @@ namespace SenselessSoccer {
  */
 class BrainGetBall : public BrainState {
   public:
+    /**
+     * @brief BrainGetBall
+     * @param player
+     */
     BrainGetBall(Player *player);
 
+    /**
+     * @brief OnStart
+     */
     virtual void OnStart() override;
+
+    /**
+     * @brief OnStep
+     * @param _dt
+     */
     virtual void OnStep(const float _dt) override;
+
+    /**
+     * @brief OnEnd
+     */
     virtual void OnEnd() override;
+
+    /**
+     * @brief StateOver
+     * @return
+     */
     virtual bool StateOver() override;
+
+    /**
+     * @brief ChangeToNextState
+     */
     virtual void ChangeToNextState() override;
 
   protected:
