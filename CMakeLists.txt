@@ -19,7 +19,6 @@ set(LIBRARY_OUTPUT_PATH ${CMAKE_BINARY_DIR})
 # include dirs
 # --------------------------------------------------
 #include_directories(${PROJECT_SOURCE_DIR}/src)
-include_directories(${CMAKE_SOURCE_DIR}/libs/include)
 include_directories(${PROJECT_SOURCE_DIR}/../dependencies/include)
 
 # --------------------------------------------------
