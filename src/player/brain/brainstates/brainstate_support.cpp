@@ -28,52 +28,53 @@ void BrainSupport::OnStep(const float dt) {
     // get the current ball sector
     int ball_sector = player->pitch->grid.PointToSector(player->ball->GetPosition());
 
-    // if ball sector is valid and has changed
-    if (ball_sector >= 0 && ball_sector != last_ball_sector) {
+    if (ball_sector < 0)
+        return;
+    if (ball_sector == last_ball_sector)
+        return;
 
-        // get the new target sector depending on player role
-        int target_sector = player->role->GetPosition(ball_sector);
+    // save for next time round
+    last_ball_sector = ball_sector;
 
-        // modify based on tactical instructions?
-        if (modifiers.size()) {
-            switch (modifiers[0]) {
+    // get the new target sector depending on player role
+    int target_sector = player->role->GetPosition(ball_sector);
 
-            //
-            // stay a couple of sectors back
-            //
-            case SUPPORT_BACKUP:
-                target_sector = mod_for_backup(target_sector);
-                break;
+    // modify based on tactical instructions?
+    if (modifiers.size()) {
+        switch (modifiers[0]) {
 
-            //
-            // run towards the ball
-            //
-            case SUPPORT_PASS:
-                player->brain.locomotion.ActivatePursue(player->ball->physical);
-                break;
+        //
+        // stay a couple of sectors back
+        //
+        case SUPPORT_BACKUP:
+            target_sector = mod_for_backup(target_sector);
+            break;
 
-            //
-            // bomb forward
-            //
-            case SUPPORT_RUN:
-                player->brain.locomotion.ActivateHead(Metrics::compasstoVector(NORTH));
-                break;
+        //
+        // run towards the ball
+        //
+        case SUPPORT_PASS:
+            player->brain.locomotion.ActivatePursue(player->ball->physical);
+            break;
 
-            case MODIFIER_NONE:
-            default:
-                break;
-            }
-        } else {
-            // only if the target sector has changed
-            if (target_sector != last_target_sector) {
-                last_target_sector = target_sector;
-                destination = player->pitch->grid.GetSectorCenter(target_sector).vector();
-                player->brain.locomotion.ActivateArrive(destination);
-            }
+        //
+        // bomb forward
+        //
+        case SUPPORT_RUN:
+            player->brain.locomotion.ActivateHead(Metrics::compasstoVector(NORTH));
+            break;
+
+        case MODIFIER_NONE:
+        default:
+            break;
         }
-
-        // save for next time round
-        last_ball_sector = ball_sector;
+    } else {
+        // only if the target sector has changed
+        if (target_sector != last_target_sector) {
+            last_target_sector = target_sector;
+            destination = player->pitch->grid.GetSectorCenter(target_sector).vector();
+            player->brain.locomotion.ActivateArrive(destination);
+        }
     }
 
     // check stop condition

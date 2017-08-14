@@ -118,7 +118,7 @@ int main(int argc, char *argv[]) {
     BallSprite ball_sprite(senseless.working_directory + "/gfx/ball_new.png", 4, 2);
     BallShadowSprite ball_shadow_sprite(senseless.working_directory + "/gfx/ball_shadow.png", 1, 1);
     ball.ConnectSprite(ball_sprite, ball_shadow_sprite);
-    ball.SetPosition(100, 100, 0);
+    ball.SetPosition(1000, 1000, 100);
     Match::ball = &ball;
     Player::ball = &ball;
 

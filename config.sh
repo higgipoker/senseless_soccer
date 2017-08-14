@@ -13,6 +13,3 @@ cmake ../ -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=Release
 
 cd ..;
 mkdir bin;
-ln -s ./data bin/data;
-ln -s ./gfx bin/gfx;
-ln -s ./fonts bin/fonts;
