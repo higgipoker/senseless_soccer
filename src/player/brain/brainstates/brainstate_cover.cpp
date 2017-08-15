@@ -28,19 +28,21 @@ void BrainCover::OnStep(const float dt) {
     int ball_sector = player->pitch->grid.PointToSector(player->ball->GetPosition());
 
     // if ball sector is valid and has changed
-    if (ball_sector >= 0 && ball_sector != last_ball_sector) {
+    if(ball_sector >= 0 && ball_sector != last_ball_sector) {
 
         // get the new target sector depending on player role
         int target_sector = player->role->GetPosition(ball_sector);
 
         // modify based on tactical instructions?
         int m = 0;
-        if (modifiers.size()) {
-            switch (modifiers[0]) {
+
+        if(modifiers.size()) {
+            switch(modifiers[0]) {
 
             case COVER_PRESS:
                 m = -1;
                 break;
+
             case COVER_PRESS_HIGH:
                 m = -2;
                 break;
@@ -48,6 +50,7 @@ void BrainCover::OnStep(const float dt) {
             case COVER_SHADOW:
                 m = 1;
                 break;
+
             case COVER_SHADOW_DEEP:
                 m = 2;
                 break;
@@ -57,10 +60,11 @@ void BrainCover::OnStep(const float dt) {
                 break;
             }
         }
+
         target_sector = player->pitch->grid.OffsetSectorY(target_sector, m);
 
         // only if the target sector has changed
-        if (target_sector != last_target_sector) {
+        if(target_sector != last_target_sector) {
             last_target_sector = target_sector;
             destination = player->pitch->grid.GetSectorCenter(target_sector).vector();
             player->brain.locomotion.ActivateArrive(destination);
@@ -72,7 +76,8 @@ void BrainCover::OnStep(const float dt) {
 
     // check stop condition
     GameLib::Vector3 distance = player->physical->position - destination;
-    if (distance.magnitude() < 10) {
+
+    if(distance.magnitude() < 10) {
         player->brain.locomotion.Cancel();
     }
 }
@@ -81,6 +86,7 @@ void BrainCover::OnStep(const float dt) {
 // OnEnd
 // ------------------------------------------------------------
 void BrainCover::OnEnd() {
+    BrainState::OnEnd();
 }
 
 // ------------------------------------------------------------

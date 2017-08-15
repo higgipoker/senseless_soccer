@@ -8,7 +8,7 @@ namespace SenselessSoccer {
 *@brief The BrainState class
 */
 class BrainState : public GameLib::State {
-  public:
+public:
     /**
      * @brief BrainState
      * @param p
@@ -40,7 +40,7 @@ class BrainState : public GameLib::State {
     /**
      * @brief ChangeToNextState
      */
-    virtual void ChangeToNextState() override;
+    void ChangeToNextState() override final;
 
     /**
      * @brief modify the state parameters on the fly
@@ -48,11 +48,17 @@ class BrainState : public GameLib::State {
      */
     virtual void Modify(modifier mod);
 
-  protected:
+protected:
     /// pointer back to player for sm context
     Player *player;
 
     /// state paramaters modifier
     std::vector<modifier> modifiers;
+
+    /// next state to change to
+    brainstate next_state;
+
+public:
+    friend class Brain;
 };
 }

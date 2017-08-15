@@ -5,37 +5,37 @@
 
 #include "../player/player.h"
 
-namespace SenselessSoccer{
+namespace SenselessSoccer {
 
-class Team : public GameLib::StateMachine, public GameLib::GameEntity{
+class Team : public GameLib::StateMachine, public GameLib::GameEntity {
 public:
 
-	/**
-	 * @brief constuct
-	 */
-	Team();
+    /**
+     * @brief constuct
+     */
+    Team();
 
     /**
       @brief destruct
       */
     ~Team();
 
-	/**
+    /**
      * @brief on step
      * @param dt time delta
      */
     void Update(float dt);
 
-	/**
-	 * @brief add a player
-	 * @param player pointer to player to add
-	 */
-	void AddPlayer( Player *player );
+    /**
+     * @brief add a player
+     * @param player pointer to player to add
+     */
+    void AddPlayer(Player *player);
 
 protected:
 
-	/// players
-	std::vector< Player* > players;
+    /// players
+    std::vector< Player * > players;
 };
 
 }// SenselessSoccer

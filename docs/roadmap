@@ -17,17 +17,19 @@ A. AI v AI match
                         *arrising: grid system for pitch locations (done)
                         Press (done)
                         Shadow (done 12/8/17)
-                *arising: Cover should really be a bran state, not a locomotion state -> refactor (done 12/8/17)
-		Support                                                
+                *arising: Cover should really be a brain state, not a locomotion state -> refactor (done 12/8/17)
+                Support
                         Backup (done)
                         Pass (done)
                         Run (done 13/8/17)
-		Dribble
-		Pass
-		Shoot
-		Tackle
-		Clear
-		Goalkeeper
+                Dribble (done 15/8/17)
+                Pass
+                Receive
+                Shoot
+                Tackle
+                Clear
+                Mark
+        Goalkeeper
 
 	2. Match Mechanics
 		 Match States

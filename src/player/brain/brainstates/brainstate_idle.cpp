@@ -25,22 +25,19 @@ void BrainIdle::OnStep(const float _dt) {
 // OnEnd
 // ------------------------------------------------------------
 void BrainIdle::OnEnd() {
+    BrainState::OnEnd();
 }
 
 // ------------------------------------------------------------
 // StateOver
 // ------------------------------------------------------------
 bool BrainIdle::StateOver() {
-    if (player->ball_under_control()) {
+    if(player->ball_under_control()) {
+        next_state = BRAIN_DRIBBLE;
         return true;
     }
+
     return false;
 }
 
-// ------------------------------------------------------------
-// ChangeToNextState
-// ------------------------------------------------------------
-void BrainIdle::ChangeToNextState() {
-    player->brain.ChangeState(new BrainDribble(player));
-}
 }

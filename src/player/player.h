@@ -13,7 +13,7 @@ namespace SenselessSoccer {
 
 /** @brief class to represent a player entity */
 class Player : public GameLib::StateMachine, public GameLib::GameEntity {
-  public:
+public:
     /**
      * @brief constructor
      */
@@ -56,7 +56,7 @@ class Player : public GameLib::StateMachine, public GameLib::GameEntity {
     static Ball *ball;
     static Pitch *pitch;
 
-  protected:
+protected:
     /// to access the sprite specific functionality of renderable (eg animate)
     PlayerSprite *player_sprite;
 
@@ -132,17 +132,19 @@ class Player : public GameLib::StateMachine, public GameLib::GameEntity {
      */
     void kick(float force);
 
-  public:
+public:
     // ------------------------------------------------------------
     // state machine pattern friends
     // ------------------------------------------------------------
     friend class Standing;
     friend class Running;
     friend class Brain;
+    friend class BrainState;
     friend class BrainIdle;
     friend class BrainDribble;
     friend class BrainCover;
     friend class BrainSupport;
+    friend class BrainPass;
 };
 
 } // SenselessSoccer

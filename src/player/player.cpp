@@ -62,9 +62,10 @@ void Player::Update(float dt) {
     renderable->z_order = physical->position.y;
 
     // only if input is attached
-    if (input) {
+    if(input) {
         physical->ResetVelocity();
         handle_input();
+
     } else {
         brain.Step(dt);
     }
@@ -79,13 +80,14 @@ void Player::Update(float dt) {
     update_dribble_circle();
 
     // check for collision with ball (dribble)
-    if (GameLib::CollisionDetector::collision(dribble_circle, ball->GetCollidable())) {
+    if(GameLib::CollisionDetector::collision(dribble_circle, ball->GetCollidable())) {
         do_dribble(physical->velocity.normalised());
     }
 
     // calc if changed direction
-    if (last_direction.equals(physical->velocity.getNormalizedToUnits())) {
+    if(last_direction.equals(physical->velocity.getNormalizedToUnits())) {
         changed_direction = false;
+
     } else {
         changed_direction = true;
     }
@@ -94,7 +96,7 @@ void Player::Update(float dt) {
     last_direction = physical->velocity.getNormalizedToUnits();
 
     // ball control
-    if (changed_direction && ball_under_control() && physical->velocity.magnitude()) {
+    if(changed_direction && ball_under_control() && physical->velocity.magnitude()) {
         do_close_control();
     }
 }
@@ -136,28 +138,28 @@ void Player::handle_input() {
     input->Update();
 
     // up
-    if (input->event_states[GameLib::UP]) {
+    if(input->event_states[GameLib::UP]) {
         physical->velocity.y = -1;
     }
 
     // down
-    if (input->event_states[GameLib::DOWN]) {
+    if(input->event_states[GameLib::DOWN]) {
         physical->velocity.y = 1;
     }
 
     // left
-    if (input->event_states[GameLib::LEFT]) {
+    if(input->event_states[GameLib::LEFT]) {
         physical->velocity.x = -1;
     }
 
     // right
-    if (input->event_states[GameLib::RIGHT]) {
+    if(input->event_states[GameLib::RIGHT]) {
         physical->velocity.x = 1;
     }
 
     // fire released
-    if (input->event_states[GameLib::FIRE_UP]) {
-        if (ball_under_control()) {
+    if(input->event_states[GameLib::FIRE_UP]) {
+        if(ball_under_control()) {
             kick(input->event_states[GameLib::FIRE_LENGTH_CACHED] * 25);
         }
     }
@@ -190,7 +192,8 @@ void Player::normalize_velocity() {
 
     // normalizes for diagonals
     float mag = physical->velocity.magnitude();
-    if (mag > running_speed) {
+
+    if(mag > running_speed) {
         physical->velocity *= running_speed;
     }
 }
@@ -214,7 +217,7 @@ void Player::animate() {
 
     // update shadow
     player_sprite->shadow->SetPosition(player_sprite->GetPosition().x + 3, /* TODO magic numbers here for shadow offset */
-                                       player_sprite->GetPosition().y + 7);
+            player_sprite->GetPosition().y + 7);
 }
 
 // ------------------------------------------------------------
@@ -249,7 +252,7 @@ void Player::update_dribble_circle() {
 // ------------------------------------------------------------
 void Player::do_dribble(const GameLib::Vector3 &direction) {
     // TODO height
-    if (ball->physical->position.z > 30)
+    if(ball->physical->position.z > 30)
         return;
 
     // calc force needed for kick
@@ -260,7 +263,7 @@ void Player::do_dribble(const GameLib::Vector3 &direction) {
     float mag = kick.magnitude();
 
     // if magnitude is big enough
-    if (mag > force_needed) {
+    if(mag > force_needed) {
         kick /= mag;
         kick *= force_needed;
     }
@@ -292,9 +295,10 @@ void Player::do_close_control() {
 // ------------------------------------------------------------
 bool Player::ball_under_control() {
     // true if ball is colliding with the control circle
-    if (GameLib::CollisionDetector::collision(close_control_circle, ball->GetCollidable())) {
+    if(GameLib::CollisionDetector::collision(close_control_circle, ball->GetCollidable())) {
         return true;
     }
+
     return false;
 }
 
@@ -315,67 +319,87 @@ void Player::kick(float force) {
 // Call
 // ------------------------------------------------------------
 void Player::Call(std::vector<std::string> params) {
-    if (params[0] == "arrive") {
+    if(params[0] == "arrive") {
         std::vector<std::string> new_params(params.begin() + 1, params.end());
 
-        if (new_params.size() >= 2) {
+        if(new_params.size() >= 2) {
             brain.locomotion.ActivateArrive(GameLib::Vector3(atoi(new_params[0].c_str()), atoi(new_params[1].c_str())));
         }
+
         return;
     }
 
-    if (params[0] == "pursue") {
+    if(params[0] == "pursue") {
         std::vector<std::string> new_params(params.begin() + 1, params.end());
-        if (new_params.size() >= 1) {
+
+        if(new_params.size() >= 1) {
             GameEntity *entity = Globals::sensi->GetEntity(new_params[0]);
             brain.locomotion.ActivatePursue(entity->physical);
         }
+
         return;
     }
-    if (params[0] == "cover") {
+
+    if(params[0] == "cover") {
         brain.ActivateState(BRAIN_COVER);
         return;
     }
-    if (params[0] == "support") {
+
+    if(params[0] == "support") {
         brain.ActivateState(BRAIN_SUPPORT);
         return;
     }
-    if (params[0] == "head") {
+
+    if(params[0] == "head") {
         std::vector<std::string> new_params(params.begin() + 1, params.end());
-        if (new_params.size() >= 1) {
+
+        if(new_params.size() >= 1) {
             GameLib::Vector3 dir;
-            if (new_params[0] == "north") {
+
+            if(new_params[0] == "north") {
                 dir = Metrics::compasstoVector(NORTH);
-            } else if (new_params[0] == "north_east") {
+
+            } else if(new_params[0] == "north_east") {
                 dir = Metrics::compasstoVector(NORTH_EAST);
-            } else if (new_params[0] == "east") {
+
+            } else if(new_params[0] == "east") {
                 dir = Metrics::compasstoVector(EAST);
-            } else if (new_params[0] == "south_east") {
+
+            } else if(new_params[0] == "south_east") {
                 dir = Metrics::compasstoVector(SOUTH_EAST);
-            } else if (new_params[0] == "south") {
+
+            } else if(new_params[0] == "south") {
                 dir = Metrics::compasstoVector(SOUTH);
-            } else if (new_params[0] == "south_west") {
+
+            } else if(new_params[0] == "south_west") {
                 dir = Metrics::compasstoVector(SOUTH_WEST);
-            } else if (new_params[0] == "west") {
+
+            } else if(new_params[0] == "west") {
                 dir = Metrics::compasstoVector(WEST);
-            } else if (new_params[0] == "north_west") {
+
+            } else if(new_params[0] == "north_west") {
                 dir = Metrics::compasstoVector(NORTH_WEST);
             }
 
             brain.locomotion.ActivateHead(dir);
         }
+
         return;
     }
-    if (params[0] == "modify") {
+
+    if(params[0] == "modify") {
         std::vector<std::string> new_params(params.begin() + 1, params.end());
-        if (new_params.size() >= 1) {
+
+        if(new_params.size() >= 1) {
             brain.SetModifier(modifier(atoi(new_params[0].c_str())));
         }
     }
-    if (params[0] == "cancel") {
+
+    if(params[0] == "cancel") {
         brain.locomotion.Cancel();
         return;
     }
+
     GameLib::GameEntity::Call(params);
 };
 

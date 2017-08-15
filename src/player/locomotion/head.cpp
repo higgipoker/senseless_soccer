@@ -50,4 +50,11 @@ void Head::Init(GameLib::Vector3 dir) {
     direction.normalizeToUnits();
 }
 
+// ------------------------------------------------------------
+// Cancel
+// ------------------------------------------------------------
+void Head::Cancel(){
+    state_over = true;
+}
+
 } // namespace SenselessSoccer

@@ -8,7 +8,7 @@ enum player_state { PLAYER_STATE_NONE, PLAYER_STATE_STAND, PLAYER_STATE_RUN };
 class Player;
 class PlayerState : public GameLib::State {
 
-  public:
+public:
     /**
     * @brief constructor
     * @param p reference to player for sm context
@@ -20,7 +20,7 @@ class PlayerState : public GameLib::State {
     */
     virtual void ChangeToNextState() override;
 
-  protected:
+protected:
     /// for state machine context
     Player &player;
 

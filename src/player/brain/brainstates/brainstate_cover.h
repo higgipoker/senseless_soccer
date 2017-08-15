@@ -23,7 +23,7 @@ namespace SenselessSoccer {
  *          drop deeper.
  */
 class BrainCover : public BrainState {
-  public:
+public:
     /**
      * @brief constructor
      * @param [in] p pointer back to player for state machine context
@@ -56,7 +56,7 @@ class BrainCover : public BrainState {
      */
     virtual void Modify(modifier mod) override;
 
-  protected:
+protected:
     /// track last ball sector
     int last_ball_sector;
 

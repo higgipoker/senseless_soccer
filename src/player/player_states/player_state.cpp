@@ -18,7 +18,7 @@ PlayerState::PlayerState(Player &p) : player(p), next_state(PLAYER_STATE_NONE) {
 // ------------------------------------------------------------
 void PlayerState::ChangeToNextState() {
 
-    switch (next_state) {
+    switch(next_state) {
 
     case PLAYER_STATE_STAND:
         player.ChangeState(new Standing(player));

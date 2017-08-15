@@ -2,9 +2,9 @@
 
 #include "match_state.h"
 
-namespace SenselessSoccer{
+namespace SenselessSoccer {
 
-class MatchStatePlay : public MatchState{
+class MatchStatePlay : public MatchState {
 
 };
 

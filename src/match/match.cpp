@@ -1,6 +1,6 @@
 #include "match.h"
 
-namespace SenselessSoccer{
+namespace SenselessSoccer {
 
 Ball *Match::ball = nullptr;
 

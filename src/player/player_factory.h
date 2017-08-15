@@ -5,11 +5,11 @@
 namespace SenselessSoccer {
 
 class PlayerFactory {
-  public:
+public:
     ~PlayerFactory();
     Player *MakePlayer(const std::string entityname, const std::string &role_filename);
 
-  private:
+private:
     std::vector<Player *> players;
 };
 }

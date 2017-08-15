@@ -9,7 +9,7 @@
 namespace SenselessSoccer {
 
 class Pitch : public GameLib::GameEntity {
-  public:
+public:
     /**
     * @brief constructor
     * @param x x
@@ -36,7 +36,7 @@ class Pitch : public GameLib::GameEntity {
     /// pitch metrics
     PitchMetrics metrics;
 
-  protected:
+protected:
     /// renderable
     PitchTiled *renderable_pitch;
 };

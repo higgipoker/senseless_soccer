@@ -15,7 +15,8 @@ void SenselessGame::on_mouse_click(int x, int y) {
 
     // get the camera entity (TODO: util function to convert screen->world coordinates)
     GameLib::Camera *c = (GameLib::Camera *)GetEntity("camera");
-    if (b && c) {
+
+    if(b && c) {
 
         // put the ball there
         b->SetPosition(x + c->GetViewport().x, y + c->GetViewport().y, 5);

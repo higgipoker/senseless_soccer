@@ -30,7 +30,7 @@ bool Brain::in_pitch(float dt) {
     GameLib::Circle c(projected_position.x, projected_position.y, 50);
     GameLib::Rectangle r = player->pitch->metrics.pitch_rect;
 
-    if (c.in_rect(r)) {
+    if(c.in_rect(r)) {
         return true;
     }
 
@@ -41,34 +41,15 @@ bool Brain::in_pitch(float dt) {
 // ActivateState
 // ------------------------------------------------------------
 void Brain::ActivateState(brainstate bs) {
-
-    switch (bs) {
-    default:
-    case BRAINSTATE_NONE:
-        break;
-    case BRAIN_COVER:
-        ChangeState(new BrainCover(player));
-        break;
-    case BRAIN_DRIBBLE:
-        ChangeState(new BrainDribble(player));
-        break;
-    case BRAIN_GETBALL:
-        ChangeState(new BrainGetBall(player));
-        break;
-    case BRAIN_IDLE:
-        ChangeState(new BrainIdle(player));
-        break;
-    case BRAIN_SUPPORT:
-        ChangeState(new BrainSupport(player));
-        break;
-    }
+    ((BrainState*)(current_state))->next_state = bs;
+    current_state->ChangeToNextState();
 }
 
 // ------------------------------------------------------------
 // SetModifier
 // ------------------------------------------------------------
 void Brain::SetModifier(const modifier m) {
-    if (current_state != nullptr) {
+    if(current_state != nullptr) {
         ((BrainState *)(current_state))->Modify(m);
     }
 }

@@ -7,7 +7,7 @@ namespace SenselessSoccer {
 
 class PlayerSprite : public GameLib::Sprite {
 public:
-    explicit PlayerSprite(const std::string& filename, unsigned int number_rows, unsigned int number_cols);
+    explicit PlayerSprite(const std::string &filename, unsigned int number_rows, unsigned int number_cols);
 
     /**
      * @brief update the running animation depending on direction
@@ -23,7 +23,7 @@ public:
 
     /// some shapes for debug rendering
     GameLib::Circle circle1;
-	GameLib::Circle circle2;
+    GameLib::Circle circle2;
 
 private:
 

@@ -33,7 +33,7 @@ void Standing::OnEnd() {
 // ------------------------------------------------------------
 bool Standing::StateOver() {
 
-    if (player.physical->velocity.magnitude()) {
+    if(player.physical->velocity.magnitude()) {
         next_state = PLAYER_STATE_RUN;
         return true;
     }

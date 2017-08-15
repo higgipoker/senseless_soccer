@@ -23,7 +23,7 @@ class Player;
  * @brief base class for locomotion
  */
 class Locomotion {
-  public:
+public:
     /**
      * @brief constructor
      * @param [in] p pointer back to player
@@ -50,7 +50,12 @@ class Locomotion {
      */
     virtual bool StateOver() = 0;
 
-  protected:
+    /**
+     * @brief some states can be ended manually
+     */
+    virtual void Cancel() = 0;
+
+protected:
     /// pointer back to player for state machine pattern
     Player *player;
 

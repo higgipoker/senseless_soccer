@@ -3,7 +3,7 @@
 namespace SenselessSoccer {
 class SenselessGame;
 class Globals {
-  public:
+public:
     static SenselessGame *sensi;
 };
 }

@@ -1,6 +1,6 @@
 #include "state_play.h"
 
-namespace SenselessSoccer{
+namespace SenselessSoccer {
 
 
 }// SenselessSoccer

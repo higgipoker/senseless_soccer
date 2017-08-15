@@ -40,16 +40,16 @@ void LocomotionManager::ActivateHead(GameLib::Vector3 dir) {
 // ------------------------------------------------------------
 void LocomotionManager::UpdateLocomotion(float dt) {
     // check for pending behaviour
-    if (!behaviour_queue.empty()) {
+    if(!behaviour_queue.empty()) {
         Locomotion *next = behaviour_queue.back();
         behaviour_queue.pop();
         change_locomotion(*next);
     }
 
-    if (behaviour) {
+    if(behaviour) {
         behaviour->OnStep(dt);
 
-        if (behaviour->StateOver()) {
+        if(behaviour->StateOver()) {
             behaviour->OnEnd();
             behaviour = NULL;
         }
@@ -62,20 +62,22 @@ void LocomotionManager::UpdateLocomotion(float dt) {
 void LocomotionManager::change_locomotion(Locomotion &b) {
 
     // a behaviour is currently running
-    if (behaviour) {
-        // behaviours override the stop method, so some are not able to be stopped
+    if(behaviour) {
+        // behaviours override the cancel method, so some are not able to be stopped
         // manually
-        behaviour->OnEnd();
+        behaviour->Cancel();
 
-        if (behaviour->StateOver()) {
+        if(behaviour->StateOver()) {
             behaviour = &b;
 
-            if (behaviour) {
+            if(behaviour) {
                 behaviour->OnStart();
             }
+
         } else {
             behaviour_queue.push(&b);
         }
+
     } else {
         // no behaviour running
         behaviour = &b;
@@ -87,7 +89,7 @@ void LocomotionManager::change_locomotion(Locomotion &b) {
 // Cancel
 // ------------------------------------------------------------
 void LocomotionManager::Cancel(void) {
-    if (behaviour) {
+    if(behaviour) {
         behaviour->OnEnd();
         behaviour = NULL;
     }

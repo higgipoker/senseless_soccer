@@ -22,7 +22,7 @@ namespace SenselessSoccer {
  *          run - make a forward run to make an option for through ball or long ball
  */
 class BrainSupport : public BrainState {
-  public:
+public:
     /**
      * @brief constructor
      * @param [in] p pointer back to player for state machine context
@@ -55,7 +55,7 @@ class BrainSupport : public BrainState {
      */
     virtual void Modify(modifier mod) override;
 
-  protected:
+protected:
     /// track last ball sector
     int last_ball_sector;
 

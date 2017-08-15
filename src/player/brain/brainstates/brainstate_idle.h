@@ -6,7 +6,7 @@
 namespace SenselessSoccer {
 
 class BrainIdle : public BrainState {
-  public:
+public:
     /**
      * @brief BrainIdle
      * @param player
@@ -35,11 +35,6 @@ class BrainIdle : public BrainState {
      */
     virtual bool StateOver() override;
 
-    /**
-     * @brief ChangeToNextState
-     */
-    virtual void ChangeToNextState() override;
-
-  protected:
+protected:
 };
 }

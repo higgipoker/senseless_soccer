@@ -9,7 +9,7 @@ namespace SenselessSoccer {
  * ai state to make plyer go get a loose ball
  */
 class BrainGetBall : public BrainState {
-  public:
+public:
     /**
      * @brief BrainGetBall
      * @param player
@@ -38,11 +38,6 @@ class BrainGetBall : public BrainState {
      */
     virtual bool StateOver() override;
 
-    /**
-     * @brief ChangeToNextState
-     */
-    virtual void ChangeToNextState() override;
-
-  protected:
+protected:
 };
 }

@@ -1,10 +1,11 @@
 #pragma once
 #include "brainstate.h"
 #include <gamelib/utils/timer.h>
+#include "../../../metrics/metrics.h"
 namespace SenselessSoccer {
 
 class BrainDribble : public BrainState {
-  public:
+public:
     /**
      * @brief BrainDribble
      * @param p
@@ -34,11 +35,17 @@ class BrainDribble : public BrainState {
     virtual bool StateOver() override;
 
     /**
-     * @brief ChangeToNextState
+     * @brief init the dribble state
+     * @param dir initial direction
      */
-    virtual void ChangeToNextState() override;
+    void Init(Compass dir);
 
-  protected:
+     /**
+     * @brief modify the state parameters on the fly
+     */
+    virtual void Modify(modifier mod) override;
+
+protected:
     /**
      * @brief change_direction
      */

@@ -32,7 +32,7 @@ void Ball::Update(float dt) {
     ball_sprite->Scale(sprite_scale_factor);
 
     // the ball only rolls if it's moving
-    if (physical->velocity.magnitude() > TOL) {
+    if(physical->velocity.magnitude() > TOL) {
 
         // rotate ball sprite depending on roll direction
         set_sprite_rotation();
@@ -43,7 +43,7 @@ void Ball::Update(float dt) {
 
     // shadow postion
     ball_shadow->SetPosition(ball_sprite->GetPosition().x + SHADOW_OFFSET + physical->position.z,
-                             ball_sprite->GetPosition().y + SHADOW_OFFSET + physical->position.z);
+            ball_sprite->GetPosition().y + SHADOW_OFFSET + physical->position.z);
 
     // shadow size
     ball_shadow->Scale(sprite_scale_factor);
@@ -73,7 +73,7 @@ void Ball::do_physics(float dt) {
     //
     // either gravity or friction
     //
-    if (physical->position.z > 0) {
+    if(physical->position.z > 0) {
 
         //
         // gravity
@@ -88,7 +88,7 @@ void Ball::do_physics(float dt) {
         GameLib::Vector3 air = physical->velocity.Reverse() * air_resistance;
         ApplyForce(air);
 
-    } else if (physical->velocity.magnitude()) {
+    } else if(physical->velocity.magnitude()) {
         //
         // friction
         //
@@ -101,12 +101,12 @@ void Ball::do_physics(float dt) {
     //
     // bounce
     //
-    if (physical->position.z <= 0 && physical->velocity.z) {
+    if(physical->position.z <= 0 && physical->velocity.z) {
         physical->position.z = 0;
         physical->velocity.z = -(physical->velocity.z * co_bounciness);
 
         // infinite bounce damping
-        if (fabs(physical->velocity.z) < INFINITE_SMALL_BOUNCE) {
+        if(fabs(physical->velocity.z) < INFINITE_SMALL_BOUNCE) {
             physical->velocity.z = 0;
             physical->position.z = 0;
         }
@@ -132,7 +132,7 @@ void Ball::rebound(GameLib::Vector3 wall, float damp, bool damp_z) {
     physical->velocity.x *= damp;
     physical->velocity.y *= damp;
 
-    if (damp_z) {
+    if(damp_z) {
         physical->velocity.z *= damp;
     }
 }

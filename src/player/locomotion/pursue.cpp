@@ -22,19 +22,19 @@ void Pursue::OnStart() {
 // OnStep
 // ------------------------------------------------------------
 void Pursue::OnStep(const float dt) {
-    if (destination_reached)
+    if(destination_reached)
         return;
 
     player->physical->velocity = target->position - player->physical->position;
     last_distance = target->position - player->physical->position;
     GameLib::Vector3 new_distance = target->position - player->physical->position;
 
-    if (new_distance.magnitude() < 100) {
+    if(new_distance.magnitude() < 100) {
         destination_reached = true;
         player->physical->ResetVelocity();
 
     } else {
-        if (new_distance.magnitude() > last_distance.magnitude()) {
+        if(new_distance.magnitude() > last_distance.magnitude()) {
             player->physical->velocity = target->position - player->physical->position;
         }
     }
@@ -64,6 +64,13 @@ bool Pursue::StateOver() {
 // ------------------------------------------------------------
 void Pursue::Init(GameLib::Physical *t) {
     target = t;
+}
+
+// ------------------------------------------------------------
+// Cancel
+// ------------------------------------------------------------
+void Pursue::Cancel(){
+    state_over = true;
 }
 
 } // namespace SenselessSoccer

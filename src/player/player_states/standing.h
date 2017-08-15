@@ -10,7 +10,7 @@ public:
 
     /**
     * @brief constructor
-	* @param p reference to player for sm context
+    * @param p reference to player for sm context
     */
     explicit Standing(Player &p);
 

@@ -2,14 +2,14 @@
 
 #include "team_state.h"
 
-namespace SenselessSoccer{
+namespace SenselessSoccer {
 
-class TeamStatePlay : public TeamState{
+class TeamStatePlay : public TeamState {
 public:
-  /**
-   * @brief onStart
-   */
-  virtual void OnStart() override;
+    /**
+     * @brief onStart
+     */
+    virtual void OnStart() override;
 
 };
 

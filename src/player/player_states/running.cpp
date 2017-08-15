@@ -32,10 +32,11 @@ void Running::OnEnd() {
 // StateOver
 // ------------------------------------------------------------
 bool Running::StateOver() {
-    if (player.physical->velocity.magnitude() == 0) {
+    if(player.physical->velocity.magnitude() == 0) {
         next_state = PLAYER_STATE_STAND;
         return true;
     }
+
     return false;
 }
 

@@ -28,9 +28,8 @@ void BrainSupport::OnStep(const float dt) {
     // get the current ball sector
     int ball_sector = player->pitch->grid.PointToSector(player->ball->GetPosition());
 
-    if (ball_sector < 0)
-        return;
-    if (ball_sector == last_ball_sector)
+    // make sure the ball is in the pitch
+    if(ball_sector < 0 || ball_sector >= player->pitch->grid.NumberSectors())
         return;
 
     // save for next time round
@@ -40,8 +39,8 @@ void BrainSupport::OnStep(const float dt) {
     int target_sector = player->role->GetPosition(ball_sector);
 
     // modify based on tactical instructions?
-    if (modifiers.size()) {
-        switch (modifiers[0]) {
+    if(modifiers.size()) {
+        switch(modifiers[0]) {
 
         //
         // stay a couple of sectors back
@@ -68,32 +67,45 @@ void BrainSupport::OnStep(const float dt) {
         default:
             break;
         }
-    } else {
-        // only if the target sector has changed
-        if (target_sector != last_target_sector) {
-            last_target_sector = target_sector;
-            destination = player->pitch->grid.GetSectorCenter(target_sector).vector();
-            player->brain.locomotion.ActivateArrive(destination);
-        }
+
     }
+
+    // only if the target sector has changed
+    if(target_sector != last_target_sector) {
+        destination = player->pitch->grid.GetSectorCenter(target_sector).vector();
+        player->brain.locomotion.ActivateArrive(destination);
+    }
+
+    last_target_sector = target_sector;
+
 
     // check stop condition
     GameLib::Vector3 distance = player->physical->position - destination;
-    if (distance.magnitude() < 10) {
-        player->physical->ResetVelocity();
+
+    if(distance.magnitude() < 10) {
+        player->brain.locomotion.Cancel();
+        return;
     }
+
 }
 
 // ------------------------------------------------------------
 // OnEnd
 // ------------------------------------------------------------
 void BrainSupport::OnEnd() {
+    BrainState::OnEnd();
 }
 
 // ------------------------------------------------------------
 // StateOver
 // ------------------------------------------------------------
 bool BrainSupport::StateOver() {
+    if(player->ball_under_control()) {
+        next_state = BRAIN_DRIBBLE;
+        return true;
+    }
+
+    return false;
 }
 
 // ------------------------------------------------------------
@@ -101,9 +113,11 @@ bool BrainSupport::StateOver() {
 // ------------------------------------------------------------
 void BrainSupport::Modify(modifier mod) {
     modifiers.clear();
-    if (mod != MODIFIER_NONE) {
+
+    if(mod != MODIFIER_NONE) {
         modifiers.push_back(mod);
     }
+
     last_ball_sector = -1;
     last_target_sector = -1;
 }

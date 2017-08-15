@@ -35,7 +35,8 @@ std::string filenames[] = {"LEFT_BACK_POSITIONS.pos",
                            "LEFT_MIDFIELDER_POSITIONS.pos",
                            "RIGHT_MIDFIELDER_POSITIONS.pos",
                            "LEFT_CENTER_ATTACKER_POSITIONS.pos",
-                           "RIGHT_CENTER_ATTACKER_POSITIONS.pos"};
+                           "RIGHT_CENTER_ATTACKER_POSITIONS.pos"
+                          };
 
 std::string playernames[] = {
     "player1", "player2", "player3", "player4", "player5", "player6", "player7", "player8", "player9", "player10",
@@ -57,23 +58,24 @@ std::string GetCurrentWorkingDirectory(void) {
 // parse_args
 // ------------------------------------------------------------
 static bool parse_args(int argc, char *argv[]) {
-    for (unsigned int i = 0; i < argc; ++i) {
+    for(unsigned int i = 0; i < argc; ++i) {
         std::string str(argv[i]);
 
-        if (str == "--gamelib-version") {
-            if (argc >= i) {
+        if(str == "--gamelib-version") {
+            if(argc >= i) {
                 GameLib::Log("GameLib version: " + GameLib::gamelib_version);
                 return false;
             }
         }
 
-        else if (str == "--version") {
-            if (argc >= i) {
+        else if(str == "--version") {
+            if(argc >= i) {
                 GameLib::Log("Senseless Soccer Version: " + senseless_soccer_version);
                 return false;
             }
         }
     }
+
     return true;
 }
 
@@ -81,7 +83,7 @@ static bool parse_args(int argc, char *argv[]) {
 // main
 // ------------------------------------------------------------
 int main(int argc, char *argv[]) {
-    if (!parse_args(argc, argv)) {
+    if(!parse_args(argc, argv)) {
         return 0;
     }
 
@@ -97,7 +99,8 @@ int main(int argc, char *argv[]) {
     //
     PlayerFactory player_factory;
     std::vector<Player *> players;
-    for (unsigned int i = 0; i < 10; ++i) {
+
+    for(unsigned int i = 0; i < 10; ++i) {
         players.push_back(player_factory.MakePlayer(playernames[i], filenames[i]));
     }
 
@@ -105,7 +108,8 @@ int main(int argc, char *argv[]) {
     // team
     //
     Team team1;
-    for (auto it = players.begin(); it != players.end(); ++it) {
+
+    for(auto it = players.begin(); it != players.end(); ++it) {
         team1.AddPlayer(*it);
     }
 
@@ -119,6 +123,7 @@ int main(int argc, char *argv[]) {
     BallShadowSprite ball_shadow_sprite(senseless.working_directory + "/gfx/ball_shadow.png", 1, 1);
     ball.ConnectSprite(ball_sprite, ball_shadow_sprite);
     ball.SetPosition(1000, 1000, 100);
+    senseless.ball = &ball;
     Match::ball = &ball;
     Player::ball = &ball;
 
@@ -126,6 +131,7 @@ int main(int argc, char *argv[]) {
     // pitch
     //
     Pitch pitch(250, 250, Metrics::MetersToPixels(68.5), Metrics::MetersToPixels(100.5f));
+    senseless.pitch = &pitch;
 
     PitchTiled pitch_renderable(senseless.working_directory + "/gfx/grass_dry.png", senseless.camera);
     pitch.ConnectRenderable(pitch_renderable);
@@ -165,9 +171,11 @@ int main(int argc, char *argv[]) {
     //
     senseless.AddEntity(pitch);
     senseless.AddEntity(team1);
-    for (auto it = players.begin(); it != players.end(); ++it) {
+
+    for(auto it = players.begin(); it != players.end(); ++it) {
         senseless.AddEntity(*(*it));
     }
+
     senseless.AddEntity(ball);
     senseless.AddEntity(goal_north);
     senseless.AddEntity(text);
@@ -182,7 +190,8 @@ int main(int argc, char *argv[]) {
 
     std::vector<std::string> call;
     call.push_back("support");
-    for (auto it = players.begin(); it != players.end(); ++it) {
+
+    for(auto it = players.begin(); it != players.end(); ++it) {
         (*it)->Call(call);
     }
 

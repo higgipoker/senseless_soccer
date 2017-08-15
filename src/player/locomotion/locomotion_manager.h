@@ -10,7 +10,7 @@ namespace SenselessSoccer {
 
 class Player;
 class LocomotionManager : public GameLib::StateMachine {
-  public:
+public:
     /**
      * @brief constructor
      * @param [in] p pointer back to player for state machine context
@@ -43,7 +43,7 @@ class LocomotionManager : public GameLib::StateMachine {
      */
     void Cancel(void);
 
-  private:
+private:
     /// ref back to player
     Player &player;
 

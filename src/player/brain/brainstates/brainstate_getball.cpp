@@ -24,6 +24,7 @@ void BrainGetBall::OnStep(const float _dt) {
 // OnEnd
 // ------------------------------------------------------------
 void BrainGetBall::OnEnd() {
+    BrainState::OnEnd();
 }
 
 // ------------------------------------------------------------
@@ -33,9 +34,4 @@ bool BrainGetBall::StateOver() {
     return false;
 }
 
-// ------------------------------------------------------------
-// ChangeToNextState
-// ------------------------------------------------------------
-void BrainGetBall::ChangeToNextState() {
-}
 }

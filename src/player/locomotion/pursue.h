@@ -19,7 +19,7 @@ namespace SenselessSoccer {
  * @brief player follows a specified target
  */
 class Pursue : public Locomotion {
-  public:
+public:
     /**
      *@brief constructor
      */
@@ -50,7 +50,12 @@ class Pursue : public Locomotion {
      */
     void Init(GameLib::Physical *t);
 
-  protected:
+    /**
+     * @brief some states can be ended manually
+     */
+    virtual void Cancel() override;
+
+protected:
     /// target to follow
     GameLib::Physical *target;
 

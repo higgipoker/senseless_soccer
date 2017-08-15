@@ -8,7 +8,7 @@ namespace SenselessSoccer {
  * @brief player runs in a specific direction until state is stopped
  */
 class Head : public Locomotion {
-  public:
+public:
     /**
      * @brief constructor
      * @param [in] p pointer back to player for state machine context
@@ -42,7 +42,12 @@ class Head : public Locomotion {
      */
     void Init(GameLib::Vector3 dir);
 
-  protected:
+    /**
+     * @brief some states can be ended manually
+     */
+    virtual void Cancel() override;
+
+protected:
     GameLib::Vector3 direction;
 };
 

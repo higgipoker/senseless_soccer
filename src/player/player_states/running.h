@@ -6,7 +6,7 @@ namespace SenselessSoccer {
 
 class Running : public PlayerState {
 
-  public:
+public:
     /**
     * @brief constructor
     * @param p reference to player for sm context
@@ -41,7 +41,7 @@ class Running : public PlayerState {
         return name;
     }
 
-  protected:
+protected:
 };
 
 } // SenselessSoccer

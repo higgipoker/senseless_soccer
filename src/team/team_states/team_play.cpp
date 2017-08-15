@@ -5,7 +5,7 @@ namespace SenselessSoccer {
 // ------------------------------------------------------------
 // OnStart
 // ------------------------------------------------------------
-void TeamStatePlay::OnStart() {	
+void TeamStatePlay::OnStart() {
 }
 
 }// Senselesssoccer

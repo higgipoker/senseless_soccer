@@ -5,7 +5,7 @@ namespace SenselessSoccer {
 
 class BallSprite : public GameLib::Sprite {
 public:
-    explicit BallSprite(const std::string& filename, unsigned int number_rows, unsigned int number_cols);
+    explicit BallSprite(const std::string &filename, unsigned int number_rows, unsigned int number_cols);
 
     /**
      * @brief update animation
@@ -31,7 +31,7 @@ private:
 
 class BallShadowSprite : public GameLib::Sprite {
 public:
-    explicit BallShadowSprite(const std::string& filename, unsigned int number_rows, unsigned int number_cols);
+    explicit BallShadowSprite(const std::string &filename, unsigned int number_rows, unsigned int number_cols);
 
     /**
     * @brief render

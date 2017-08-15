@@ -2,9 +2,9 @@
 
 #include <map>
 
-namespace SenselessSoccer{
+namespace SenselessSoccer {
 
-class Role{
+class Role {
 public:
 
     Role(const std::string &filename);

@@ -21,7 +21,7 @@ namespace SenselessSoccer {
  */
 class Arrive : public Locomotion {
 
-  public:
+public:
     /**
      * @brief constructor
      * @param [in] p pointer back to player
@@ -53,7 +53,12 @@ class Arrive : public Locomotion {
      */
     void Init(GameLib::Vector3 target);
 
-  protected:
+    /**
+     * @brief some states can be ended manually
+     */
+    virtual void Cancel() override;
+
+protected:
     /// tracks last distance from target destination
     GameLib::Vector3 last_distance;
 };

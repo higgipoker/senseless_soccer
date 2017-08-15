@@ -33,9 +33,11 @@ void BallSprite::Render(GameLib::Window &window) {
     GameLib::Sprite::Render(window);
 
 #ifdef RENDER_DEBUG
-    if (circle1.radius) {
+
+    if(circle1.radius) {
         GameLib::Primitives::Circle(window, circle1.x, circle1.y, circle1.radius);
     }
+
 #endif
 }
 
@@ -49,9 +51,11 @@ void BallShadowSprite::Render(GameLib::Window &window) {
     GameLib::Sprite::Render(window);
 
 #ifdef RENDER_DEBUG
-    if (circle1.radius) {
+
+    if(circle1.radius) {
         GameLib::Primitives::Circle(window, circle1.x, circle1.y, circle1.radius);
     }
+
 #endif
 }
 

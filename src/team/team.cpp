@@ -6,18 +6,18 @@ namespace SenselessSoccer {
 // ------------------------------------------------------------
 // Construct
 // ------------------------------------------------------------
-Team::Team(){
-	name = "team";
+Team::Team() {
+    name = "team";
     physical = new GameLib::Physical();
     renderable = new GameLib::Renderable();
-	InitState(new TeamStatePlay());
-	current_state->OnStart();
+    InitState(new TeamStatePlay());
+    current_state->OnStart();
 }
 
 // ------------------------------------------------------------
 // Destructor
 // ------------------------------------------------------------
-Team::~Team(){
+Team::~Team() {
     delete physical;
     delete renderable;
 }
@@ -27,8 +27,8 @@ Team::~Team(){
 // ------------------------------------------------------------
 void Team::Update(float dt) {
 
-	// base entity
-	GameLib::GameEntity::Update(dt);
+    // base entity
+    GameLib::GameEntity::Update(dt);
 
     // advance state machine
     GameLib::StateMachine::Step(dt);
@@ -37,8 +37,8 @@ void Team::Update(float dt) {
 // ------------------------------------------------------------
 // AddPlayer
 // ------------------------------------------------------------
-void Team::AddPlayer( Player *player){
-	players.push_back( player );
+void Team::AddPlayer(Player *player) {
+    players.push_back(player);
 }
 
 }// SenselessSoccer

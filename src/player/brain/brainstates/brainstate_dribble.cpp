@@ -14,8 +14,7 @@ BrainDribble::BrainDribble(Player *p) : BrainState(p) {
 // ------------------------------------------------------------
 void BrainDribble::OnStart() {
     std::cout << "DRIBBLE " << player->GetName() << std::endl;
-    timer.Start();
-    player->brain.locomotion.ActivateHead(GameLib::Vector3(1, 1));
+    change_direction();
 }
 
 // ------------------------------------------------------------
@@ -24,10 +23,11 @@ void BrainDribble::OnStart() {
 void BrainDribble::OnStep(const float _dt) {
 
     // test
-    if (!player->brain.in_pitch(_dt)) {
+    if(!player->brain.in_pitch(_dt)) {
         GameLib::Vector3 new_direction = player->physical->velocity.rotated(180).roundAngle(45);
         player->brain.locomotion.ActivateHead(new_direction);
-    } else if (timer.GetTicks() > 4000) {
+
+    } else if(timer.GetTicks() > 1000) {
         timer.Start();
         change_direction();
     }
@@ -37,24 +37,19 @@ void BrainDribble::OnStep(const float _dt) {
 // OnEnd
 // ------------------------------------------------------------
 void BrainDribble::OnEnd() {
-    player->physical->ResetVelocity();
+    BrainState::OnEnd();
 }
 
 // ------------------------------------------------------------
 // StateOver
 // ------------------------------------------------------------
 bool BrainDribble::StateOver() {
-    if (!player->ball_under_control()) {
+    if(!player->ball_under_control()) {
+        next_state = BRAIN_IDLE;
         return true;
     }
-    return false;
-}
 
-// ------------------------------------------------------------
-// ChangeToNextState
-// ------------------------------------------------------------
-void BrainDribble::ChangeToNextState() {
-    player->brain.ChangeState(new BrainIdle(player));
+    return false;
 }
 
 // ------------------------------------------------------------
@@ -63,5 +58,25 @@ void BrainDribble::ChangeToNextState() {
 void BrainDribble::change_direction() {
     GameLib::Vector3 new_direction = player->physical->velocity.rotated(rand() % 2 == 1 ? 45 : -45).roundAngle(45);
     player->brain.locomotion.ActivateHead(new_direction);
+}
+
+// ------------------------------------------------------------
+// Modify
+// ------------------------------------------------------------
+void BrainDribble::Modify(modifier mod) {
+
+    switch(mod) {
+    case DRIBBLE_CHANGE_DIRECTION:
+        change_direction();
+        break;
+    }
+}
+
+// ------------------------------------------------------------
+// Init
+// ------------------------------------------------------------
+void BrainDribble::Init(Compass dir) {
+    timer.Start();
+    player->brain.locomotion.ActivateHead(Metrics::compasstoVector(dir));
 }
 }
