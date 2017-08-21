@@ -23,9 +23,14 @@ A. AI v AI match
                         Pass (done)
                         Run (done 13/8/17)
                 Dribble (done 15/8/17)
-                Pass
-                Receive
+                Pass (done 18/8/17)
+                    *arising: need a team manager to organize passers, receivers etc
+
+                Receive (done)
+                    *arising: better to have an "intercept" behaviour instead of "pursue" to connect with a pass
+                    *arising: troubleshooting info to show players current brain state(done 20/8/17)
                 Shoot
+                    *arising: to shoot, need some goals!! :)
                 Tackle
                 Clear
                 Mark
