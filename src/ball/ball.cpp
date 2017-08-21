@@ -1,5 +1,6 @@
 #include "ball.h"
 #include <iostream>
+#include "../metrics/metrics.h"
 
 static const float INFINITE_SMALL_BOUNCE = 0.35f;
 
@@ -47,6 +48,14 @@ void Ball::Update(float dt) {
 
     // shadow size
     ball_shadow->Scale(sprite_scale_factor);
+
+    if(recording){
+        if(physical->velocity.magnitude() < 0.2f){
+            recording  = false;
+            GameLib::Vector3 dist = physical->position - start_record;
+            std::cout << Metrics::PixelsToMeters( dist.magnitude() )<<std::endl;
+        }
+    }
 }
 
 void Ball::ApplyForce(GameLib::Vector3 force) {
@@ -139,5 +148,10 @@ void Ball::rebound(GameLib::Vector3 wall, float damp, bool damp_z) {
 
 void Ball::Call(std::vector<std::string> params) {
     GameLib::GameEntity::Call(params);
+}
+
+void Ball::StartRecordDistance(){
+    recording = true;
+    start_record = physical->position;
 }
 } // SenselessSoccer

@@ -17,13 +17,8 @@ void SenselessGame::on_mouse_click(int x, int y) {
     GameLib::Camera *c = (GameLib::Camera *)GetEntity("camera");
 
     if(b && c) {
-
         // put the ball there
         b->SetPosition(x + c->GetViewport().x, y + c->GetViewport().y, 5);
-
-        Pitch *pitch = (Pitch *)GetEntity("pitch");
-        int ball_sector = pitch->grid.PointToSector(GameLib::Point(b->GetPosition().x, b->GetPosition().y));
-        std::cout << "Ball Sector: " << ball_sector << std::endl;
     }
 }
 }

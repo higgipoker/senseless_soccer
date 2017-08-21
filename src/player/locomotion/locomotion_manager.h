@@ -1,10 +1,12 @@
 #pragma once
 
+#include <queue>
+#include <gamelib/statemachine/state_machine.h>
+
 #include "arrive.h"
 #include "head.h"
 #include "pursue.h"
-#include <gamelib/statemachine/state_machine.h>
-#include <queue>
+#include "intercept.h"
 
 namespace SenselessSoccer {
 
@@ -39,6 +41,11 @@ public:
     void ActivateHead(GameLib::Vector3 dir);
 
     /**
+     * @brief activate the intercept locomotion
+     */
+    void ActivateIntercept(GameLib::Physical *follow);
+
+    /**
      * @brief cancel all locomotion
      */
     void Cancel(void);
@@ -58,6 +65,9 @@ private:
 
     ///  a head ocomotion
     Head head;
+
+    // an intercept behaviour
+    Intercept intercept;
 
     /// locomotion queue
     std::queue<Locomotion *> behaviour_queue;

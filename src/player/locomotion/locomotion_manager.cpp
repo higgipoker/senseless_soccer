@@ -7,7 +7,7 @@ namespace SenselessSoccer {
 // ------------------------------------------------------------
 // LocomotionManager
 // ------------------------------------------------------------
-LocomotionManager::LocomotionManager(Player *p) : player(*p), arrive(&player), pursue(&player), head(&player) {
+LocomotionManager::LocomotionManager(Player *p) : player(*p), arrive(&player), pursue(&player), head(&player), intercept(&player) {
     behaviour = nullptr;
 }
 
@@ -33,6 +33,14 @@ void LocomotionManager::ActivatePursue(GameLib::Physical *follow) {
 void LocomotionManager::ActivateHead(GameLib::Vector3 dir) {
     head.Init(dir);
     change_locomotion(head);
+}
+
+// ------------------------------------------------------------
+// ActivateIntercept
+// ------------------------------------------------------------
+void LocomotionManager::ActivateIntercept(GameLib::Physical *follow) {
+    intercept.Init(follow);
+    change_locomotion(intercept);
 }
 
 // ------------------------------------------------------------

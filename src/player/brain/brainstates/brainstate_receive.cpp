@@ -1,4 +1,4 @@
-#include "brainstate_pass.h"
+#include "brainstate_receive.h"
 #include "../../../team/team.h"
 
 namespace SenselessSoccer {
@@ -6,37 +6,41 @@ namespace SenselessSoccer {
 // ------------------------------------------------------------
 // Constructor
 // ------------------------------------------------------------
-BrainPass::BrainPass(Player *p) : BrainState(p) {
+BrainReceive::BrainReceive(Player *p) : BrainState(p) {
 }
 
 // ------------------------------------------------------------
 // OnStart
 // ------------------------------------------------------------
-void BrainPass::OnStart() {
-    player->brain.statename = "PASS";
-    next_state = BRAIN_SUPPORT;
-    player->my_team->key_players.pass_recipient = player->my_team->key_players.short_pass_candidates[0];
-    player->ShortPass(player->my_team->key_players.short_pass_candidates[0]);
+void BrainReceive::OnStart() {
+    player->brain.statename = "RECEIVE";
+    next_state = BRAIN_DRIBBLE;
+    player->brain.locomotion.ActivateIntercept(player->ball->physical);
 }
 
 // ------------------------------------------------------------
 // OnStep
 // ------------------------------------------------------------
-void BrainPass::OnStep(const float _dt) {
+void BrainReceive::OnStep(const float _dt) {
+
 }
 
 // ------------------------------------------------------------
 // OnEnd
 // ------------------------------------------------------------
-void BrainPass::OnEnd() {
+void BrainReceive::OnEnd() {
     BrainState::OnEnd();
+    player->my_team->key_players.pass_recipient = nullptr;
 }
 
 // ------------------------------------------------------------
 // StateOver
 // ------------------------------------------------------------
-bool BrainPass::StateOver() {
-    if(!player->ball_under_control()) {
+bool BrainReceive::StateOver() {
+    if(player->ball_under_control()) {
+        return true;
+    }else if(player->my_team->key_players.pass_recipient != player){
+        next_state = BRAIN_SUPPORT;
         return true;
     }
 
@@ -46,19 +50,13 @@ bool BrainPass::StateOver() {
 // ------------------------------------------------------------
 // Modify
 // ------------------------------------------------------------
-void BrainPass::Modify(modifier mod) {
+void BrainReceive::Modify(modifier mod) {
 
     switch(mod) {
         break;
     }
 }
 
-// ------------------------------------------------------------
-// Init
-// ------------------------------------------------------------
-void BrainPass::Init(Player *receiver) {
-
-}
 
 }// namespace SenselessSoccer
 

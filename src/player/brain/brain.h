@@ -6,7 +6,7 @@
 namespace SenselessSoccer {
 
 /** @brief all possible brainstates */
-enum brainstate { BRAIN_NONE, BRAIN_COVER, BRAIN_DRIBBLE, BRAIN_GETBALL, BRAIN_IDLE, BRAIN_SUPPORT };
+enum brainstate { BRAIN_NONE, BRAIN_COVER, BRAIN_DRIBBLE, BRAIN_GETBALL, BRAIN_IDLE, BRAIN_SUPPORT, BRAIN_PASS, BRAIN_RECEIVE, BRAIN_SHOOT };
 
 /** @brief all possible modifier types */
 enum modifier { MODIFIER_NONE, COVER_PRESS, COVER_PRESS_HIGH, COVER_SHADOW, COVER_SHADOW_DEEP,
@@ -42,6 +42,9 @@ public:
 
     /// locomotio manager
     LocomotionManager locomotion;
+
+    /// a debug string
+    std::string statename;
 
 protected:
 

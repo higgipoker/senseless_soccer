@@ -1,5 +1,7 @@
 #include "ball_sprite.h"
 
+#include <gamelib/graphics/primitives.h>
+
 namespace SenselessSoccer {
 
 BallSprite::BallSprite(const std::string &filename, unsigned int number_rows, unsigned int number_cols) : GameLib::Sprite(filename, number_rows, number_cols) {

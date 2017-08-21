@@ -13,6 +13,7 @@ BrainIdle::BrainIdle(Player *player) : BrainState(player) {
 // OnStart
 // ------------------------------------------------------------
 void BrainIdle::OnStart() {
+    player->brain.statename = "IDLE";
 }
 
 // ------------------------------------------------------------

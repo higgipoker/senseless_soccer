@@ -4,6 +4,10 @@
 #include "brainstate_getball.h"
 #include "brainstate_idle.h"
 #include "brainstate_support.h"
+#include "brainstate_pass.h"
+#include "brainstate_receive.h"
+#include "brainstate_shoot.h"
+#include "../../../team/team.h"
 
 namespace SenselessSoccer {
 
@@ -13,6 +17,7 @@ namespace SenselessSoccer {
 BrainState::BrainState(Player *p) {
     player = p;
     next_state = BRAIN_NONE;
+    state_over = false;
 }
 
 // ------------------------------------------------------------
@@ -38,6 +43,11 @@ void BrainState::OnEnd() {
 // StateOver
 // ------------------------------------------------------------
 bool BrainState::StateOver() {
+    if(player->my_team->key_players.pass_recipient == player) {
+        next_state = BRAIN_RECEIVE;
+        return true;
+    }
+
     return false;
 }
 
@@ -56,14 +66,28 @@ void BrainState::ChangeToNextState() {
         break;
 
     case BRAIN_GETBALL:
+        player->brain.ChangeState(new BrainGetBall(player));
         break;
 
     case BRAIN_IDLE:
+        player->brain.ChangeState(new BrainIdle(player));
         break;
 
     case BRAIN_SUPPORT:
+        player->brain.ChangeState(new BrainSupport(player));
         break;
 
+    case BRAIN_PASS:
+        player->brain.ChangeState(new BrainPass(player));
+        break;
+
+    case BRAIN_RECEIVE:
+        player->brain.ChangeState(new BrainReceive(player));
+        break;
+
+    case BRAIN_SHOOT:
+        player->brain.ChangeState(new BrainShoot(player));
+        break;
 
     case BRAIN_NONE:
     default:

@@ -1,6 +1,7 @@
 #include "brainstate_support.h"
 
 #include "../../player.h"
+#include "../../../team/team.h"
 #include <gamelib/utils/log.h>
 
 namespace SenselessSoccer {
@@ -16,6 +17,7 @@ BrainSupport::BrainSupport(Player *p) : BrainState(p) {
 // OnStart
 // ------------------------------------------------------------
 void BrainSupport::OnStart() {
+    player->brain.statename = "SUPPORT";
 }
 
 // ------------------------------------------------------------
@@ -86,7 +88,6 @@ void BrainSupport::OnStep(const float dt) {
         player->brain.locomotion.Cancel();
         return;
     }
-
 }
 
 // ------------------------------------------------------------
@@ -100,10 +101,17 @@ void BrainSupport::OnEnd() {
 // StateOver
 // ------------------------------------------------------------
 bool BrainSupport::StateOver() {
-    if(player->ball_under_control()) {
+    if (BrainState::StateOver() ){
+        return true;
+    }
+    else if(player->ball_under_control()) {
         next_state = BRAIN_DRIBBLE;
         return true;
     }
+//     else if(player->my_team->key_players.player_in_possession == nullptr){
+//         next_state = BRAIN_GETBALL;
+//         return true;
+//     }
 
     return false;
 }

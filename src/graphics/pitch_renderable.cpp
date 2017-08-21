@@ -18,10 +18,7 @@ void PitchTiled::Render(GameLib::Window &window) {
 
 
     // white lines
-    GameLib::Primitives::outline_color.r = 255;
-    GameLib::Primitives::outline_color.g = 255;
-    GameLib::Primitives::outline_color.b = 255;
-    GameLib::Primitives::outline_color.a = 50;
+    GameLib::Primitives::OutlineColor(GameLib::Color(255, 255, 255, 200));
 
     int thickness = 2;
 
@@ -110,9 +107,8 @@ void PitchTiled::Render(GameLib::Window &window) {
                     Metrics::YardsToPixels(22) - Metrics::YardsToPixels(12),
                     metrics.pitch_rect.y + metrics.pitch_rect.h), thickness);
 
-    //GameLib::Primitives::DrawLine(window, GameLib::Vector3(,), GameLib::Vector3(,), thickness);
-
-    // center circlemain
+    // center circle
+    GameLib::Primitives::OutlineColor(GameLib::Color(255, 255, 255, 100));
     GameLib::Primitives::Arc(window, metrics.pitch_rect.GetCenter().x,
             metrics.pitch_rect.GetCenter().y,
             Metrics::MetersToPixels(9.15f), 0, 360, 200,
@@ -130,6 +126,12 @@ void PitchTiled::Render(GameLib::Window &window) {
             Metrics::YardsToPixels(18) + 100,
             Metrics::MetersToPixels(9.15f), 210, 330.5, 100,
             thickness);
+
+    // test draw goal line
+    GameLib::Primitives::OutlineColor(GameLib::Color(255,0,0,255));
+    GameLib::Primitives::DrawLine( window,  GameLib::Vector3(metrics.north_goal.x1, metrics.north_goal.y1),
+                                            GameLib::Vector3(metrics.north_goal.x2, metrics.north_goal.y2),
+                                            4);
 
 }
 

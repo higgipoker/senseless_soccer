@@ -14,7 +14,9 @@ public:
     /**
      * @brief constructor
      */
-    Match() {
+    Match() :
+    team1(&team2),
+    team2(&team1){
         name = "match";
     }
 

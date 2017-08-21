@@ -10,33 +10,6 @@ enum Compass {
     NORTH = 0, NORTH_EAST, EAST, SOUTH_EAST, SOUTH, SOUTH_WEST, WEST, NORTH_WEST
 };
 
-/** @brief describe a pitch
- */
-class PitchMetrics {
-
-public:
-    /**
-     * @brief init pitch metrics
-     * @param x x
-     * @param y y
-     * @param w width
-     * @param h height
-     */
-    void Init(int x, int y, int w, int h) {
-        pitch_rect.x = x;
-        pitch_rect.y = y;
-        pitch_rect.w = w;
-        pitch_rect.h = h;
-        inited = true;
-    }
-
-    /// has been initialised
-    bool inited = false;
-
-    /// pitch boundary
-    GameLib::Rectangle pitch_rect;
-private:
-};
 
 class Metrics {
 public:
@@ -76,6 +49,48 @@ public:
      * @param c compassto convert
      */
     static GameLib::Vector3 compasstoVector(const Compass &c);
+
+    /// trial and error force to pass ball one meter
+    static const int force_per_meter = 250;
+};
+
+
+/** @brief describe a pitch
+ */
+class PitchMetrics {
+
+public:
+    /**
+     * @brief init pitch metrics
+     * @param x x
+     * @param y y
+     * @param w width
+     * @param h height
+     */
+    void Init(int x, int y, int w, int h) {
+        pitch_rect.x = x;
+        pitch_rect.y = y;
+        pitch_rect.w = w;
+        pitch_rect.h = h;
+
+        // stuff we can calc from params
+        int goal_width = Metrics::MetersToPixels(7.32);
+        north_goal.x1 = pitch_rect.x + pitch_rect.w/2 - goal_width/2;
+        north_goal.x2 = north_goal.x1 + goal_width;
+        north_goal.y1 = north_goal.y2 = pitch_rect.y;
+
+        inited = true;
+    }
+
+    /// has been initialised
+    bool inited = false;
+
+    /// pitch boundary
+    GameLib::Rectangle pitch_rect;
+
+    /// north goal
+    GameLib::Line north_goal;
+private:
 };
 
 }// SenselessSoccer

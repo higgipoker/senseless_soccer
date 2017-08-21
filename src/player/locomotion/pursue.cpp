@@ -22,15 +22,12 @@ void Pursue::OnStart() {
 // OnStep
 // ------------------------------------------------------------
 void Pursue::OnStep(const float dt) {
-    if(destination_reached)
-        return;
 
     player->physical->velocity = target->position - player->physical->position;
     last_distance = target->position - player->physical->position;
     GameLib::Vector3 new_distance = target->position - player->physical->position;
 
-    if(new_distance.magnitude() < 100) {
-        destination_reached = true;
+    if(new_distance.magnitude() < 1) {
         player->physical->ResetVelocity();
 
     } else {

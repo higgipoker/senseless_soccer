@@ -1,11 +1,8 @@
 #include "brain.h"
 
 #include "../player.h"
-#include "brainstates/brainstate_cover.h"
-#include "brainstates/brainstate_dribble.h"
-#include "brainstates/brainstate_getball.h"
-#include "brainstates/brainstate_idle.h"
 #include "brainstates/brainstate_support.h"
+
 
 namespace SenselessSoccer {
 
@@ -15,6 +12,7 @@ namespace SenselessSoccer {
 Brain::Brain(Player *p) : locomotion(p) {
     player = p;
     current_state = new BrainSupport(player);
+    current_state->OnStart();
 }
 
 //  --------------------------------------------------

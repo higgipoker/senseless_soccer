@@ -4,13 +4,13 @@
 #include "../../../metrics/metrics.h"
 namespace SenselessSoccer {
 
-class BrainPass : public BrainState {
+class BrainShoot : public BrainState {
 public:
     /**
-     * @brief BrainPass
+     * @brief BrainShoot
      * @param p player
      */
-    BrainPass(Player *p);
+    BrainShoot(Player *p);
 
     /**
      * @brief OnStart
@@ -48,3 +48,4 @@ protected:
 
 };
 }// namespace SenselessSoccer
+

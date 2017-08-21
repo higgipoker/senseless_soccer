@@ -16,6 +16,7 @@ BrainCover::BrainCover(Player *p) : BrainState(p) {
 // OnStart
 // ------------------------------------------------------------
 void BrainCover::OnStart() {
+    player->brain.statename = "COVER";
 }
 
 // ------------------------------------------------------------

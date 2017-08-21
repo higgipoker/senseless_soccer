@@ -4,13 +4,13 @@
 #include "../../../metrics/metrics.h"
 namespace SenselessSoccer {
 
-class BrainPass : public BrainState {
+class BrainReceive : public BrainState {
 public:
     /**
-     * @brief BrainPass
+     * @brief BrainReceive
      * @param p player
      */
-    BrainPass(Player *p);
+    BrainReceive(Player *p);
 
     /**
      * @brief OnStart
@@ -34,12 +34,6 @@ public:
     virtual bool StateOver() override;
 
     /**
-     * @brief init the pass state
-     * @param receiver receiving player
-     */
-    void Init(Player *receiver);
-
-    /**
     * @brief modify the state parameters on the fly
     */
     virtual void Modify(modifier mod) override;
@@ -48,3 +42,4 @@ protected:
 
 };
 }// namespace SenselessSoccer
+

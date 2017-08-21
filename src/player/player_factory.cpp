@@ -16,7 +16,8 @@ Player *PlayerFactory::MakePlayer(const std::string entityname, const std::strin
     // things that a player needs
     GameLib::Physical *physical = new GameLib::Physical;
     PlayerSprite *player_sprite = new PlayerSprite("gfx/player/player.png", 6, 24);
-    PlayerSprite *player_shadow_sprite = new PlayerSprite("gfx/player/player_shadow.png", 6, 24);
+    PlayerShadowSprite *player_shadow_sprite = new PlayerShadowSprite("gfx/player/player_shadow.png", 6, 24);
+    //PlayerSprite *player_shadow_sprite = nullptr;
     Role *role = new Role("data/" + role_filename);
 
     // set up the player

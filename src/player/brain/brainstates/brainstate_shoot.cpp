@@ -1,4 +1,4 @@
-#include "brainstate_pass.h"
+#include "brainstate_shoot.h"
 #include "../../../team/team.h"
 
 namespace SenselessSoccer {
@@ -6,36 +6,35 @@ namespace SenselessSoccer {
 // ------------------------------------------------------------
 // Constructor
 // ------------------------------------------------------------
-BrainPass::BrainPass(Player *p) : BrainState(p) {
+BrainShoot::BrainShoot(Player *p) : BrainState(p) {
 }
 
 // ------------------------------------------------------------
 // OnStart
 // ------------------------------------------------------------
-void BrainPass::OnStart() {
-    player->brain.statename = "PASS";
+void BrainShoot::OnStart() {
+    player->brain.statename = "SHOOT";
     next_state = BRAIN_SUPPORT;
-    player->my_team->key_players.pass_recipient = player->my_team->key_players.short_pass_candidates[0];
-    player->ShortPass(player->my_team->key_players.short_pass_candidates[0]);
+    player->Shoot();
 }
 
 // ------------------------------------------------------------
 // OnStep
 // ------------------------------------------------------------
-void BrainPass::OnStep(const float _dt) {
+void BrainShoot::OnStep(const float _dt) {
 }
 
 // ------------------------------------------------------------
 // OnEnd
 // ------------------------------------------------------------
-void BrainPass::OnEnd() {
+void BrainShoot::OnEnd() {
     BrainState::OnEnd();
 }
 
 // ------------------------------------------------------------
 // StateOver
 // ------------------------------------------------------------
-bool BrainPass::StateOver() {
+bool BrainShoot::StateOver() {
     if(!player->ball_under_control()) {
         return true;
     }
@@ -46,7 +45,7 @@ bool BrainPass::StateOver() {
 // ------------------------------------------------------------
 // Modify
 // ------------------------------------------------------------
-void BrainPass::Modify(modifier mod) {
+void BrainShoot::Modify(modifier mod) {
 
     switch(mod) {
         break;
@@ -56,9 +55,10 @@ void BrainPass::Modify(modifier mod) {
 // ------------------------------------------------------------
 // Init
 // ------------------------------------------------------------
-void BrainPass::Init(Player *receiver) {
+void BrainShoot::Init(Player *receiver) {
 
 }
 
 }// namespace SenselessSoccer
+
 

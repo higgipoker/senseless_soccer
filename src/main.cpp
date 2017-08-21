@@ -107,10 +107,14 @@ int main(int argc, char *argv[]) {
     //
     // team
     //
-    Team team1;
+    Team *team1;
+    Team *team2;
+
+    team1 = new Team(team2);
+    team2 = new Team(team1);
 
     for(auto it = players.begin(); it != players.end(); ++it) {
-        team1.AddPlayer(*it);
+        team1->AddPlayer(*it);
     }
 
     //
@@ -170,7 +174,7 @@ int main(int argc, char *argv[]) {
     // add entities
     //
     senseless.AddEntity(pitch);
-    senseless.AddEntity(team1);
+    senseless.AddEntity(*team1);
 
     for(auto it = players.begin(); it != players.end(); ++it) {
         senseless.AddEntity(*(*it));

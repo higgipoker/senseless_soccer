@@ -54,11 +54,14 @@ src/player/brain/brainstates/brainstate_cover.cpp
 src/player/brain/brainstates/brainstate_support.cpp
 src/player/brain/brainstates/brainstate_dribble.cpp
 src/player/brain/brainstates/brainstate_pass.cpp
+src/player/brain/brainstates/brainstate_receive.cpp
+src/player/brain/brainstates/brainstate_shoot.cpp
 src/player/locomotion/locomotion_manager.cpp
 src/player/locomotion/locomotion.cpp
 src/player/locomotion/arrive.cpp
 src/player/locomotion/pursue.cpp
 src/player/locomotion/head.cpp
+src/player/locomotion/intercept.cpp
 src/ball/ball.cpp
 src/match/match.cpp
 src/match/match_states/match_state.cpp

@@ -11,6 +11,8 @@
 
 namespace SenselessSoccer {
 
+class Team;
+
 /** @brief class to represent a player entity */
 class Player : public GameLib::StateMachine, public GameLib::GameEntity {
 public:
@@ -44,13 +46,46 @@ public:
     void DetatchInput();
 
     /**
+     * @brief player gained possession
+     */
+    void OnGainedPossession();
+
+    /**
+     * @brief player lost possession
+     */
+    void OnLostPossession();
+
+    /**
+     * @brief do a short pass
+     * @param recipient recieving player
+     */
+    void ShortPass(Player *recipient);
+
+    /**
+     * @brief shoot!!
+     */
+    void Shoot();
+
+    /**
      * @brief rpc call for player
      * @param params list of params
      */
     virtual void Call(std::vector<std::string> params) override;
 
+    /// players team
+    Team *my_team;
+
+    /// opposing team
+    Team *other_team;
+
     /// a player can have a playing role (eg right back)
     Role *role;
+
+    /// track distance from ball
+    int distance_from_ball;
+
+    /// track if i have the ball
+    bool in_possession;
 
     /// convenient access to match stuff
     static Ball *ball;
@@ -132,6 +167,25 @@ protected:
      */
     void kick(float force);
 
+    /**
+     * @brief calc pass range triangle
+     */
+    void calc_pass_recipients();
+
+    bool suspend_ball_interaction = false;
+
+    /// helper
+    int distance_to_goal(){
+        GameLib::Vector3 goal_center(pitch->metrics.north_goal.x1, pitch->metrics.north_goal.y1);
+        goal_center.x += (pitch->metrics.north_goal.x2 - pitch->metrics.north_goal.x1) / 2;
+
+        return (physical->position - goal_center).magnitude();
+
+    }
+
+    /// debug
+
+
 public:
     // ------------------------------------------------------------
     // state machine pattern friends
@@ -145,6 +199,9 @@ public:
     friend class BrainCover;
     friend class BrainSupport;
     friend class BrainPass;
+    friend class BrainReceive;
+    friend class BrainGetBall;
+    friend class BrainShoot;
 };
 
 } // SenselessSoccer

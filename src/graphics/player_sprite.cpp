@@ -4,10 +4,12 @@
 #include <iostream>
 #include <gamelib/math/vector3.h>
 
+
 namespace SenselessSoccer {
 
 PlayerSprite::PlayerSprite(const std::string &filename, unsigned int number_rows, unsigned int number_cols) :
-    GameLib::Sprite(filename, number_rows, number_cols) {
+    GameLib::Sprite(filename, number_rows, number_cols),
+    text("fonts/terminus.ttf", 18, "test"){
     z_order = 10;
     last_angle = 0;
     int anim_speed = 100;
@@ -163,6 +165,24 @@ void PlayerSprite::Render(GameLib::Window &window) {
     }
 
 #endif
+
+    GameLib::Primitives::FillColor(triangle1_color);
+    GameLib::Primitives::Triangle(window, triangle1.p1.x, triangle1.p1.y, triangle1.p2.x, triangle1.p2.y, triangle1.p3.x, triangle1.p3.y);
+    GameLib::Primitives::RestoreColors();
+
+    float width = text.GetWidth();
+    float height = text.GetHeight();
+    GameLib::Primitives::FillColor(GameLib::Color(0,0,0,255));
+    GameLib::Primitives::OutlineColor(GameLib::Color(0,0,0,255));
+    GameLib::Primitives::Rectangle(window, this->GetPosition().x, this->GetPosition().y - height, width, height*1.3f);
+    GameLib::Primitives::RestoreColors();
+
+    text.SetPosition(this->GetPosition().x, this->GetPosition().y - height);
+    text.Render(window);
+}
+
+void PlayerShadowSprite::Render(GameLib::Window &window) {
+    GameLib::Sprite::Render(window);
 }
 
 }// SenselessSoccer

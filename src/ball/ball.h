@@ -17,6 +17,11 @@ public:
     }
     virtual void Call(std::vector<std::string> params) override;
 
+    int distance=0;
+    void StartRecordDistance();
+    bool recording = false;
+    GameLib::Vector3 start_record;
+
 protected:
     void do_physics(float dt);
     void set_sprite_rotation();

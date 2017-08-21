@@ -51,6 +51,8 @@ protected:
      */
     void change_direction();
     GameLib::Timer timer;
+    GameLib::Timer pass_timer;
+    bool pass_timer_started = false;
 };
 }
 

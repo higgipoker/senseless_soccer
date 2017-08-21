@@ -58,6 +58,9 @@ protected:
     /// next state to change to
     brainstate next_state;
 
+    /// track state over
+    bool state_over;
+
 public:
     friend class Brain;
 };
