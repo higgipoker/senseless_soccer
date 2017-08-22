@@ -11,7 +11,7 @@ public:
      * @brief BrainIdle
      * @param player
      */
-    BrainIdle(Player *player);
+    explicit BrainIdle(Player *player);
 
     /**
      * @brief OnStart

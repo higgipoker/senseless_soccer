@@ -26,7 +26,7 @@ public:
      * @brief constructor
      * @param [in] p pointer back to player
      */
-    Arrive(Player *p);
+    explicit Arrive(Player *p);
 
     /**
      * @brief state on start

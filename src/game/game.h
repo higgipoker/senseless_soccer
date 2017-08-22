@@ -18,12 +18,6 @@ public:
      */
     SenselessGame(const std::string &gamename, int x, int y, int w, int h, bool fullscreen);
 
-    /// a pitch
-    Pitch *pitch;
-
-    /// a ball
-    Ball *ball;
-
 protected:
     virtual void on_mouse_click(int x, int y) override;
 };

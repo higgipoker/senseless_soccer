@@ -10,7 +10,7 @@ public:
      * @brief BrainReceive
      * @param p player
      */
-    BrainReceive(Player *p);
+    explicit BrainReceive(Player *p);
 
     /**
      * @brief OnStart

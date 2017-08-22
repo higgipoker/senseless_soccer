@@ -11,7 +11,7 @@ PlayerFactory::~PlayerFactory() {
     }
 }
 
-Player *PlayerFactory::MakePlayer(const std::string entityname, const std::string &role_filename) {
+Player *PlayerFactory::MakePlayer(const std::string &entityname, const std::string &role_filename) {
 
     // things that a player needs
     GameLib::Physical *physical = new GameLib::Physical;

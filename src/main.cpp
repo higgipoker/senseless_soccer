@@ -20,6 +20,7 @@
 #include "player/player_factory.h"
 #include "team/roles/role.h"
 #include "team/team.h"
+#include "kit/kit_factory.h"
 
 using namespace SenselessSoccer;
 
@@ -104,6 +105,8 @@ int main(int argc, char *argv[]) {
         players.push_back(player_factory.MakePlayer(playernames[i], filenames[i]));
     }
 
+    players[0]->renderable->SwapColors(KitFactory::GetDefaultBlueKit());
+
     //
     // team
     //
@@ -127,7 +130,6 @@ int main(int argc, char *argv[]) {
     BallShadowSprite ball_shadow_sprite(senseless.working_directory + "/gfx/ball_shadow.png", 1, 1);
     ball.ConnectSprite(ball_sprite, ball_shadow_sprite);
     ball.SetPosition(1000, 1000, 100);
-    senseless.ball = &ball;
     Match::ball = &ball;
     Player::ball = &ball;
 
@@ -135,7 +137,6 @@ int main(int argc, char *argv[]) {
     // pitch
     //
     Pitch pitch(250, 250, Metrics::MetersToPixels(68.5), Metrics::MetersToPixels(100.5f));
-    senseless.pitch = &pitch;
 
     PitchTiled pitch_renderable(senseless.working_directory + "/gfx/grass_dry.png", senseless.camera);
     pitch.ConnectRenderable(pitch_renderable);

@@ -21,7 +21,7 @@ public:
      * @brief Brain
      * @param p
      */
-    Brain(Player *p);
+    explicit Brain(Player *p);
 
     /**
      * @brief Step

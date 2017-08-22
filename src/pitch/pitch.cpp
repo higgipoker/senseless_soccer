@@ -9,6 +9,7 @@ Pitch::Pitch(int x, int y, int width, int height) : grid(x, y, width, height, 15
     name = "pitch";
     physical = new GameLib::Physical();
     metrics.Init(x, y, width, height);
+    renderable_pitch = nullptr;
 }
 
 // ------------------------------------------------------------

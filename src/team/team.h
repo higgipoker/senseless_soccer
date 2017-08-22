@@ -34,7 +34,7 @@ public:
      * @brief constuct
      * @param other teams are always constructed in pairs
      */
-    Team(Team *other);
+    explicit Team(Team *other);
 
     /**
       @brief destruct

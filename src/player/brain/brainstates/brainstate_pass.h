@@ -10,7 +10,7 @@ public:
      * @brief BrainPass
      * @param p player
      */
-    BrainPass(Player *p);
+    explicit BrainPass(Player *p);
 
     /**
      * @brief OnStart

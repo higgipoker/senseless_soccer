@@ -8,6 +8,7 @@ namespace SenselessSoccer {
 // Pursue
 // ------------------------------------------------------------
 Pursue::Pursue(Player *p) : Locomotion(p) {
+    target = nullptr;
 }
 
 // ------------------------------------------------------------

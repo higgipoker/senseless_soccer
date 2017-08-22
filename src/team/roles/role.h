@@ -7,7 +7,7 @@ namespace SenselessSoccer {
 class Role {
 public:
 
-    Role(const std::string &filename);
+    explicit Role(const std::string &filename);
     int GetPosition(int ball_sector);
 
 protected:

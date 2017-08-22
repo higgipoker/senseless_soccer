@@ -14,7 +14,7 @@ public:
      * @brief BrainGetBall
      * @param player
      */
-    BrainGetBall(Player *player);
+    explicit BrainGetBall(Player *player);
 
     /**
      * @brief OnStart

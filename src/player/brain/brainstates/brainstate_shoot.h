@@ -10,7 +10,7 @@ public:
      * @brief BrainShoot
      * @param p player
      */
-    BrainShoot(Player *p);
+    explicit BrainShoot(Player *p);
 
     /**
      * @brief OnStart

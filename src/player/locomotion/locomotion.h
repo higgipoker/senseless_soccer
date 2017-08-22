@@ -28,7 +28,7 @@ public:
      * @brief constructor
      * @param [in] p pointer back to player
      */
-    Locomotion(Player *p);
+    explicit Locomotion(Player *p);
 
     /**
      * @brief on state start

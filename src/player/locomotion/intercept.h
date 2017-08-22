@@ -23,7 +23,7 @@ public:
     /**
      *@brief constructor
      */
-    Intercept(Player *p);
+    explicit Intercept(Player *p);
 
     /**
      *@brief state start

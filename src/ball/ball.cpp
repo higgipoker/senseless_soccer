@@ -58,7 +58,13 @@ void Ball::Update(float dt) {
     }
 }
 
-void Ball::ApplyForce(GameLib::Vector3 force) {
+void Ball::Kick(GameLib::Vector3 force) {
+    physical->ResetAcceleration();
+    physical->ResetVelocity();
+    physical->acceleration = force;
+}
+
+void Ball::apply_force(GameLib::Vector3 force) {
     physical->acceleration += force;
 }
 
@@ -88,14 +94,14 @@ void Ball::do_physics(float dt) {
         // gravity
         //
         GameLib::Vector3 gravity(0, 0, -GRAVITY);
-        ApplyForce(gravity);
+        apply_force(gravity);
 
         //
         // air resistance
         //
         float air_resistance = physical->position.z * AIR_FACTOR;
         GameLib::Vector3 air = physical->velocity.Reverse() * air_resistance;
-        ApplyForce(air);
+        apply_force(air);
 
     } else if(physical->velocity.magnitude()) {
         //
@@ -104,7 +110,7 @@ void Ball::do_physics(float dt) {
         GameLib::Vector3 friction = physical->velocity.Reverse();
         friction *= co_friction;
         friction.z = 0;
-        ApplyForce(friction);
+        apply_force(friction);
     }
 
     //

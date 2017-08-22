@@ -10,7 +10,7 @@ public:
      * @brief BrainDribble
      * @param p
      */
-    BrainDribble(Player *p);
+    explicit BrainDribble(Player *p);
 
     /**
      * @brief OnStart

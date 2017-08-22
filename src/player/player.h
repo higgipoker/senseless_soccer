@@ -19,7 +19,7 @@ public:
     /**
      * @brief constructor
      */
-    Player(GameLib::Physical *p);
+    explicit Player(GameLib::Physical *p);
 
     /**
      *@brief derived entities can do their own extra handling
@@ -171,8 +171,6 @@ protected:
      * @brief calc pass range triangle
      */
     void calc_pass_recipients();
-
-    bool suspend_ball_interaction = false;
 
     /// helper
     int distance_to_goal(){

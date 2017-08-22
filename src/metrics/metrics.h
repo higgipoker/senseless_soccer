@@ -51,7 +51,7 @@ public:
     static GameLib::Vector3 compasstoVector(const Compass &c);
 
     /// trial and error force to pass ball one meter
-    static const int force_per_meter = 250;
+    static const int force_per_meter = 400;
 };
 
 
@@ -79,6 +79,10 @@ public:
         north_goal.x2 = north_goal.x1 + goal_width;
         north_goal.y1 = north_goal.y2 = pitch_rect.y;
 
+        south_goal = north_goal;
+        south_goal.y1 += pitch_rect.h;
+        south_goal.y2 += pitch_rect.h;
+
         inited = true;
     }
 
@@ -90,6 +94,9 @@ public:
 
     /// north goal
     GameLib::Line north_goal;
+
+    /// south goal
+    GameLib::Line south_goal;
 private:
 };
 

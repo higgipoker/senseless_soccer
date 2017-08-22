@@ -25,7 +25,7 @@ void Brain::Step(float dt) {
 
 bool Brain::in_pitch(float dt) {
     GameLib::Vector3 projected_position = player->project_position(dt);
-    GameLib::Circle c(projected_position.x, projected_position.y, 50);
+    GameLib::Circle c(projected_position.x, projected_position.y, 10);
     GameLib::Rectangle r = player->pitch->metrics.pitch_rect;
 
     if(c.in_rect(r)) {
@@ -39,7 +39,7 @@ bool Brain::in_pitch(float dt) {
 // ActivateState
 // ------------------------------------------------------------
 void Brain::ActivateState(brainstate bs) {
-    ((BrainState*)(current_state))->next_state = bs;
+    (static_cast<BrainState*>(current_state))->next_state = bs;
     current_state->ChangeToNextState();
 }
 
@@ -48,7 +48,7 @@ void Brain::ActivateState(brainstate bs) {
 // ------------------------------------------------------------
 void Brain::SetModifier(const modifier m) {
     if(current_state != nullptr) {
-        ((BrainState *)(current_state))->Modify(m);
+       (static_cast<BrainState*>(current_state))->Modify(m);
     }
 }
 } // namespace SenselessSoccer

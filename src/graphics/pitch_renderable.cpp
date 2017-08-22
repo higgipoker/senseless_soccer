@@ -132,6 +132,9 @@ void PitchTiled::Render(GameLib::Window &window) {
     GameLib::Primitives::DrawLine( window,  GameLib::Vector3(metrics.north_goal.x1, metrics.north_goal.y1),
                                             GameLib::Vector3(metrics.north_goal.x2, metrics.north_goal.y2),
                                             4);
+    GameLib::Primitives::DrawLine( window,  GameLib::Vector3(metrics.south_goal.x1, metrics.south_goal.y1),
+                                            GameLib::Vector3(metrics.south_goal.x2, metrics.south_goal.y2),
+                                            4);
 
 }
 

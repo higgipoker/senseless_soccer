@@ -23,7 +23,7 @@ public:
     /**
      *@brief constructor
      */
-    Pursue(Player *p);
+    explicit Pursue(Player *p);
 
     /**
      *@brief state start

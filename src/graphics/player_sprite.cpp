@@ -165,7 +165,6 @@ void PlayerSprite::Render(GameLib::Window &window) {
     }
 
 #endif
-
     GameLib::Primitives::FillColor(triangle1_color);
     GameLib::Primitives::Triangle(window, triangle1.p1.x, triangle1.p1.y, triangle1.p2.x, triangle1.p2.y, triangle1.p3.x, triangle1.p3.y);
     GameLib::Primitives::RestoreColors();
@@ -176,7 +175,6 @@ void PlayerSprite::Render(GameLib::Window &window) {
     GameLib::Primitives::OutlineColor(GameLib::Color(0,0,0,255));
     GameLib::Primitives::Rectangle(window, this->GetPosition().x, this->GetPosition().y - height, width, height*1.3f);
     GameLib::Primitives::RestoreColors();
-
     text.SetPosition(this->GetPosition().x, this->GetPosition().y - height);
     text.Render(window);
 }

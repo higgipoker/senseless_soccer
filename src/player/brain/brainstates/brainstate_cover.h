@@ -28,7 +28,7 @@ public:
      * @brief constructor
      * @param [in] p pointer back to player for state machine context
      */
-    BrainCover(Player *p);
+    explicit BrainCover(Player *p);
 
     /**
      * @brief state on start

@@ -4,7 +4,7 @@
 #include <iostream>
 namespace SenselessSoccer {
 
-SenselessGame::SenselessGame(const std::__cxx11::string &gamename, int x, int y, int w, int h, bool fullscreen)
+SenselessGame::SenselessGame(const std::string &gamename, int x, int y, int w, int h, bool fullscreen)
     : GameLib::Game(gamename, x, y, w, h, fullscreen) {
 }
 

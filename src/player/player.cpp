@@ -109,10 +109,6 @@ void Player::Update(float dt) {
         do_close_control();
     }
 
-    if(!ball_under_control()){
-        suspend_ball_interaction = false;
-    }
-
     calc_pass_recipients();
     player_sprite->text.SetText(brain.statename);
 }
@@ -176,7 +172,7 @@ void Player::handle_input() {
     // fire released
     if(input->event_states[GameLib::FIRE_UP]) {
         if(ball_under_control()) {
-            kick(input->event_states[GameLib::FIRE_LENGTH_CACHED] * 25);
+            kick(input->event_states[GameLib::FIRE_LENGTH_CACHED] * 50);
         }
     }
 }
@@ -272,10 +268,6 @@ void Player::do_dribble(const GameLib::Vector3 &direction) {
     if(ball->physical->position.z > 30)
         return;
 
-    if(suspend_ball_interaction){
-        return;
-    }
-
     // calc force needed for kick
     float force_needed = running_speed * 1.3f;
     GameLib::Vector3 kick = direction * force_needed;
@@ -290,8 +282,7 @@ void Player::do_dribble(const GameLib::Vector3 &direction) {
     }
 
     // apply the kick force to ball
-    ball->physical->ResetVelocity();
-    ball->ApplyForce(kick);
+    ball->Kick(kick);
 
     OnGainedPossession();
 }
@@ -300,10 +291,6 @@ void Player::do_dribble(const GameLib::Vector3 &direction) {
 // do_close_control
 // ------------------------------------------------------------
 void Player::do_close_control() {
-
-    if(suspend_ball_interaction){
-        return;
-    }
 
     // vector to store new ball position
     GameLib::Vector3 t = physical->position;
@@ -335,9 +322,6 @@ bool Player::ball_under_control() {
 // kick
 // ------------------------------------------------------------
 void Player::kick(float force) {
-    if(suspend_ball_interaction){
-        return;
-    }
 
     // players always kick in the direction they are facing
     GameLib::Vector3 direction = physical->velocity;
@@ -357,18 +341,15 @@ void Player::kick(float force) {
 
 
     GameLib::Vector3 kick_force = direction * force;
-    kick_force.z = force * 0.3f;
+    kick_force.z = force * 0.1f;
 
-    ball->ApplyForce(kick_force);
+    ball->Kick(kick_force);
 }
 
 // ------------------------------------------------------------
 // ShortPass
 // ------------------------------------------------------------
 void Player::ShortPass(Player *recipient) {
-    if(suspend_ball_interaction){
-        return;
-    }
 
     float force = 0;
     GameLib::Vector3 dist = physical->position - my_team->key_players.short_pass_candidates[0]->physical->position;
@@ -381,9 +362,9 @@ void Player::ShortPass(Player *recipient) {
     direction.normalise();
 
     GameLib::Vector3 kick_force = direction * force;
-    kick_force.z = force * 0.2f;
+    kick_force.z = force * 0.1f;
 
-    ball->ApplyForce(kick_force);
+    ball->Kick(kick_force);
 }
 
 // ------------------------------------------------------------
@@ -499,10 +480,6 @@ void Player::OnLostPossession() {
 // Shoot
 // ------------------------------------------------------------
 void Player::Shoot() {
-    if(suspend_ball_interaction){
-        return;
-    }
-    suspend_ball_interaction = true;
 
     GameLib::Vector3 target(pitch->metrics.north_goal.x1, pitch->metrics.north_goal.y1);
     target.x += rand() % int(pitch->metrics.north_goal.x2 - pitch->metrics.north_goal.x1);
@@ -516,10 +493,7 @@ void Player::Shoot() {
     force *= power;
 
     force.z = power * 0.1f;
-
-    ball->physical->ResetAcceleration();
-    ball->physical->ResetVelocity();
-    ball->ApplyForce(force);
+    ball->Kick(force);
 }
 
 // ------------------------------------------------------------
@@ -544,26 +518,26 @@ void Player::calc_pass_recipients(void) {
         player_sprite->triangle1.p2 = GameLib::Point(0, 0);
         player_sprite->triangle1.p3 = GameLib::Point(0, 0);
         return;
-
     };
 
     GameLib::Vector3 tmp = physical->position;
-
     tmp = tmp + physical->velocity.normalised() * 20;
 
     GameLib::Vector3 temp1 = last_direction;
-
     GameLib::Vector3 temp2 = last_direction;
-
     GameLib::Vector3 t1 = physical->position + (temp1.rotated(35, 0, 0)).normalised() * 400;
-
     GameLib::Vector3 t2 = physical->position + (temp2.rotated(-35, 0, 0)).normalised() * 400;
 
     player_sprite->triangle1.p1 = GameLib::Point(tmp.x, tmp.y);
-
     player_sprite->triangle1.p2 = GameLib::Point(t1.x, t1.y);
-
     player_sprite->triangle1.p3 = GameLib::Point(t2.x, t2.y);
+
+    if(player_sprite->triangle1.p1.x < 0) player_sprite->triangle1.p1.x = 0;
+    if(player_sprite->triangle1.p1.y < 0) player_sprite->triangle1.p1.y = 0;
+    if(player_sprite->triangle1.p2.x < 0) player_sprite->triangle1.p2.x = 0;
+    if(player_sprite->triangle1.p2.y < 0) player_sprite->triangle1.p2.y = 0;
+    if(player_sprite->triangle1.p3.x < 0) player_sprite->triangle1.p3.x = 0;
+    if(player_sprite->triangle1.p3.y < 0) player_sprite->triangle1.p3.y = 0;
 
     player_sprite->triangle1_color(255, 0, 0, 100);
 
@@ -581,4 +555,4 @@ void Player::calc_pass_recipients(void) {
     }
 }
 
-} // SenselessSoccer test
+} // SenselessSoccer

@@ -13,7 +13,7 @@ public:
      * @brief BrainState
      * @param p
      */
-    BrainState(Player *p);
+    explicit BrainState(Player *p);
 
     /**
      * @brief OnStart
