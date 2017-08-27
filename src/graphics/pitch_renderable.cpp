@@ -16,7 +16,6 @@ void PitchTiled::Render(GameLib::Window &window) {
 
     GameLib::Tileset::Render(window);
 
-
     // white lines
     GameLib::Primitives::OutlineColor(GameLib::Color(255, 255, 255, 200));
 

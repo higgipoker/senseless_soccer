@@ -20,6 +20,9 @@ void Standing::OnStart() {
 // OnStep
 // ------------------------------------------------------------
 void Standing::OnStep(const float dt) {
+    // set the animation based on velocity (running direction)
+    GameLib::Vector3 to_ball = player.ball->physical->position - player.physical->position;
+    player.player_sprite->SetStandingAnimation(to_ball.roundAngle(45) );
 }
 
 // ------------------------------------------------------------

@@ -5,8 +5,10 @@
 
 #include <gamelib/gamelib.h>
 #include <gamelib/input/keyboard.h>
+#include <gamelib/utils/converter.h>
 #include <gamelib/utils/log.h>
 
+#include "input/sensi_controller.h"
 #include "ball/ball.h"
 #include "game/game.h"
 #include "globals.h"
@@ -95,17 +97,6 @@ int main(int argc, char *argv[]) {
     Globals::sensi = &senseless;
     senseless.working_directory = GetCurrentWorkingDirectory();
 
-    //
-    // players
-    //
-    PlayerFactory player_factory;
-    std::vector<Player *> players;
-
-    for(unsigned int i = 0; i < 10; ++i) {
-        players.push_back(player_factory.MakePlayer(playernames[i], filenames[i]));
-    }
-
-    players[0]->renderable->SwapColors(KitFactory::GetDefaultBlueKit());
 
     //
     // team
@@ -115,9 +106,25 @@ int main(int argc, char *argv[]) {
 
     team1 = new Team(team2);
     team2 = new Team(team1);
+    team1->side = SOUTH;
+    team2->side = NORTH;
 
-    for(auto it = players.begin(); it != players.end(); ++it) {
+    //
+    // players
+    //
+    PlayerFactory player_factory;
+    std::vector<Player *> players;
+    for(unsigned int i = 0; i < 20; ++i) {
+        players.push_back(player_factory.MakePlayer(playernames[i%10] + GameLib::IntToString(i), filenames[i%10]));
+    }
+
+    for(auto it = players.begin(); it != players.end()-10; ++it) {
         team1->AddPlayer(*it);
+    }
+    team1->SetKit( KitFactory::GetDefaultBlueKit() );
+
+    for(auto it = players.begin()+10; it != players.end(); ++it) {
+        team2->AddPlayer(*it);
     }
 
     //
@@ -158,7 +165,7 @@ int main(int argc, char *argv[]) {
     //
     // input
     //
-    GameLib::Keyboard keyboard;
+    SensiController keyboard;
     players[0]->AttachInput(&keyboard);
 
     //
@@ -176,6 +183,7 @@ int main(int argc, char *argv[]) {
     //
     senseless.AddEntity(pitch);
     senseless.AddEntity(*team1);
+    senseless.AddEntity(*team2);
 
     for(auto it = players.begin(); it != players.end(); ++it) {
         senseless.AddEntity(*(*it));
@@ -207,6 +215,8 @@ int main(int argc, char *argv[]) {
 
     // cleanup
     delete text.physical;
+    delete team1;
+    delete team2;
 
     GameLib::Log("Exiting successfully");
     return 0;

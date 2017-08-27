@@ -1,8 +1,7 @@
 
 #pragma once
 
-#include <gamelib/input/input.h>
-
+#include "../input/sensi_controller.h"
 #include "../ball/ball.h"
 #include "../graphics/player_sprite.h"
 #include "../pitch/pitch.h"
@@ -14,7 +13,7 @@ namespace SenselessSoccer {
 class Team;
 
 /** @brief class to represent a player entity */
-class Player : public GameLib::StateMachine, public GameLib::GameEntity {
+class Player : public GameLib::StateMachine, public GameLib::GameEntity, public ControllerListener {
 public:
     /**
      * @brief constructor
@@ -38,7 +37,7 @@ public:
      * @brief connect an input
      * @param i pointer to input device (can be null)
      */
-    void AttachInput(GameLib::Input *i);
+    void AttachInput(SensiController *i);
 
     /**
      * @brief detatch an input
@@ -67,6 +66,12 @@ public:
     void Shoot();
 
     /**
+     * @brief do a sliding tackle
+     */
+    void DoSlideTackle();
+    virtual void OnControllerEvent(ControllerEvent event) override;
+
+    /**
      * @brief rpc call for player
      * @param params list of params
      */
@@ -92,11 +97,12 @@ public:
     static Pitch *pitch;
 
 protected:
+
     /// to access the sprite specific functionality of renderable (eg animate)
     PlayerSprite *player_sprite;
 
     /// input controller
-    GameLib::Input *input;
+    SensiController *input;
 
     /// a brain
     Brain brain;
@@ -114,19 +120,22 @@ protected:
     /// frame
     bool changed_direction;
 
+    /// until we think of a better way to transition to slide tackle state
+    bool sliding = false;
+
     /// for calcing change direction
     GameLib::Vector3 last_direction;
-
-    /**
-     * @brief process input
-     */
-    void handle_input();
 
     /**
      * @brief helper to update player position
      * @param dt time delta
      */
     void update_position(float dt);
+
+    /**
+     * @brief where will the player be in teh next time step
+     * @param dt time delta
+     */
     GameLib::Vector3 project_position(float dt);
 
     /**
@@ -150,6 +159,12 @@ protected:
      * @param direction dribbling direction
      */
     void do_dribble(const GameLib::Vector3 &direction);
+
+    /**
+     * @brief push the ball forward
+     * @param direction sliding direction
+     */
+    void do_slide_tackle(const GameLib::Vector3 &direction);
 
     /**
      * @brief close control mechanism
@@ -188,8 +203,10 @@ public:
     // ------------------------------------------------------------
     // state machine pattern friends
     // ------------------------------------------------------------
+    friend class PlayerState;
     friend class Standing;
     friend class Running;
+    friend class Sliding;
     friend class Brain;
     friend class BrainState;
     friend class BrainIdle;

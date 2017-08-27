@@ -53,7 +53,6 @@ void Ball::Update(float dt) {
         if(physical->velocity.magnitude() < 0.2f){
             recording  = false;
             GameLib::Vector3 dist = physical->position - start_record;
-            std::cout << Metrics::PixelsToMeters( dist.magnitude() )<<std::endl;
         }
     }
 }

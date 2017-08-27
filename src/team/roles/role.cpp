@@ -22,9 +22,19 @@ Role::Role(const std::string &filename) {
     }
 }
 
-int Role::GetPosition(int ball_sector) {
+int Role::GetPosition(int ball_sector, Compass side) {
     if(ball_sector >= 0 && ball_sector < south_positions.size()) {
-        return south_positions[ball_sector];
+
+        switch(side) {
+
+        case SOUTH:
+            return north_positions[ball_sector];
+            break;
+
+        case NORTH:
+            return south_positions[ball_sector];
+            break;
+        }
     }
 
     return -1;

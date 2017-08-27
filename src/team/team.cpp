@@ -81,4 +81,10 @@ void Team::set_key_players(void) {
     std::sort(key_players.short_pass_candidates.begin(), key_players.short_pass_candidates.end(), sort_players );
 }
 
+void Team::SetKit(std::vector<std::pair<sf::Color, sf::Color> > kit){
+    for(auto it=players.begin(); it!= players.end(); ++it){
+        (*it)->renderable->SwapColors(kit);
+    }
+}
+
 }// SenselessSoccer

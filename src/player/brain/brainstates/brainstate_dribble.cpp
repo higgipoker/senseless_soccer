@@ -29,7 +29,6 @@ void BrainDribble::OnStart() {
 // ------------------------------------------------------------
 void BrainDribble::OnStep(const float _dt) {
 
-    std::cout << player->distance_to_goal() << std::endl;
     if(!player->brain.in_pitch(_dt)) {
         /*********************************************
         * stay in pitch
@@ -64,9 +63,9 @@ bool BrainDribble::StateOver() {
     }
 
     else if(!pass_timer_started && player->my_team->key_players.short_pass_candidates.size()){
-        pass_timer_started = true;
-        pass_timer.Start();
-        next_state = BRAIN_PASS;
+//         pass_timer_started = true;
+//         pass_timer.Start();
+//         next_state = BRAIN_PASS;
     }
 
     else if(pass_timer_started && pass_timer.GetTicks()>100){

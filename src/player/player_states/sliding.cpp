@@ -1,0 +1,74 @@
+#include "sliding.h"
+#include <gamelib/physics/collision_detector.h>
+#include "../player.h"
+
+namespace SenselessSoccer {
+
+// ------------------------------------------------------------
+// Constructor
+// ------------------------------------------------------------
+Sliding::Sliding(Player &p) : PlayerState(p) {
+}
+
+// ------------------------------------------------------------
+// OnStart
+// ------------------------------------------------------------
+void Sliding::OnStart() {
+    player.running_speed = 4000;
+    dir = player.last_direction;
+    start = player.physical->position;
+
+    // set the animation based on velocity (running direction)
+    player.player_sprite->SetSlidingAnimation(player.physical->velocity.roundAngle(45) );
+}
+
+// ------------------------------------------------------------
+// OnStep
+// ------------------------------------------------------------
+void Sliding::OnStep(const float dt) {
+    player.physical->velocity = dir;
+    // check for collision with ball (dribble)
+    if(GameLib::CollisionDetector::collision(player.dribble_circle, player.ball->GetCollidable())) {
+        player.do_slide_tackle(player.physical->velocity.normalised());
+    }
+}
+
+// ------------------------------------------------------------
+// OnEnd
+// ------------------------------------------------------------
+void Sliding::OnEnd() {
+    player.sliding = false;
+    player.running_speed = 3000;
+}
+
+// ------------------------------------------------------------
+// StateOver
+// ------------------------------------------------------------
+bool Sliding::StateOver() {
+
+    if(getting_up && timer.GetTicks()>1000) {
+        next_state = PLAYER_STATE_RUN;
+        getting_up = false;
+        return true;
+    }
+
+    GameLib::Vector3 dist = player.physical->position - start;
+    if(!getting_up && dist.magnitude() > 60) {
+        getting_up = true;
+        dir.reset();
+        timer.Start();
+        return false;
+    }
+
+    return false;
+}
+
+// ------------------------------------------------------------
+// handle_input
+// ------------------------------------------------------------
+void Sliding::handle_input(){
+
+}
+
+} // SenselessSoccer
+

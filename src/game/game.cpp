@@ -19,6 +19,8 @@ void SenselessGame::on_mouse_click(int x, int y) {
     if(b && c) {
         // put the ball there
         b->SetPosition(x + c->GetViewport().x, y + c->GetViewport().y, 5);
+        b->physical->ResetVelocity();
     }
 }
-}
+
+}// namespace SenselessSoccer

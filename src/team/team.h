@@ -63,6 +63,11 @@ public:
      */
     void OnLostPossession(Player *p);
 
+    /**
+     * @brief set the kit
+     */
+    void SetKit(std::vector<std::pair<sf::Color, sf::Color> > kit);
+
     /// players
     std::vector< Player * > players;
 
@@ -72,6 +77,8 @@ public:
     /// the other team
     Team *other_team;
 
+    /// side of pitch
+    Compass side;
 
 protected:
 

@@ -1,6 +1,7 @@
 #include "brainstate_cover.h"
 
 #include "../../player.h"
+#include "../../../team/team.h"
 #include <gamelib/utils/log.h>
 
 namespace SenselessSoccer {
@@ -32,7 +33,7 @@ void BrainCover::OnStep(const float dt) {
     if(ball_sector >= 0 && ball_sector != last_ball_sector) {
 
         // get the new target sector depending on player role
-        int target_sector = player->role->GetPosition(ball_sector);
+        int target_sector = player->role->GetPosition(ball_sector, player->my_team->side);
 
         // modify based on tactical instructions?
         int m = 0;
