@@ -46,6 +46,7 @@ src/player/player_factory.cpp
 src/player/player_states/player_state.cpp
 src/player/player_states/standing.cpp
 src/player/player_states/running.cpp
+src/player/player_states/sliding.cpp
 src/player/brain/brain.cpp
 src/player/brain/brainstates/brainstate.cpp
 src/player/brain/brainstates/brainstate_idle.cpp
@@ -57,6 +58,8 @@ src/player/brain/brainstates/brainstate_dribble.cpp
 src/player/brain/brainstates/brainstate_pass.cpp
 src/player/brain/brainstates/brainstate_receive.cpp
 src/player/brain/brainstates/brainstate_shoot.cpp
+src/player/brain/brainstates/brainstate_press.cpp
+src/player/brain/brainstates/brainstate_clear.cpp
 src/player/locomotion/locomotion_manager.cpp
 src/player/locomotion/locomotion.cpp
 src/player/locomotion/arrive.cpp
@@ -73,6 +76,7 @@ src/team/team_states/team_play.cpp
 src/team/roles/role.cpp
 src/metrics/metrics.cpp
 src/pitch/pitch.cpp
+src/input/sensi_controller.cpp
 src/game/game.cpp
 src/globals.cpp
 )
