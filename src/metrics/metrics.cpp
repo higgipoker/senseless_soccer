@@ -2,22 +2,37 @@
 
 namespace SenselessSoccer {
 
+// ------------------------------------------------------------
+// MetersToPixels
+// ------------------------------------------------------------
 int Metrics::MetersToPixels(float meters) {
     return meters * 22;
 }
 
+// ------------------------------------------------------------
+// PixelsToMeters
+// ------------------------------------------------------------
 float Metrics::PixelsToMeters(float pixels) {
     return pixels / 22.0f;
 }
 
+// ------------------------------------------------------------
+// YardsToMeters
+// ------------------------------------------------------------
 float Metrics::YardsToMeters(float yards) {
     return yards * 0.914f;
 }
 
+// ------------------------------------------------------------
+// YardsToPixels
+// ------------------------------------------------------------
 int Metrics::YardsToPixels(float yards) {
     return MetersToPixels(YardsToMeters(yards));
 }
 
+// ------------------------------------------------------------
+// VectorToCompass
+// ------------------------------------------------------------
 Compass Metrics::VectorToCompass(const GameLib::Vector3 &v) {
     Compass c = NORTH;
 
@@ -48,6 +63,9 @@ Compass Metrics::VectorToCompass(const GameLib::Vector3 &v) {
     return c;
 }
 
+// ------------------------------------------------------------
+// compasstoVector
+// ------------------------------------------------------------
 GameLib::Vector3 Metrics::compasstoVector(const Compass &c) {
     GameLib::Vector3 v;
 
@@ -90,6 +108,11 @@ GameLib::Vector3 Metrics::compasstoVector(const Compass &c) {
     case NORTH_WEST:
         v.x = -1;
         v.y = -1;
+        break;
+
+    default:
+        v.x = 0;
+        v.y = 0;
         break;
     }
 

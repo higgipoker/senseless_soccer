@@ -217,6 +217,7 @@ public:
     friend class BrainReceive;
     friend class BrainGetBall;
     friend class BrainShoot;
+    friend class BrainPress;
 };
 
 } // SenselessSoccer

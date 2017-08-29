@@ -7,6 +7,8 @@
 #include "brainstate_pass.h"
 #include "brainstate_receive.h"
 #include "brainstate_shoot.h"
+#include "brainstate_clear.h"
+#include "brainstate_press.h"
 #include "../../../team/team.h"
 
 namespace SenselessSoccer {
@@ -35,7 +37,7 @@ void BrainState::OnStep(const float _dt) {
 // ------------------------------------------------------------
 // OnEnd
 // ------------------------------------------------------------
-void BrainState::OnEnd() {
+void BrainState:: OnEnd() {
     player->brain.locomotion.Cancel();
 }
 
@@ -87,6 +89,14 @@ void BrainState::ChangeToNextState() {
 
     case BRAIN_SHOOT:
         player->brain.ChangeState(new BrainShoot(player));
+        break;
+
+    case BRAIN_PRESS:
+        player->brain.ChangeState(new BrainPress(player));
+        break;
+
+    case BRAIN_CLEAR:
+        player->brain.ChangeState(new BrainClear(player));
         break;
 
     case BRAIN_NONE:

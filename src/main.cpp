@@ -93,10 +93,10 @@ int main(int argc, char *argv[]) {
     //
     // main game
     //
-    SenselessGame senseless("Senseless Soccer", 1980, 0, 1200, 900, false);
+    SenselessGame senseless("Senseless Soccer", 1980, 0, 800, 600, false);
     Globals::sensi = &senseless;
     senseless.working_directory = GetCurrentWorkingDirectory();
-
+    senseless.camera.ZoomIn();
 
     //
     // team

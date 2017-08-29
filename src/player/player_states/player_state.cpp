@@ -69,21 +69,6 @@ void PlayerState::handle_input() {
     if(player.input->event_states[GameLib::RIGHT]) {
         player.physical->velocity.x = 1;
     }
-
-    // fire released
-    /*if(player.input->event_states[GameLib::FIRE_UP]) {
-        if(player.ball_under_control()) {
-            player.kick(player.input->event_states[GameLib::FIRE_LENGTH_CACHED] * 50);
-        }
-
-    } *//*else if(player.input->event_states[GameLib::FIRE_DOWN]) {
-
-    if(!player.sliding) {
-        if(!player.ball_under_control()) {
-            player.DoSlideTackle();
-        }
-    }
-}*/
 }
 
 void PlayerState::HandleEvent(ControllerEvent event) {

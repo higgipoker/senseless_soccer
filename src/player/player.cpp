@@ -232,6 +232,8 @@ void Player::do_dribble(const GameLib::Vector3 &direction) {
     if(ball->physical->position.z > 30)
         return;
 
+    OnGainedPossession();
+
     // calc force needed for kick
     float force_needed = running_speed * 1.3f;
     GameLib::Vector3 kick = direction * force_needed;
@@ -246,9 +248,8 @@ void Player::do_dribble(const GameLib::Vector3 &direction) {
     }
 
     // apply the kick force to ball
+    std::cout << kick.magnitude() << std::endl;
     ball->Kick(kick);
-
-    OnGainedPossession();
 }
 
 // ------------------------------------------------------------
@@ -263,7 +264,7 @@ void Player::do_slide_tackle(const GameLib::Vector3 &direction) {
     ball->physical->ResetVelocity();
 
     // calc force needed for kick
-    float force_needed = running_speed * 2.2f;
+    float force_needed = running_speed * 1.2f;
     GameLib::Vector3 kick = direction * force_needed;
 
     // normalize for diagonals
@@ -330,11 +331,10 @@ void Player::kick(float force) {
         direction = my_team->key_players.short_pass_candidates[0]->physical->position - physical->position;
         direction.normalise();
 
+    } else {
+        // TODO upscale fire length
+        force *= 50;
     }
-
-
-    // TODO upscale fire length
-    force *=50;
 
     GameLib::Vector3 kick_force = direction * force;
     kick_force.z = force * 0.1f;
@@ -559,7 +559,7 @@ void Player::calc_pass_recipients(void) {
 // ------------------------------------------------------------
 // DoSlideTackle
 // ------------------------------------------------------------
-void Player::DoSlideTackle(){
+void Player::DoSlideTackle() {
     sliding = true;
 }
 
@@ -569,3 +569,6 @@ void Player::OnControllerEvent(ControllerEvent event) {
 }
 
 } // SenselessSoccer
+
+
+

@@ -6,13 +6,32 @@
 namespace SenselessSoccer {
 
 /** @brief all possible brainstates */
-enum brainstate { BRAIN_NONE, BRAIN_COVER, BRAIN_DRIBBLE, BRAIN_GETBALL, BRAIN_IDLE, BRAIN_SUPPORT, BRAIN_PASS, BRAIN_RECEIVE, BRAIN_SHOOT };
+enum brainstate {
+    BRAIN_NONE,
+    BRAIN_COVER,
+    BRAIN_DRIBBLE,
+    BRAIN_GETBALL,
+    BRAIN_IDLE,
+    BRAIN_SUPPORT,
+    BRAIN_PASS,
+    BRAIN_RECEIVE,
+    BRAIN_SHOOT,
+    BRAIN_PRESS,
+    BRAIN_CLEAR
+};
 
 /** @brief all possible modifier types */
-enum modifier { MODIFIER_NONE, COVER_PRESS, COVER_PRESS_HIGH, COVER_SHADOW, COVER_SHADOW_DEEP,
-                SUPPORT_PASS, SUPPORT_BACKUP, SUPPORT_RUN,
-                DRIBBLE_CHANGE_DIRECTION,
-              };
+enum modifier {
+    MODIFIER_NONE,
+    COVER_PRESS,
+    COVER_PRESS_HIGH,
+    COVER_SHADOW,
+    COVER_SHADOW_DEEP,
+    SUPPORT_PASS,
+    SUPPORT_BACKUP,
+    SUPPORT_RUN,
+    DRIBBLE_CHANGE_DIRECTION,
+};
 
 class Player;
 class Brain : public GameLib::StateMachine {

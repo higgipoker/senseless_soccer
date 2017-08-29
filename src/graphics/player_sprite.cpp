@@ -10,6 +10,7 @@ namespace SenselessSoccer {
 PlayerSprite::PlayerSprite(const std::string &filename, unsigned int number_rows, unsigned int number_cols) :
     GameLib::Sprite(filename, number_rows, number_cols),
     text("fonts/terminus.ttf", 18, "test") {
+    text.SetColor(GameLib::Color(200, 200, 200, 120));
     z_order = 10;
     last_angle = 0;
     int anim_speed = 100;
@@ -222,11 +223,11 @@ void PlayerSprite::Render(GameLib::Window &window) {
 
     float width = text.GetWidth();
     float height = text.GetHeight();
-    GameLib::Primitives::FillColor(GameLib::Color(0, 0, 0, 255));
-    GameLib::Primitives::OutlineColor(GameLib::Color(0, 0, 0, 255));
-    GameLib::Primitives::Rectangle(window, this->GetPosition().x-20, this->GetPosition().y - height, width, height * 1.3f);
+    GameLib::Primitives::FillColor(GameLib::Color(0, 0, 0, 120));
+    GameLib::Primitives::OutlineColor(GameLib::Color(0, 0, 0, 120));
+    GameLib::Primitives::Rectangle(window, this->GetPosition().x - 20, this->GetPosition().y - height, width, height * 1.3f);
     GameLib::Primitives::RestoreColors();
-    text.SetPosition(this->GetPosition().x-20, this->GetPosition().y - height);
+    text.SetPosition(this->GetPosition().x - 20, this->GetPosition().y - height);
     text.Render(window);
 }
 
