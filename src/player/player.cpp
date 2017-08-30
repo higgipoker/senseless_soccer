@@ -248,7 +248,6 @@ void Player::do_dribble(const GameLib::Vector3 &direction) {
     }
 
     // apply the kick force to ball
-    std::cout << kick.magnitude() << std::endl;
     ball->Kick(kick);
 }
 
