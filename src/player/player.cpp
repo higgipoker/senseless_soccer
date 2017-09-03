@@ -363,99 +363,6 @@ void Player::ShortPass(Player *recipient) {
 }
 
 // ------------------------------------------------------------
-// Call
-// ------------------------------------------------------------
-void Player::Call(std::vector<std::string> params) {
-    if(params[0] == "arrive") {
-        std::vector<std::string> new_params(params.begin() + 1, params.end());
-
-        if(new_params.size() >= 2) {
-            brain.locomotion.ActivateArrive(GameLib::Vector3(atoi(new_params[0].c_str()), atoi(new_params[1].c_str())));
-        }
-
-        return;
-    }
-
-    if(params[0] == "pursue") {
-        std::vector<std::string> new_params(params.begin() + 1, params.end());
-
-        if(new_params.size() >= 1) {
-            GameEntity *entity = Globals::sensi->GetEntity(new_params[0]);
-            brain.locomotion.ActivatePursue(entity->physical);
-        }
-
-        return;
-    }
-
-    if(params[0] == "cover") {
-        brain.ActivateState(BRAIN_COVER);
-        return;
-    }
-
-    if(params[0] == "support") {
-        brain.ActivateState(BRAIN_SUPPORT);
-        return;
-    }
-
-    if(params[0] == "retreive") {
-        brain.ActivateState(BRAIN_GETBALL);
-        return;
-    }
-
-    if(params[0] == "head") {
-        std::vector<std::string> new_params(params.begin() + 1, params.end());
-
-        if(new_params.size() >= 1) {
-            GameLib::Vector3 dir;
-
-            if(new_params[0] == "north") {
-                dir = Metrics::compasstoVector(NORTH);
-
-            } else if(new_params[0] == "north_east") {
-                dir = Metrics::compasstoVector(NORTH_EAST);
-
-            } else if(new_params[0] == "east") {
-                dir = Metrics::compasstoVector(EAST);
-
-            } else if(new_params[0] == "south_east") {
-                dir = Metrics::compasstoVector(SOUTH_EAST);
-
-            } else if(new_params[0] == "south") {
-                dir = Metrics::compasstoVector(SOUTH);
-
-            } else if(new_params[0] == "south_west") {
-                dir = Metrics::compasstoVector(SOUTH_WEST);
-
-            } else if(new_params[0] == "west") {
-                dir = Metrics::compasstoVector(WEST);
-
-            } else if(new_params[0] == "north_west") {
-                dir = Metrics::compasstoVector(NORTH_WEST);
-            }
-
-            brain.locomotion.ActivateHead(dir);
-        }
-
-        return;
-    }
-
-    if(params[0] == "modify") {
-        std::vector<std::string> new_params(params.begin() + 1, params.end());
-
-        if(new_params.size() >= 1) {
-            brain.SetModifier(modifier(atoi(new_params[0].c_str())));
-        }
-    }
-
-    if(params[0] == "cancel") {
-        brain.locomotion.Cancel();
-        return;
-    }
-
-    GameLib::GameEntity::Call(params);
-};
-
-// ------------------------------------------------------------
 // OnGainedPosession
 // ------------------------------------------------------------
 void Player::OnGainedPossession() {
@@ -489,6 +396,26 @@ void Player::Shoot() {
     force *= power;
 
     force.z = power * 0.1f;
+    ball->Kick(force);
+}
+
+// ------------------------------------------------------------
+// Clearance
+// ------------------------------------------------------------
+void Player::Clearance() {
+
+    // TODO: a clearance direction
+    GameLib::Vector3 target(pitch->metrics.north_goal.x1, pitch->metrics.north_goal.y1);
+    target.x += rand() % int(pitch->metrics.north_goal.x2 - pitch->metrics.north_goal.x1);
+    GameLib::Vector3 shot_direction = (target - physical->position);
+    shot_direction.normalise();
+
+    GameLib::Vector3 force = shot_direction;
+
+    float power = 15000;
+    force *= power;
+
+    force.z = power * 0.5f;
     ball->Kick(force);
 }
 
@@ -562,9 +489,111 @@ void Player::DoSlideTackle() {
     sliding = true;
 }
 
+// ------------------------------------------------------------
+// OnControllerEvent
+// ------------------------------------------------------------
 void Player::OnControllerEvent(ControllerEvent event) {
     ((PlayerState *)current_state)->HandleEvent(event);
 
+}
+
+
+// ------------------------------------------------------------
+// Call
+// ------------------------------------------------------------
+void Player::Call(std::vector<std::string> params) {
+    if(params[0] == "arrive") {
+        std::vector<std::string> new_params(params.begin() + 1, params.end());
+
+        if(new_params.size() >= 2) {
+            brain.locomotion.ActivateArrive(GameLib::Vector3(atoi(new_params[0].c_str()), atoi(new_params[1].c_str())));
+        }
+
+        return;
+    }
+
+    if(params[0] == "pursue") {
+        std::vector<std::string> new_params(params.begin() + 1, params.end());
+
+        if(new_params.size() >= 1) {
+            GameEntity *entity = Globals::sensi->GetEntity(new_params[0]);
+            brain.locomotion.ActivatePursue(entity->physical);
+        }
+
+        return;
+    }
+
+    if(params[0] == "cover") {
+        brain.ActivateState(BRAIN_COVER);
+        return;
+    }
+
+    if(params[0] == "support") {
+        brain.ActivateState(BRAIN_SUPPORT);
+        return;
+    }
+
+    if(params[0] == "retreive") {
+        brain.ActivateState(BRAIN_GETBALL);
+        return;
+    }
+
+    if(params[0] == "clearance") {
+        brain.ActivateState(BRAIN_CLEAR);
+        return;
+    }
+
+    if(params[0] == "head") {
+        std::vector<std::string> new_params(params.begin() + 1, params.end());
+
+        if(new_params.size() >= 1) {
+            GameLib::Vector3 dir;
+
+            if(new_params[0] == "north") {
+                dir = Metrics::compasstoVector(NORTH);
+
+            } else if(new_params[0] == "north_east") {
+                dir = Metrics::compasstoVector(NORTH_EAST);
+
+            } else if(new_params[0] == "east") {
+                dir = Metrics::compasstoVector(EAST);
+
+            } else if(new_params[0] == "south_east") {
+                dir = Metrics::compasstoVector(SOUTH_EAST);
+
+            } else if(new_params[0] == "south") {
+                dir = Metrics::compasstoVector(SOUTH);
+
+            } else if(new_params[0] == "south_west") {
+                dir = Metrics::compasstoVector(SOUTH_WEST);
+
+            } else if(new_params[0] == "west") {
+                dir = Metrics::compasstoVector(WEST);
+
+            } else if(new_params[0] == "north_west") {
+                dir = Metrics::compasstoVector(NORTH_WEST);
+            }
+
+            brain.locomotion.ActivateHead(dir);
+        }
+
+        return;
+    }
+
+    if(params[0] == "modify") {
+        std::vector<std::string> new_params(params.begin() + 1, params.end());
+
+        if(new_params.size() >= 1) {
+            brain.SetModifier(modifier(atoi(new_params[0].c_str())));
+        }
+    }
+
+    if(params[0] == "cancel") {
+        brain.locomotion.Cancel();
+        return;
+    }
+
+    GameLib::GameEntity::Call(params);
 }
 
 } // SenselessSoccer

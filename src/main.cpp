@@ -24,9 +24,12 @@
 #include "team/team.h"
 #include "kit/kit_factory.h"
 
+#define WINDOW_WIDTH 800
+#define WINDOW_HEIGHT 600
+
 using namespace SenselessSoccer;
 
-const static std::string &senseless_soccer_version = "0.0.1";
+const static std::string senseless_soccer_version = "0.0.1";
 
 // temp testing
 std::string filenames[] = {"LEFT_BACK_POSITIONS.pos",
@@ -93,10 +96,10 @@ int main(int argc, char *argv[]) {
     //
     // main game
     //
-    SenselessGame senseless("Senseless Soccer", 1980, 0, 800, 600, false);
+    SenselessGame senseless("Senseless Soccer", 1980, 0, WINDOW_WIDTH, WINDOW_HEIGHT, false);
     Globals::sensi = &senseless;
     senseless.working_directory = GetCurrentWorkingDirectory();
-    senseless.camera.ZoomIn();
+    //senseless.camera.ZoomIn();
 
     //
     // team
@@ -196,7 +199,7 @@ int main(int argc, char *argv[]) {
     //
     // camera
     //
-    senseless.camera.view.setSize(1200, 900);
+    senseless.camera.view.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
     senseless.camera.SetWorldRect(GameLib::Rectangle(0, 0, 1900, 2600));
     senseless.camera.Follow(&ball);
     // senseless.camera.Follow(player1);

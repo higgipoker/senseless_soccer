@@ -66,9 +66,19 @@ public:
     void Shoot();
 
     /**
+     * @brief clear the ball
+     */
+    void Clearance();
+
+    /**
      * @brief do a sliding tackle
      */
     void DoSlideTackle();
+
+    /**
+     * @brief handle a controller event
+     * @param event an event to handle
+     */
     virtual void OnControllerEvent(ControllerEvent event) override;
 
     /**
@@ -218,6 +228,7 @@ public:
     friend class BrainGetBall;
     friend class BrainShoot;
     friend class BrainPress;
+    friend class BrainClear;
 };
 
 } // SenselessSoccer

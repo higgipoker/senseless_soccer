@@ -5,7 +5,9 @@ namespace SenselessSoccer {
 void SensiController::Update() {
     // to track if fire down has changed
     int prev_fire_state = event_states[GameLib::FIRE_DOWN];
+
     GameLib::Keyboard::Update();
+
 
     if(prev_fire_state) {
         if(event_states[GameLib::FIRE_UP]) {

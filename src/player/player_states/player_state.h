@@ -22,8 +22,11 @@ public:
     */
     virtual void ChangeToNextState() override;
 
-    void HandleEvent(ControllerEvent event);
-
+    /**
+     * @brief handle input events
+     * @param event an event to handle
+     */
+    virtual bool HandleEvent(ControllerEvent event);
 
 protected:
     /// for state machine context

@@ -39,5 +39,6 @@ public:
 protected:
     void Notify(ControllerEvent event);
     std::set<ControllerListener *> listeners;
+    bool wait_for_release = false;
 };
 }

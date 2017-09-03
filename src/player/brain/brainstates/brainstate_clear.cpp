@@ -12,7 +12,9 @@ BrainClear::BrainClear(Player *player) : BrainState(player) {
 // OnStart
 // ------------------------------------------------------------
 void BrainClear::OnStart() {
+
     BrainState::OnStart();
+    player->Clearance();
 }
 
 // ------------------------------------------------------------
@@ -33,6 +35,11 @@ void BrainClear::OnEnd() {
 // StateOver
 // ------------------------------------------------------------
 bool BrainClear::StateOver() {
+
+    if(!player->ball_under_control()){
+        return true;
+    }
+
     return false;
 }
 

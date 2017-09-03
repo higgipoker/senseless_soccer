@@ -71,24 +71,34 @@ void PlayerState::handle_input() {
     }
 }
 
-void PlayerState::HandleEvent(ControllerEvent event) {
+// ------------------------------------------------------------
+// HandleEvent
+// ------------------------------------------------------------
+bool PlayerState::HandleEvent(ControllerEvent event) {
     switch(event.id) {
-
-    case FIRE_PRESS:
-        if(!player.sliding) {
-            if(!player.ball_under_control()) {
-                player.DoSlideTackle();
-            }
-        }
-
-        break;
 
     case FIRE_RELEASE:
         if(player.ball_under_control()) {
             player.kick(event.param);
+            return true;
         }
 
         break;
+
+    case FIRE_TAP:
+        break;
+
+    case FIRE_DOUBLE_TAP:
+        break;
+
+    case FIRE_PRESS:
+        break;
+
+    case NO_EVENT:
+    default:
+        break;
     }
+
+    return false;
 }
 } // SenselessSoccer

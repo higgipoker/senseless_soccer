@@ -41,7 +41,12 @@ public:
         return name;
     }
 
-protected:
+    /**
+     * @brief handle input events
+     * @param event an event to handle
+     */
+    virtual bool HandleEvent(ControllerEvent event) override;
+
 };
 
 } // SenselessSoccer
