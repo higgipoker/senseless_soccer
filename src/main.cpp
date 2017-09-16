@@ -28,6 +28,9 @@
 #define WINDOW_WIDTH 800
 #define WINDOW_HEIGHT 600
 
+#define WINDOW_WIDTH 800
+#define WINDOW_HEIGHT 600
+
 using namespace SenselessSoccer;
 
 const static std::string senseless_soccer_version = "0.0.1";

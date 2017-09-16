@@ -99,7 +99,11 @@ A. AI v AI match
 
 
                 __________________________________________________________________________
+<<<<<<< HEAD
                 Clear (done)
+=======
+                Clear
+>>>>>>> 2493ca0cc5a037ecc757c788d5411a70e3f3b052
                     *arising: need match mechanics for clearance direction etc
                 __________________________________________________________________________
 
@@ -111,7 +115,10 @@ A. AI v AI match
 
                 *arising: for defending and attacking states, need shirt colors (done 22/8/17)
                 *arising: for 2 teams we need a system for reversing positions for shootig down the pitch (done 25/8/17)
+<<<<<<< HEAD
                 *arising: for fair ai behaviour (aftertouch etc) we need a joystick emulator
+=======
+>>>>>>> 2493ca0cc5a037ecc757c788d5411a70e3f3b052
 
 
 

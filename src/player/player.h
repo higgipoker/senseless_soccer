@@ -13,9 +13,7 @@ namespace SenselessSoccer {
 class Team;
 
 /** @brief class to represent a player entity */
-class Player : public GameLib::StateMachine,
-			   public GameLib::GameEntity,
-			   public ControllerListener {
+class Player : public GameLib::StateMachine, public GameLib::GameEntity, public ControllerListener {
   public:
 	/**
 	 * @brief constructor
@@ -193,10 +191,8 @@ class Player : public GameLib::StateMachine,
 
 	/// helper
 	int distance_to_goal() {
-		GameLib::Vector3 goal_center(pitch->metrics.north_goal.x1,
-									 pitch->metrics.north_goal.y1);
-		goal_center.x +=
-		 (pitch->metrics.north_goal.x2 - pitch->metrics.north_goal.x1) / 2;
+		GameLib::Vector3 goal_center(pitch->metrics.north_goal.x1, pitch->metrics.north_goal.y1);
+		goal_center.x += (pitch->metrics.north_goal.x2 - pitch->metrics.north_goal.x1) / 2;
 		return (physical->position - goal_center).magnitude();
 	}
 

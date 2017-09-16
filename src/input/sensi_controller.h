@@ -75,6 +75,7 @@ class SensiController : public GameLib::Keyboard {
 
     /// list of listeners
     std::set<ControllerListener *> listeners;
+    bool wait_for_release = false;
 };
 
 } // namespace SenselessSoccer
