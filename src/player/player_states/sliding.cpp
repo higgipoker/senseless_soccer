@@ -19,7 +19,7 @@ void Sliding::OnStart() {
     start = player.physical->position;
 
     // set the animation based on velocity (running direction)
-    player.player_sprite->SetSlidingAnimation(player.physical->velocity.roundAngle(45));
+    player.player_sprite->SetSlidingAnimation(player.velocity.roundAngle(45));
 }
 
 // ------------------------------------------------------------
@@ -30,11 +30,11 @@ void Sliding::OnStep(const float dt) {
         player.running_speed -= 100;
     }
 
-    player.physical->velocity = dir;
+    player.velocity = dir;
 
     // check for collision with ball (dribble)
     if(GameLib::CollisionDetector::collision(player.dribble_circle, player.ball->GetCollidable())) {
-        player.do_slide_tackle(player.physical->velocity.normalised());
+        player.do_slide_tackle(player.velocity.normalised());
     }
 }
 

@@ -5,28 +5,21 @@ namespace SenselessSoccer {
 // ------------------------------------------------------------
 // Constructor
 // ------------------------------------------------------------
-Pitch::Pitch(int x, int y, int width, int height) : grid(x, y, width, height, 15, 19) {
-    name = "pitch";
-    physical = new GameLib::Physical();
-    metrics.Init(x, y, width, height);
-    renderable_pitch = nullptr;
+Pitch::Pitch(GameLib::Physical *p, GameLib::Renderable *r, int x, int y,
+			 int width, int height)
+ : GameLib::GameEntity(p, r)
+ , grid(x, y, width, height, 15, 19) {
+
+	metrics.Init(x, y, width, height);
+	renderable_pitch = static_cast<PitchTiled *>(renderable);
+	renderable_pitch->InitMetrics(metrics);
+	name = "pitch";
 }
 
 // ------------------------------------------------------------
 // Destructor
 // ------------------------------------------------------------
 Pitch::~Pitch() {
-    delete physical;
 }
 
-// ------------------------------------------------------------
-// ConnectRenderable
-// ------------------------------------------------------------
-void Pitch::ConnectRenderable(PitchTiled &renderable) {
-    this->renderable = &renderable;
-    renderable_pitch = &renderable;
-
-    renderable_pitch->InitMetrics(metrics);
-}
-
-}  // SenselessSoccer
+} // SenselessSoccer

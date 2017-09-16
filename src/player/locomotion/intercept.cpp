@@ -43,7 +43,7 @@ void Intercept::OnStep(const float dt) {
     float divider = 0;
     float look_ahead_time = 0;
 
-    divider =  player->physical->velocity.magnitude() + evader->velocity.magnitude();
+    divider =  player->velocity.magnitude() + evader->velocity.magnitude();
 
     if(divider) {
         look_ahead_time = (to_evader.magnitude() / divider);
@@ -87,7 +87,7 @@ void Intercept::Cancel() {
 // seek
 // --------------------------------------------------
 void Intercept::seek(GameLib::Vector3 _target) {
-    player->physical->velocity = _target - player->physical->position;
+    player->velocity = _target - player->physical->position;
 }
 
 } // namespace SenselessSoccer

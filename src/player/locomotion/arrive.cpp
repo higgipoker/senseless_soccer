@@ -16,7 +16,7 @@ Arrive::Arrive(Player *p) : Locomotion(p) {
 void Arrive::OnStart() {
     state_over = false;
     destination_reached = false;
-    player->physical->velocity = destination - player->physical->position;
+    player->velocity = destination - player->physical->position;
     last_distance = player->physical->position - destination;
 }
 
@@ -35,7 +35,7 @@ void Arrive::OnStep(const float dt) {
     } else {
         // adjust for misses due to 45 degree precision
         if(new_distance.magnitude() <= last_distance.magnitude()) {
-            player->physical->velocity = destination - player->physical->position;
+            player->velocity = destination - player->physical->position;
         }
     }
 

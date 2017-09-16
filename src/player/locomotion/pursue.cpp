@@ -24,7 +24,7 @@ void Pursue::OnStart() {
 // ------------------------------------------------------------
 void Pursue::OnStep(const float dt) {
 
-    player->physical->velocity = target->position - player->physical->position;
+    player->velocity = target->position - player->physical->position;
     last_distance = target->position - player->physical->position;
     GameLib::Vector3 new_distance = target->position - player->physical->position;
 
@@ -33,7 +33,7 @@ void Pursue::OnStep(const float dt) {
 
     } else {
         if(new_distance.magnitude() > last_distance.magnitude()) {
-            player->physical->velocity = target->position - player->physical->position;
+            player->velocity = target->position - player->physical->position;
         }
     }
 

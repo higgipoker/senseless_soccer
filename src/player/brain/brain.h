@@ -38,13 +38,13 @@ class Brain : public GameLib::StateMachine {
 public:
     /**
      * @brief Brain
-     * @param p
+     * @param p pointer back to player
      */
     explicit Brain(Player *p);
 
     /**
      * @brief Step
-     * @param dt
+     * @param dt time delta
      */
     void Step(float dt);
 

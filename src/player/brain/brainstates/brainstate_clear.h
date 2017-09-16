@@ -9,7 +9,7 @@ namespace SenselessSoccer {
  * @brief ai state to make plyer go get a loose ball
  */
 class BrainClear : public BrainState {
-public:
+  public:
     /**
      * @brief BrainClear
      * @param player pointer back to player for sm context
@@ -36,7 +36,6 @@ public:
      * @brief StateOver
      */
     virtual bool StateOver() override;
-
 };
 
-}// namespace SenselessSoccer
+} // namespace SenselessSoccer

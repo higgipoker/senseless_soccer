@@ -42,17 +42,20 @@ static sf::Color green_bright(0, 215, 0);
 static sf::Color green_medium(0, 175, 0);
 static sf::Color green_dark(0, 135, 0);
 
-std::vector<std::pair<sf::Color, sf::Color> > KitFactory::GetDefaultRedKit() {
+// ------------------------------------------------------------
+// GetDefaultRedKit
+// ------------------------------------------------------------
+std::vector<std::pair<sf::Color, sf::Color>> KitFactory::GetDefaultRedKit() {
     // default kit is already red shirts
 
-    std::vector<std::pair<sf::Color, sf::Color> > p;
+    std::vector<std::pair<sf::Color, sf::Color>> p;
     //
     // SHORTS
     //
-//    p.push_back(std::make_pair(shorts_original_brightest, original_brightest));
-//    p.push_back(std::make_pair(shorts_original_bright, original_bright));
-//    p.push_back(std::make_pair(shorts_original_medium, original_medium));
-//    p.push_back(std::make_pair(shorts_original_bdark, original_dark));
+    //    p.push_back(std::make_pair(shorts_original_brightest, original_brightest));
+    //    p.push_back(std::make_pair(shorts_original_bright, original_bright));
+    //    p.push_back(std::make_pair(shorts_original_medium, original_medium));
+    //    p.push_back(std::make_pair(shorts_original_bdark, original_dark));
 
     //
     // SOCKS
@@ -62,9 +65,12 @@ std::vector<std::pair<sf::Color, sf::Color> > KitFactory::GetDefaultRedKit() {
     return p;
 }
 
-std::vector<std::pair<sf::Color, sf::Color> > KitFactory::GetDefaultBlueKit() {
+// ------------------------------------------------------------
+// GetDefaultBlueKit
+// ------------------------------------------------------------
+std::vector<std::pair<sf::Color, sf::Color>> KitFactory::GetDefaultBlueKit() {
 
-    std::vector<std::pair<sf::Color, sf::Color> > p;
+    std::vector<std::pair<sf::Color, sf::Color>> p;
 
     //
     // SHIRT
@@ -77,15 +83,18 @@ std::vector<std::pair<sf::Color, sf::Color> > KitFactory::GetDefaultBlueKit() {
     //
     // SHORTS
     //
-//    p.push_back(std::make_pair(shorts_original_brightest, blue_brightest));
-//    p.push_back(std::make_pair(shorts_original_bright, blue_bright));
-//    p.push_back(std::make_pair(shorts_original_medium, blue_medium));
-//    p.push_back(std::make_pair(shorts_original_bdark, blue_dark));
+    //    p.push_back(std::make_pair(shorts_original_brightest, blue_brightest));
+    //    p.push_back(std::make_pair(shorts_original_bright, blue_bright));
+    //    p.push_back(std::make_pair(shorts_original_medium, blue_medium));
+    //    p.push_back(std::make_pair(shorts_original_bdark, blue_dark));
     return p;
 }
 
-std::vector<std::pair<sf::Color, sf::Color> > KitFactory::GetKeeperPalette() {
-    std::vector<std::pair<sf::Color, sf::Color> > p;
+// ------------------------------------------------------------
+// GetKeeperPalette
+// ------------------------------------------------------------
+std::vector<std::pair<sf::Color, sf::Color>> KitFactory::GetKeeperPalette() {
+    std::vector<std::pair<sf::Color, sf::Color>> p;
     p.push_back(std::make_pair(original_brightest, green_brightest));
     p.push_back(std::make_pair(original_bright, green_bright));
     p.push_back(std::make_pair(original_medium, green_medium));
@@ -93,5 +102,4 @@ std::vector<std::pair<sf::Color, sf::Color> > KitFactory::GetKeeperPalette() {
     return p;
 }
 
-}    // namespace
-
+} // namespace

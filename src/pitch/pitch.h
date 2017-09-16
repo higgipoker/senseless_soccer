@@ -9,36 +9,31 @@
 namespace SenselessSoccer {
 
 class Pitch : public GameLib::GameEntity {
-public:
-    /**
-    * @brief constructor
-    * @param x x
-    * @param y y
-    * @param width width
-    * @param height height
-    */
-    Pitch(int x, int y, int width, int height);
+  public:
+	/**
+	* @brief constructor
+	* @param x x
+	* @param y y
+	* @param width width
+	* @param height height
+	*/
+	Pitch(GameLib::Physical *p, GameLib::Renderable *r, int x, int y, int width,
+		  int height);
 
-    /*
-     * @brief destruct
-     */
-    ~Pitch();
+	/*
+	 * @brief destruct
+	 */
+	~Pitch();
 
-    /**
-    * @brief connect the pitch renderable
-    * @param renderable reference to a renderable to use
-    */
-    void ConnectRenderable(PitchTiled &renderable);
+	/// grid system
+	GameLib::Grid grid;
 
-    /// grid system
-    GameLib::Grid grid;
+	/// pitch metrics
+	PitchMetrics metrics;
 
-    /// pitch metrics
-    PitchMetrics metrics;
-
-protected:
-    /// renderable
-    PitchTiled *renderable_pitch;
+  protected:
+	/// renderable
+	PitchTiled *renderable_pitch;
 };
 
 } // SenselessSoccer

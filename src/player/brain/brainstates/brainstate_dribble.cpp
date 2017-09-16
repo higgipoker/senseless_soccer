@@ -18,8 +18,8 @@ BrainDribble::BrainDribble(Player *p) : BrainState(p) {
 void BrainDribble::OnStart() {
     player->brain.statename = "DRIBBLE";
     player->OnGainedPossession();
-    player->physical->velocity = player->last_direction;
-    assert(player->physical->velocity.magnitude());
+    player->velocity = player->last_direction;
+    assert(player->velocity.magnitude());
     change_direction();
     timer.Start();
 }
@@ -33,7 +33,7 @@ void BrainDribble::OnStep(const float _dt) {
         /*********************************************
         * stay in pitch
         * *******************************************/
-        GameLib::Vector3 new_direction = player->physical->velocity.rotated(45).roundAngle(45);
+        GameLib::Vector3 new_direction = player->velocity.rotated(45).roundAngle(45);
         player->brain.locomotion.ActivateHead(new_direction);
 
     } else if(timer.GetTicks() > 2000) {
@@ -84,7 +84,7 @@ bool BrainDribble::StateOver() {
 // change_direction
 // ------------------------------------------------------------
 void BrainDribble::change_direction() {
-    GameLib::Vector3 new_direction = player->physical->velocity.rotated(rand() % 2 == 1 ? 45 : -45).roundAngle(45);
+    GameLib::Vector3 new_direction = player->velocity.rotated(rand() % 2 == 1 ? 45 : -45).roundAngle(45);
     player->brain.locomotion.Cancel();
     player->brain.locomotion.ActivateHead(new_direction);
 }

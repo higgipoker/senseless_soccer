@@ -23,6 +23,9 @@ void Brain::Step(float dt) {
     locomotion.UpdateLocomotion(dt);
 }
 
+//  --------------------------------------------------
+//  in_pitch
+//  --------------------------------------------------
 bool Brain::in_pitch(float dt) {
     GameLib::Vector3 projected_position = player->project_position(dt);
     GameLib::Circle c(projected_position.x, projected_position.y, 10);

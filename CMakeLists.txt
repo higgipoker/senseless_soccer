@@ -77,6 +77,8 @@ src/team/roles/role.cpp
 src/metrics/metrics.cpp
 src/pitch/pitch.cpp
 src/input/sensi_controller.cpp
+src/input/sensi_controller_emulator.cpp
+src/input/controlleractionclearance.cpp
 src/game/game.cpp
 src/globals.cpp
 )

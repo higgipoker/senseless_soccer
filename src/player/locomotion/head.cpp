@@ -16,7 +16,7 @@ Head::Head(Player *p) : Locomotion(p) {
 // ------------------------------------------------------------
 void Head::OnStart() {
     state_over = false;
-    player->physical->velocity = direction;
+    player->velocity = direction;
 }
 
 // ------------------------------------------------------------
