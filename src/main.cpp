@@ -124,7 +124,6 @@ int main(int argc, char *argv[]) {
 	GameLib::Renderable team_renderable;
 	Team team1(&team_physical, &team_renderable);
 	Team team2(&team_physical, &team_renderable);
-	team1.SetKit(KitFactory::GetDefaultBlueKit());
 	team1.side = SOUTH;
 	team2.side = NORTH;
 	for (auto it = players.begin(); it != players.end() - 10; ++it) {
@@ -133,6 +132,7 @@ int main(int argc, char *argv[]) {
 	for (auto it = players.begin() + 10; it != players.end(); ++it) {
 		team2.AddPlayer(*it);
 	}
+	team2.SetKit(KitFactory::GetDefaultBlueKit());
 
 	// **************************************************
 	// ball

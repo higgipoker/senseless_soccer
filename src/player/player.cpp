@@ -437,17 +437,12 @@ void Player::calc_pass_recipients(void) {
 	tmp = tmp + velocity.normalised() * 20;
 
 	GameLib::Vector3 temp1 = last_direction;
-
 	GameLib::Vector3 temp2 = last_direction;
-
 	GameLib::Vector3 t1 = physical->position + (temp1.rotated(35, 0, 0)).normalised() * 400;
-
 	GameLib::Vector3 t2 = physical->position + (temp2.rotated(-35, 0, 0)).normalised() * 400;
 
 	player_sprite->triangle1.p1 = GameLib::Point(tmp.x, tmp.y);
-
 	player_sprite->triangle1.p2 = GameLib::Point(t1.x, t1.y);
-
 	player_sprite->triangle1.p3 = GameLib::Point(t2.x, t2.y);
 
 	if (player_sprite->triangle1.p1.x < 0)
@@ -469,7 +464,6 @@ void Player::calc_pass_recipients(void) {
 		player_sprite->triangle1.p3.y = 0;
 
 	player_sprite->triangle1_color(255, 0, 0, 100);
-
 	my_team->key_players.short_pass_candidates.clear();
 
 	for (auto it = my_team->players.begin(); it != my_team->players.end(); ++it) {
