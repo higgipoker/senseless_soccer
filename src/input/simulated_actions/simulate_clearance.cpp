@@ -1,11 +1,11 @@
-#include "sensi_controller_emulator.h"
+#include "simulate_clearance.h"
 
 namespace SenselessSoccer {
 
 // ------------------------------------------------------------
-// ControllerEmulator
+// SimulateClearance
 // ------------------------------------------------------------
-ControllerEmulator::ControllerEmulator(void) {
+SimulateClearance::SimulateClearance(void) {
 }
 
 } // namespace SenselessSoccer

@@ -76,9 +76,10 @@ src/team/team_states/team_play.cpp
 src/team/roles/role.cpp
 src/metrics/metrics.cpp
 src/pitch/pitch.cpp
-src/input/sensi_controller.cpp
-src/input/sensi_controller_emulator.cpp
-src/input/controlleractionclearance.cpp
+src/input/controller.cpp
+src/input/controller_simulator.cpp
+src/input/simulated_actions/simulated_action.cpp
+src/input/simulated_actions/simulate_clearance.cpp
 src/game/game.cpp
 src/globals.cpp
 )

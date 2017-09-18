@@ -1,11 +1,17 @@
-#include "sensi_controller.h"
+#include "controller.h"
 
 namespace SenselessSoccer {
 
 // ------------------------------------------------------------
+// ~Controller
+// ------------------------------------------------------------
+Controller::~Controller() {
+}
+
+// ------------------------------------------------------------
 // Update
 // ------------------------------------------------------------
-void SensiController::Update() {
+void Controller::Update() {
 	// to track if fire down has changed
 	int prev_fire_state = event_states[GameLib::FIRE_DOWN];
 
@@ -26,21 +32,21 @@ void SensiController::Update() {
 // ------------------------------------------------------------
 // AddListener
 // ------------------------------------------------------------
-void SensiController::AddListener(SenselessSoccer::ControllerListener *listener) {
+void Controller::AddListener(SenselessSoccer::ControllerListener *listener) {
 	listeners.insert(listener);
 }
 
 // ------------------------------------------------------------
 // RemoveListener
 // ------------------------------------------------------------
-void SensiController::RemoveListener(SenselessSoccer::ControllerListener *listener) {
+void Controller::RemoveListener(SenselessSoccer::ControllerListener *listener) {
 	listeners.erase(listeners.find(listener));
 }
 
 // ------------------------------------------------------------
 // Notify
 // ------------------------------------------------------------
-void SensiController::Notify(SenselessSoccer::ControllerEvent event) {
+void Controller::Notify(SenselessSoccer::ControllerEvent event) {
 	for (auto it = listeners.begin(); it != listeners.end(); ++it) {
 		(*it)->OnControllerEvent(event);
 	}

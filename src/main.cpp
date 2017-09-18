@@ -14,8 +14,8 @@
 #include "graphics/ball_sprite.h"
 #include "graphics/pitch_renderable.h"
 #include "graphics/player_sprite.h"
-#include "input/sensi_controller.h"
-#include "input/sensi_controller_emulator.h"
+#include "input/controller.h"
+#include "input/controller_simulator.h"
 #include "kit/kit_factory.h"
 #include "match/match.h"
 #include "metrics/metrics.h"
@@ -169,7 +169,7 @@ int main(int argc, char *argv[]) {
 	// **************************************************
 	// input
 	// **************************************************
-	SensiController keyboard;
+	Controller keyboard;
 	players[0]->AttachInput(&keyboard);
 
 	// **************************************************

@@ -3,7 +3,7 @@
 
 #include "../ball/ball.h"
 #include "../graphics/player_sprite.h"
-#include "../input/sensi_controller.h"
+#include "../input/controller.h"
 #include "../pitch/pitch.h"
 #include "../team/roles/role.h"
 #include "brain/brain.h"
@@ -30,7 +30,7 @@ class Player : public GameLib::StateMachine, public GameLib::GameEntity, public 
 	 * @brief connect an input
 	 * @param i pointer to input device (can be null)
 	 */
-	void AttachInput(SensiController *i);
+	void AttachInput(Controller *i);
 
 	/**
 	 * @brief detatch an input
@@ -104,7 +104,7 @@ class Player : public GameLib::StateMachine, public GameLib::GameEntity, public 
 	PlayerSprite *player_sprite;
 
 	/// input controller
-	SensiController *input;
+	Controller *input;
 
 	/// a brain
 	Brain brain;

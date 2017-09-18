@@ -128,7 +128,7 @@ void Player::Update(float dt) {
 // ------------------------------------------------------------
 // AttachInput
 // ------------------------------------------------------------
-void Player::AttachInput(SensiController *i) {
+void Player::AttachInput(Controller *i) {
 	input = i;
 	input->AddListener(this);
 }
