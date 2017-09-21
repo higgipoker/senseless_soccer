@@ -4,15 +4,11 @@
 
 namespace SenselessSoccer {
 
-/**
-*@brief The ControllerActionClearance class
-*/
-class SimulateClearance : public SimulatedAction {
+class SimulatedClearance : public SimulatedAction {
   public:
-	/**
-	* @brief ControllerActionClearance
-	*/
-	SimulateClearance(void);
+	SimulatedClearance();
+
+  protected:
 };
 
 } // namespace SenselessSoccer

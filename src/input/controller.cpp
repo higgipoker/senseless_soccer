@@ -12,7 +12,7 @@ Controller::~Controller() {
 // Update
 // ------------------------------------------------------------
 void Controller::Update() {
-	// to track if fire down has changed
+	// to track if fire down has changed, save state before base update
 	int prev_fire_state = event_states[GameLib::FIRE_DOWN];
 
 	GameLib::Keyboard::Update();

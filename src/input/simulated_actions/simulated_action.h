@@ -4,8 +4,17 @@
 
 namespace SenselessSoccer {
 
-/** @brief a programmed event */
+/**
+ * @brief a programmed event
+ */
 struct ProgrammedEvent {
+
+	ProgrammedEvent() {
+		for (unsigned int i = 0; i < GameLib::TOTAL_EVENTS; ++i) {
+			event_states[i] = false;
+		}
+		frames = 0;
+	}
 
 	/// status of each input
 	int event_states[GameLib::TOTAL_EVENTS];
@@ -19,13 +28,8 @@ struct ProgrammedEvent {
  */
 class SimulatedAction {
   public:
-	/**
-	 * @brief one frame
-	 */
-	void Tick();
-
 	/// a list of events, one per frame
-	std::vector<ProgrammedEvent> programmed_events;
+	std::vector<ProgrammedEvent> actions;
 };
 
 } // SenselessSoccer

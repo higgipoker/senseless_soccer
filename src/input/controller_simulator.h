@@ -20,7 +20,8 @@ class ControllerSimulator : public Controller {
 	void Update();
 
   protected:
-	SimulatedAction *current_action;
+	/// current action to execute
+	std::vector<ProgrammedEvent> *current_action;
 };
 
 } // namespace SenselessSocccer

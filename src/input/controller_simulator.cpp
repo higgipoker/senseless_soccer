@@ -12,10 +12,12 @@ ControllerSimulator::ControllerSimulator(void) {
 // Update
 // ------------------------------------------------------------
 void ControllerSimulator::Update() {
-	Reset();
-	if (current_action->programmed_events.size()) {
+	if (current_action->size()) {
 		for (int i = 0; i < GameLib::TOTAL_EVENTS; ++i) {
-			event_states[i] = current_action->programmed_events.back().event_states[i];
+			event_states[i] = current_action->back().event_states[i];
+		}
+		if (--current_action->back().frames == 0) {
+			current_action->pop_back();
 		}
 	}
 }
