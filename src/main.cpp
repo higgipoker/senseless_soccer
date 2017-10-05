@@ -14,8 +14,8 @@
 #include "graphics/ball_sprite.h"
 #include "graphics/pitch_renderable.h"
 #include "graphics/player_sprite.h"
-#include "input/controller.h"
-#include "input/controller_simulator.h"
+#include "input/cpu/controller_simulator.h"
+#include "input/p1/controller.h"
 #include "kit/kit_factory.h"
 #include "match/match.h"
 #include "metrics/metrics.h"
@@ -171,6 +171,9 @@ int main(int argc, char *argv[]) {
 	// **************************************************
 	Controller keyboard;
 	players[0]->AttachInput(&keyboard);
+
+	ControllerSimulator cpu;
+	players[1]->AttachInput(&cpu);
 
 	// **************************************************
 	// test some text

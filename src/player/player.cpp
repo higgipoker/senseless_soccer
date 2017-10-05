@@ -22,11 +22,11 @@ Player::Player(GameLib::Physical *p, GameLib::Renderable *r)
  : GameLib::GameEntity(p, r)
  ,
 
- // sprite will be attached later
+ /// sprite will be attached later
  player_sprite(static_cast<PlayerSprite *>(r))
  ,
 
- // no connected input
+ /// no connected input
  input(nullptr)
  ,
 
@@ -40,22 +40,15 @@ Player::Player(GameLib::Physical *p, GameLib::Renderable *r)
 
  // tracker
  changed_direction(false) {
+
 	name = "player";
-
-	// set up an inital state
-	InitState(new Standing(*this));
-
-	// players sprite feet at physical location
 	anchor_type = GameLib::ANCHOR_BASELINE;
-
-	// dribble circle size
 	dribble_circle.radius = 4;
-
-	// close control circle
 	close_control_circle.radius = 8;
-
 	distance_from_ball = 0;
 	in_possession = false;
+
+	InitState(new Standing(*this));
 }
 
 // ------------------------------------------------------------
@@ -529,7 +522,7 @@ void Player::Call(std::vector<std::string> params) {
 		return;
 	}
 
-	if (params[0] == "retreive") {
+	if (params[0] == "retrieve") {
 		brain.ActivateState(BRAIN_GETBALL);
 		return;
 	}

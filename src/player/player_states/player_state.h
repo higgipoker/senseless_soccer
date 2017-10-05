@@ -1,5 +1,5 @@
 #pragma once
-#include "../../input/controller.h"
+#include "../../input/p1/controller.h"
 #include <gamelib/statemachine/state.h>
 
 namespace SenselessSoccer {

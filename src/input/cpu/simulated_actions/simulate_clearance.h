@@ -6,6 +6,9 @@ namespace SenselessSoccer {
 
 class SimulatedClearance : public SimulatedAction {
   public:
+      /**
+       * @brief constructor
+       */
 	SimulatedClearance();
 
   protected:

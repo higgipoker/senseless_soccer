@@ -1,6 +1,6 @@
 #pragma once
-#include "controller.h"
-#include "simulated_actions/simulated_action.h"
+#include "../p1/controller.h"
+#include "simulated_actions/simulate_nothing.h"
 #include <vector>
 namespace SenselessSoccer {
 
@@ -10,18 +10,23 @@ namespace SenselessSoccer {
 class ControllerSimulator : public Controller {
   public:
 	/**
-	* @brief constructor
-	*/
-	ControllerSimulator(void);
+	  * @brief constructor
+	  */
+	ControllerSimulator();
 
 	/**
-	 * @brief Update
-	 */
+	  * @brief destruct
+	  */
+	~ControllerSimulator();
+
+	/**
+	  * @brief Update
+	  */
 	void Update();
 
   protected:
 	/// current action to execute
-	std::vector<ProgrammedEvent> *current_action;
+	SimulatedAction *current_action;
 };
 
 } // namespace SenselessSocccer
