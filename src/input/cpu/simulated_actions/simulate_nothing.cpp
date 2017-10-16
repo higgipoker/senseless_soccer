@@ -6,34 +6,36 @@ namespace SenselessSoccer {
 // SimulatedClearance
 // ------------------------------------------------------------
 SimulateNothing::SimulateNothing() {
-	ProgrammedEvent evt1;
-	evt1.event_states[GameLib::DOWN] = true;
-	evt1.event_states[GameLib::RIGHT] = true;
-	evt1.frames = 500;
-	actions.push_back(evt1);
 
-	ProgrammedEvent evt2;
-	evt2.event_states[GameLib::DOWN] = true;
-	evt2.frames = 100;
-	actions.push_back(evt2);
+    // stick down and right
+    ProgrammedEvent evt1;
+    SimulatedSequence::SimulateAction(STICK_DOWN_RIGHT, false, evt1.event_states);
+    evt1.milliseconds = 5000;
+    evt1.id = "DOWN RIGHT";
+    actions.push_back(evt1);
 
-	ProgrammedEvent evt3;
-	evt3.event_states[GameLib::DOWN] = true;
-	evt3.event_states[GameLib::FIRE_DOWN] = true;
-	evt3.frames = 40;
-	actions.push_back(evt3);
+    // stick down
+    ProgrammedEvent evt2;
+    SimulatedSequence::SimulateAction(STICK_DOWN, false, evt2.event_states);
+    evt2.milliseconds = 3000;
+    evt2.id = "DOWN";
+    actions.push_back(evt2);
 
-	ProgrammedEvent evt4;
-	evt4.event_states[GameLib::DOWN] = true;
-	evt4.event_states[GameLib::FIRE_UP] = true;
-	evt4.frames = 40;
-	actions.push_back(evt4);
+    // stick down and fire down
+    ProgrammedEvent evt3;
+    SimulatedSequence::SimulateAction(STICK_DOWN, true, evt3.event_states);
+    evt3.milliseconds = 200;
+    evt3.id = "DOWN FIRE_PRESS";
+    actions.push_back(evt3);
 
-	ProgrammedEvent evt5;
-	evt5.event_states[GameLib::DOWN] = true;
-	evt5.frames = 120;
-	actions.push_back(evt5);
+    // stick down and fire up
+    ProgrammedEvent evt4;
+    SimulatedSequence::SimulateAction(STICK_DOWN, false, evt4.event_states);
+    evt4.milliseconds = 400;
+    evt4.id = "DOWN FIRE_RELEASE";
+    actions.push_back(evt4);
 
+    // reverse the order
 	std::reverse(actions.begin(), actions.end());
 }
 

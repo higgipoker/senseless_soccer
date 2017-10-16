@@ -3,12 +3,6 @@
 namespace SenselessSoccer {
 
 // ------------------------------------------------------------
-// ~Controller
-// ------------------------------------------------------------
-Controller::~Controller() {
-}
-
-// ------------------------------------------------------------
 // Update
 // ------------------------------------------------------------
 void Controller::Update() {
@@ -46,7 +40,7 @@ void Controller::RemoveListener(SenselessSoccer::ControllerListener *listener) {
 // ------------------------------------------------------------
 // Notify
 // ------------------------------------------------------------
-void Controller::Notify(SenselessSoccer::ControllerEvent event) {
+void Controller::Notify(ControllerEvent event) {
 	for (auto it = listeners.begin(); it != listeners.end(); ++it) {
 		(*it)->OnControllerEvent(event);
 	}

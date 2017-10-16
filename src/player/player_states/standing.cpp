@@ -6,7 +6,8 @@ namespace SenselessSoccer {
 // ------------------------------------------------------------
 // Constructor
 // ------------------------------------------------------------
-Standing::Standing(Player &p) : PlayerState(p) {
+Standing::Standing(Player &p)
+ : PlayerState(p) {
 }
 
 // ------------------------------------------------------------
@@ -20,9 +21,8 @@ void Standing::OnStart() {
 // OnStep
 // ------------------------------------------------------------
 void Standing::OnStep(const float dt) {
-    // set the animation based on velocity (running direction)
     GameLib::Vector3 to_ball = player.ball->physical->position - player.physical->position;
-    player.player_sprite->SetStandingAnimation(to_ball.roundAngle(45) );
+    player.player_sprite->SetStandingAnimation(to_ball.roundAngle(45));
 }
 
 // ------------------------------------------------------------
@@ -35,8 +35,7 @@ void Standing::OnEnd() {
 // StateOver
 // ------------------------------------------------------------
 bool Standing::StateOver() {
-
-    if(player.velocity.magnitude()) {
+    if (player.velocity.magnitude()) {
         next_state = PLAYER_STATE_RUN;
         return true;
     }

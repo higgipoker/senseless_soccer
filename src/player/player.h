@@ -14,7 +14,7 @@ class Team;
 
 /** @brief class to represent a player entity */
 class Player : public GameLib::StateMachine, public GameLib::GameEntity, public ControllerListener {
-public:
+  public:
     /**
      * @brief constructor
      */
@@ -35,17 +35,17 @@ public:
     /**
      * @brief detatch an input
      */
-    void DetatchInput(void);
+    void DetatchInput();
 
     /**
      * @brief player gained possession
      */
-    void OnGainedPossession(void);
+    void OnGainedPossession();
 
     /**
      * @brief player lost possession
      */
-    void OnLostPossession(void);
+    void OnLostPossession();
 
     /**
      * @brief do a short pass
@@ -56,17 +56,17 @@ public:
     /**
      * @brief shoot!!
      */
-    void Shoot(void);
+    void Shoot();
 
     /**
      * @brief clear the ball
      */
-    void Clearance(void);
+    void Clearance();
 
     /**
      * @brief do a sliding tackle
      */
-    void DoSlideTackle(void);
+    void DoSlideTackle();
 
     /**
      * @brief handle a controller event
@@ -99,7 +99,7 @@ public:
     static Ball *ball;
     static Pitch *pitch;
 
-protected:
+  protected:
     /// to access the sprite specific functionality of renderable (eg animate)
     PlayerSprite *player_sprite;
 
@@ -143,18 +143,18 @@ protected:
     /**
      * @brief helper to normalize the velocity
      */
-    void normalize_velocity(void);
+    void normalize_velocity();
 
     /**
      * @brief helper to set the sprite animation
      */
-    void animate(void);
+    void animate();
 
     /**
      * @brief dribble circle must be updated every frame depending on players
      * current position
      */
-    void update_dribble_circle(void);
+    void update_dribble_circle();
 
     /**
      * @brief push the ball forward
@@ -171,12 +171,12 @@ protected:
     /**
      * @brief close control mechanism
      */
-    void do_close_control(void);
+    void do_close_control();
 
     /**
      * @brief test if ball is under control
      */
-    bool ball_under_control(void);
+    bool ball_under_control();
 
     /**
      * \breif kick the ball
@@ -187,18 +187,19 @@ protected:
     /**
      * @brief calc pass range triangle
      */
-    void calc_pass_recipients(void);
+    void calc_pass_recipients();
 
-    /// helper
+    /**
+     * @brief helper
+     * @return
+     */
     int distance_to_goal() {
         GameLib::Vector3 goal_center(pitch->metrics.north_goal.x1, pitch->metrics.north_goal.y1);
         goal_center.x += (pitch->metrics.north_goal.x2 - pitch->metrics.north_goal.x1) / 2;
         return (physical->position - goal_center).magnitude();
     }
 
-    /// debug
-
-public:
+  public:
     // ------------------------------------------------------------
     // state machine pattern friends
     // ------------------------------------------------------------

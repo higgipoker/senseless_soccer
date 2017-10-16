@@ -13,7 +13,7 @@ SimulatedClearance::SimulatedClearance() {
 	// press and hold fire
 	for (unsigned int i = 0; i < 10; ++i) {
 		evt.event_states[GameLib::FIRE_DOWN] = true;
-		evt.frames = 5;
+        evt.milliseconds = 5;
 		actions.push_back(evt);
 	}
 
@@ -21,7 +21,7 @@ SimulatedClearance::SimulatedClearance() {
 	for (unsigned int i = 0; i < 50; ++i) {
 		evt.event_states[GameLib::FIRE_DOWN] = true;
 		evt.event_states[GameLib::DOWN] = true;
-		evt.frames = 5;
+        evt.milliseconds = 5;
 		actions.push_back(evt);
 	}
 }

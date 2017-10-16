@@ -1,10 +1,10 @@
 #pragma once
 
-#include "simulated_action.h"
+#include "simulated_sequence.h"
 
 namespace SenselessSoccer {
 
-class SimulateNothing : public SimulatedAction {
+class SimulateNothing : public SimulatedSequence {
   public:
 	/**
 	 * @brief constructor

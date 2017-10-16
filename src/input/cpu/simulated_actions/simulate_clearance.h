@@ -1,14 +1,14 @@
 #pragma once
 
-#include "simulated_action.h"
+#include "simulated_sequence.h"
 
 namespace SenselessSoccer {
 
-class SimulatedClearance : public SimulatedAction {
+class SimulatedClearance : public SimulatedSequence {
   public:
-      /**
-       * @brief constructor
-       */
+    /**
+     * @brief constructor
+     */
 	SimulatedClearance();
 
   protected:

@@ -36,7 +36,7 @@ struct ControllerEvent {
  * @brief The ControllerListener class
  */
 class ControllerListener {
-public:
+  public:
     /**
     * @brief constructor
     * @param event event to handle
@@ -48,12 +48,7 @@ public:
  * @brief The SensiController class
  */
 class Controller : public GameLib::Keyboard {
-public:
-    /**
-     * @brief ~Controller
-     */
-    virtual ~Controller(void);
-
+  public:
     /**
      * @brief Update
      */
@@ -71,7 +66,7 @@ public:
      */
     void RemoveListener(ControllerListener *listener);
 
-protected:
+  protected:
     /**
      * @brief Notify
      * @param event event to handle
