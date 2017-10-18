@@ -8,7 +8,7 @@ namespace SenselessSoccer {
 // ControllerEmulator
 // ------------------------------------------------------------
 ControllerSimulator::ControllerSimulator(void) {
-	current_action = new SimulateNothing();
+    current_sequence = new SimulateNothing();
     first_action = true;
 }
 
@@ -16,7 +16,7 @@ ControllerSimulator::ControllerSimulator(void) {
 // ~ControllerSimulator
 // ------------------------------------------------------------
 ControllerSimulator::~ControllerSimulator() {
-	delete current_action;
+    delete current_sequence;
 }
 
 // ------------------------------------------------------------
@@ -25,13 +25,15 @@ ControllerSimulator::~ControllerSimulator() {
 void ControllerSimulator::Update() {
 
 	// if there is an action in the list
-	if (current_action->actions.size()) {
+    if (current_sequence->actions.size()) {
 
+        // log when the action changes
         if (log) {
-            std::cout << current_action->actions.back().id << std::endl;
+            std::cout << current_sequence->actions.back().id << std::endl;
             log = false;
         }
 
+        // this is the first action in a sequence (so start timer)
         if (first_action) {
             timer.restart();
             first_action = false;
@@ -45,13 +47,13 @@ void ControllerSimulator::Update() {
 
 		// copy the simulated actions to live event states
 		for (int i = 0; i < GameLib::TOTAL_EVENTS; ++i) {
-			event_states[i] = current_action->actions.back().event_states[i];
-		}
+            event_states[i] = current_sequence->actions.back().event_states[i];
+        }
 
         // end of current action?
-        if (timer.getElapsedTime().asMilliseconds() >= current_action->actions.back().milliseconds) {
+        if (timer.getElapsedTime().asMilliseconds() >= current_sequence->actions.back().milliseconds) {
             timer.restart();
-			current_action->actions.pop_back();
+            current_sequence->actions.pop_back();
             Reset();
             log = true;
         }
@@ -64,7 +66,6 @@ void ControllerSimulator::Update() {
         // check for fire pressed event
         if (prev_fire_state == 0) {
             if (event_states[GameLib::FIRE_DOWN]) {
-
                 fire_timer.restart();
                 Notify(FIRE_PRESS);
             }

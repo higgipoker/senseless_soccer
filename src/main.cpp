@@ -14,8 +14,8 @@
 #include "graphics/ball_sprite.h"
 #include "graphics/pitch_renderable.h"
 #include "graphics/player_sprite.h"
-#include "input/cpu/controller_simulator.h"
-#include "input/p1/controller.h"
+#include "joysticker/controller.h"
+#include "joysticker/cpu/controller_simulator.h"
 #include "kit/kit_factory.h"
 #include "match/match.h"
 #include "metrics/metrics.h"
@@ -152,7 +152,7 @@ int main(int argc, char *argv[]) {
 	GameLib::Physical pitch_physical;
 	PitchTiled pitch_renderable(senseless.working_directory + "/gfx/grass_dry.png", senseless.camera);
 	Pitch pitch(&pitch_physical, &pitch_renderable, 250, 250, Metrics::MetersToPixels(68.5),
-				Metrics::MetersToPixels(100.5f));
+                Metrics::MetersToPixels(100.5f));
 	Player::pitch = &pitch;
 
 	// **************************************************
@@ -180,7 +180,7 @@ int main(int argc, char *argv[]) {
 	// **************************************************
 	GameLib::Physical text_physical;
 	GameLib::Label label(senseless.working_directory + "/fonts/swos.ttf", 20,
-						 "senseless soccer " + senseless_soccer_version);
+                         "senseless soccer " + senseless_soccer_version);
 	label.SetPosition(12, 24);
 	GameLib::GameEntity text(&text_physical, &label);
 	text.hud = true;

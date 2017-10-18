@@ -3,7 +3,7 @@
 
 #include "../ball/ball.h"
 #include "../graphics/player_sprite.h"
-#include "../input/p1/controller.h"
+#include "../joysticker/controller.h"
 #include "../pitch/pitch.h"
 #include "../team/roles/role.h"
 #include "brain/brain.h"
