@@ -25,6 +25,7 @@
 #include "team/roles/role.h"
 #include "team/team.h"
 
+
 #define WINDOW_WIDTH 800
 #define WINDOW_HEIGHT 600
 
@@ -96,16 +97,16 @@ int main(int argc, char *argv[]) {
 		return 0;
 	}
 
-	// **************************************************
+    //
 	// main game
-	// **************************************************
+    //
 	SenselessGame senseless("Senseless Soccer", 1980, 0, WINDOW_WIDTH, WINDOW_HEIGHT, false);
 	Globals::sensi = &senseless;
 	senseless.working_directory = GetCurrentWorkingDirectory();
 
-	// **************************************************
+    //
 	// players
-	// **************************************************
+    //
 	PlayerFactory player_factory;
 	std::vector<Player *> players;
 	for (unsigned int i = 0; i < 20; ++i) {
@@ -117,9 +118,9 @@ int main(int argc, char *argv[]) {
 		(*it)->Call(call);
 	}
 
-	// **************************************************
+    //
 	// team
-	// **************************************************
+    //
 	GameLib::Physical team_physical;
 	GameLib::Renderable team_renderable;
 	Team team1(&team_physical, &team_renderable);
@@ -134,9 +135,9 @@ int main(int argc, char *argv[]) {
 	}
 	team2.SetKit(KitFactory::GetDefaultBlueKit());
 
-	// **************************************************
+    //
 	// ball
-	// **************************************************
+    //
 	BallSprite ball_sprite(senseless.working_directory + "/gfx/ball_new.png", 4, 2);
 	BallShadowSprite ball_shadow_sprite(senseless.working_directory + "/gfx/ball_shadow.png", 1, 1);
 	ball_sprite.shadow = &ball_shadow_sprite;
@@ -146,18 +147,17 @@ int main(int argc, char *argv[]) {
 	Match::ball = &ball;
 	Player::ball = &ball;
 
-	// **************************************************
+    //
 	// pitch
-	// **************************************************
+    //
 	GameLib::Physical pitch_physical;
 	PitchTiled pitch_renderable(senseless.working_directory + "/gfx/grass_dry.png", senseless.camera);
-	Pitch pitch(&pitch_physical, &pitch_renderable, 250, 250, Metrics::MetersToPixels(68.5),
-                Metrics::MetersToPixels(100.5f));
+    Pitch pitch(&pitch_physical, &pitch_renderable, 250, 250, Metrics::MetersToPixels(68.5), Metrics::MetersToPixels(100.5f));
 	Player::pitch = &pitch;
 
-	// **************************************************
+    //
 	// goals
-	// **************************************************
+    //
 	GameLib::Physical goal_north_physical;
 	GameLib::Renderable goal_north_sprite(senseless.working_directory + "/gfx/goal_north.png");
 	GameLib::GameEntity goal_north(&goal_north_physical, &goal_north_sprite);
@@ -166,18 +166,18 @@ int main(int argc, char *argv[]) {
 	goal_north_sprite.z_order = 20;
 	goal_north.SetName("goal1");
 
-	// **************************************************
+    //
 	// input
-	// **************************************************
+    //
 	Controller keyboard;
 	players[0]->AttachInput(&keyboard);
 
 	ControllerSimulator cpu;
 	players[1]->AttachInput(&cpu);
 
-	// **************************************************
+    //
 	// test some text
-	// **************************************************
+    //
 	GameLib::Physical text_physical;
 	GameLib::Label label(senseless.working_directory + "/fonts/swos.ttf", 20,
                          "senseless soccer " + senseless_soccer_version);
@@ -185,9 +185,9 @@ int main(int argc, char *argv[]) {
 	GameLib::GameEntity text(&text_physical, &label);
 	text.hud = true;
 
-	// **************************************************
+    //
 	// add entities
-	// **************************************************
+    //
 	senseless.AddEntity(pitch);
 	senseless.AddEntity(team1);
 	senseless.AddEntity(team2);
@@ -199,21 +199,21 @@ int main(int argc, char *argv[]) {
 	senseless.AddEntity(goal_north);
 	senseless.AddEntity(text);
 
-	// **************************************************
+    //
 	// camera
-	// **************************************************
+    //
 	senseless.camera.view.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
 	senseless.camera.SetWorldRect(GameLib::Rectangle(0, 0, 1900, 2600));
 	senseless.camera.Follow(&ball);
 
-	// **************************************************
+    //
 	// mtch
-	// **************************************************
+    //
 	Match match(&team1, &team2);
 
-	// **************************************************
+    //
 	// run the game
-	// **************************************************
+    //
 	float dt = 0.001f;
 	while (senseless.running) {
 		match.Update(dt);

@@ -66,7 +66,7 @@ void Player::Update(float dt) {
 
 	// only if input is attached
 	if (input) {
-		((PlayerState *)current_state)->handle_input();
+		static_cast<PlayerState*>(current_state)->handle_input();
 
 	} else {
 		brain.Step(dt);

@@ -6,7 +6,7 @@ namespace SenselessSoccer {
 // ------------------------------------------------------------
 PlayerFactory::~PlayerFactory() {
 	for (auto it = players.begin(); it != players.end(); ++it) {
-		delete (*it)->renderable->shadow;
+		//delete (*it)->renderable->shadow;
 		delete (*it)->renderable;
 		delete (*it)->physical;
 		delete (*it)->role;
