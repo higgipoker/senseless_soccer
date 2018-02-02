@@ -24,7 +24,7 @@ class Match : public GameLib::StateMachine {
 	/**
 	 * @brief Update
 	 */
-	void Update(float dt) {
+	void Update(double dt) {
 	}
 
 	/// tmp ball pointer

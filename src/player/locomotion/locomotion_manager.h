@@ -23,7 +23,7 @@ public:
      * @brief update
      * @param [in] dt time delta
      */
-    void UpdateLocomotion(float dt);
+    void UpdateLocomotion(double dt);
 
     /**
      * @brief activate the arrive locomotion

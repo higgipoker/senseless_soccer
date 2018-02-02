@@ -21,7 +21,7 @@ void BrainClear::OnStart() {
 // ------------------------------------------------------------
 // OnStep
 // ------------------------------------------------------------
-void BrainClear::OnStep(const float _dt) {
+void BrainClear::OnStep(const double _dt) {
 	BrainState::OnStep(_dt);
 }
 

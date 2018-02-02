@@ -19,7 +19,7 @@ void BrainGetBall::OnStart() {
 // ------------------------------------------------------------
 // OnStep
 // ------------------------------------------------------------
-void BrainGetBall::OnStep(const float _dt) {
+void BrainGetBall::OnStep(const double _dt) {
 }
 
 // ------------------------------------------------------------

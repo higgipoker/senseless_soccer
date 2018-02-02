@@ -44,7 +44,7 @@ class Team : public GameLib::StateMachine, public GameLib::GameEntity {
 	 * @brief on step
 	 * @param dt time delta
 	 */
-	void Update(float dt);
+	void Update(double dt);
 
 	/**
 	 * @brief add a player

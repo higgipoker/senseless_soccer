@@ -46,7 +46,7 @@ void LocomotionManager::ActivateIntercept(GameLib::Physical *follow) {
 // ------------------------------------------------------------
 // UpdateLocomotion
 // ------------------------------------------------------------
-void LocomotionManager::UpdateLocomotion(float dt) {
+void LocomotionManager::UpdateLocomotion(double dt) {
     // check for pending behaviour
     if(!behaviour_queue.empty()) {
         Locomotion *next = behaviour_queue.back();

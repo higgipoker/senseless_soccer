@@ -46,7 +46,7 @@ class Brain : public GameLib::StateMachine {
 	 * @brief Step
 	 * @param dt time delta
 	 */
-	void Step(float dt);
+	void Step(double dt);
 
 	/**
 	  * @brief activate a brain state manually
@@ -70,7 +70,7 @@ class Brain : public GameLib::StateMachine {
 	Player *player;
 
 	/// is the playe rin the pitch
-	bool in_pitch(float dt);
+	bool in_pitch(double dt);
 
   public:
 	friend class BrainDribble;

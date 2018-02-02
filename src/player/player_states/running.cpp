@@ -21,7 +21,7 @@ void Running::OnStart() {
 // ------------------------------------------------------------
 // OnStep
 // ------------------------------------------------------------
-void Running::OnStep(const float dt) {
+void Running::OnStep(const double dt) {
 	// set the animation based on velocity (running direction)
 	player.player_sprite->SetRunningAnimation(player.velocity.roundAngle(45));
 

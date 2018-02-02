@@ -23,7 +23,7 @@ void Arrive::OnStart() {
 // ------------------------------------------------------------
 // OnStep
 // ------------------------------------------------------------
-void Arrive::OnStep(const float dt) {
+void Arrive::OnStep(const double dt) {
     GameLib::Vector3 new_distance = destination - player->physical->position;
 
     if(new_distance.magnitude() <=10) {

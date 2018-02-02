@@ -14,211 +14,213 @@ class Team;
 
 /** @brief class to represent a player entity */
 class Player : public GameLib::StateMachine, public GameLib::GameEntity, public ControllerListener {
-  public:
-    /**
-     * @brief constructor
-     */
-    explicit Player(GameLib::Physical *p, GameLib::Renderable *r);
+public:
+  /**
+   * @brief constructor
+   */
+  explicit Player(GameLib::Physical *p, GameLib::Renderable *r);
 
-    /**
-     *@brief derived entities can do their own extra handling
-     *@param dt time delta
-     */
-    virtual void Update(float dt) override;
+  virtual ~Player();
 
-    /**
-     * @brief connect an input
-     * @param i pointer to input device (can be null)
-     */
-    void AttachInput(Controller *i);
+  /**
+   *@brief derived entities can do their own extra handling
+   *@param dt time delta
+   */
+  virtual void Update(double dt) override;
 
-    /**
-     * @brief detatch an input
-     */
-    void DetatchInput();
+  /**
+   * @brief connect an input
+   * @param i pointer to input device (can be null)
+   */
+  void AttachInput(Controller *i);
 
-    /**
-     * @brief player gained possession
-     */
-    void OnGainedPossession();
+  /**
+   * @brief detatch an input
+   */
+  void DetatchInput();
 
-    /**
-     * @brief player lost possession
-     */
-    void OnLostPossession();
+  /**
+   * @brief player gained possession
+   */
+  void OnGainedPossession();
 
-    /**
-     * @brief do a short pass
-     * @param recipient recieving player
-     */
-    void ShortPass(Player *recipient);
+  /**
+   * @brief player lost possession
+   */
+  void OnLostPossession();
 
-    /**
-     * @brief shoot!!
-     */
-    void Shoot();
+  /**
+   * @brief do a short pass
+   * @param recipient recieving player
+   */
+  void ShortPass(Player *recipient);
 
-    /**
-     * @brief clear the ball
-     */
-    void Clearance();
+  /**
+   * @brief shoot!!
+   */
+  void Shoot();
 
-    /**
-     * @brief do a sliding tackle
-     */
-    void DoSlideTackle();
+  /**
+   * @brief clear the ball
+   */
+  void Clearance();
 
-    /**
-     * @brief handle a controller event
-     * @param event an event to handle
-     */
-    virtual void OnControllerEvent(ControllerEvent event) override;
+  /**
+   * @brief do a sliding tackle
+   */
+  void DoSlideTackle();
 
-    /**
-     * @brief rpc call for player
-     * @param params list of params
-     */
-    virtual void Call(std::vector<std::string> params) override;
+  /**
+   * @brief handle a controller event
+   * @param event an event to handle
+   */
+  virtual void OnControllerEvent(ControllerEvent event) override;
 
-    /// players team
-    Team *my_team;
+  /**
+   * @brief rpc call for player
+   * @param params list of params
+   */
+  virtual void Call(std::vector<std::string> params) override;
 
-    /// opposing team
-    Team *other_team;
+  /// players team
+  Team *my_team;
 
-    /// a player can have a playing role (eg right back)
-    Role *role;
+  /// opposing team
+  Team *other_team;
 
-    /// track distance from ball
-    int distance_from_ball;
+  /// a player can have a playing role (eg right back)
+  Role *role;
 
-    /// track if i have the ball
-    bool in_possession;
+  /// track distance from ball
+  int distance_from_ball;
 
-    /// convenient access to match stuff
-    static Ball *ball;
-    static Pitch *pitch;
+  /// track if i have the ball
+  bool in_possession;
 
-  protected:
-    /// to access the sprite specific functionality of renderable (eg animate)
-    PlayerSprite *player_sprite;
+  /// convenient access to match stuff
+  static Ball *ball;
+  static Pitch *pitch;
 
-    /// input controller
-    Controller *input;
+protected:
+  /// to access the sprite specific functionality of renderable (eg animate)
+  PlayerSprite *player_sprite;
 
-    /// a brain
-    Brain brain;
+  /// input controller
+  Controller *input;
 
-    /// how fast can the player run
-    unsigned int running_speed;
+  /// a brain
+  Brain brain;
 
-    /// to collide with the ball for dribbling
-    GameLib::Circle dribble_circle;
+  /// how fast can the player run
+  unsigned int running_speed;
 
-    /// for close control
-    GameLib::Circle close_control_circle;
+  /// to collide with the ball for dribbling
+  GameLib::Circle dribble_circle;
 
-    /// track change direction, so we donthave to calc it multiple times in a
-    /// frame
-    bool changed_direction;
+  /// for close control
+  GameLib::Circle close_control_circle;
 
-    /// until we think of a better way to transition to slide tackle state
-    bool sliding = false;
+  /// track change direction, so we donthave to calc it multiple times in a
+  /// frame
+  bool changed_direction;
 
-    /// for calcing change direction
-    GameLib::Vector3 last_direction;
+  /// until we think of a better way to transition to slide tackle state
+  bool sliding = false;
 
-    /**
-     * @brief helper to update player position
-     * @param dt time delta
-     */
-    void update_position(float dt);
+  /// for calcing change direction
+  GameLib::Vector3 last_direction;
 
-    /**
-     * @brief where will the player be in teh next time step
-     * @param dt time delta
-     */
-    GameLib::Vector3 project_position(float dt);
+  /**
+   * @brief helper to update player position
+   * @param dt time delta
+   */
+  void update_position(double dt);
 
-    /**
-     * @brief helper to normalize the velocity
-     */
-    void normalize_velocity();
+  /**
+   * @brief where will the player be in teh next time step
+   * @param dt time delta
+   */
+  GameLib::Vector3 project_position(double dt);
 
-    /**
-     * @brief helper to set the sprite animation
-     */
-    void animate();
+  /**
+   * @brief helper to normalize the velocity
+   */
+  void normalize_velocity();
 
-    /**
-     * @brief dribble circle must be updated every frame depending on players
-     * current position
-     */
-    void update_dribble_circle();
+  /**
+   * @brief helper to set the sprite animation
+   */
+  void animate();
 
-    /**
-     * @brief push the ball forward
-     * @param direction dribbling direction
-     */
-    void do_dribble(const GameLib::Vector3 &direction);
+  /**
+   * @brief dribble circle must be updated every frame depending on players
+   * current position
+   */
+  void update_dribble_circle();
 
-    /**
-     * @brief push the ball forward
-     * @param direction sliding direction
-     */
-    void do_slide_tackle(const GameLib::Vector3 &direction);
+  /**
+   * @brief push the ball forward
+   * @param direction dribbling direction
+   */
+  void do_dribble(const GameLib::Vector3 &direction);
 
-    /**
-     * @brief close control mechanism
-     */
-    void do_close_control();
+  /**
+   * @brief push the ball forward
+   * @param direction sliding direction
+   */
+  void do_slide_tackle(const GameLib::Vector3 &direction);
 
-    /**
-     * @brief test if ball is under control
-     */
-    bool ball_under_control();
+  /**
+   * @brief close control mechanism
+   */
+  void do_close_control();
 
-    /**
-     * \breif kick the ball
-     * @param force force to kick ball with
-     */
-    void kick(float force);
+  /**
+   * @brief test if ball is under control
+   */
+  bool ball_under_control();
 
-    /**
-     * @brief calc pass range triangle
-     */
-    void calc_pass_recipients();
+  /**
+   * \breif kick the ball
+   * @param force force to kick ball with
+   */
+  void kick(double force);
 
-    /**
-     * @brief helper
-     * @return
-     */
-    int distance_to_goal() {
-        GameLib::Vector3 goal_center(pitch->metrics.north_goal.x1, pitch->metrics.north_goal.y1);
-        goal_center.x += (pitch->metrics.north_goal.x2 - pitch->metrics.north_goal.x1) / 2;
-        return (physical->position - goal_center).magnitude();
-    }
+  /**
+   * @brief calc pass range triangle
+   */
+  void calc_pass_recipients();
 
-  public:
-    // ------------------------------------------------------------
-    // state machine pattern friends
-    // ------------------------------------------------------------
-    friend class PlayerState;
-    friend class Standing;
-    friend class Running;
-    friend class Sliding;
-    friend class Brain;
-    friend class BrainState;
-    friend class BrainIdle;
-    friend class BrainDribble;
-    friend class BrainCover;
-    friend class BrainSupport;
-    friend class BrainPass;
-    friend class BrainReceive;
-    friend class BrainGetBall;
-    friend class BrainShoot;
-    friend class BrainPress;
-    friend class BrainClear;
+  /**
+   * @brief helper
+   * @return
+   */
+  int distance_to_goal() {
+    GameLib::Vector3 goal_center(pitch->metrics.north_goal.x1, pitch->metrics.north_goal.y1);
+    goal_center.x += (pitch->metrics.north_goal.x2 - pitch->metrics.north_goal.x1) / 2;
+    return (physical->position - goal_center).magnitude();
+  }
+
+public:
+  // ------------------------------------------------------------
+  // state machine pattern friends
+  // ------------------------------------------------------------
+  friend class PlayerState;
+  friend class Standing;
+  friend class Running;
+  friend class Sliding;
+  friend class Brain;
+  friend class BrainState;
+  friend class BrainIdle;
+  friend class BrainDribble;
+  friend class BrainCover;
+  friend class BrainSupport;
+  friend class BrainPass;
+  friend class BrainReceive;
+  friend class BrainGetBall;
+  friend class BrainShoot;
+  friend class BrainPress;
+  friend class BrainClear;
 };
 
 } // SenselessSoccer

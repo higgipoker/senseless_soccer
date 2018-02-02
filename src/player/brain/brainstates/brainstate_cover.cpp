@@ -23,7 +23,7 @@ void BrainCover::OnStart() {
 // ------------------------------------------------------------
 // OnStep
 // ------------------------------------------------------------
-void BrainCover::OnStep(const float dt) {
+void BrainCover::OnStep(const double dt) {
     GameLib::Vector3 destination;
 
     // get the current ball sector

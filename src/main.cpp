@@ -214,7 +214,7 @@ int main(int argc, char *argv[]) {
     //
 	// run the game
     //
-	float dt = 0.001f;
+	double dt = 0.001f;
 	while (senseless.running) {
 		match.Update(dt);
 		senseless.MainLoop(dt);

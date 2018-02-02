@@ -220,8 +220,8 @@ void PlayerSprite::Render(GameLib::Window &window) {
     GameLib::Primitives::Triangle(window, triangle1.p1.x, triangle1.p1.y, triangle1.p2.x, triangle1.p2.y,
                                   triangle1.p3.x, triangle1.p3.y);
     GameLib::Primitives::RestoreColors();
-    float width = text.GetWidth();
-    float height = text.GetHeight();
+    double width = text.GetWidth();
+    double height = text.GetHeight();
     GameLib::Primitives::FillColor(GameLib::Color(0, 0, 0, 120));
     GameLib::Primitives::OutlineColor(GameLib::Color(0, 0, 0, 120));
     GameLib::Primitives::Rectangle(window, this->GetPosition().x - 20, this->GetPosition().y - height, width,

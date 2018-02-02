@@ -33,7 +33,7 @@ Team::~Team() {
 // ------------------------------------------------------------
 // Update
 // ------------------------------------------------------------
-void Team::Update(float dt) {
+void Team::Update(double dt) {
 
 	// update key players
 	set_key_players();

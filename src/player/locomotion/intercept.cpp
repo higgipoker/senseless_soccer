@@ -29,7 +29,7 @@ void Intercept::OnStart() {
 // ------------------------------------------------------------
 // OnStep
 // ------------------------------------------------------------
-void Intercept::OnStep(const float dt) {
+void Intercept::OnStep(const double dt) {
 
     // direction to evader
     GameLib::Vector3 to_evader = (evader->position) - (player->physical->position);
@@ -40,8 +40,8 @@ void Intercept::OnStep(const float dt) {
     /* 	look ahead time in proportion to distance from evader, and inversely proportional
     	to the sum of the velocities
     */
-    float divider = 0;
-    float look_ahead_time = 0;
+    double divider = 0;
+    double look_ahead_time = 0;
 
     divider =  player->velocity.magnitude() + evader->velocity.magnitude();
 

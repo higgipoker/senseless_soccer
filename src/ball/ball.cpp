@@ -2,20 +2,20 @@
 #include "../metrics/metrics.h"
 #include <iostream>
 
-static const float INFINITE_SMALL_BOUNCE = 0.35f;
+static const double INFINITE_SMALL_BOUNCE = 0.35;
 
 namespace SenselessSoccer {
 
 /// as good as zero
-const float TOL = 0.05f;
-const float GRAVITY = 98.0f;
-const float AIR_FACTOR = 0.04f;
+const double TOL = 0.05;
+const double GRAVITY = 98.0 + 100;
+const double AIR_FACTOR = 0.04;
 
 // ------------------------------------------------------------
 // Ball
 // ------------------------------------------------------------
 Ball::Ball::Ball(GameLib::Physical *p, GameLib::Renderable *r)
-    : GameLib::GameEntity(p, r), radius(3), co_friction(30), co_bounciness(0.7f), sprite_scale_factor(0.0f) {
+    : GameLib::GameEntity(p, r), radius(4), co_friction(30), co_bounciness(0.7), sprite_scale_factor(0.0) {
 
   // local convenient access to subclassed ballsprite type of renderable
   ball_sprite = static_cast<BallSprite *>(renderable);
@@ -32,7 +32,8 @@ Ball::Ball::Ball(GameLib::Physical *p, GameLib::Renderable *r)
 // ------------------------------------------------------------
 // ~Ball
 // ------------------------------------------------------------
-Ball::~Ball() {}
+Ball::~Ball() {
+}
 
 // tmp
 const int SHADOW_OFFSET = 2;
@@ -40,11 +41,11 @@ const int SHADOW_OFFSET = 2;
 // ------------------------------------------------------------
 // Update
 // ------------------------------------------------------------
-void Ball::Update(float dt) {
+void Ball::Update(double dt) {
   GameLib::GameEntity::Update(dt);
 
   // hz order
-  renderable->z_order = physical->position.y;
+  renderable->z_order = static_cast<int>(physical->position.y);
 
   // ball physics
   do_physics(dt);
@@ -54,7 +55,7 @@ void Ball::Update(float dt) {
   ball_sprite->Scale(sprite_scale_factor);
 
   // the ball only rolls if it's moving
-  if (physical->velocity.magnitude() > TOL) {
+  if (physical->velocity.magnitude() > GameLib::TOL) {
 
     // rotate ball sprite depending on roll direction
     set_sprite_rotation();
@@ -71,15 +72,15 @@ void Ball::Update(float dt) {
   ball_shadow->Scale(sprite_scale_factor);
 
   if (recording) {
-    if (velocity.magnitude() < 0.2f) {
+    if (velocity.magnitude() < GameLib::TOL) {
       recording = false;
-      GameLib::Vector3 dist = physical->position - start_record;
+      // GameLib::Vector3 dist = physical->position - start_record;
     }
   }
 }
 
 // ------------------------------------------------------------
-// Kick
+// Kickf
 // ------------------------------------------------------------
 void Ball::Kick(GameLib::Vector3 force) {
   physical->ResetAcceleration();
@@ -90,12 +91,14 @@ void Ball::Kick(GameLib::Vector3 force) {
 // ------------------------------------------------------------
 // apply_force
 // ------------------------------------------------------------
-void Ball::apply_force(GameLib::Vector3 force) { physical->acceleration += force; }
+void Ball::apply_force(GameLib::Vector3 force) {
+  physical->acceleration += force;
+}
 
 // ------------------------------------------------------------
 // do_physics
 // ------------------------------------------------------------
-void Ball::do_physics(float dt) {
+void Ball::do_physics(double dt) {
 
   // either gravity or friction
   if (physical->position.z > 0) {
@@ -105,11 +108,11 @@ void Ball::do_physics(float dt) {
     apply_force(gravity);
 
     // air resistance
-    float air_resistance = physical->position.z * AIR_FACTOR;
+    double air_resistance = physical->position.z * AIR_FACTOR;
     GameLib::Vector3 air = physical->velocity.Reverse() * air_resistance;
     apply_force(air);
 
-  } else if (physical->velocity.magnitude()) {
+  } else if (physical->velocity.magnitude() > GameLib::TOL) {
 
     // friction
     GameLib::Vector3 friction = physical->velocity.Reverse();
@@ -119,12 +122,12 @@ void Ball::do_physics(float dt) {
   }
 
   // bounce
-  if (physical->position.z <= 0 && physical->velocity.z) {
+  if (physical->position.z <= GameLib::TOL && physical->velocity.z < GameLib::TOL) {
     physical->position.z = 0;
     physical->velocity.z = -(physical->velocity.z * co_bounciness);
 
     // infinite bounce damping
-    if (fabs(physical->velocity.z) < INFINITE_SMALL_BOUNCE) {
+    if (fabs(physical->velocity.z) < GameLib::TOL) {
       physical->velocity.z = 0;
       physical->position.z = 0;
     }
@@ -133,19 +136,21 @@ void Ball::do_physics(float dt) {
   // improved euler
   physical->velocity += physical->acceleration * dt;
   GameLib::Vector3 next_velocity = physical->velocity + physical->acceleration * dt;
-  physical->position += physical->velocity + next_velocity * 0.5f * dt;
+  physical->position += physical->velocity + next_velocity * 0.5 * dt;
   physical->ResetAcceleration();
 }
 
 // ------------------------------------------------------------
 // set_sprite_rotation
 // ------------------------------------------------------------
-void Ball::set_sprite_rotation() { ball_sprite->SetRotation(physical->GetAngle()); }
+void Ball::set_sprite_rotation() {
+  ball_sprite->SetRotation(static_cast<int>(physical->GetAngle()));
+}
 
 // ------------------------------------------------------------
 // rebound
 // ------------------------------------------------------------
-void Ball::rebound(GameLib::Vector3 wall, float damp, bool damp_z) {
+void Ball::rebound(GameLib::Vector3 wall, double damp, bool damp_z) {
   wall = wall.normalised();
   physical->velocity = physical->velocity.Reflect(wall);
 
@@ -160,7 +165,9 @@ void Ball::rebound(GameLib::Vector3 wall, float damp, bool damp_z) {
 // ------------------------------------------------------------
 // Call
 // ------------------------------------------------------------
-void Ball::Call(std::vector<std::string> params) { GameLib::GameEntity::Call(params); }
+void Ball::Call(std::vector<std::string> params) {
+  GameLib::GameEntity::Call(params);
+}
 
 // ------------------------------------------------------------
 // StartRecordDistance

@@ -36,7 +36,7 @@ public:
     /**
      * @brief state on step
      */
-    virtual void OnStep(const float dt) override;
+    virtual void OnStep(const double dt) override;
 
     /**
      * @brief state on end

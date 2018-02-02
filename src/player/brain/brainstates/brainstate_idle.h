@@ -22,7 +22,7 @@ public:
      * @brief OnStep
      * @param _dt
      */
-    virtual void OnStep(const float _dt) override;
+    virtual void OnStep(const double _dt) override;
 
     /**
      * @brief OnEnd

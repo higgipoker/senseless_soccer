@@ -25,7 +25,7 @@ void Sliding::OnStart() {
 // ------------------------------------------------------------
 // OnStep
 // ------------------------------------------------------------
-void Sliding::OnStep(const float dt) {
+void Sliding::OnStep(const double dt) {
     if(player.running_speed > 100) {
         player.running_speed -= 100;
     }

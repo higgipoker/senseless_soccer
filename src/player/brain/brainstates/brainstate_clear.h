@@ -25,7 +25,7 @@ class BrainClear : public BrainState {
      * @brief OnStep
      * @param _dt time delta
      */
-    virtual void OnStep(const float _dt) override;
+    virtual void OnStep(const double _dt) override;
 
     /**
      * @brief OnEnd

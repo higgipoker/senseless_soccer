@@ -23,7 +23,7 @@ void BrainSupport::OnStart() {
 // ------------------------------------------------------------
 // OnStep
 // ------------------------------------------------------------
-void BrainSupport::OnStep(const float dt) {
+void BrainSupport::OnStep(const double dt) {
 
     GameLib::Vector3 destination;
 

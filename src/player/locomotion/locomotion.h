@@ -38,7 +38,7 @@ public:
     /**
      * @brief on state step
      */
-    virtual void OnStep(const float _dt) = 0;
+    virtual void OnStep(const double _dt) = 0;
 
     /**
      * @brief on state end

@@ -61,7 +61,7 @@ class PlayerSprite : public GameLib::Sprite {
     std::map<int, std::string> sliding_animation_map;
 
     /// track the last angle for standing anims
-    float last_angle;
+    double last_angle;
 };
 
 /**

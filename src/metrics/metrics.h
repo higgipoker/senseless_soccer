@@ -18,25 +18,25 @@ public:
      * @brief converts meters to pixels
      * @param meters meters to convert
      */
-    static int MetersToPixels(float meters);
+    static int MetersToPixels(double meters);
 
     /**
      * @brief converts pixels to meters
      * @param pixels pixels to convert
      */
-    static float PixelsToMeters(float pixels);
+    static double PixelsToMeters(double pixels);
 
     /**
      * @brief converts yards to meters
      * @param yards yards to convert
      */
-    static float YardsToMeters(float yards);
+    static double YardsToMeters(double yards);
 
     /**
      * @brief converts yards to pixels
      * @param yards yards to convert
      */
-    static int YardsToPixels(float yards);
+    static int YardsToPixels(double yards);
 
     /**
      * @brief converts vector to compass

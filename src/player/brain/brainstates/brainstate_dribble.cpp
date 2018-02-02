@@ -27,7 +27,7 @@ void BrainDribble::OnStart() {
 // ------------------------------------------------------------
 // OnStep
 // ------------------------------------------------------------
-void BrainDribble::OnStep(const float _dt) {
+void BrainDribble::OnStep(const double _dt) {
 
     if(!player->brain.in_pitch(_dt)) {
         /*********************************************

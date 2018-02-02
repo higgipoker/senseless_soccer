@@ -21,7 +21,7 @@ void BrainReceive::OnStart() {
 // ------------------------------------------------------------
 // OnStep
 // ------------------------------------------------------------
-void BrainReceive::OnStep(const float _dt) {
+void BrainReceive::OnStep(const double _dt) {
 
 }
 

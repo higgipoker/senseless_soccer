@@ -5,28 +5,28 @@ namespace SenselessSoccer {
 // ------------------------------------------------------------
 // MetersToPixels
 // ------------------------------------------------------------
-int Metrics::MetersToPixels(float meters) {
+int Metrics::MetersToPixels(double meters) {
     return meters * 22;
 }
 
 // ------------------------------------------------------------
 // PixelsToMeters
 // ------------------------------------------------------------
-float Metrics::PixelsToMeters(float pixels) {
+double Metrics::PixelsToMeters(double pixels) {
     return pixels / 22.0f;
 }
 
 // ------------------------------------------------------------
 // YardsToMeters
 // ------------------------------------------------------------
-float Metrics::YardsToMeters(float yards) {
+double Metrics::YardsToMeters(double yards) {
     return yards * 0.914f;
 }
 
 // ------------------------------------------------------------
 // YardsToPixels
 // ------------------------------------------------------------
-int Metrics::YardsToPixels(float yards) {
+int Metrics::YardsToPixels(double yards) {
     return MetersToPixels(YardsToMeters(yards));
 }
 

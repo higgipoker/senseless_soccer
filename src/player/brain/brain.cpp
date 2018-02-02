@@ -18,7 +18,7 @@ Brain::Brain(Player *p) : locomotion(p) {
 //  --------------------------------------------------
 //  Step
 //  --------------------------------------------------
-void Brain::Step(float dt) {
+void Brain::Step(double dt) {
     GameLib::StateMachine::Step(dt);
     locomotion.UpdateLocomotion(dt);
 }
@@ -26,7 +26,7 @@ void Brain::Step(float dt) {
 //  --------------------------------------------------
 //  in_pitch
 //  --------------------------------------------------
-bool Brain::in_pitch(float dt) {
+bool Brain::in_pitch(double dt) {
     GameLib::Vector3 projected_position = player->project_position(dt);
     GameLib::Circle c(projected_position.x, projected_position.y, 10);
     GameLib::Rectangle r = player->pitch->metrics.pitch_rect;
