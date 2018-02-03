@@ -7,14 +7,14 @@ namespace SenselessSoccer {
 // ------------------------------------------------------------
 // Intercept
 // ------------------------------------------------------------
-Intercept::Intercept(Player *p) : Locomotion(p) {
+Intercept::Intercept (Player *p) : Locomotion (p) {
     evader = nullptr;
 }
 
 // --------------------------------------------------
 // Init
 // --------------------------------------------------
-void Intercept::Init(GameLib::Physical *_evader) {
+void Intercept::Init (GameLib::Physical *_evader) {
     evader = _evader;
 }
 
@@ -29,7 +29,7 @@ void Intercept::OnStart() {
 // ------------------------------------------------------------
 // OnStep
 // ------------------------------------------------------------
-void Intercept::OnStep(const double dt) {
+void Intercept::OnStep (const float dt) {
 
     // direction to evader
     GameLib::Vector3 to_evader = (evader->position) - (player->physical->position);
@@ -37,15 +37,15 @@ void Intercept::OnStep(const double dt) {
     // this will be set depending on the following 2 possibilities
     GameLib::Vector3 actual_target;
 
-    /* 	look ahead time in proportion to distance from evader, and inversely proportional
-    	to the sum of the velocities
+    /*  look ahead time in proportion to distance from evader, and inversely proportional
+        to the sum of the velocities
     */
-    double divider = 0;
-    double look_ahead_time = 0;
+    float divider = 0;
+    float look_ahead_time = 0;
 
     divider =  player->velocity.magnitude() + evader->velocity.magnitude();
 
-    if(divider) {
+    if (divider) {
         look_ahead_time = (to_evader.magnitude() / divider);
     }
 
@@ -56,7 +56,7 @@ void Intercept::OnStep(const double dt) {
     actual_target.z = 0;
 
     // this must always be called to advance the state!
-    seek(actual_target);
+    seek (actual_target);
 }
 
 // ------------------------------------------------------------
@@ -86,7 +86,7 @@ void Intercept::Cancel() {
 // --------------------------------------------------
 // seek
 // --------------------------------------------------
-void Intercept::seek(GameLib::Vector3 _target) {
+void Intercept::seek (GameLib::Vector3 _target) {
     player->velocity = _target - player->physical->position;
 }
 

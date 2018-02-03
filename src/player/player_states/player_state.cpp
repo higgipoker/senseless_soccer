@@ -11,7 +11,7 @@ namespace SenselessSoccer {
 // ------------------------------------------------------------
 // Constructor
 // ------------------------------------------------------------
-PlayerState::PlayerState(Player &p) : player(p), next_state(PLAYER_STATE_NONE) {
+PlayerState::PlayerState (Player &p) : player (p), next_state (PLAYER_STATE_NONE) {
 }
 
 // ------------------------------------------------------------
@@ -19,23 +19,23 @@ PlayerState::PlayerState(Player &p) : player(p), next_state(PLAYER_STATE_NONE) {
 // ------------------------------------------------------------
 void PlayerState::ChangeToNextState() {
 
-    switch(next_state) {
+    switch (next_state) {
 
-    case PLAYER_STATE_STAND:
-        player.ChangeState(new Standing(player));
-        break;
+        case PLAYER_STATE_STAND:
+            player.ChangeState (new Standing (player));
+            break;
 
-    case PLAYER_STATE_RUN:
-        player.ChangeState(new Running(player));
-        break;
+        case PLAYER_STATE_RUN:
+            player.ChangeState (new Running (player));
+            break;
 
-    case PLAYER_STATE_SLIDE:
-        player.ChangeState(new Sliding(player));
-        break;
+        case PLAYER_STATE_SLIDE:
+            player.ChangeState (new Sliding (player));
+            break;
 
-    case PLAYER_STATE_NONE:
-    default:
-        break;
+        case PLAYER_STATE_NONE:
+        default:
+            break;
     }
 }
 
@@ -51,22 +51,22 @@ void PlayerState::handle_input() {
     player.input->Update();
 
     // up
-    if(player.input->event_states[GameLib::UP]) {
+    if (player.input->event_states[GameLib::UP]) {
         player.velocity.y = -1;
     }
 
     // down
-    if(player.input->event_states[GameLib::DOWN]) {
+    if (player.input->event_states[GameLib::DOWN]) {
         player.velocity.y = 1;
     }
 
     // left
-    if(player.input->event_states[GameLib::LEFT]) {
+    if (player.input->event_states[GameLib::LEFT]) {
         player.velocity.x = -1;
     }
 
     // right
-    if(player.input->event_states[GameLib::RIGHT]) {
+    if (player.input->event_states[GameLib::RIGHT]) {
         player.velocity.x = 1;
     }
 }
@@ -74,29 +74,29 @@ void PlayerState::handle_input() {
 // ------------------------------------------------------------
 // HandleEvent
 // ------------------------------------------------------------
-bool PlayerState::HandleEvent(ControllerEvent event) {
-    switch(event.id) {
+bool PlayerState::HandleEvent (ControllerEvent event) {
+    switch (event.id) {
 
-    case FIRE_RELEASE:
-        if(player.ball_under_control()) {
-            player.kick(event.param);
-            return true;
-        }
+        case FIRE_RELEASE:
+            if (player.ball_under_control()) {
+                player.kick (event.param);
+                return true;
+            }
 
-        break;
+            break;
 
-    case FIRE_TAP:
-        break;
+        case FIRE_TAP:
+            break;
 
-    case FIRE_DOUBLE_TAP:
-        break;
+        case FIRE_float_TAP:
+            break;
 
-    case FIRE_PRESS:
-        break;
+        case FIRE_PRESS:
+            break;
 
-    case NO_EVENT:
-    default:
-        break;
+        case NO_EVENT:
+        default:
+            break;
     }
 
     return false;

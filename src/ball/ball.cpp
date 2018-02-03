@@ -2,20 +2,21 @@
 #include "../metrics/metrics.h"
 #include <iostream>
 
-static const double INFINITE_SMALL_BOUNCE = 0.35;
+static const float INFINITE_SMALL_BOUNCE = 0.35f;
 
 namespace SenselessSoccer {
 
 /// as good as zero
-const double TOL = 0.05;
-const double GRAVITY = 98.0 + 100;
-const double AIR_FACTOR = 0.04;
+const float TOL = 0.05f;
+const float GRAVITY = 0.098f;
+const float AIR_FACTOR = 0.04f;
+const float BALL_MASS = 12.0f;
 
 // ------------------------------------------------------------
 // Ball
 // ------------------------------------------------------------
 Ball::Ball::Ball(GameLib::Physical *p, GameLib::Renderable *r)
-    : GameLib::GameEntity(p, r), radius(4), co_friction(30), co_bounciness(0.7), sprite_scale_factor(0.0) {
+    : GameLib::GameEntity(p, r), radius(4), co_friction(2), co_bounciness(0.8f), sprite_scale_factor(0.0) {
 
   // local convenient access to subclassed ballsprite type of renderable
   ball_sprite = static_cast<BallSprite *>(renderable);
@@ -41,7 +42,7 @@ const int SHADOW_OFFSET = 2;
 // ------------------------------------------------------------
 // Update
 // ------------------------------------------------------------
-void Ball::Update(double dt) {
+void Ball::Update(float dt) {
   GameLib::GameEntity::Update(dt);
 
   // hz order
@@ -51,7 +52,7 @@ void Ball::Update(double dt) {
   do_physics(dt);
 
   // scale ball sprite depending on height
-  sprite_scale_factor = radius * 2 / ball_sprite->GetWidth() * (1 + (physical->position.z * 0.1));
+  sprite_scale_factor = radius * 2 / ball_sprite->GetWidth() * (1 + (physical->position.z * 0.02f));
   ball_sprite->Scale(sprite_scale_factor);
 
   // the ball only rolls if it's moving
@@ -59,6 +60,11 @@ void Ball::Update(double dt) {
 
     // rotate ball sprite depending on roll direction
     set_sprite_rotation();
+
+    // set the animations speed according to ball roll speed
+    unsigned int ms_per_frame = 100;
+    ms_per_frame += (static_cast<unsigned int>(physical->velocity.magnitude()) * 10);
+    ball_sprite->SetAnimationSpeed(ms_per_frame);
 
     // step the animation
     ball_sprite->Animate();
@@ -77,6 +83,8 @@ void Ball::Update(double dt) {
       // GameLib::Vector3 dist = physical->position - start_record;
     }
   }
+
+  std::cout << physical->position.z << std::endl;
 }
 
 // ------------------------------------------------------------
@@ -98,22 +106,21 @@ void Ball::apply_force(GameLib::Vector3 force) {
 // ------------------------------------------------------------
 // do_physics
 // ------------------------------------------------------------
-void Ball::do_physics(double dt) {
+void Ball::do_physics(float dt) {
 
   // either gravity or friction
   if (physical->position.z > 0) {
 
     // gravity
-    GameLib::Vector3 gravity(0, 0, -GRAVITY);
+    GameLib::Vector3 gravity(0, 0, -GRAVITY * BALL_MASS);
     apply_force(gravity);
 
     // air resistance
-    double air_resistance = physical->position.z * AIR_FACTOR;
+    float air_resistance = physical->position.z * AIR_FACTOR;
     GameLib::Vector3 air = physical->velocity.Reverse() * air_resistance;
     apply_force(air);
 
-  } else if (physical->velocity.magnitude() > GameLib::TOL) {
-
+  } else {
     // friction
     GameLib::Vector3 friction = physical->velocity.Reverse();
     friction *= co_friction;
@@ -127,7 +134,7 @@ void Ball::do_physics(double dt) {
     physical->velocity.z = -(physical->velocity.z * co_bounciness);
 
     // infinite bounce damping
-    if (fabs(physical->velocity.z) < GameLib::TOL) {
+    if (fabsf(physical->velocity.z) < GameLib::TOL) {
       physical->velocity.z = 0;
       physical->position.z = 0;
     }
@@ -150,7 +157,7 @@ void Ball::set_sprite_rotation() {
 // ------------------------------------------------------------
 // rebound
 // ------------------------------------------------------------
-void Ball::rebound(GameLib::Vector3 wall, double damp, bool damp_z) {
+void Ball::rebound(GameLib::Vector3 wall, float damp, bool damp_z) {
   wall = wall.normalised();
   physical->velocity = physical->velocity.Reflect(wall);
 

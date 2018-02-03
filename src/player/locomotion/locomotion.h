@@ -1,8 +1,8 @@
 /**
- * \file 	src/player/locomotion/locomption.h
- * \author 	Paul Higgins
- * \date 	14.08.2017
- * @brief 	base locomotion
+ * \file    src/player/locomotion/locomption.h
+ * \author  Paul Higgins
+ * \date    14.08.2017
+ * @brief   base locomotion
  *
  * Description
  *
@@ -28,7 +28,7 @@ public:
      * @brief constructor
      * @param [in] p pointer back to player
      */
-    explicit Locomotion(Player *p);
+    explicit Locomotion (Player *p);
 
     /**
      * @brief on state start
@@ -38,7 +38,7 @@ public:
     /**
      * @brief on state step
      */
-    virtual void OnStep(const double _dt) = 0;
+    virtual void OnStep (const float _dt) = 0;
 
     /**
      * @brief on state end

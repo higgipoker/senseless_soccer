@@ -9,7 +9,7 @@ namespace SenselessSoccer {
 *@brief The KitFactory class
 */
 class KitFactory {
-  public:
+public:
     /**
     * @brief GetDefaultRedKit
     * @return
@@ -28,6 +28,6 @@ class KitFactory {
      */
     static std::vector<std::pair<sf::Color, sf::Color>> GetKeeperPalette();
 
-  private:
+private:
 };
 }

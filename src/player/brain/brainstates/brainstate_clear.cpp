@@ -5,8 +5,8 @@ namespace SenselessSoccer {
 // ------------------------------------------------------------
 // BrainClear
 // ------------------------------------------------------------
-BrainClear::BrainClear(Player *player)
- : BrainState(player) {
+BrainClear::BrainClear (Player *player)
+    : BrainState (player) {
 }
 
 // ------------------------------------------------------------
@@ -14,33 +14,33 @@ BrainClear::BrainClear(Player *player)
 // ------------------------------------------------------------
 void BrainClear::OnStart() {
 
-	BrainState::OnStart();
-	player->Clearance();
+    BrainState::OnStart();
+    player->Clearance();
 }
 
 // ------------------------------------------------------------
 // OnStep
 // ------------------------------------------------------------
-void BrainClear::OnStep(const double _dt) {
-	BrainState::OnStep(_dt);
+void BrainClear::OnStep (const float _dt) {
+    BrainState::OnStep (_dt);
 }
 
 // ------------------------------------------------------------
 // OnEnd
 // ------------------------------------------------------------
 void BrainClear::OnEnd() {
-	BrainState::OnEnd();
+    BrainState::OnEnd();
 }
 
 // ------------------------------------------------------------
 // StateOver
 // ------------------------------------------------------------
 bool BrainClear::StateOver() {
-	if (!player->ball_under_control()) {
-		return true;
-	}
+    if (!player->ball_under_control()) {
+        return true;
+    }
 
-	return false;
+    return false;
 }
 
 } // namespace SenselessSoccer

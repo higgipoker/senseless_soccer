@@ -26,7 +26,7 @@ public:
    *@brief derived entities can do their own extra handling
    *@param dt time delta
    */
-  virtual void Update(double dt) override;
+  virtual void Update(float dt) override;
 
   /**
    * @brief connect an input
@@ -112,7 +112,8 @@ protected:
   Brain brain;
 
   /// how fast can the player run
-  unsigned int running_speed;
+  unsigned int DEFAULT_SPEED = 100;
+  unsigned int running_speed = DEFAULT_SPEED;
 
   /// to collide with the ball for dribbling
   GameLib::Circle dribble_circle;
@@ -134,13 +135,13 @@ protected:
    * @brief helper to update player position
    * @param dt time delta
    */
-  void update_position(double dt);
+  void update_position(float dt);
 
   /**
    * @brief where will the player be in teh next time step
    * @param dt time delta
    */
-  GameLib::Vector3 project_position(double dt);
+  GameLib::Vector3 project_position(float dt);
 
   /**
    * @brief helper to normalize the velocity
@@ -184,7 +185,7 @@ protected:
    * \breif kick the ball
    * @param force force to kick ball with
    */
-  void kick(double force);
+  void kick(float force);
 
   /**
    * @brief calc pass range triangle

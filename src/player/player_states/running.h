@@ -11,7 +11,7 @@ public:
     * @brief constructor
     * @param p reference to player for sm context
     */
-    explicit Running(Player &p);
+    explicit Running (Player &p);
 
     /**
      * @brief onStart
@@ -22,7 +22,7 @@ public:
      * @brief onStep
      * @param dt time delta
      */
-    virtual void OnStep(const double dt) override;
+    virtual void OnStep (const float dt) override;
 
     /**
      * @brief onEnd
@@ -45,7 +45,7 @@ public:
      * @brief handle input events
      * @param event an event to handle
      */
-    virtual bool HandleEvent(ControllerEvent event) override;
+    virtual bool HandleEvent (ControllerEvent event) override;
 
 };
 

@@ -1,8 +1,8 @@
 /**
- * \file 	src/player/locomotion/arrive.h
- * \author 	Paul Higgins
- * \date 	14.08.2017
- * @brief 	arrive type locomotion
+ * \file    src/player/locomotion/arrive.h
+ * \author  Paul Higgins
+ * \date    14.08.2017
+ * @brief   arrive type locomotion
  *
  * Description
  *
@@ -26,7 +26,7 @@ public:
      * @brief constructor
      * @param [in] p pointer back to player
      */
-    explicit Arrive(Player *p);
+    explicit Arrive (Player *p);
 
     /**
      * @brief state on start
@@ -36,7 +36,7 @@ public:
     /**
      * @brief state on step
      */
-    virtual void OnStep(const double dt) override;
+    virtual void OnStep (const float dt) override;
 
     /**
      * @brief state on end
@@ -51,7 +51,7 @@ public:
     /**
      * @brief init the state
      */
-    void Init(GameLib::Vector3 target);
+    void Init (GameLib::Vector3 target);
 
     /**
      * @brief some states can be ended manually

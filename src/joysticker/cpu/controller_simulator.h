@@ -9,24 +9,24 @@ namespace SenselessSoccer {
  * @brief The ControllerEmulator class
  */
 class ControllerSimulator : public Controller {
-  public:
-	/**
-	  * @brief constructor
-	  */
-	ControllerSimulator();
+public:
+    /**
+      * @brief constructor
+      */
+    ControllerSimulator();
 
-	/**
-	  * @brief destruct
-	  */
-	~ControllerSimulator();
+    /**
+      * @brief destruct
+      */
+    ~ControllerSimulator();
 
-	/**
+    /**
       * @brief update method to poll
-	  */
-	void Update();
+      */
+    void Update();
 
-  protected:
-	/// current action to execute
+protected:
+    /// current action to execute
     SimulatedSequence *current_sequence;
 
     /// for timing

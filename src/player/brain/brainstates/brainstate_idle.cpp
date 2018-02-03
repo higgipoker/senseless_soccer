@@ -6,7 +6,7 @@ namespace SenselessSoccer {
 // ------------------------------------------------------------
 // BrainIdle
 // ------------------------------------------------------------
-BrainIdle::BrainIdle(Player *player) : BrainState(player) {
+BrainIdle::BrainIdle (Player *player) : BrainState (player) {
 }
 
 // ------------------------------------------------------------
@@ -19,7 +19,7 @@ void BrainIdle::OnStart() {
 // ------------------------------------------------------------
 // OnStep
 // ------------------------------------------------------------
-void BrainIdle::OnStep(const double _dt) {
+void BrainIdle::OnStep (const float _dt) {
 }
 
 // ------------------------------------------------------------
@@ -33,7 +33,7 @@ void BrainIdle::OnEnd() {
 // StateOver
 // ------------------------------------------------------------
 bool BrainIdle::StateOver() {
-    if(player->ball_under_control()) {
+    if (player->ball_under_control()) {
         next_state = BRAIN_DRIBBLE;
         return true;
     }

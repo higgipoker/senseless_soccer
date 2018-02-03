@@ -13,7 +13,7 @@ public:
      * @brief BrainState
      * @param p
      */
-    explicit BrainState(Player *p);
+    explicit BrainState (Player *p);
 
     /**
      * @brief OnStart
@@ -24,7 +24,7 @@ public:
      * @brief OnStep
      * @param _dt
      */
-    virtual void OnStep(const double _dt) override;
+    virtual void OnStep (const float _dt) override;
 
     /**
      * @brief OnEnd
@@ -46,7 +46,7 @@ public:
      * @brief modify the state parameters on the fly
      * @param [in] mod modifier to set (set to NONE) to cancel modifiers
      */
-    virtual void Modify(modifier mod);
+    virtual void Modify (modifier mod);
 
 protected:
     /// pointer back to player for sm context

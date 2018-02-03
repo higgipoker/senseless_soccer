@@ -12,13 +12,13 @@ public:
      * \param filename tile image file name
      * \param c camera for deciding what tiles to render
      */
-    explicit PitchTiled(const std::string &filename, GameLib::Camera &c);
+    explicit PitchTiled (const std::string &filename, GameLib::Camera &c);
 
     /**
      * \brief specialized render function
      * \param window window to render to
      */
-    virtual void Render(GameLib::Window &window) override;
+    virtual void Render (GameLib::Window &window) override;
 private:
 };
 

@@ -1,40 +1,40 @@
 #include "sliding.h"
-#include <gamelib/physics/collision_detector.h>
 #include "../player.h"
+#include <gamelib/physics/collision_detector.h>
 
 namespace SenselessSoccer {
 
 // ------------------------------------------------------------
 // Constructor
 // ------------------------------------------------------------
-Sliding::Sliding(Player &p) : PlayerState(p) {
+Sliding::Sliding (Player &p) : PlayerState (p) {
 }
 
 // ------------------------------------------------------------
 // OnStart
 // ------------------------------------------------------------
 void Sliding::OnStart() {
-    player.running_speed = 7000;
+    player.running_speed = player.DEFAULT_SPEED * 2;
     dir = player.last_direction;
     start = player.physical->position;
 
     // set the animation based on velocity (running direction)
-    player.player_sprite->SetSlidingAnimation(player.velocity.roundAngle(45));
+    player.player_sprite->SetSlidingAnimation (player.velocity.roundAngle (45));
 }
 
 // ------------------------------------------------------------
 // OnStep
 // ------------------------------------------------------------
-void Sliding::OnStep(const double dt) {
-    if(player.running_speed > 100) {
+void Sliding::OnStep (const float dt) {
+    if (player.running_speed > 100) {
         player.running_speed -= 100;
     }
 
     player.velocity = dir;
 
     // check for collision with ball (dribble)
-    if(GameLib::CollisionDetector::collision(player.dribble_circle, player.ball->GetCollidable())) {
-        player.do_slide_tackle(player.velocity.normalised());
+    if (GameLib::CollisionDetector::collision (player.dribble_circle, player.ball->GetCollidable())) {
+        player.do_slide_tackle (player.velocity.normalised());
     }
 }
 
@@ -43,7 +43,7 @@ void Sliding::OnStep(const double dt) {
 // ------------------------------------------------------------
 void Sliding::OnEnd() {
     player.sliding = false;
-    player.running_speed = 3000;
+    player.running_speed = player.DEFAULT_SPEED;
 }
 
 // ------------------------------------------------------------
@@ -51,7 +51,7 @@ void Sliding::OnEnd() {
 // ------------------------------------------------------------
 bool Sliding::StateOver() {
 
-    if(getting_up && timer.GetTicks() > 600) {
+    if (getting_up && timer.GetTicks() > 600) {
         next_state = PLAYER_STATE_RUN;
         getting_up = false;
         return true;
@@ -59,7 +59,7 @@ bool Sliding::StateOver() {
 
     GameLib::Vector3 dist = player.physical->position - start;
 
-    if(!getting_up && dist.magnitude() > 60) {
+    if (!getting_up && dist.magnitude() > 60) {
         getting_up = true;
         dir.reset();
         timer.Start();
@@ -73,8 +73,6 @@ bool Sliding::StateOver() {
 // handle_input
 // ------------------------------------------------------------
 void Sliding::handle_input() {
-
 }
 
 } // SenselessSoccer
-

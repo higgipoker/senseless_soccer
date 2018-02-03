@@ -6,17 +6,17 @@
 namespace SenselessSoccer {
 
 ProgrammedEvent::ProgrammedEvent() {
-    memset(event_states, 0, sizeof(event_states));
+    memset (event_states, 0, sizeof (event_states));
     milliseconds = 0;
 }
 
 void ProgrammedEvent::Reset() {
-    memset(event_states, 0, sizeof(event_states));
+    memset (event_states, 0, sizeof (event_states));
 }
 
-void SimulatedSequence::SimulateAction(const JoyStickState &action, bool fire_down,
-                                       int (&event_states)[GameLib::TOTAL_EVENTS]) {
-    memset(event_states, 0, sizeof(event_states));
+void SimulatedSequence::SimulateAction (const JoyStickState &action, bool fire_down,
+                                        int (&event_states) [GameLib::TOTAL_EVENTS]) {
+    memset (event_states, 0, sizeof (event_states));
     if (fire_down) {
         event_states[GameLib::FIRE_DOWN] = 1;
     }

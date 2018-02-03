@@ -6,7 +6,7 @@ namespace SenselessSoccer {
 // ------------------------------------------------------------
 // Constructor
 // ------------------------------------------------------------
-BrainShoot::BrainShoot(Player *p) : BrainState(p) {
+BrainShoot::BrainShoot (Player *p) : BrainState (p) {
 }
 
 // ------------------------------------------------------------
@@ -21,7 +21,7 @@ void BrainShoot::OnStart() {
 // ------------------------------------------------------------
 // OnStep
 // ------------------------------------------------------------
-void BrainShoot::OnStep(const double _dt) {
+void BrainShoot::OnStep (const float _dt) {
 }
 
 // ------------------------------------------------------------
@@ -35,7 +35,7 @@ void BrainShoot::OnEnd() {
 // StateOver
 // ------------------------------------------------------------
 bool BrainShoot::StateOver() {
-    if(!player->ball_under_control()) {
+    if (!player->ball_under_control()) {
         return true;
     }
 
@@ -45,17 +45,17 @@ bool BrainShoot::StateOver() {
 // ------------------------------------------------------------
 // Modify
 // ------------------------------------------------------------
-void BrainShoot::Modify(modifier mod) {
+void BrainShoot::Modify (modifier mod) {
 
-    switch(mod) {
-        break;
+    switch (mod) {
+            break;
     }
 }
 
 // ------------------------------------------------------------
 // Init
 // ------------------------------------------------------------
-void BrainShoot::Init(Player *receiver) {
+void BrainShoot::Init (Player *receiver) {
 
 }
 

@@ -7,7 +7,7 @@ namespace SenselessSoccer {
 // ------------------------------------------------------------
 // ControllerEmulator
 // ------------------------------------------------------------
-ControllerSimulator::ControllerSimulator(void) {
+ControllerSimulator::ControllerSimulator (void) {
     current_sequence = new SimulateNothing();
     first_action = true;
 }
@@ -24,7 +24,7 @@ ControllerSimulator::~ControllerSimulator() {
 // ------------------------------------------------------------
 void ControllerSimulator::Update() {
 
-	// if there is an action in the list
+    // if there is an action in the list
     if (current_sequence->actions.size()) {
 
         // log when the action changes
@@ -45,8 +45,8 @@ void ControllerSimulator::Update() {
         // reset all inputs back to 0
         Reset();
 
-		// copy the simulated actions to live event states
-		for (int i = 0; i < GameLib::TOTAL_EVENTS; ++i) {
+        // copy the simulated actions to live event states
+        for (int i = 0; i < GameLib::TOTAL_EVENTS; ++i) {
             event_states[i] = current_sequence->actions.back().event_states[i];
         }
 
@@ -67,9 +67,9 @@ void ControllerSimulator::Update() {
         if (prev_fire_state == 0) {
             if (event_states[GameLib::FIRE_DOWN]) {
                 fire_timer.restart();
-                Notify(FIRE_PRESS);
+                Notify (FIRE_PRESS);
             }
-		}
+        }
 
         // check for fire release
         else {
@@ -79,14 +79,14 @@ void ControllerSimulator::Update() {
                 event_states[GameLib::FIRE_LENGTH_CACHED] = fire_timer.getElapsedTime().asMilliseconds();
 
                 // notify observers of controller event
-                Notify(ControllerEvent(FIRE_RELEASE, event_states[GameLib::FIRE_LENGTH_CACHED]));
+                Notify (ControllerEvent (FIRE_RELEASE, event_states[GameLib::FIRE_LENGTH_CACHED]));
             }
         }
     } else {
         if (log) {
             std::cout << "RELEASE ALL" << std::endl;
             log = false;
-		}
+        }
     }
 }
 

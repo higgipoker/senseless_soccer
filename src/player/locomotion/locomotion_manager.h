@@ -17,38 +17,38 @@ public:
      * @brief constructor
      * @param [in] p pointer back to player for state machine context
      */
-    explicit LocomotionManager(Player *p);
+    explicit LocomotionManager (Player *p);
 
     /**
      * @brief update
      * @param [in] dt time delta
      */
-    void UpdateLocomotion(double dt);
+    void UpdateLocomotion (float dt);
 
     /**
      * @brief activate the arrive locomotion
      */
-    void ActivateArrive(GameLib::Vector3 dest);
+    void ActivateArrive (GameLib::Vector3 dest);
 
     /**
      * @brief activate the pursue locomotion
      */
-    void ActivatePursue(GameLib::Physical *follow);
+    void ActivatePursue (GameLib::Physical *follow);
 
     /**
      * @brief activate the head locomotion
      */
-    void ActivateHead(GameLib::Vector3 dir);
+    void ActivateHead (GameLib::Vector3 dir);
 
     /**
      * @brief activate the intercept locomotion
      */
-    void ActivateIntercept(GameLib::Physical *follow);
+    void ActivateIntercept (GameLib::Physical *follow);
 
     /**
      * @brief cancel all locomotion
      */
-    void Cancel(void);
+    void Cancel (void);
 
 private:
     /// ref back to player
@@ -73,7 +73,7 @@ private:
     std::queue<Locomotion *> behaviour_queue;
 
     /// helper to change locomotion
-    void change_locomotion(Locomotion &b);
+    void change_locomotion (Locomotion &b);
 };
 
 } // namespace SenselessSoccer

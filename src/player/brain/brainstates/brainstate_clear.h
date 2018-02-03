@@ -9,12 +9,12 @@ namespace SenselessSoccer {
  * @brief ai state to make plyer go get a loose ball
  */
 class BrainClear : public BrainState {
-  public:
+public:
     /**
      * @brief BrainClear
      * @param player pointer back to player for sm context
      */
-    explicit BrainClear(Player *player);
+    explicit BrainClear (Player *player);
 
     /**
      * @brief OnStart
@@ -25,7 +25,7 @@ class BrainClear : public BrainState {
      * @brief OnStep
      * @param _dt time delta
      */
-    virtual void OnStep(const double _dt) override;
+    virtual void OnStep (const float _dt) override;
 
     /**
      * @brief OnEnd

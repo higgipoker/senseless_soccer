@@ -1,8 +1,8 @@
 /**
- * \file 	src/player/locomotion/Support.h
- * \author 	Paul Higgins
- * \date 	14.08.2017
- * @brief 	Support type locomotion
+ * \file    src/player/locomotion/Support.h
+ * \author  Paul Higgins
+ * \date    14.08.2017
+ * @brief   Support type locomotion
  *
  * Description
  *
@@ -27,7 +27,7 @@ public:
      * @brief constructor
      * @param [in] p pointer back to player for state machine context
      */
-    explicit BrainSupport(Player *p);
+    explicit BrainSupport (Player *p);
 
     /**
      * @brief state on start
@@ -38,7 +38,7 @@ public:
      * @brief state on step
      * @param [in] dt time delta
      */
-    virtual void OnStep(const double dt) override;
+    virtual void OnStep (const float dt) override;
 
     /**
      * @brief state on end
@@ -53,7 +53,7 @@ public:
     /**
      * @brief modify the state parameters on the fly
      */
-    virtual void Modify(modifier mod) override;
+    virtual void Modify (modifier mod) override;
 
 protected:
     /// track last ball sector
@@ -65,7 +65,7 @@ protected:
     /**
       @brief modify the state to backup (cover for) other players
       */
-    int mod_for_backup(int sector);
+    int mod_for_backup (int sector);
 
     /**
       @brief modify the state to try to get to a position to receive a pass

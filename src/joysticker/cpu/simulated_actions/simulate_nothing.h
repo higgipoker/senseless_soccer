@@ -5,13 +5,13 @@
 namespace SenselessSoccer {
 
 class SimulateNothing : public SimulatedSequence {
-  public:
-	/**
-	 * @brief constructor
-	 */
-	SimulateNothing();
+public:
+    /**
+     * @brief constructor
+     */
+    SimulateNothing();
 
-  protected:
+protected:
 };
 
 } // namespace SenselessSoccer

@@ -14,7 +14,7 @@ public:
      * @brief BrainPress
      * @param player
      */
-    explicit BrainPress(Player *player);
+    explicit BrainPress (Player *player);
 
     /**
      * @brief OnStart
@@ -25,7 +25,7 @@ public:
      * @brief OnStep
      * @param _dt
      */
-    virtual void OnStep(const double _dt) override;
+    virtual void OnStep (const float _dt) override;
 
     /**
      * @brief OnEnd

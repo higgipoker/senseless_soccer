@@ -10,7 +10,7 @@ public:
      * @brief BrainDribble
      * @param p
      */
-    explicit BrainDribble(Player *p);
+    explicit BrainDribble (Player *p);
 
     /**
      * @brief OnStart
@@ -21,7 +21,7 @@ public:
      * @brief OnStep
      * @param _dt
      */
-    virtual void OnStep(const double _dt) override;
+    virtual void OnStep (const float _dt) override;
 
     /**
      * @brief OnEnd
@@ -38,12 +38,12 @@ public:
      * @brief init the dribble state
      * @param dir initial direction
      */
-    void Init(Compass dir);
+    void Init (Compass dir);
 
-     /**
-     * @brief modify the state parameters on the fly
-     */
-    virtual void Modify(modifier mod) override;
+    /**
+    * @brief modify the state parameters on the fly
+    */
+    virtual void Modify (modifier mod) override;
 
 protected:
     /**

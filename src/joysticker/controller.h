@@ -4,7 +4,7 @@
 namespace SenselessSoccer {
 
 /** @brief event ids */
-enum ControllerEventID { NO_EVENT = 0, FIRE_PRESS, FIRE_RELEASE, FIRE_TAP, FIRE_DOUBLE_TAP };
+enum ControllerEventID { NO_EVENT = 0, FIRE_PRESS, FIRE_RELEASE, FIRE_TAP, FIRE_float_TAP };
 
 /**
  * @brief The ControllerEvent struct
@@ -20,7 +20,7 @@ struct ControllerEvent {
      * @param i
      * @param p
      */
-    ControllerEvent(ControllerEventID i, int p = 0) {
+    ControllerEvent (ControllerEventID i, int p = 0) {
         id = i;
         param = p;
     }
@@ -36,19 +36,19 @@ struct ControllerEvent {
  * @brief The ControllerListener class
  */
 class ControllerListener {
-  public:
+public:
     /**
     * @brief constructor
     * @param event event to handle
     */
-    virtual void OnControllerEvent(ControllerEvent event) = 0;
+    virtual void OnControllerEvent (ControllerEvent event) = 0;
 };
 
 /**
  * @brief The SensiController class
  */
 class Controller : public GameLib::Keyboard {
-  public:
+public:
     /**
      * @brief Update
      */
@@ -58,20 +58,20 @@ class Controller : public GameLib::Keyboard {
      * @brief AddListener
      * @param listener listener to add
      */
-    void AddListener(ControllerListener *listener);
+    void AddListener (ControllerListener *listener);
 
     /**
      * @brief RemoveListener
      * @param listener listener to remove
      */
-    void RemoveListener(ControllerListener *listener);
+    void RemoveListener (ControllerListener *listener);
 
-  protected:
+protected:
     /**
      * @brief Notify
      * @param event event to handle
      */
-    void Notify(ControllerEvent event);
+    void Notify (ControllerEvent event);
 
     /// list of listeners
     std::set<ControllerListener *> listeners;

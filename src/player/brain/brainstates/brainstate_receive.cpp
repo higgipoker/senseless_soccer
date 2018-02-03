@@ -6,7 +6,7 @@ namespace SenselessSoccer {
 // ------------------------------------------------------------
 // Constructor
 // ------------------------------------------------------------
-BrainReceive::BrainReceive(Player *p) : BrainState(p) {
+BrainReceive::BrainReceive (Player *p) : BrainState (p) {
 }
 
 // ------------------------------------------------------------
@@ -15,13 +15,13 @@ BrainReceive::BrainReceive(Player *p) : BrainState(p) {
 void BrainReceive::OnStart() {
     player->brain.statename = "RECEIVE";
     next_state = BRAIN_DRIBBLE;
-    player->brain.locomotion.ActivateIntercept(player->ball->physical);
+    player->brain.locomotion.ActivateIntercept (player->ball->physical);
 }
 
 // ------------------------------------------------------------
 // OnStep
 // ------------------------------------------------------------
-void BrainReceive::OnStep(const double _dt) {
+void BrainReceive::OnStep (const float _dt) {
 
 }
 
@@ -37,9 +37,9 @@ void BrainReceive::OnEnd() {
 // StateOver
 // ------------------------------------------------------------
 bool BrainReceive::StateOver() {
-    if(player->ball_under_control()) {
+    if (player->ball_under_control()) {
         return true;
-    }else if(player->my_team->key_players.pass_recipient != player){
+    } else if (player->my_team->key_players.pass_recipient != player) {
         next_state = BRAIN_SUPPORT;
         return true;
     }
@@ -50,10 +50,10 @@ bool BrainReceive::StateOver() {
 // ------------------------------------------------------------
 // Modify
 // ------------------------------------------------------------
-void BrainReceive::Modify(modifier mod) {
+void BrainReceive::Modify (modifier mod) {
 
-    switch(mod) {
-        break;
+    switch (mod) {
+            break;
     }
 }
 

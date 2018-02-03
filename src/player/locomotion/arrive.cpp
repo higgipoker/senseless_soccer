@@ -7,7 +7,7 @@ namespace SenselessSoccer {
 // ------------------------------------------------------------
 // Arrive
 // ------------------------------------------------------------
-Arrive::Arrive(Player *p) : Locomotion(p) {
+Arrive::Arrive (Player *p) : Locomotion (p) {
 }
 
 // ------------------------------------------------------------
@@ -23,10 +23,10 @@ void Arrive::OnStart() {
 // ------------------------------------------------------------
 // OnStep
 // ------------------------------------------------------------
-void Arrive::OnStep(const double dt) {
+void Arrive::OnStep (const float dt) {
     GameLib::Vector3 new_distance = destination - player->physical->position;
 
-    if(new_distance.magnitude() <=10) {
+    if (new_distance.magnitude() <= 10) {
         // reached destination?
         state_over = true;
         destination_reached = true;
@@ -34,7 +34,7 @@ void Arrive::OnStep(const double dt) {
 
     } else {
         // adjust for misses due to 45 degree precision
-        if(new_distance.magnitude() <= last_distance.magnitude()) {
+        if (new_distance.magnitude() <= last_distance.magnitude()) {
             player->velocity = destination - player->physical->position;
         }
     }
@@ -63,14 +63,14 @@ bool Arrive::StateOver() {
 // ------------------------------------------------------------
 // Init
 // ------------------------------------------------------------
-void Arrive::Init(GameLib::Vector3 target) {
+void Arrive::Init (GameLib::Vector3 target) {
     destination = target;
 }
 
 // ------------------------------------------------------------
 // Cancel
 // ------------------------------------------------------------
-void Arrive::Cancel(){
+void Arrive::Cancel() {
     state_over = true;
 }
 

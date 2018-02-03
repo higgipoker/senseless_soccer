@@ -45,7 +45,7 @@ struct ProgrammedEvent {
  * @brief The SimulatedAction class
  */
 class SimulatedSequence {
-  public:
+public:
     /// a list of events, one per frame
     std::vector<ProgrammedEvent> actions;
 
@@ -53,7 +53,7 @@ class SimulatedSequence {
      * @brief helper
      * @param action
      */
-    static void SimulateAction(const JoyStickState &action, bool fire_down, int (&event_states)[GameLib::TOTAL_EVENTS]);
+    static void SimulateAction (const JoyStickState &action, bool fire_down, int (&event_states) [GameLib::TOTAL_EVENTS]);
 };
 
 } // SenselessSoccer

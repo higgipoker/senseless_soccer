@@ -13,7 +13,7 @@ public:
      * @brief constructor
      * @param [in] p pointer back to player for state machine context
      */
-    explicit Head(Player *p);
+    explicit Head (Player *p);
 
     /**
      * @brief state start
@@ -24,7 +24,7 @@ public:
      * @brief state step
      * @param [in] dt time delta
      */
-    virtual void OnStep(const double dt) override;
+    virtual void OnStep (const float dt) override;
 
     /**
      * @brief state end
@@ -40,7 +40,7 @@ public:
      * @brief init the state
      * @param [in] dir direction
      */
-    void Init(GameLib::Vector3 dir);
+    void Init (GameLib::Vector3 dir);
 
     /**
      * @brief some states can be ended manually

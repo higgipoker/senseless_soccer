@@ -14,7 +14,7 @@ public:
     * @brief constructor
     * @param p reference to player for sm context
     */
-    explicit Sliding(Player &p);
+    explicit Sliding (Player &p);
 
     /**
      * @brief onStart
@@ -25,7 +25,7 @@ public:
      * @brief onStep
      * @param dt time delta
      */
-    virtual void OnStep(const double dt) override;
+    virtual void OnStep (const float dt) override;
 
     /**
      * @brief onEnd

@@ -8,7 +8,7 @@ namespace SenselessSoccer {
 // ------------------------------------------------------------
 // Head
 // ------------------------------------------------------------
-Head::Head(Player *p) : Locomotion(p) {
+Head::Head (Player *p) : Locomotion (p) {
 }
 
 // ------------------------------------------------------------
@@ -22,7 +22,7 @@ void Head::OnStart() {
 // ------------------------------------------------------------
 // OnStep
 // ------------------------------------------------------------
-void Head::OnStep(const double dt) {
+void Head::OnStep (const float dt) {
 }
 
 // ------------------------------------------------------------
@@ -45,7 +45,7 @@ bool Head::StateOver() {
 // ------------------------------------------------------------
 // Init
 // ------------------------------------------------------------
-void Head::Init(GameLib::Vector3 dir) {
+void Head::Init (GameLib::Vector3 dir) {
     direction = dir;
     direction.normalizeToUnits();
 }
@@ -53,7 +53,7 @@ void Head::Init(GameLib::Vector3 dir) {
 // ------------------------------------------------------------
 // Cancel
 // ------------------------------------------------------------
-void Head::Cancel(){
+void Head::Cancel() {
     state_over = true;
 }
 

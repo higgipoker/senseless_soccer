@@ -1,8 +1,8 @@
 /**
- * \file 	src/player/locomotion/pursue.h
- * \author 	Paul Higgins
- * \date 	14.08.2017
- * @brief 	cover type locomotion
+ * \file    src/player/locomotion/pursue.h
+ * \author  Paul Higgins
+ * \date    14.08.2017
+ * @brief   cover type locomotion
  *
  * Description
  *
@@ -23,7 +23,7 @@ public:
     /**
      *@brief constructor
      */
-    explicit Intercept(Player *p);
+    explicit Intercept (Player *p);
 
     /**
      *@brief state start
@@ -33,7 +33,7 @@ public:
     /**
      *@brief state step
      */
-    virtual void OnStep(const double dt);
+    virtual void OnStep (const float dt);
 
     /**
      *@brief state end
@@ -48,7 +48,7 @@ public:
     /**
      *@brief Init
      */
-    void Init(GameLib::Physical *_evader);
+    void Init (GameLib::Physical *_evader);
 
     /**
      * @brief some states can be ended manually
@@ -66,7 +66,7 @@ protected:
     /**
      * @brief helper to seek
      */
-    void seek(GameLib::Vector3 _target);
+    void seek (GameLib::Vector3 _target);
 };
 }
 

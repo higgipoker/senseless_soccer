@@ -7,23 +7,23 @@ namespace SenselessSoccer {
 // ------------------------------------------------------------
 SimulatedClearance::SimulatedClearance() {
 
-	// an event to reuse
-	ProgrammedEvent evt;
+    // an event to reuse
+    ProgrammedEvent evt;
 
-	// press and hold fire
-	for (unsigned int i = 0; i < 10; ++i) {
-		evt.event_states[GameLib::FIRE_DOWN] = true;
+    // press and hold fire
+    for (unsigned int i = 0; i < 10; ++i) {
+        evt.event_states[GameLib::FIRE_DOWN] = true;
         evt.milliseconds = 5;
-		actions.push_back(evt);
-	}
+        actions.push_back (evt);
+    }
 
-	// start pulling back (down) for height
-	for (unsigned int i = 0; i < 50; ++i) {
-		evt.event_states[GameLib::FIRE_DOWN] = true;
-		evt.event_states[GameLib::DOWN] = true;
+    // start pulling back (down) for height
+    for (unsigned int i = 0; i < 50; ++i) {
+        evt.event_states[GameLib::FIRE_DOWN] = true;
+        evt.event_states[GameLib::DOWN] = true;
         evt.milliseconds = 5;
-		actions.push_back(evt);
-	}
+        actions.push_back (evt);
+    }
 }
 
 } // namespace SenselessSoccer

@@ -6,7 +6,7 @@ namespace SenselessSoccer {
 // ------------------------------------------------------------
 // Constructor
 // ------------------------------------------------------------
-BrainPass::BrainPass(Player *p) : BrainState(p) {
+BrainPass::BrainPass (Player *p) : BrainState (p) {
 }
 
 // ------------------------------------------------------------
@@ -16,13 +16,13 @@ void BrainPass::OnStart() {
     player->brain.statename = "PASS";
     next_state = BRAIN_SUPPORT;
     player->my_team->key_players.pass_recipient = player->my_team->key_players.short_pass_candidates[0];
-    player->ShortPass(player->my_team->key_players.short_pass_candidates[0]);
+    player->ShortPass (player->my_team->key_players.short_pass_candidates[0]);
 }
 
 // ------------------------------------------------------------
 // OnStep
 // ------------------------------------------------------------
-void BrainPass::OnStep(const double _dt) {
+void BrainPass::OnStep (const float _dt) {
 }
 
 // ------------------------------------------------------------
@@ -36,7 +36,7 @@ void BrainPass::OnEnd() {
 // StateOver
 // ------------------------------------------------------------
 bool BrainPass::StateOver() {
-    if(!player->ball_under_control()) {
+    if (!player->ball_under_control()) {
         return true;
     }
 
@@ -46,17 +46,17 @@ bool BrainPass::StateOver() {
 // ------------------------------------------------------------
 // Modify
 // ------------------------------------------------------------
-void BrainPass::Modify(modifier mod) {
+void BrainPass::Modify (modifier mod) {
 
-    switch(mod) {
-        break;
+    switch (mod) {
+            break;
     }
 }
 
 // ------------------------------------------------------------
 // Init
 // ------------------------------------------------------------
-void BrainPass::Init(Player *receiver) {
+void BrainPass::Init (Player *receiver) {
 
 }
 

@@ -31,7 +31,7 @@ Player::Player(GameLib::Physical *p, GameLib::Renderable *r)
       brain(this),
 
       // how fast the player moves
-      running_speed(3000),
+      running_speed(DEFAULT_SPEED),
 
       // tracker
       changed_direction(false) {
@@ -56,7 +56,7 @@ Player::~Player() {
 // ------------------------------------------------------------
 // Update
 // ------------------------------------------------------------
-void Player::Update(double dt) {
+void Player::Update(float dt) {
   GameLib::GameEntity::Update(dt);
   GameLib::StateMachine::Step(dt);
 
@@ -138,7 +138,7 @@ void Player::DetatchInput() {
 // ------------------------------------------------------------
 // update_position
 // ------------------------------------------------------------
-void Player::update_position(double dt) {
+void Player::update_position(float dt) {
   // normalises velocity for consistent speed in diagonals
   normalize_velocity();
 
@@ -149,7 +149,7 @@ void Player::update_position(double dt) {
 // ------------------------------------------------------------
 // project_position
 // ------------------------------------------------------------
-GameLib::Vector3 Player::project_position(double dt) {
+GameLib::Vector3 Player::project_position(float dt) {
   return physical->position + velocity * dt * running_speed;
 }
 
@@ -218,7 +218,7 @@ void Player::do_dribble(const GameLib::Vector3 &direction) {
   OnGainedPossession();
 
   // calc force needed for kick
-  double force_needed = running_speed * 1.3f;
+  float force_needed = running_speed * 1.3f;
   GameLib::Vector3 kick = direction * force_needed;
 
   // normalize for diagonals
@@ -243,7 +243,7 @@ void Player::do_slide_tackle(const GameLib::Vector3 &direction) {
   ball->physical->ResetVelocity();
 
   // calc force needed for kick
-  double force_needed = running_speed * 1.2f;
+  float force_needed = running_speed * 1.2f;
   GameLib::Vector3 kick = direction * force_needed;
 
   // normalize for diagonals
@@ -292,7 +292,7 @@ bool Player::ball_under_control() {
 // ------------------------------------------------------------
 // kick
 // ------------------------------------------------------------
-void Player::kick(double force) {
+void Player::kick(float force) {
 
   std::cout << "force: " << force << std::endl;
 
@@ -302,7 +302,7 @@ void Player::kick(double force) {
 
   if (my_team->key_players.short_pass_candidates.size()) {
     GameLib::Vector3 dist = physical->position - my_team->key_players.short_pass_candidates[0]->physical->position;
-    double mag = dist.magnitude();
+    float mag = dist.magnitude();
     int meters = Metrics::PixelsToMeters(mag);
 
     force = Metrics::force_per_meter * meters;
@@ -312,11 +312,11 @@ void Player::kick(double force) {
 
   } else {
     // TODO upscale fire length
-    force *= 50;
+    force *= 1.6f;
   }
 
   GameLib::Vector3 kick_force = direction * force;
-  kick_force.z = force * 0.2f;
+  kick_force.z = force * 0.6f;
   ball->Kick(kick_force);
 }
 
@@ -324,9 +324,9 @@ void Player::kick(double force) {
 // ShortPass
 // ------------------------------------------------------------
 void Player::ShortPass(Player *recipient) {
-  double force = 0;
+  float force = 0;
   GameLib::Vector3 dist = physical->position - my_team->key_players.short_pass_candidates[0]->physical->position;
-  double mag = dist.magnitude();
+  float mag = dist.magnitude();
   int meters = Metrics::PixelsToMeters(mag);
   force = Metrics::force_per_meter * meters;
   GameLib::Vector3 direction = my_team->key_players.short_pass_candidates[0]->physical->position - physical->position;
@@ -342,7 +342,7 @@ void Player::ShortPass(Player *recipient) {
 void Player::OnGainedPossession() {
   in_possession = true;
   my_team->OnGotPossession(this);
-  running_speed = 2000;
+  running_speed = DEFAULT_SPEED;
 }
 
 // ------------------------------------------------------------
@@ -351,7 +351,7 @@ void Player::OnGainedPossession() {
 void Player::OnLostPossession() {
   in_possession = false;
   my_team->OnLostPossession(this);
-  running_speed = 3000;
+  running_speed = DEFAULT_SPEED;
 }
 
 // ------------------------------------------------------------
@@ -363,7 +363,7 @@ void Player::Shoot() {
   GameLib::Vector3 shot_direction = (target - physical->position);
   shot_direction.normalise();
   GameLib::Vector3 force = shot_direction;
-  double power = 20000;
+  float power = 20000;
   force *= power;
   force.z = power * 0.1f;
   ball->Kick(force);
@@ -379,7 +379,7 @@ void Player::Clearance() {
   GameLib::Vector3 shot_direction = (target - physical->position);
   shot_direction.normalise();
   GameLib::Vector3 force = shot_direction;
-  double power = 10000;
+  float power = 10000;
   force *= power;
   force.z = power * 0.4f;
   ball->Kick(force);
@@ -389,9 +389,9 @@ void Player::Clearance() {
 // calc_pass_recipients
 // ------------------------------------------------------------
 //  --------------------------------------------------
-//	     [PLAYER]
+//       [PLAYER]
 //
-//			p1
+//          p1
 //          /\
 //         /  \
 //        /    \

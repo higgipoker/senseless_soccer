@@ -16,7 +16,7 @@ namespace SenselessSoccer {
 // ------------------------------------------------------------
 // BrainState
 // ------------------------------------------------------------
-BrainState::BrainState(Player *p) {
+BrainState::BrainState (Player *p) {
     player = p;
     next_state = BRAIN_NONE;
     state_over = false;
@@ -31,7 +31,7 @@ void BrainState::OnStart() {
 // ------------------------------------------------------------
 // OnStep
 // ------------------------------------------------------------
-void BrainState::OnStep(const double _dt) {
+void BrainState::OnStep (const float _dt) {
 }
 
 // ------------------------------------------------------------
@@ -45,7 +45,7 @@ void BrainState:: OnEnd() {
 // StateOver
 // ------------------------------------------------------------
 bool BrainState::StateOver() {
-    if(player->my_team->key_players.pass_recipient == player) {
+    if (player->my_team->key_players.pass_recipient == player) {
         next_state = BRAIN_RECEIVE;
         return true;
     }
@@ -58,50 +58,50 @@ bool BrainState::StateOver() {
 // ------------------------------------------------------------
 void BrainState::ChangeToNextState() {
 
-    switch(next_state) {
-    case BRAIN_COVER:
-        player->brain.ChangeState(new BrainCover(player));
-        break;
+    switch (next_state) {
+        case BRAIN_COVER:
+            player->brain.ChangeState (new BrainCover (player));
+            break;
 
-    case BRAIN_DRIBBLE:
-        player->brain.ChangeState(new BrainDribble(player));
-        break;
+        case BRAIN_DRIBBLE:
+            player->brain.ChangeState (new BrainDribble (player));
+            break;
 
-    case BRAIN_GETBALL:
-        player->brain.ChangeState(new BrainGetBall(player));
-        break;
+        case BRAIN_GETBALL:
+            player->brain.ChangeState (new BrainGetBall (player));
+            break;
 
-    case BRAIN_IDLE:
-        player->brain.ChangeState(new BrainIdle(player));
-        break;
+        case BRAIN_IDLE:
+            player->brain.ChangeState (new BrainIdle (player));
+            break;
 
-    case BRAIN_SUPPORT:
-        player->brain.ChangeState(new BrainSupport(player));
-        break;
+        case BRAIN_SUPPORT:
+            player->brain.ChangeState (new BrainSupport (player));
+            break;
 
-    case BRAIN_PASS:
-        player->brain.ChangeState(new BrainPass(player));
-        break;
+        case BRAIN_PASS:
+            player->brain.ChangeState (new BrainPass (player));
+            break;
 
-    case BRAIN_RECEIVE:
-        player->brain.ChangeState(new BrainReceive(player));
-        break;
+        case BRAIN_RECEIVE:
+            player->brain.ChangeState (new BrainReceive (player));
+            break;
 
-    case BRAIN_SHOOT:
-        player->brain.ChangeState(new BrainShoot(player));
-        break;
+        case BRAIN_SHOOT:
+            player->brain.ChangeState (new BrainShoot (player));
+            break;
 
-    case BRAIN_PRESS:
-        player->brain.ChangeState(new BrainPress(player));
-        break;
+        case BRAIN_PRESS:
+            player->brain.ChangeState (new BrainPress (player));
+            break;
 
-    case BRAIN_CLEAR:
-        player->brain.ChangeState(new BrainClear(player));
-        break;
+        case BRAIN_CLEAR:
+            player->brain.ChangeState (new BrainClear (player));
+            break;
 
-    case BRAIN_NONE:
-    default:
-        break;
+        case BRAIN_NONE:
+        default:
+            break;
     }
 
 }
@@ -109,6 +109,6 @@ void BrainState::ChangeToNextState() {
 // ------------------------------------------------------------
 // Modify
 // ------------------------------------------------------------
-void BrainState::Modify(modifier mod) {
+void BrainState::Modify (modifier mod) {
 }
 }
