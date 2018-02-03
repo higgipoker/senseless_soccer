@@ -89,19 +89,25 @@ src/globals.cpp
 # link libs
 # --------------------------------------------------
 target_link_libraries (senseless_soccer gamelib)
-target_link_libraries (senseless_soccer sfml-graphics-s)
-target_link_libraries (senseless_soccer sfml-window-s)
-target_link_libraries (senseless_soccer sfml-system-s)
+target_link_libraries (senseless_soccer sfml-graphics-d)
+target_link_libraries (senseless_soccer sfml-window-d)
+target_link_libraries (senseless_soccer sfml-system-d)
 
-target_link_libraries (senseless_soccer X11)
-target_link_libraries (senseless_soccer X11-xcb)
-target_link_libraries (senseless_soccer xcb)
-target_link_libraries (senseless_soccer xcb-randr)
-target_link_libraries (senseless_soccer freetype)
-target_link_libraries (senseless_soccer Xrandr)
-target_link_libraries (senseless_soccer GL)
-target_link_libraries (senseless_soccer jpeg)
-target_link_libraries (senseless_soccer udev)
-target_link_libraries (senseless_soccer pthread)
+
+#target_link_libraries (senseless_soccer gamelib)
+#target_link_libraries (senseless_soccer sfml-graphics-s)
+#target_link_libraries (senseless_soccer sfml-window-s)
+#target_link_libraries (senseless_soccer sfml-system-s)
+
+#target_link_libraries (senseless_soccer X11)
+#target_link_libraries (senseless_soccer X11-xcb)
+#target_link_libraries (senseless_soccer xcb)
+#target_link_libraries (senseless_soccer xcb-randr)
+#target_link_libraries (senseless_soccer freetype)
+#target_link_libraries (senseless_soccer Xrandr)
+#target_link_libraries (senseless_soccer GL)
+#target_link_libraries (senseless_soccer jpeg)
+#target_link_libraries (senseless_soccer udev)
+#target_link_libraries (senseless_soccer pthread)
 
 
