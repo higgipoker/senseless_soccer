@@ -5,8 +5,9 @@
 #include <gamelib/game/game.h>
 
 namespace SenselessSoccer {
+
 class SenselessGame : public GameLib::Game {
-public:
+  public:
     /**
      * \brief construct
      * \param gamename string name
@@ -16,34 +17,31 @@ public:
      * \param h window height
      * \brief fullscreen full screen window or now
      */
-    SenselessGame (const std::string &gamename, unsigned int x, unsigned int y, unsigned int w, unsigned int h, bool fullscreen);
+    SenselessGame(const std::string &gamename, unsigned int x, unsigned int y, unsigned int w, unsigned int h, bool fullscreen);
 
     /**
-     * @brief do rendering
+     * @brief ~SenselessGame
      */
-    void Render();
+    virtual ~SenselessGame() {
+    }
 
     /**
      * @brief keyboard handling
      */
-    void HandleInput();
+    void HandleInput(GameLib::WindowEvent &event) override;
 
     /**
      * @brief calc_fps
      */
     void CalculateFPS();
 
-protected:
-    /**
-     * @brief helper to render the hud
-     */
-    void render_hud();
-
+  protected:
     /**
      * @brief on_mouse_click
      * @param x
      * @param y
      */
-    virtual void on_mouse_click (float x, float y) override;
+    void on_mouse_click(float x, float y) override;
 };
-}
+
+} // namespace SenselessSoccer

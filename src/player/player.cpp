@@ -458,7 +458,7 @@ void Player::DoSlideTackle() {
 // OnControllerEvent
 // ------------------------------------------------------------
 void Player::OnControllerEvent(ControllerEvent event) {
-  ((PlayerState *)current_state)->HandleEvent(event);
+  (static_cast<PlayerState *>(current_state))->HandleEvent(event);
 }
 
 // ------------------------------------------------------------

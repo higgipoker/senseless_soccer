@@ -9,13 +9,13 @@ namespace SenselessSoccer {
 * @brief The Ball class
 */
 class Ball : public GameLib::GameEntity {
-public:
+  public:
     /**
      * @brief Ball
      * @param p
      * @param r
      */
-    Ball (GameLib::Physical *p, GameLib::Renderable *r);
+    Ball(GameLib::Physical *p, GameLib::Renderable *r);
     /**
       *
       */
@@ -25,27 +25,27 @@ public:
      * @brief Kick
      * @param force
      */
-    void Kick (GameLib::Vector3 force);
+    void Kick(GameLib::Vector3 force);
 
     /**
      * @brief Update
      * @param dt
      */
-    virtual void Update (float dt) override;
+    virtual void Update(float dt) override;
 
     /**
      * @brief GetCollidable
      * @return
      */
     inline GameLib::Circle GetCollidable() {
-        return GameLib::Circle (physical->position.x, physical->position.y, radius);
+        return GameLib::Circle(physical->position.x, physical->position.y, radius);
     }
 
     /**
      * @brief Call
      * @param params
      */
-    virtual void Call (std::vector<std::string> params) override;
+    virtual void Call(std::vector<std::string> params) override;
 
     /**
      * @brief StartRecordDistance
@@ -55,18 +55,18 @@ public:
     bool recording = false;
     GameLib::Vector3 start_record;
 
-protected:
+  protected:
     /**
      * @brief apply_force
      * @param force
      */
-    void apply_force (GameLib::Vector3 force);
+    void apply_force(GameLib::Vector3 force);
 
     /**
      * @brief do_physics
      * @param dt
      */
-    void do_physics (float dt);
+    void do_physics(float dt);
 
     /**
      * @brief set_sprite_rotation
@@ -79,7 +79,7 @@ protected:
      * @param damp
      * @param damp_z
      */
-    void rebound (GameLib::Vector3 wall, float damp, bool damp_z);
+    void rebound(GameLib::Vector3 wall, float damp, bool damp_z);
 
     float radius;
     float co_friction;

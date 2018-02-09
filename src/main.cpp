@@ -1,3 +1,28 @@
+/****************************************************************************
+ * Copyright (c) 2018 P. Higgins
+ *
+ * This software is provided 'as-is', without any express or implied
+ * warranty. In no event will the authors be held liable for any damages
+ * arising from the use of this software.
+ *
+ * Permission is granted to anyone to use this software for any purpose,
+ * including commercial applications, and to alter it and redistribute it
+ * freely, subject to the following restrictions:
+ *
+ * 1. The origin of this software must not be misrepresented; you must not
+ *    claim that you wrote the original software. If you use this software
+ *    in a product, an acknowledgment in the product documentation would be
+ *    appreciated but is not required.
+ * 2. Altered source versions must be plainly marked as such, and must not be
+ *    misrepresented as being the original software.
+ * 3. This notice may not be removed or altered from any source distribution.
+ ****************************************************************************/
+/**
+ * @file filename
+ * @author Paul Higgins <paul.samuel.higgins@gmail.com>
+ * @date 2018
+ * @brief description
+ */
 #include <iostream>
 #include <sstream>
 #include <string.h>
@@ -28,9 +53,6 @@
 #define WINDOW_WIDTH 800
 #define WINDOW_HEIGHT 600
 
-#define WINDOW_WIDTH 800
-#define WINDOW_HEIGHT 600
-
 static const float SIMULATION_DELTA = 0.001f;
 
 using namespace SenselessSoccer;
@@ -54,6 +76,31 @@ static std::string playernames[] = {
     "player11", "player12", "player13", "player14", "player15", "player16", "player17", "player18", "player19", "player20",
 };
 
+void print_license_info() {
+    static const std::string notice = "\
+    ************************************************************************************\n\
+    *    Copyright (c) 2018 P. Higgins                                                 *\n\
+    ************************************************************************************\n\
+    *    This software is provided 'as-is', without any express or implied             *\n\
+    *    warranty. In no event will the authors be held liable for any damages         *\n\
+    *    arising from the use of this software.                                        *\n\
+    *                                                                                  *\n\
+    *    Permission is granted to anyone to use this software for any purpose,         *\n\
+    *    including commercial applications, and to alter it and redistribute it        *\n\
+    *    freely, subject to the following restrictions:                                *\n\
+    *                                                                                  *\n\
+    *    1. The origin of this software must not be misrepresented; you must not       *\n\
+    *       claim that you wrote the original software. If you use this software       *\n\
+    *       in a product, an acknowledgment in the product documentation would be      *\n\
+    *       appreciated but is not required.                                           *\n\
+    *    2. Altered source versions must be plainly marked as such, and must not be    *\n\
+    *       misrepresented as being the original software.                             *\n\
+    *    3. This notice may not be removed or altered from any source distribution.    *\n\
+    ************************************************************************************";
+
+    std::cout << notice << std::endl;
+}
+
 // ------------------------------------------------------------
 // GetCurrentWorkingDirectory
 // ------------------------------------------------------------
@@ -69,7 +116,7 @@ std::string GetCurrentWorkingDirectory(void) {
 // parse_args
 // ------------------------------------------------------------
 static bool parse_args(int argc, char *argv[]) {
-    for (unsigned int i = 0; i < argc; ++i) {
+    for (int i = 0; i < argc; ++i) {
         std::string str(argv[i]);
 
         if (str == "--gamelib-version") {
@@ -99,6 +146,11 @@ int main(int argc, char *argv[]) {
     }
 
     //
+    // show some GPL info
+    //
+    print_license_info();
+
+    //
     // main game
     //
     SenselessGame senseless("Senseless Soccer", 1980, 0, WINDOW_WIDTH, WINDOW_HEIGHT, false);
@@ -126,6 +178,8 @@ int main(int argc, char *argv[]) {
     GameLib::Renderable team_renderable;
     Team team1(&team_physical, &team_renderable);
     Team team2(&team_physical, &team_renderable);
+    team1.SetName("team1");
+    team2.SetName("team2");
     team1.side = SOUTH;
     team2.side = NORTH;
     for (auto it = players.begin(); it != players.end() - 10; ++it) {
@@ -152,7 +206,7 @@ int main(int argc, char *argv[]) {
     // pitch
     //
     GameLib::Physical pitch_physical;
-    PitchTiled pitch_renderable(senseless.working_directory + "/gfx/grass_dry.png", senseless.camera);
+    PitchTiled pitch_renderable(senseless.working_directory + "/gfx/grass_horizontal.png", senseless.camera);
     Pitch pitch(&pitch_physical, &pitch_renderable, 250, 250, Metrics::MetersToPixels(68.5), Metrics::MetersToPixels(100.5f));
     Player::pitch = &pitch;
 
@@ -202,7 +256,7 @@ int main(int argc, char *argv[]) {
     //
     // camera
     //
-    senseless.camera.view.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
+    senseless.camera.GetView().setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
     senseless.camera.SetWorldRect(GameLib::Rectangle(0, 0, 1900, 2600));
     senseless.camera.Follow(&ball);
 
@@ -212,7 +266,8 @@ int main(int argc, char *argv[]) {
     while (senseless.running) {
 
         // input
-        senseless.HandleInput();
+        GameLib::WindowEvent event;
+        senseless.HandleInput(event);
 
         // simulate
         senseless.Simulate();

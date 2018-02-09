@@ -9,14 +9,14 @@ namespace SenselessSoccer {
 /// as good as zero
 const float TOL = 0.05f;
 const float GRAVITY = 0.098f;
-const float AIR_FACTOR = 0.04f;
+const float AIR_FACTOR = 0.02f;
 const float BALL_MASS = 12.0f;
 
 // ------------------------------------------------------------
 // Ball
 // ------------------------------------------------------------
 Ball::Ball::Ball(GameLib::Physical *p, GameLib::Renderable *r)
-    : GameLib::GameEntity(p, r), radius(4), co_friction(2.2f), co_bounciness(0.8f), sprite_scale_factor(0.0) {
+    : GameLib::GameEntity(p, r), radius(3), co_friction(2.6f), co_bounciness(0.8f), sprite_scale_factor(0.0) {
 
     // local convenient access to subclassed ballsprite type of renderable
     ball_sprite = static_cast<BallSprite *>(renderable);
@@ -56,7 +56,7 @@ void Ball::Update(float dt) {
     ball_sprite->Scale(sprite_scale_factor);
 
     // the ball only rolls if it's moving
-    if (physical->velocity.magnitude() > GameLib::TOL) {
+    if (physical->velocity.magnitude() > 0.008f) {
 
         // rotate ball sprite depending on roll direction
         set_sprite_rotation();
@@ -114,9 +114,11 @@ void Ball::do_physics(float dt) {
         apply_force(gravity);
 
         // air resistance
-        float air_resistance = physical->position.z * AIR_FACTOR;
-        GameLib::Vector3 air = physical->velocity.Reverse() * air_resistance;
-        apply_force(air);
+        if (physical->velocity.magnidude2d() > GameLib::TOL) {
+            float air_resistance = physical->position.z * AIR_FACTOR;
+            GameLib::Vector3 air = physical->velocity.Reverse() * air_resistance;
+            apply_force(air);
+        }
 
     } else {
         // friction
