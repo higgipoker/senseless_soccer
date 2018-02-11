@@ -43,19 +43,19 @@ class SenselessGame : public GameLib::Game {
      * \brief fullscreen full screen window or now
      */
     SenselessGame(const std::string &gamename, unsigned int x, unsigned int y,
-                  unsigned int w, unsigned int h, bool fullscreen);
+                  unsigned int w, unsigned int h, bool fullscreen = false);
 
     /**
      * @brief ~SenselessGame
      */
     virtual ~SenselessGame() {}
 
+  protected:
     /**
      * @brief keyboard handling
      */
-    void HandleInput(GameLib::WindowEvent &event) override;
+    void handle_input(GameLib::WindowEvent &event) override;
 
-  protected:
     /**
      * @brief on_mouse_click
      * @param x

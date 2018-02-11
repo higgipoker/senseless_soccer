@@ -33,8 +33,7 @@ namespace SenselessSoccer {
 // sort predicate for renderable objects (for height)
 // ------------------------------------------------------------
 struct {
-    bool operator()(const GameLib::GameEntity *r1,
-                    const GameLib::GameEntity *r2) const {
+    bool operator()(const GameLib::GameEntity *r1, const GameLib::GameEntity *r2) const {
         if (r1->renderable && r2->renderable) {
             return r1->renderable->z_order < r2->renderable->z_order;
         }
@@ -45,18 +44,17 @@ struct {
 // ------------------------------------------------------------
 // SenselessGame
 // ------------------------------------------------------------
-SenselessGame::SenselessGame(const std::string &gamename, unsigned int x,
-                             unsigned int y, unsigned int w, unsigned int h,
-                             bool fullscreen)
+SenselessGame::SenselessGame(const std::string &gamename, unsigned int x, unsigned int y,
+                             unsigned int w, unsigned int h, bool fullscreen)
     : GameLib::Game(gamename, x, y, w, h, fullscreen) {
     window.SetIcon("gfx/icon.png");
 }
 
 // ------------------------------------------------------------
-// HandleInput
+// handle_input
 // ------------------------------------------------------------
-void SenselessGame::HandleInput(GameLib::WindowEvent &event) {
-    GameLib::Game::HandleInput(event);
+void SenselessGame::handle_input(GameLib::WindowEvent &event) {
+    GameLib::Game::handle_input(event);
     // do game specific handling here
 }
 

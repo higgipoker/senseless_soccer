@@ -63,7 +63,7 @@ void Running::OnEnd() {}
 // StateOver
 // ------------------------------------------------------------
 bool Running::StateOver() {
-    if (player.velocity.magnitude() == 0) {
+    if (player.velocity.magnitude() < GameLib::TOL) {
         next_state = PLAYER_STATE_STAND;
         return true;
 
@@ -75,6 +75,9 @@ bool Running::StateOver() {
     return false;
 }
 
+// ------------------------------------------------------------
+// HandleEvent
+// ------------------------------------------------------------
 bool Running::HandleEvent(ControllerEvent event) {
 
     if (!PlayerState::HandleEvent(event)) {
@@ -101,7 +104,6 @@ bool Running::HandleEvent(ControllerEvent event) {
                 break;
 
             case NO_EVENT:
-            default:
                 break;
         }
     }

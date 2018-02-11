@@ -53,8 +53,6 @@
 #define WINDOW_WIDTH 800
 #define WINDOW_HEIGHT 600
 
-static const float SIMULATION_DELTA = 0.001f;
-
 using namespace SenselessSoccer;
 
 const static std::string senseless_soccer_version = "0.0.1";
@@ -72,10 +70,9 @@ static std::string filenames[] = {"LEFT_BACK_POSITIONS.pos",
                                   "RIGHT_CENTER_ATTACKER_POSITIONS.pos"};
 
 static std::string playernames[] = {
-    "player1",  "player2",  "player3",  "player4",  "player5",
-    "player6",  "player7",  "player8",  "player9",  "player10",
-    "player11", "player12", "player13", "player14", "player15",
-    "player16", "player17", "player18", "player19", "player20",
+    "player1",  "player2",  "player3",  "player4",  "player5",  "player6",  "player7",
+    "player8",  "player9",  "player10", "player11", "player12", "player13", "player14",
+    "player15", "player16", "player17", "player18", "player19", "player20",
 };
 
 void print_license_info() {
@@ -99,19 +96,7 @@ void print_license_info() {
     *       misrepresented as being the original software.                             *\n\
     *    3. This notice may not be removed or altered from any source distribution.    *\n\
     ************************************************************************************";
-
     std::cout << notice << std::endl;
-}
-
-// ------------------------------------------------------------
-// GetCurrentWorkingDirectory
-// ------------------------------------------------------------
-std::string GetCurrentWorkingDirectory(void) {
-    char path[128];
-    getcwd(path, sizeof(path));
-    GameLib::Log("ss", "Working Directory: ", std::string(path).c_str());
-
-    return path;
 }
 
 // ------------------------------------------------------------
@@ -123,8 +108,7 @@ static bool parse_args(int argc, char *argv[]) {
 
         if (str == "--gamelib-version") {
             if (argc >= i) {
-                GameLib::Log("ss", "GameLib version: ",
-                             GameLib::GAMELIB_VERSION.c_str());
+                GameLib::Log("ss", "GameLib version: ", GameLib::GAMELIB_VERSION.c_str());
                 return false;
             }
         }
@@ -145,32 +129,35 @@ static bool parse_args(int argc, char *argv[]) {
 // main
 // ------------------------------------------------------------
 int main(int argc, char *argv[]) {
+
+    //
+    // try to parse args, exit if error
+    //
     if (!parse_args(argc, argv)) {
         return 0;
     }
 
     //
-    // show some GPL info
+    // show some zlib info
     //
     print_license_info();
 
     //
     // main game
     //
-    SenselessGame senseless("Senseless Soccer", 1980, 0, WINDOW_WIDTH,
-                            WINDOW_HEIGHT, false);
+    SenselessGame senseless("Senseless Soccer", 1980, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
     Globals::sensi = &senseless;
-    senseless.working_directory = GetCurrentWorkingDirectory();
 
     //
     // players
     //
-    PlayerFactory player_factory;
     std::vector<Player *> players;
+    PlayerFactory player_factory;
     for (unsigned int i = 0; i < 20; ++i) {
-        players.push_back(
-            player_factory.MakePlayer(playernames[i], filenames[i % 10]));
+        players.push_back(player_factory.MakePlayer(playernames[i], filenames[i % 10]));
     }
+
+    // send all players the "support" call
     std::vector<std::string> call;
     call.push_back("support");
     for (auto it = players.begin(); it != players.end(); ++it) {
@@ -199,10 +186,9 @@ int main(int argc, char *argv[]) {
     //
     // ball
     //
-    BallSprite ball_sprite(senseless.working_directory + "/gfx/ball_new.png", 4,
-                           2);
+    BallSprite ball_sprite(senseless.WorkingDirectory() + "/gfx/ball_new.png", 4, 2);
     BallShadowSprite ball_shadow_sprite(
-        senseless.working_directory + "/gfx/ball_shadow.png", 1, 1);
+        senseless.WorkingDirectory() + "/gfx/ball_shadow.png", 1, 1);
     ball_sprite.shadow = &ball_shadow_sprite;
     GameLib::Physical ball_physical;
     Ball ball(&ball_physical, &ball_sprite);
@@ -214,9 +200,8 @@ int main(int argc, char *argv[]) {
     // pitch
     //
     GameLib::Physical pitch_physical;
-    PitchTiled pitch_renderable(senseless.working_directory +
-                                    "/gfx/grass_horizontal.png",
-                                senseless.camera);
+    PitchTiled pitch_renderable(
+        senseless.WorkingDirectory() + "/gfx/grass_horizontal.png", senseless.camera);
     Pitch pitch(&pitch_physical, &pitch_renderable, 250, 250,
                 Metrics::MetersToPixels(68.5), Metrics::MetersToPixels(100.5f));
     Player::pitch = &pitch;
@@ -225,7 +210,7 @@ int main(int argc, char *argv[]) {
     // goals
     //
     GameLib::Physical goal_north_physical;
-    GameLib::Renderable goal_north_sprite(senseless.working_directory +
+    GameLib::Renderable goal_north_sprite(senseless.WorkingDirectory() +
                                           "/gfx/goal_north.png");
     GameLib::GameEntity goal_north(&goal_north_physical, &goal_north_sprite);
     goal_north.anchor_type = GameLib::ANCHOR_NONE;
@@ -240,13 +225,13 @@ int main(int argc, char *argv[]) {
     players[0]->AttachInput(&keyboard);
 
     ControllerSimulator cpu;
-    players[1]->AttachInput(&cpu);
+    players[10]->AttachInput(&cpu);
 
     //
     // test some text
     //
     GameLib::Physical text_physical;
-    GameLib::Label label(senseless.working_directory + "/fonts/swos.ttf", 20,
+    GameLib::Label label(senseless.WorkingDirectory() + "/fonts/swos.ttf", 20,
                          "senseless soccer " + senseless_soccer_version);
     label.SetPosition(12, 12);
     GameLib::GameEntity text(&text_physical, &label);
@@ -273,26 +258,10 @@ int main(int argc, char *argv[]) {
     senseless.camera.SetWorldRect(GameLib::Rectangle(0, 0, 1900, 2600));
     senseless.camera.Follow(&ball);
 
-    // starts the frame timer etc
-    senseless.OnStart();
     //
     // main loop
     //
-    while (senseless.running) {
-
-        // input
-        GameLib::WindowEvent event;
-        senseless.HandleInput(event);
-
-        // simulate
-        senseless.Simulate();
-
-        // render
-        senseless.Render();
-
-        // count frames per second
-        senseless.CalcFPS();
-    }
+    senseless.Run();
 
     GameLib::Log("s", "Exiting successfully");
     return 0;

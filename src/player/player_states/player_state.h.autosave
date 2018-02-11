@@ -18,41 +18,64 @@
  * 3. This notice may not be removed or altered from any source distribution.
  ****************************************************************************/
 /**
- * @file kit_factory.h
+ * @file playere_state.h
  * @author Paul Higgins <paul.samuel.higgins@gmail.com>
  * @date 2018
  * @brief description
  */
 #pragma once
-#include <gamelib/graphics/color.h>
-#include <vector>
+#include "../../joysticker/controller.h"
+#include <gamelib/statemachine/state.h>
 
 namespace SenselessSoccer {
 
+/** @brief possible player states */
+enum player_state {
+    PLAYER_STATE_NONE,
+    PLAYER_STATE_STAND,
+    PLAYER_STATE_RUN,
+    PLAYER_STATE_SLIDE
+};
+
+class Player;
+
 /**
-*@brief The KitFactory class
-*/
-class KitFactory {
+ * @brief The PlayerState class
+ */
+class PlayerState : public GameLib::State {
+
   public:
     /**
-    * @brief GetDefaultRedKit
-    * @return
+    * @brief constructor
+    * @param p reference to player for sm context
     */
-    static std::vector<std::pair<GameLib::Color, GameLib::Color>>
-    GetDefaultRedKit();
+    explicit PlayerState(Player &p);
 
     /**
-     * @brief GetDefaultBlueKit
-     * @return
-     */
-    static std::vector<std::pair<GameLib::Color, GameLib::Color>>
-    GetDefaultBlueKit();
+    * @brief changeToNextState
+    */
+    virtual void ChangeToNextState() override;
 
     /**
-     * @brief GetKeeperPalette
-     * @return
+     * @brief handle input events
+     * @param event an event to handle
      */
-    static std::vector<std::pair<GameLib::Color, GameLib::Color>>
-    GetKeeperPalette();
+    virtual bool HandleEvent(ControllerEvent event);
+
+  protected:
+    /// for state machine context
+    Player &player;
+
+    /// next state
+    player_state next_state;
+
+    /**
+     * @brief process input
+     */
+    virtual void handle_input();
+
+  public:
+    friend class Player;
 };
-} // namesapce SenselessSoccer
+
+} // SenselessSoccer
