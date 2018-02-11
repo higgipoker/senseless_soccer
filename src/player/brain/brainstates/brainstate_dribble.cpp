@@ -1,15 +1,15 @@
 #include "brainstate_dribble.h"
 
-#include <assert.h>
-#include "brainstate_idle.h"
 #include "../../../team/team.h"
+#include "brainstate_idle.h"
+#include <assert.h>
 
 namespace SenselessSoccer {
 
 // ------------------------------------------------------------
 // Constructor
 // ------------------------------------------------------------
-BrainDribble::BrainDribble (Player *p) : BrainState (p) {
+BrainDribble::BrainDribble(Player *p) : BrainState(p) {
 }
 
 // ------------------------------------------------------------
@@ -19,28 +19,28 @@ void BrainDribble::OnStart() {
     player->brain.statename = "DRIBBLE";
     player->OnGainedPossession();
     player->velocity = player->last_direction;
-    assert (player->velocity.magnitude());
+    assert(player->velocity.magnitude());
     change_direction();
-    timer.Start();
+    change_direction_ticker = 0;
 }
 
 // ------------------------------------------------------------
 // OnStep
 // ------------------------------------------------------------
-void BrainDribble::OnStep (const float _dt) {
+void BrainDribble::OnStep(const float _dt) {
 
-    if (!player->brain.in_pitch (_dt)) {
+    if (!player->brain.in_pitch(_dt)) {
         /*********************************************
         * stay in pitch
         * *******************************************/
-        GameLib::Vector3 new_direction = player->velocity.rotated (45).roundAngle (45);
-        player->brain.locomotion.ActivateHead (new_direction);
+        GameLib::Vector3 new_direction = player->velocity.rotated(45).roundAngle(45);
+        player->brain.locomotion.ActivateHead(new_direction);
 
-    } else if (timer.GetTicks() > 2000) {
+    } else if (change_direction_ticker > 200) {
         /*********************************************
         * test random change dir
         * *******************************************/
-        timer.Start();
+        change_direction_ticker = 0;
         change_direction();
     }
 }
@@ -63,12 +63,12 @@ bool BrainDribble::StateOver() {
     }
 
     else if (!pass_timer_started && player->my_team->key_players.short_pass_candidates.size()) {
-//         pass_timer_started = true;
-//         pass_timer.Start();
-//         next_state = BRAIN_PASS;
+        //         pass_timer_started = true;
+        //         pass_timer.Start();
+        //         next_state = BRAIN_PASS;
     }
 
-    else if (pass_timer_started && pass_timer.GetTicks() > 100) {
+    else if (pass_timer_started && pass_ticker > 10) {
         return true;
     }
 
@@ -84,15 +84,15 @@ bool BrainDribble::StateOver() {
 // change_direction
 // ------------------------------------------------------------
 void BrainDribble::change_direction() {
-    GameLib::Vector3 new_direction = player->velocity.rotated (rand() % 2 == 1 ? 45 : -45).roundAngle (45);
+    GameLib::Vector3 new_direction = player->velocity.rotated(rand() % 2 == 1 ? 45 : -45).roundAngle(45);
     player->brain.locomotion.Cancel();
-    player->brain.locomotion.ActivateHead (new_direction);
+    player->brain.locomotion.ActivateHead(new_direction);
 }
 
 // ------------------------------------------------------------
 // Modify
 // ------------------------------------------------------------
-void BrainDribble::Modify (modifier mod) {
+void BrainDribble::Modify(modifier mod) {
 
     switch (mod) {
         case DRIBBLE_CHANGE_DIRECTION:
@@ -104,8 +104,8 @@ void BrainDribble::Modify (modifier mod) {
 // ------------------------------------------------------------
 // Init
 // ------------------------------------------------------------
-void BrainDribble::Init (Compass dir) {
-    timer.Start();
-    player->brain.locomotion.ActivateHead (Metrics::compasstoVector (dir));
+void BrainDribble::Init(Compass dir) {
+    change_direction_ticker = 0;
+    player->brain.locomotion.ActivateHead(Metrics::compasstoVector(dir));
 }
 }

@@ -29,7 +29,7 @@ void PitchTiled::Render (GameLib::Window &window) {
     for (int i = 0; i < 8; ++i) {
         //      lines[0].position = sf::Vector2f (startx, starty);
         //      lines[1].position = sf::Vector2f (endx, endy);
-        window.window.draw (vertices, 4, sf::Lines);
+        window->window->draw (vertices, 4, sf::Lines);
 
         startx += 0.2;
         endx += 0.2;

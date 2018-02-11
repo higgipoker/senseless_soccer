@@ -1,3 +1,28 @@
+/****************************************************************************
+ * Copyright (c) 2018 P. Higgins
+ *
+ * This software is provided 'as-is', without any express or implied
+ * warranty. In no event will the authors be held liable for any damages
+ * arising from the use of this software.
+ *
+ * Permission is granted to anyone to use this software for any purpose,
+ * including commercial applications, and to alter it and redistribute it
+ * freely, subject to the following restrictions:
+ *
+ * 1. The origin of this software must not be misrepresented; you must not
+ *    claim that you wrote the original software. If you use this software
+ *    in a product, an acknowledgment in the product documentation would be
+ *    appreciated but is not required.
+ * 2. Altered source versions must be plainly marked as such, and must not be
+ *    misrepresented as being the original software.
+ * 3. This notice may not be removed or altered from any source distribution.
+ ****************************************************************************/
+/**
+ * @file ball.cpp
+ * @author Paul Higgins <paul.samuel.higgins@gmail.com>
+ * @date 2018
+ * @brief description
+ */
 #include "ball.h"
 #include "../metrics/metrics.h"
 #include <iostream>
@@ -8,7 +33,7 @@ namespace SenselessSoccer {
 
 /// as good as zero
 const float TOL = 0.05f;
-const float GRAVITY = 0.098f;
+const float GRAVITY = 2.0f;
 const float AIR_FACTOR = 0.02f;
 const float BALL_MASS = 12.0f;
 
@@ -56,23 +81,16 @@ void Ball::Update(float dt) {
     ball_sprite->Scale(sprite_scale_factor);
 
     // the ball only rolls if it's moving
-    if (physical->velocity.magnitude() > 0.008f) {
+    if (physical->velocity.magnitude() > 0.2f) {
 
         // rotate ball sprite depending on roll direction
         set_sprite_rotation();
-
-        // set the animations speed according to ball roll speed
-        unsigned int ms_per_frame = 50;
-        ms_per_frame += (static_cast<unsigned int>(physical->velocity.magnitude()) * 10);
-        ball_sprite->SetAnimationSpeed(ms_per_frame);
-
-        // step the animation
         ball_sprite->Animate();
     }
 
     // shadow postion
-    ball_shadow->SetPosition(ball_sprite->GetPosition().x + SHADOW_OFFSET + physical->position.z,
-                             ball_sprite->GetPosition().y + SHADOW_OFFSET + physical->position.z);
+    ball_shadow->SetPosition(ball_sprite->GetPosition().x + SHADOW_OFFSET + physical->position.z * 0.5f,
+                             ball_sprite->GetPosition().y + SHADOW_OFFSET + physical->position.z * 0.5f);
 
     // shadow size
     ball_shadow->Scale(sprite_scale_factor);

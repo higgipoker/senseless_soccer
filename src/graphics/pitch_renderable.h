@@ -8,27 +8,27 @@
 namespace SenselessSoccer {
 
 class PitchTiled : public GameLib::Tileset {
-public:
+  public:
     /**
      * @brief construct
      * @param filename tile image file name
      * @param c camera for deciding what tiles to render
      */
-    explicit PitchTiled (const std::string &filename, GameLib::Camera &c);
+    explicit PitchTiled(const std::string &filename, GameLib::Camera &c);
 
     /**
      * @brief specialized render function
      * @param window window to render to
      */
-    virtual void Render (GameLib::Window &window) override;
+    virtual void Render(GameLib::Window &window) override;
 
     /**
      * @brief init the pitch metrics
      * @param m metrics
      */
-    void InitMetrics (PitchMetrics m);
+    void InitMetrics(PitchMetrics m);
 
-private:
+  private:
     PitchMetrics metrics;
     std::vector<GameLib::Line> lines;
 };

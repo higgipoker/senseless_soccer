@@ -1,20 +1,19 @@
 #pragma once
 
+#include "player_state.h"
 #include <gamelib/math/vector3.h>
 #include <gamelib/utils/timer.h>
-#include "player_state.h"
 
 namespace SenselessSoccer {
 
 class Sliding : public PlayerState {
 
-public:
-
+  public:
     /**
     * @brief constructor
     * @param p reference to player for sm context
     */
-    explicit Sliding (Player &p);
+    explicit Sliding(Player &p);
 
     /**
      * @brief onStart
@@ -25,7 +24,7 @@ public:
      * @brief onStep
      * @param dt time delta
      */
-    virtual void OnStep (const float dt) override;
+    virtual void OnStep(const float dt) override;
 
     /**
      * @brief onEnd
@@ -44,8 +43,7 @@ public:
         return name;
     }
 
-protected:
-
+  protected:
     /**
      * @brief process input
      */
@@ -61,8 +59,7 @@ protected:
     bool getting_up = false;
 
     /// time the get up time
-    GameLib::Timer timer;
+    int down_frames = 0;
 };
 
-}// SenselessSoccer
-
+} // SenselessSoccer

@@ -11,37 +11,37 @@ namespace SenselessSoccer {
  * @brief The PlayerSprite class
  */
 class PlayerSprite : public GameLib::Sprite {
-public:
+  public:
     /**
      * @brief PlayerSprite
      * @param filename
      * @param number_rows
      * @param number_cols
      */
-    explicit PlayerSprite (const std::string &filename, unsigned int number_rows, unsigned int number_cols);
+    explicit PlayerSprite(const std::string &filename, unsigned int number_rows, unsigned int number_cols);
 
     /**
      * @brief render
      */
-    virtual void Render (GameLib::Window &window) override;
+    virtual void Render(GameLib::Window &window) override;
 
     /**
      * @brief SetStandingAnimation
      * @param direction
      */
-    void SetStandingAnimation (GameLib::Vector3 direction);
+    void SetStandingAnimation(GameLib::Vector3 direction);
 
     /**
      * @brief SetRunningAnimation
      * @param direction
      */
-    void SetRunningAnimation (GameLib::Vector3 direction);
+    void SetRunningAnimation(GameLib::Vector3 direction);
 
     /**
      * @brief SetSlidingAnimation
      * @param direction
      */
-    void SetSlidingAnimation (GameLib::Vector3 direction);
+    void SetSlidingAnimation(GameLib::Vector3 direction);
 
     /// some shapes for debug rendering
     GameLib::Circle circle1;
@@ -50,7 +50,7 @@ public:
     GameLib::Color triangle1_color;
     GameLib::Label text;
 
-protected:
+  protected:
     /// to map animations to running directions
     std::map<int, std::string> running_animation_map;
 
@@ -68,18 +68,18 @@ protected:
  * @brief The PlayerShadowSprite class
  */
 class PlayerShadowSprite : public PlayerSprite {
-public:
+  public:
     /**
      * @brief PlayerShadowSprite
      * @param filename
      * @param number_rows
      * @param number_cols
      */
-    explicit PlayerShadowSprite (const std::string &filename, unsigned int number_rows, unsigned int number_cols)
-        : PlayerSprite (filename, number_rows, number_cols) {
+    explicit PlayerShadowSprite(const std::string &filename, unsigned int number_rows, unsigned int number_cols)
+        : PlayerSprite(filename, number_rows, number_cols) {
     }
 
-protected:
+  protected:
 };
 
 } // SenselessSoccer

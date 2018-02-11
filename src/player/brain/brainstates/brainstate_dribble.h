@@ -1,16 +1,16 @@
 #pragma once
+#include "../../../metrics/metrics.h"
 #include "brainstate.h"
 #include <gamelib/utils/timer.h>
-#include "../../../metrics/metrics.h"
 namespace SenselessSoccer {
 
 class BrainDribble : public BrainState {
-public:
+  public:
     /**
      * @brief BrainDribble
      * @param p
      */
-    explicit BrainDribble (Player *p);
+    explicit BrainDribble(Player *p);
 
     /**
      * @brief OnStart
@@ -21,7 +21,7 @@ public:
      * @brief OnStep
      * @param _dt
      */
-    virtual void OnStep (const float _dt) override;
+    virtual void OnStep(const float _dt) override;
 
     /**
      * @brief OnEnd
@@ -38,21 +38,21 @@ public:
      * @brief init the dribble state
      * @param dir initial direction
      */
-    void Init (Compass dir);
+    void Init(Compass dir);
 
     /**
     * @brief modify the state parameters on the fly
     */
-    virtual void Modify (modifier mod) override;
+    virtual void Modify(modifier mod) override;
 
-protected:
+  protected:
     /**
      * @brief change_direction
      */
     void change_direction();
-    GameLib::Timer timer;
-    GameLib::Timer pass_timer;
+    int change_direction_ticker = 0;
     bool pass_timer_started = false;
+    int pass_ticker = 0;
 };
 }
 

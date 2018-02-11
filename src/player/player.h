@@ -14,11 +14,11 @@ class Team;
 
 /** @brief class to represent a player entity */
 class Player : public GameLib::StateMachine, public GameLib::GameEntity, public ControllerListener {
-public:
+  public:
     /**
      * @brief constructor
      */
-    explicit Player (GameLib::Physical *p, GameLib::Renderable *r);
+    explicit Player(GameLib::Physical *p, GameLib::Renderable *r);
 
     virtual ~Player();
 
@@ -26,13 +26,13 @@ public:
      *@brief derived entities can do their own extra handling
      *@param dt time delta
      */
-    virtual void Update (float dt) override;
+    virtual void Update(float dt) override;
 
     /**
      * @brief connect an input
      * @param i pointer to input device (can be null)
      */
-    void AttachInput (Controller *i);
+    void AttachInput(Controller *i);
 
     /**
      * @brief detatch an input
@@ -53,7 +53,7 @@ public:
      * @brief do a short pass
      * @param recipient recieving player
      */
-    void ShortPass (Player *recipient);
+    void ShortPass(Player *recipient);
 
     /**
      * @brief shoot!!
@@ -74,13 +74,13 @@ public:
      * @brief handle a controller event
      * @param event an event to handle
      */
-    virtual void OnControllerEvent (ControllerEvent event) override;
+    virtual void OnControllerEvent(ControllerEvent event) override;
 
     /**
      * @brief rpc call for player
      * @param params list of params
      */
-    virtual void Call (std::vector<std::string> params) override;
+    virtual void Call(std::vector<std::string> params) override;
 
     /// players team
     Team *my_team;
@@ -101,7 +101,7 @@ public:
     static Ball *ball;
     static Pitch *pitch;
 
-protected:
+  protected:
     /// to access the sprite specific functionality of renderable (eg animate)
     PlayerSprite *player_sprite;
 
@@ -112,7 +112,7 @@ protected:
     Brain brain;
 
     /// how fast can the player run
-    unsigned int DEFAULT_SPEED = 100;
+    unsigned int DEFAULT_SPEED = 200;
     unsigned int running_speed = DEFAULT_SPEED;
 
     /// to collide with the ball for dribbling
@@ -135,13 +135,13 @@ protected:
      * @brief helper to update player position
      * @param dt time delta
      */
-    void update_position (float dt);
+    void update_position(float dt);
 
     /**
      * @brief where will the player be in teh next time step
      * @param dt time delta
      */
-    GameLib::Vector3 project_position (float dt);
+    GameLib::Vector3 project_position(float dt);
 
     /**
      * @brief helper to normalize the velocity
@@ -163,13 +163,13 @@ protected:
      * @brief push the ball forward
      * @param direction dribbling direction
      */
-    void do_dribble (const GameLib::Vector3 &direction);
+    void do_dribble(const GameLib::Vector3 &direction);
 
     /**
      * @brief push the ball forward
      * @param direction sliding direction
      */
-    void do_slide_tackle (const GameLib::Vector3 &direction);
+    void do_slide_tackle(const GameLib::Vector3 &direction);
 
     /**
      * @brief close control mechanism
@@ -185,7 +185,7 @@ protected:
      * \breif kick the ball
      * @param force force to kick ball with
      */
-    void kick (float force);
+    void kick(float force);
 
     /**
      * @brief calc pass range triangle
@@ -197,12 +197,12 @@ protected:
      * @return
      */
     int distance_to_goal() {
-        GameLib::Vector3 goal_center (pitch->metrics.north_goal.x1, pitch->metrics.north_goal.y1);
+        GameLib::Vector3 goal_center(pitch->metrics.north_goal.x1, pitch->metrics.north_goal.y1);
         goal_center.x += (pitch->metrics.north_goal.x2 - pitch->metrics.north_goal.x1) / 2;
         return (physical->position - goal_center).magnitude();
     }
 
-public:
+  public:
     // ------------------------------------------------------------
     // state machine pattern friends
     // ------------------------------------------------------------

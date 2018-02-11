@@ -235,7 +235,7 @@ int main(int argc, char *argv[]) {
     //
     GameLib::Physical text_physical;
     GameLib::Label label(senseless.working_directory + "/fonts/swos.ttf", 20, "senseless soccer " + senseless_soccer_version);
-    label.SetPosition(12, 24);
+    label.SetPosition(12, 12);
     GameLib::GameEntity text(&text_physical, &label);
     text.hud = true;
 
@@ -256,10 +256,12 @@ int main(int argc, char *argv[]) {
     //
     // camera
     //
-    senseless.camera.GetView().setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
+    senseless.camera.GetViewport().SetSize(WINDOW_WIDTH, WINDOW_HEIGHT);
     senseless.camera.SetWorldRect(GameLib::Rectangle(0, 0, 1900, 2600));
     senseless.camera.Follow(&ball);
 
+    // starts the frame timer etc
+    senseless.OnStart();
     //
     // main loop
     //
@@ -276,7 +278,9 @@ int main(int argc, char *argv[]) {
         senseless.Render();
 
         // count frames per second
-        senseless.CalculateFPS();
+        senseless.CalcFPS();
+
+        // std::cout << "frame time: " << senseless.sim_time + senseless.render_time << std::endl;
     }
 
     GameLib::Log("s", "Exiting successfully");
