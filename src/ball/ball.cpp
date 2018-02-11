@@ -33,7 +33,7 @@ namespace SenselessSoccer {
 
 /// as good as zero
 const float TOL = 0.05f;
-const float GRAVITY = 2.0f;
+const float GRAVITY = 9.8f;
 const float AIR_FACTOR = 0.02f;
 const float BALL_MASS = 12.0f;
 
@@ -41,7 +41,7 @@ const float BALL_MASS = 12.0f;
 // Ball
 // ------------------------------------------------------------
 Ball::Ball::Ball(GameLib::Physical *p, GameLib::Renderable *r)
-    : GameLib::GameEntity(p, r), radius(3), co_friction(2.6f), co_bounciness(0.8f), sprite_scale_factor(0.0) {
+    : GameLib::GameEntity(p, r), radius(3), co_friction(2.6f), co_bounciness(0.7f), sprite_scale_factor(0.0) {
 
     // local convenient access to subclassed ballsprite type of renderable
     ball_sprite = static_cast<BallSprite *>(renderable);
@@ -146,16 +146,10 @@ void Ball::do_physics(float dt) {
         apply_force(friction);
     }
 
-    // bounce
-    if (physical->position.z <= GameLib::TOL && physical->velocity.z < GameLib::TOL) {
+    // bounce if sufficiently low,and moving down
+    if (physical->position.z < GameLib::TOL && physical->velocity.z < GameLib::TOL) {
         physical->position.z = 0;
         physical->velocity.z = -(physical->velocity.z * co_bounciness);
-
-        // infinite bounce damping
-        if (fabsf(physical->velocity.z) < GameLib::TOL) {
-            physical->velocity.z = 0;
-            physical->position.z = 0;
-        }
     }
 
     // improved euler

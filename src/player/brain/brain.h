@@ -35,29 +35,29 @@ enum modifier {
 
 class Player;
 class Brain : public GameLib::StateMachine {
-public:
+  public:
     /**
      * @brief Brain
      * @param p pointer back to player
      */
-    explicit Brain (Player *p);
+    explicit Brain(Player *p);
 
     /**
      * @brief Step
      * @param dt time delta
      */
-    void Step (float dt);
+    void Step(float dt);
 
     /**
       * @brief activate a brain state manually
       */
-    void ActivateState (brainstate bs);
+    void ActivateState(brainstate bs);
 
     /**
       * @brief set a locomotion modifier
       * @param [in] m modifier type
       */
-    void SetModifier (const modifier m);
+    void SetModifier(const modifier m);
 
     /// locomotio manager
     LocomotionManager locomotion;
@@ -65,14 +65,14 @@ public:
     /// a debug string
     std::string statename;
 
-protected:
+  protected:
     /// pointer back to player for sm context
     Player *player;
 
     /// is the playe rin the pitch
-    bool in_pitch (float dt);
+    bool in_pitch(float dt);
 
-public:
+  public:
     friend class BrainDribble;
 };
 

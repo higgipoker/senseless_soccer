@@ -33,7 +33,8 @@ namespace SenselessSoccer {
 // sort predicate for renderable objects (for height)
 // ------------------------------------------------------------
 struct {
-    bool operator()(const GameLib::GameEntity *r1, const GameLib::GameEntity *r2) const {
+    bool operator()(const GameLib::GameEntity *r1,
+                    const GameLib::GameEntity *r2) const {
         if (r1->renderable && r2->renderable) {
             return r1->renderable->z_order < r2->renderable->z_order;
         }
@@ -44,7 +45,9 @@ struct {
 // ------------------------------------------------------------
 // SenselessGame
 // ------------------------------------------------------------
-SenselessGame::SenselessGame(const std::string &gamename, unsigned int x, unsigned int y, unsigned int w, unsigned int h, bool fullscreen)
+SenselessGame::SenselessGame(const std::string &gamename, unsigned int x,
+                             unsigned int y, unsigned int w, unsigned int h,
+                             bool fullscreen)
     : GameLib::Game(gamename, x, y, w, h, fullscreen) {
     window.SetIcon("gfx/icon.png");
 }
@@ -61,11 +64,11 @@ void SenselessGame::HandleInput(GameLib::WindowEvent &event) {
 // on_mouse_click
 // ------------------------------------------------------------
 void SenselessGame::on_mouse_click(float x, float y) {
-
     // get the ball enity
     GameLib::GameEntity *b = GetEntity("ball");
 
-    // get the camera entity (TODO: util function to convert screen->world coordinates)
+    // get the camera entity (TODO: util function to convert screen->world
+    // coordinates)
     GameLib::Camera *c = static_cast<GameLib::Camera *>(GetEntity("camera"));
 
     if (b && c) {

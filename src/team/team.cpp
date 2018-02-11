@@ -16,7 +16,8 @@ bool sort_players(SenselessSoccer::Player *p1, SenselessSoccer::Player *p2) {
 // ------------------------------------------------------------
 // Construct
 // ------------------------------------------------------------
-Team::Team(GameLib::Physical *p, GameLib::Renderable *r) : GameEntity(p, r), other_team(nullptr) {
+Team::Team(GameLib::Physical *p, GameLib::Renderable *r)
+    : GameEntity(p, r), other_team(nullptr) {
     short_pass_range.radius = 200;
     InitState(new TeamStatePlay());
     current_state->OnStart();
@@ -25,8 +26,7 @@ Team::Team(GameLib::Physical *p, GameLib::Renderable *r) : GameEntity(p, r), oth
 // ------------------------------------------------------------
 // Destructor
 // ------------------------------------------------------------
-Team::~Team() {
-}
+Team::~Team() {}
 
 // ------------------------------------------------------------
 // Update
@@ -55,9 +55,7 @@ void Team::AddPlayer(Player *player) {
 // ------------------------------------------------------------
 // OnGotPossession
 // ------------------------------------------------------------
-void Team::OnGotPossession(Player *p) {
-    key_players.player_in_possession = p;
-}
+void Team::OnGotPossession(Player *p) { key_players.player_in_possession = p; }
 
 // ------------------------------------------------------------
 // OnLostPossession
@@ -72,10 +70,11 @@ void Team::OnLostPossession(Player *p) {
 //  set key players
 //  --------------------------------------------------
 void Team::set_key_players(void) {
-    std::sort(key_players.short_pass_candidates.begin(), key_players.short_pass_candidates.end(), sort_players);
+    std::sort(key_players.short_pass_candidates.begin(),
+              key_players.short_pass_candidates.end(), sort_players);
 }
 
-void Team::SetKit(std::vector<std::pair<sf::Color, sf::Color>> kit) {
+void Team::SetKit(std::vector<std::pair<GameLib::Color, GameLib::Color>> kit) {
     for (auto it = players.begin(); it != players.end(); ++it) {
         (*it)->renderable->SwapColors(kit);
     }

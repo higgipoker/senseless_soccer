@@ -20,9 +20,7 @@ joysticker/cpu/controller_simulator.h
 joysticker/cpu/simulated_actions/simulate_clearance.cpp
 joysticker/cpu/simulated_actions/simulate_clearance.h
 joysticker/cpu/simulated_actions/simulate_nothing.cpp
-joysticker/cpu/simulated_actions/simulate_nothing.cpp.autosave
 joysticker/cpu/simulated_actions/simulate_nothing.h
-joysticker/cpu/simulated_actions/simulate_nothing.h.autosave
 joysticker/cpu/simulated_actions/simulated_sequence.cpp
 joysticker/cpu/simulated_actions/simulated_sequence.h
 kit/kit_factory.cpp

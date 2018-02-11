@@ -18,71 +18,41 @@
  * 3. This notice may not be removed or altered from any source distribution.
  ****************************************************************************/
 /**
- * @file simulated_sequence.h
+ * @file kit_factory.h
  * @author Paul Higgins <paul.samuel.higgins@gmail.com>
  * @date 2018
  * @brief description
  */
 #pragma once
-#include <gamelib/input/input.h>
-#include <string>
+#include <gamelib/graphics/color.h>
 #include <vector>
 
 namespace SenselessSoccer {
 
 /**
- * @brief The JoyStickState enum
- */
-enum JoyStickState {
-    STICK_UP,
-    STICK_UP_RIGHT,
-    STICK_RIGHT,
-    STICK_DOWN_RIGHT,
-    STICK_DOWN,
-    STICK_DOWN_LEFT,
-    STICK_LEFT,
-    STICK_UP_LEFT
-};
-
-/**
- * @brief a programmed event
- */
-struct ProgrammedEvent {
-
-    /**
-     * @brief ProgrammedEvent
-     */
-    ProgrammedEvent();
-
-    /**
-     * @brief Reset
-     */
-    void Reset();
-
-    /// status of each input
-    int event_states[GameLib::TOTAL_EVENTS];
-
-    /// frames the input lasts for
-    int frames;
-
-    /// string id for debugging
-    std::string id;
-};
-
-/**
- * @brief The SimulatedAction class
- */
-class SimulatedSequence {
+*@brief The KitFactory class
+*/
+class KitFactory {
   public:
-    /// a list of events, one per frame
-    std::vector<ProgrammedEvent> actions;
+    /**
+    * @brief GetDefaultRedKit
+    * @return
+    */
+    static std::vector<std::pair<GameLib::Color, GameLib::Color>>
+    GetDefaultRedKit();
 
     /**
-     * @brief helper
-     * @param action
+     * @brief GetDefaultBlueKit
+     * @return
      */
-    static void SimulateAction(const JoyStickState &action, bool fire_down,
-                               int (&event_states)[GameLib::TOTAL_EVENTS]);
-};
+    static std::vector<std::pair<GameLib::Color, GameLib::Color>>
+    GetDefaultBlueKit();
 
-} // SenselessSoccer
+    /**
+     * @brief GetKeeperPalette
+     * @return
+     */
+    static std::vector<std::pair<GameLib::Color, GameLib::Color>>
+    GetKeeperPalette();
+};
+} // namesapce SenselessSoccer

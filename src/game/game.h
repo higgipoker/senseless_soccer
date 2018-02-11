@@ -42,13 +42,13 @@ class SenselessGame : public GameLib::Game {
      * \param h window height
      * \brief fullscreen full screen window or now
      */
-    SenselessGame(const std::string &gamename, unsigned int x, unsigned int y, unsigned int w, unsigned int h, bool fullscreen);
+    SenselessGame(const std::string &gamename, unsigned int x, unsigned int y,
+                  unsigned int w, unsigned int h, bool fullscreen);
 
     /**
      * @brief ~SenselessGame
      */
-    virtual ~SenselessGame() {
-    }
+    virtual ~SenselessGame() {}
 
     /**
      * @brief keyboard handling

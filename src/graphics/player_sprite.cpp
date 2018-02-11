@@ -6,42 +6,32 @@
 
 namespace SenselessSoccer {
 
-PlayerSprite::PlayerSprite(const std::string &filename, unsigned int number_rows, unsigned int number_cols)
-    : GameLib::Sprite(filename, number_rows, number_cols), text("fonts/terminus.ttf", 18, "") {
+// ------------------------------------------------------------
+// PlayerSprite
+// ------------------------------------------------------------
+PlayerSprite::PlayerSprite(const std::string &filename,
+                           unsigned int number_rows, unsigned int number_cols)
+    : GameLib::Sprite(filename, number_rows, number_cols),
+      text("fonts/terminus.ttf", 18, "") {
     text.SetColor(GameLib::Color(200, 200, 200, 120));
     z_order = 10;
     last_angle = 0;
     int anim_speed = 10;
 
-    // tmp vector for standing frames
-    std::vector<unsigned int> frames_stand_east;
-    std::vector<unsigned int> frames_stand_southeast;
-    std::vector<unsigned int> frames_stand_south;
-    std::vector<unsigned int> frames_stand_southwest;
-    std::vector<unsigned int> frames_stand_west;
-    std::vector<unsigned int> frames_stand_northwest;
-    std::vector<unsigned int> frames_stand_north;
-    std::vector<unsigned int> frames_stand_northeast;
+    // tmp vectors for standing frames
+    std::vector<unsigned int> frames_stand_east, frames_stand_southeast,
+        frames_stand_south, frames_stand_southwest, frames_stand_west,
+        frames_stand_northwest, frames_stand_north, frames_stand_northeast;
 
-    // tmp vector for running frames
-    std::vector<unsigned int> frames_run_east;
-    std::vector<unsigned int> frames_run_southeast;
-    std::vector<unsigned int> frames_run_south;
-    std::vector<unsigned int> frames_run_southwest;
-    std::vector<unsigned int> frames_run_west;
-    std::vector<unsigned int> frames_run_northwest;
-    std::vector<unsigned int> frames_run_north;
-    std::vector<unsigned int> frames_run_northeast;
+    // tmp vectors for running frames
+    std::vector<unsigned int> frames_run_east, frames_run_southeast,
+        frames_run_south, frames_run_southwest, frames_run_west,
+        frames_run_northwest, frames_run_north, frames_run_northeast;
 
-    // tmp vector for sliding frames
-    std::vector<unsigned int> frames_slide_east;
-    std::vector<unsigned int> frames_slide_southeast;
-    std::vector<unsigned int> frames_slide_south;
-    std::vector<unsigned int> frames_slide_southwest;
-    std::vector<unsigned int> frames_slide_west;
-    std::vector<unsigned int> frames_slide_northwest;
-    std::vector<unsigned int> frames_slide_north;
-    std::vector<unsigned int> frames_slide_northeast;
+    // tmp vectors for sliding frames
+    std::vector<unsigned int> frames_slide_east, frames_slide_southeast,
+        frames_slide_south, frames_slide_southwest, frames_slide_west,
+        frames_slide_northwest, frames_slide_north, frames_slide_northeast;
 
     // specify animation frames from spritesheet (standing)
     frames_stand_east.push_back(1);
@@ -175,6 +165,9 @@ PlayerSprite::PlayerSprite(const std::string &filename, unsigned int number_rows
     SetAnimation("stand_south");
 }
 
+// ------------------------------------------------------------
+// SetStandingAnimation
+// ------------------------------------------------------------
 void PlayerSprite::SetStandingAnimation(GameLib::Vector3 direction) {
     // face ball
     const int key = static_cast<const int>(roundf(direction.angle()));
@@ -185,6 +178,9 @@ void PlayerSprite::SetStandingAnimation(GameLib::Vector3 direction) {
     }
 }
 
+// ------------------------------------------------------------
+// SetRunningAnimation
+// ------------------------------------------------------------
 void PlayerSprite::SetRunningAnimation(GameLib::Vector3 direction) {
     float angle = roundf(direction.angle());
     const int key = static_cast<const int>(angle);
@@ -195,6 +191,9 @@ void PlayerSprite::SetRunningAnimation(GameLib::Vector3 direction) {
     }
 }
 
+// ------------------------------------------------------------
+// SetSlidingAnimation
+// ------------------------------------------------------------
 void PlayerSprite::SetSlidingAnimation(GameLib::Vector3 direction) {
     const int key = static_cast<const int>(roundf(direction.angle()));
     auto it = sliding_animation_map.find(key);
@@ -204,24 +203,33 @@ void PlayerSprite::SetSlidingAnimation(GameLib::Vector3 direction) {
     }
 }
 
+// ------------------------------------------------------------
+// Render
+// ------------------------------------------------------------
 void PlayerSprite::Render(GameLib::Window &window) {
     GameLib::Sprite::Render(window);
 
 #ifdef RENDER_DEBUG
 
     if (circle1.radius) {
-        GameLib::Primitives::Circle(window, circle1.x, circle1.y, circle1.radius);
+        GameLib::Primitives::Circle(window, circle1.x, circle1.y,
+                                    circle1.radius);
     }
 
     if (circle2.radius) {
-        GameLib::Primitives::Circle(window, circle2.x, circle2.y, circle2.radius);
+        GameLib::Primitives::Circle(window, circle2.x, circle2.y,
+                                    circle2.radius);
     }
 
 #endif
     GameLib::Primitives::FillColor(triangle1_color);
-    GameLib::Primitives::Triangle(window, static_cast<unsigned int>(triangle1.p1.x), static_cast<unsigned int>(triangle1.p1.y),
-                                  static_cast<unsigned int>(triangle1.p2.x), static_cast<unsigned int>(triangle1.p2.y),
-                                  static_cast<unsigned int>(triangle1.p3.x), static_cast<unsigned int>(triangle1.p3.y));
+    GameLib::Primitives::Triangle(window,
+                                  static_cast<unsigned int>(triangle1.p1.x),
+                                  static_cast<unsigned int>(triangle1.p1.y),
+                                  static_cast<unsigned int>(triangle1.p2.x),
+                                  static_cast<unsigned int>(triangle1.p2.y),
+                                  static_cast<unsigned int>(triangle1.p3.x),
+                                  static_cast<unsigned int>(triangle1.p3.y));
     GameLib::Primitives::RestoreColors();
 
     if (text.GetText().size()) {
@@ -229,12 +237,24 @@ void PlayerSprite::Render(GameLib::Window &window) {
         float height = text.GetHeight();
         GameLib::Primitives::FillColor(GameLib::Color(0, 0, 0, 120));
         GameLib::Primitives::OutlineColor(GameLib::Color(0, 0, 0, 120));
-        GameLib::Primitives::Rectangle(window, static_cast<unsigned int>(this->GetPosition().x - 20), static_cast<unsigned int>(this->GetPosition().y - height),
-                                       static_cast<unsigned int>(width), static_cast<unsigned int>(height * 1.3f));
+        GameLib::Primitives::Rectangle(
+            window, static_cast<unsigned int>(this->GetPosition().x - 20),
+            static_cast<unsigned int>(this->GetPosition().y - height),
+            static_cast<unsigned int>(width),
+            static_cast<unsigned int>(height * 1.3f));
         GameLib::Primitives::RestoreColors();
-        text.SetPosition(this->GetPosition().x - 20, this->GetPosition().y - height);
+        text.SetPosition(this->GetPosition().x - 20,
+                         this->GetPosition().y - height);
         text.Render(window);
     }
 }
+
+// ------------------------------------------------------------
+// PlayerShadowSprite
+// ------------------------------------------------------------
+PlayerShadowSprite::PlayerShadowSprite(const std::string &filename,
+                                       unsigned int number_rows,
+                                       unsigned int number_cols)
+    : PlayerSprite(filename, number_rows, number_cols) {}
 
 } // SenselessSoccer

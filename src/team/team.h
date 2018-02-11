@@ -28,12 +28,12 @@ struct KeyPlayers {
 };
 
 class Team : public GameLib::StateMachine, public GameLib::GameEntity {
-public:
+  public:
     /**
      * @brief constuct
      * @param other teams are always constructed in pairs
      */
-    explicit Team (GameLib::Physical *p, GameLib::Renderable *r);
+    explicit Team(GameLib::Physical *p, GameLib::Renderable *r);
 
     /**
       @brief destruct
@@ -44,28 +44,28 @@ public:
      * @brief on step
      * @param dt time delta
      */
-    void Update (float dt);
+    void Update(float dt);
 
     /**
      * @brief add a player
      * @param player pointer to player to add
      */
-    void AddPlayer (Player *player);
+    void AddPlayer(Player *player);
 
     /**
      * @brief on player got possession
      */
-    void OnGotPossession (Player *p);
+    void OnGotPossession(Player *p);
 
     /**
      * @brief on player got possession
      */
-    void OnLostPossession (Player *p);
+    void OnLostPossession(Player *p);
 
     /**
      * @brief set the kit
      */
-    void SetKit (std::vector<std::pair<sf::Color, sf::Color>> kit);
+    void SetKit(std::vector<std::pair<GameLib::Color, GameLib::Color>> kit);
 
     /// players
     std::vector<Player *> players;
@@ -79,7 +79,7 @@ public:
     /// side of pitch
     Compass side;
 
-protected:
+  protected:
     /// short pass range
     GameLib::Circle short_pass_range;
 

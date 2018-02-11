@@ -18,7 +18,8 @@ class PlayerSprite : public GameLib::Sprite {
      * @param number_rows
      * @param number_cols
      */
-    explicit PlayerSprite(const std::string &filename, unsigned int number_rows, unsigned int number_cols);
+    explicit PlayerSprite(const std::string &filename, unsigned int number_rows,
+                          unsigned int number_cols);
 
     /**
      * @brief render
@@ -75,9 +76,9 @@ class PlayerShadowSprite : public PlayerSprite {
      * @param number_rows
      * @param number_cols
      */
-    explicit PlayerShadowSprite(const std::string &filename, unsigned int number_rows, unsigned int number_cols)
-        : PlayerSprite(filename, number_rows, number_cols) {
-    }
+    explicit PlayerShadowSprite(const std::string &filename,
+                                unsigned int number_rows,
+                                unsigned int number_cols);
 
   protected:
 };
