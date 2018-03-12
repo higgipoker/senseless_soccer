@@ -9,8 +9,8 @@ namespace SenselessSoccer {
 // ------------------------------------------------------------
 // PlayerSprite
 // ------------------------------------------------------------
-PlayerSprite::PlayerSprite(const std::string &filename,
-                           unsigned int number_rows, unsigned int number_cols)
+PlayerSprite::PlayerSprite(const std::string &filename, unsigned int number_rows,
+                           unsigned int number_cols)
     : GameLib::Sprite(filename, number_rows, number_cols),
       text("fonts/terminus.ttf", 18, "") {
     text.SetColor(GameLib::Color(200, 200, 200, 120));
@@ -24,9 +24,9 @@ PlayerSprite::PlayerSprite(const std::string &filename,
         frames_stand_northwest, frames_stand_north, frames_stand_northeast;
 
     // tmp vectors for running frames
-    std::vector<unsigned int> frames_run_east, frames_run_southeast,
-        frames_run_south, frames_run_southwest, frames_run_west,
-        frames_run_northwest, frames_run_north, frames_run_northeast;
+    std::vector<unsigned int> frames_run_east, frames_run_southeast, frames_run_south,
+        frames_run_southwest, frames_run_west, frames_run_northwest, frames_run_north,
+        frames_run_northeast;
 
     // tmp vectors for sliding frames
     std::vector<unsigned int> frames_slide_east, frames_slide_southeast,
@@ -212,19 +212,16 @@ void PlayerSprite::Render(GameLib::Window &window) {
 #ifdef RENDER_DEBUG
 
     if (circle1.radius) {
-        GameLib::Primitives::Circle(window, circle1.x, circle1.y,
-                                    circle1.radius);
+        GameLib::Primitives::Circle(window, circle1.x, circle1.y, circle1.radius);
     }
 
     if (circle2.radius) {
-        GameLib::Primitives::Circle(window, circle2.x, circle2.y,
-                                    circle2.radius);
+        GameLib::Primitives::Circle(window, circle2.x, circle2.y, circle2.radius);
     }
 
 #endif
     GameLib::Primitives::FillColor(triangle1_color);
-    GameLib::Primitives::Triangle(window,
-                                  static_cast<unsigned int>(triangle1.p1.x),
+    GameLib::Primitives::Triangle(window, static_cast<unsigned int>(triangle1.p1.x),
                                   static_cast<unsigned int>(triangle1.p1.y),
                                   static_cast<unsigned int>(triangle1.p2.x),
                                   static_cast<unsigned int>(triangle1.p2.y),
@@ -240,11 +237,9 @@ void PlayerSprite::Render(GameLib::Window &window) {
         GameLib::Primitives::Rectangle(
             window, static_cast<unsigned int>(this->GetPosition().x - 20),
             static_cast<unsigned int>(this->GetPosition().y - height),
-            static_cast<unsigned int>(width),
-            static_cast<unsigned int>(height * 1.3f));
+            static_cast<unsigned int>(width), static_cast<unsigned int>(height * 1.3f));
         GameLib::Primitives::RestoreColors();
-        text.SetPosition(this->GetPosition().x - 20,
-                         this->GetPosition().y - height);
+        text.SetPosition(this->GetPosition().x - 20, this->GetPosition().y - height);
         text.Render(window);
     }
 }
@@ -253,8 +248,7 @@ void PlayerSprite::Render(GameLib::Window &window) {
 // PlayerShadowSprite
 // ------------------------------------------------------------
 PlayerShadowSprite::PlayerShadowSprite(const std::string &filename,
-                                       unsigned int number_rows,
-                                       unsigned int number_cols)
+                                       unsigned int number_rows, unsigned int number_cols)
     : PlayerSprite(filename, number_rows, number_cols) {}
 
 } // SenselessSoccer

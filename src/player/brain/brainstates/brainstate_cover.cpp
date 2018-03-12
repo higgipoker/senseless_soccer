@@ -1,7 +1,7 @@
 #include "brainstate_cover.h"
 
-#include "../../player.h"
 #include "../../../team/team.h"
+#include "../../player.h"
 #include <gamelib/utils/log.h>
 
 namespace SenselessSoccer {
@@ -9,31 +9,29 @@ namespace SenselessSoccer {
 // ------------------------------------------------------------
 // BrainCover
 // ------------------------------------------------------------
-BrainCover::BrainCover (Player *p) : BrainState (p) {
+BrainCover::BrainCover(Player &p) : BrainState(p) {
     last_ball_sector = last_target_sector = -1;
 }
 
 // ------------------------------------------------------------
 // OnStart
 // ------------------------------------------------------------
-void BrainCover::OnStart() {
-    player->brain.statename = "COVER";
-}
+void BrainCover::OnStart() { player.brain.statename = "COVER"; }
 
 // ------------------------------------------------------------
 // OnStep
 // ------------------------------------------------------------
-void BrainCover::OnStep (const float dt) {
+void BrainCover::OnStep(const float dt) {
     GameLib::Vector3 destination;
 
     // get the current ball sector
-    int ball_sector = player->pitch->grid.PointToSector (player->ball->GetPosition());
+    int ball_sector = player.pitch->grid.PointToSector(player.ball->GetPosition());
 
     // if ball sector is valid and has changed
     if (ball_sector >= 0 && ball_sector != last_ball_sector) {
 
         // get the new target sector depending on player role
-        int target_sector = player->role->GetPosition (ball_sector, player->my_team->side);
+        int target_sector = player.role->GetPosition(ball_sector, player.my_team->side);
 
         // modify based on tactical instructions?
         int m = 0;
@@ -63,13 +61,13 @@ void BrainCover::OnStep (const float dt) {
             }
         }
 
-        target_sector = player->pitch->grid.OffsetSectorY (target_sector, m);
+        target_sector = player.pitch->grid.OffsetSectorY(target_sector, m);
 
         // only if the target sector has changed
         if (target_sector != last_target_sector) {
             last_target_sector = target_sector;
-            destination = player->pitch->grid.GetSectorCenter (target_sector).vector();
-            player->brain.locomotion.ActivateArrive (destination);
+            destination = player.pitch->grid.GetSectorCenter(target_sector).vector();
+            player.brain.locomotion.ActivateArrive(destination);
         }
 
         // save for next time round
@@ -77,32 +75,29 @@ void BrainCover::OnStep (const float dt) {
     }
 
     // check stop condition
-    GameLib::Vector3 distance = player->physical->position - destination;
+    GameLib::Vector3 distance = player.physical.position - destination;
 
     if (distance.magnitude() < 10) {
-        player->brain.locomotion.Cancel();
+        player.brain.locomotion.Cancel();
     }
 }
 
 // ------------------------------------------------------------
 // OnEnd
 // ------------------------------------------------------------
-void BrainCover::OnEnd() {
-    BrainState::OnEnd();
-}
+void BrainCover::OnEnd() { BrainState::OnEnd(); }
 
 // ------------------------------------------------------------
 // StateOver
 // ------------------------------------------------------------
-bool BrainCover::StateOver() {
-}
+bool BrainCover::StateOver() {}
 
 // ------------------------------------------------------------
 // Modify
 // ------------------------------------------------------------
-void BrainCover::Modify (modifier mod) {
+void BrainCover::Modify(modifier mod) {
     modifiers.clear();
-    modifiers.push_back (mod);
+    modifiers.push_back(mod);
     last_ball_sector = -1;
 }
 

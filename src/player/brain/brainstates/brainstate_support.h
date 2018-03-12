@@ -22,12 +22,12 @@ namespace SenselessSoccer {
  *          run - make a forward run to make an option for through ball or long ball
  */
 class BrainSupport : public BrainState {
-public:
+  public:
     /**
      * @brief constructor
      * @param [in] p pointer back to player for state machine context
      */
-    explicit BrainSupport (Player *p);
+    explicit BrainSupport(Player &p);
 
     /**
      * @brief state on start
@@ -38,7 +38,7 @@ public:
      * @brief state on step
      * @param [in] dt time delta
      */
-    virtual void OnStep (const float dt) override;
+    virtual void OnStep(const float dt) override;
 
     /**
      * @brief state on end
@@ -53,19 +53,19 @@ public:
     /**
      * @brief modify the state parameters on the fly
      */
-    virtual void Modify (modifier mod) override;
+    virtual void Modify(modifier mod) override;
 
-protected:
+  protected:
     /// track last ball sector
-    int last_ball_sector;
+    unsigned int last_ball_sector;
 
     /// track last target sector
-    int last_target_sector;
+    unsigned int last_target_sector;
 
     /**
       @brief modify the state to backup (cover for) other players
       */
-    int mod_for_backup (int sector);
+    unsigned int mod_for_backup(unsigned int sector);
 
     /**
       @brief modify the state to try to get to a position to receive a pass

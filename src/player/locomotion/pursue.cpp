@@ -31,7 +31,7 @@ namespace SenselessSoccer {
 // ------------------------------------------------------------
 // Pursue
 // ------------------------------------------------------------
-Pursue::Pursue(Player *p) : Locomotion(p) { target = nullptr; }
+Pursue::Pursue(Player &p) : Locomotion(p) { target = nullptr; }
 
 // ------------------------------------------------------------
 // OnStart
@@ -46,20 +46,20 @@ void Pursue::OnStart() {
 // ------------------------------------------------------------
 void Pursue::OnStep(const float dt) {
 
-    player->velocity = target->position - player->physical->position;
-    last_distance = target->position - player->physical->position;
-    GameLib::Vector3 new_distance = target->position - player->physical->position;
+    player.velocity = target->position - player.physical.position;
+    last_distance = target->position - player.physical.position;
+    GameLib::Vector3 new_distance = target->position - player.physical.position;
 
     if (new_distance.magnitude() < 1) {
-        player->physical->ResetVelocity();
+        player.physical.ResetVelocity();
 
     } else {
         if (new_distance.magnitude() > last_distance.magnitude()) {
-            player->velocity = target->position - player->physical->position;
+            player.velocity = target->position - player.physical.position;
         }
     }
 
-    last_distance = target->position - player->physical->position;
+    last_distance = target->position - player.physical.position;
 }
 
 // ------------------------------------------------------------
@@ -80,7 +80,7 @@ bool Pursue::StateOver() { return state_over; }
 // ------------------------------------------------------------
 // Init
 // ------------------------------------------------------------
-void Pursue::Init(GameLib::Physical *t) { target = t; }
+void Pursue::Init(GameLib::Physical &t) { target = &t; }
 
 // ------------------------------------------------------------
 // Cancel

@@ -34,7 +34,7 @@ enum ControllerEventID {
     FIRE_PRESS,
     FIRE_RELEASE,
     FIRE_TAP,
-    FIRE_float_TAP
+    FIRE_DOUBLE_TAP
 };
 
 /**
@@ -71,7 +71,8 @@ class ControllerListener {
     /**
      * @brief ~ControllerListener
      */
-    virtual ~ControllerListener() {}
+    virtual ~ControllerListener();
+
     /**
     * @brief constructor
     * @param event event to handle

@@ -28,6 +28,11 @@
 namespace SenselessSoccer {
 
 // ------------------------------------------------------------
+// ~ControllerListene
+// ------------------------------------------------------------
+ControllerListener::~ControllerListener() {}
+
+// ------------------------------------------------------------
 // Update
 // ------------------------------------------------------------
 void Controller::Update() {
@@ -38,8 +43,8 @@ void Controller::Update() {
 
     if (prev_fire_state) {
         if (event_states[GameLib::FIRE_UP]) {
-            Notify(ControllerEvent(FIRE_RELEASE,
-                                   event_states[GameLib::FIRE_LENGTH_CACHED]));
+            Notify(
+                ControllerEvent(FIRE_RELEASE, event_states[GameLib::FIRE_LENGTH_CACHED]));
         }
 
     } else {

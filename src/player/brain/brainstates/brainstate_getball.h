@@ -9,12 +9,12 @@ namespace SenselessSoccer {
  * ai state to make plyer go get a loose ball
  */
 class BrainGetBall : public BrainState {
-public:
+  public:
     /**
      * @brief BrainGetBall
      * @param player
      */
-    explicit BrainGetBall (Player *player);
+    explicit BrainGetBall(Player &player);
 
     /**
      * @brief OnStart
@@ -25,7 +25,7 @@ public:
      * @brief OnStep
      * @param _dt
      */
-    virtual void OnStep (const float _dt) override;
+    virtual void OnStep(const float _dt) override;
 
     /**
      * @brief OnEnd
@@ -38,6 +38,6 @@ public:
      */
     virtual bool StateOver() override;
 
-protected:
+  protected:
 };
 }

@@ -38,7 +38,7 @@ class Head : public Locomotion {
      * @brief constructor
      * @param [in] p pointer back to player for state machine context
      */
-    explicit Head(Player *p);
+    explicit Head(Player &p);
 
     /**
      * @brief ~Head

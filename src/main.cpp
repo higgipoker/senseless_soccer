@@ -145,16 +145,16 @@ int main(int argc, char *argv[]) {
     //
     // main game
     //
-    SenselessGame senseless("Senseless Soccer", 1980, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
+    SenselessGame senseless("Senseless Soccer", 1980, 0, WINDOW_WIDTH, WINDOW_HEIGHT,
+                            false);
     Globals::sensi = &senseless;
 
     //
     // players
     //
     std::vector<Player *> players;
-    PlayerFactory player_factory;
     for (unsigned int i = 0; i < 20; ++i) {
-        players.push_back(player_factory.MakePlayer(playernames[i], filenames[i % 10]));
+        players.push_back(PlayerFactory::MakePlayer(playernames[i], filenames[i % 10]));
     }
 
     // send all players the "support" call
@@ -175,12 +175,13 @@ int main(int argc, char *argv[]) {
     team2.SetName("team2");
     team1.side = SOUTH;
     team2.side = NORTH;
-    for (auto it = players.begin(); it != players.end() - 10; ++it) {
-        team1.AddPlayer(*it);
-    }
-    for (auto it = players.begin() + 10; it != players.end(); ++it) {
-        team2.AddPlayer(*it);
-    }
+    //    for (auto it = players.begin(); it != players.end() - 10; ++it) {
+    //        team1.AddPlayer(*it);
+    //    }
+    //    for (auto it = players.begin() + 10; it != players.end(); ++it) {
+    //        team2.AddPlayer(*it);
+    //    }
+    team2.AddPlayer(players[0]);
     team2.SetKit(KitFactory::GetDefaultBlueKit());
 
     //
@@ -212,7 +213,7 @@ int main(int argc, char *argv[]) {
     GameLib::Physical goal_north_physical;
     GameLib::Renderable goal_north_sprite(senseless.WorkingDirectory() +
                                           "/gfx/goal_north.png");
-    GameLib::GameEntity goal_north(&goal_north_physical, &goal_north_sprite);
+    GameLib::GameEntity goal_north(goal_north_physical, goal_north_sprite);
     goal_north.anchor_type = GameLib::ANCHOR_NONE;
     goal_north.SetPosition(750, -8);
     goal_north_sprite.z_order = 20;
@@ -225,7 +226,7 @@ int main(int argc, char *argv[]) {
     players[0]->AttachInput(&keyboard);
 
     ControllerSimulator cpu;
-    players[10]->AttachInput(&cpu);
+    players[0]->AttachInput(&cpu);
 
     //
     // test some text
@@ -234,7 +235,7 @@ int main(int argc, char *argv[]) {
     GameLib::Label label(senseless.WorkingDirectory() + "/fonts/swos.ttf", 20,
                          "senseless soccer " + senseless_soccer_version);
     label.SetPosition(12, 12);
-    GameLib::GameEntity text(&text_physical, &label);
+    GameLib::GameEntity text(text_physical, label);
     text.hud = true;
 
     //
@@ -243,10 +244,11 @@ int main(int argc, char *argv[]) {
     senseless.AddEntity(pitch);
     senseless.AddEntity(team1);
     senseless.AddEntity(team2);
+    senseless.AddEntity(*players[0]);
 
-    for (auto it = players.begin(); it != players.end(); ++it) {
-        senseless.AddEntity(*(*it));
-    }
+    //    for (auto it = players.begin(); it != players.end(); ++it) {
+    //        senseless.AddEntity(*(*it));
+    //    }
     senseless.AddEntity(ball);
     senseless.AddEntity(goal_north);
     senseless.AddEntity(text);
@@ -254,7 +256,7 @@ int main(int argc, char *argv[]) {
     //
     // camera
     //
-    senseless.camera.GetViewport().SetSize(WINDOW_WIDTH, WINDOW_HEIGHT);
+    senseless.camera.Init(WINDOW_WIDTH, WINDOW_HEIGHT);
     senseless.camera.SetWorldRect(GameLib::Rectangle(0, 0, 1900, 2600));
     senseless.camera.Follow(&ball);
 
@@ -262,6 +264,9 @@ int main(int argc, char *argv[]) {
     // main loop
     //
     senseless.Run();
+
+    // clean up memory
+    PlayerFactory::Destroy();
 
     GameLib::Log("s", "Exiting successfully");
     return 0;

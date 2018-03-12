@@ -27,6 +27,7 @@
 #include "../controller.h"
 #include "simulated_actions/simulate_nothing.h"
 #include <vector>
+
 namespace SenselessSoccer {
 
 /**
@@ -48,6 +49,9 @@ class ControllerSimulator : public Controller {
       * @brief update method to poll
       */
     void Update();
+
+    /// only attach to one player at a time!
+    bool is_attached = false;
 
   protected:
     /// current action to execute

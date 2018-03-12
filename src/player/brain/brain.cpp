@@ -30,11 +30,12 @@
 
 namespace SenselessSoccer {
 
+ControllerSimulator Brain::joystick;
+
 //  --------------------------------------------------
 //  Brain
 //  --------------------------------------------------
-Brain::Brain(Player *p) : locomotion(p) {
-    player = p;
+Brain::Brain(Player &p) : locomotion(p), player(p) {
     current_state = new BrainSupport(player);
     current_state->OnStart();
 }
@@ -51,9 +52,8 @@ void Brain::Step(float dt) {
 //  in_pitch
 //  --------------------------------------------------
 bool Brain::in_pitch(float dt) {
-    GameLib::Vector3 projected_position = player->project_position(dt);
-    GameLib::Circle c(projected_position.x, projected_position.y, 10);
-    GameLib::Rectangle r = player->pitch->metrics.pitch_rect;
+    GameLib::Circle c(player.physical.position.x, player.physical.position.y, 10);
+    GameLib::Rectangle r = player.pitch->metrics.pitch_rect;
 
     if (c.in_rect(r)) {
         return true;
@@ -78,4 +78,5 @@ void Brain::SetModifier(const modifier m) {
         (static_cast<BrainState *>(current_state))->Modify(m);
     }
 }
+
 } // namespace SenselessSoccer

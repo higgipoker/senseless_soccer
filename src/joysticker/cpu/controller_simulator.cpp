@@ -104,8 +104,8 @@ void ControllerSimulator::Update() {
                     fire_timer.getElapsedTime().asMilliseconds();
 
                 // notify observers of controller event
-                Notify(ControllerEvent(
-                    FIRE_RELEASE, event_states[GameLib::FIRE_LENGTH_CACHED]));
+                Notify(ControllerEvent(FIRE_RELEASE,
+                                       event_states[GameLib::FIRE_LENGTH_CACHED]));
             }
         }
     } else {

@@ -26,14 +26,15 @@
 #include "player_factory.h"
 namespace SenselessSoccer {
 
+std::vector<Player *> PlayerFactory::players;
+std::vector<GameLib::Sprite *> PlayerFactory::sprites;
+std::vector<GameLib::Physical *> PlayerFactory::physicals;
+std::vector<Role *> PlayerFactory::roles;
+
 // ------------------------------------------------------------
 // destruct
 // ------------------------------------------------------------
-PlayerFactory::~PlayerFactory() {
-    for (auto it = players.begin(); it != players.end(); ++it) {
-        delete *it;
-    }
-}
+PlayerFactory::~PlayerFactory() {}
 
 // ------------------------------------------------------------
 // MakePlayer
@@ -44,9 +45,9 @@ Player *PlayerFactory::MakePlayer(const std::string &entityname,
     // things that a player needs
     GameLib::Physical *physical = new GameLib::Physical;
     PlayerSprite *player_sprite = new PlayerSprite("gfx/player/player.png", 6, 24);
-    PlayerShadowSprite *player_shadow_sprite =
+    PlayerShadowSprite *shadow_sprite =
         new PlayerShadowSprite("gfx/player/player_shadow.png", 6, 24);
-    player_sprite->shadow = player_shadow_sprite;
+    player_sprite->shadow = shadow_sprite;
     Role *role = new Role("data/" + role_filename);
 
     // set up the player
@@ -55,11 +56,33 @@ Player *PlayerFactory::MakePlayer(const std::string &entityname,
     player->SetPosition(100, 100);
     player->role = role;
 
-    // save for deleting memory later
+    // save for freeing memory later
     players.push_back(player);
+    sprites.push_back(player_sprite);
+    sprites.push_back(shadow_sprite);
+    physicals.push_back(physical);
+    roles.push_back(role);
 
     // return the pointer
     return player;
+}
+
+// ------------------------------------------------------------
+// Destroy
+// ------------------------------------------------------------
+void PlayerFactory::Destroy() {
+    for (auto it = roles.begin(); it != roles.end(); ++it) {
+        delete *it;
+    }
+    for (auto it = physicals.begin(); it != physicals.end(); ++it) {
+        delete *it;
+    }
+    for (auto it = sprites.begin(); it != sprites.end(); ++it) {
+        delete *it;
+    }
+    for (auto it = players.begin(); it != players.end(); ++it) {
+        delete *it;
+    }
 }
 
 } // namespace SenselessSoccer

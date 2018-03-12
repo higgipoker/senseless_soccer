@@ -33,14 +33,14 @@ namespace SenselessSoccer {
 // ------------------------------------------------------------
 // Head
 // ------------------------------------------------------------
-Head::Head(Player *p) : Locomotion(p) {}
+Head::Head(Player &p) : Locomotion(p) {}
 
 // ------------------------------------------------------------
 // OnStart
 // ------------------------------------------------------------
 void Head::OnStart() {
     state_over = false;
-    player->velocity = direction;
+    player.velocity = direction;
 }
 
 // ------------------------------------------------------------
@@ -54,7 +54,7 @@ void Head::OnStep(const float dt) {}
 void Head::OnEnd() {
     Locomotion::OnEnd();
 
-    player->physical->ResetVelocity();
+    player.physical.ResetVelocity();
     state_over = true;
 }
 

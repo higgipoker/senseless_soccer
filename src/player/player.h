@@ -47,11 +47,6 @@ class Player : public GameLib::StateMachine,
     explicit Player(GameLib::Physical *p, GameLib::Renderable *r);
 
     /**
-     * @brief ~Player
-     */
-    virtual ~Player();
-
-    /**
      *@brief derived entities can do their own extra handling
      *@param dt time delta
      */
@@ -67,37 +62,6 @@ class Player : public GameLib::StateMachine,
      * @brief detatch an input
      */
     void DetatchInput();
-
-    /**
-     * @brief player gained possession
-     */
-    void OnGainedPossession();
-
-    /**
-     * @brief player lost possession
-     */
-    void OnLostPossession();
-
-    /**
-     * @brief do a short pass
-     * @param recipient recieving player
-     */
-    void ShortPass(Player *recipient);
-
-    /**
-     * @brief shoot!!
-     */
-    void Shoot();
-
-    /**
-     * @brief clear the ball
-     */
-    void Clearance();
-
-    /**
-     * @brief do a sliding tackle
-     */
-    void DoSlideTackle();
 
     /**
      * @brief handle a controller event
@@ -121,17 +85,17 @@ class Player : public GameLib::StateMachine,
     Role *role;
 
     /// track distance from ball
-    float distance_from_ball;
+    float distance_from_ball = 0;
 
     /// track if i have the ball
-    bool in_possession;
+    bool in_possession = false;
 
     /// convenient access to match stuff
     static Ball *ball;
     static Pitch *pitch;
 
   protected:
-    /// to access the sprite specific functionality of renderable (eg animate)
+    /// to save casting generic sprite to player sprite
     PlayerSprite *player_sprite;
 
     /// input controller
@@ -141,7 +105,7 @@ class Player : public GameLib::StateMachine,
     Brain brain;
 
     /// how fast can the player run
-    unsigned int DEFAULT_SPEED = 200;
+    const unsigned int DEFAULT_SPEED = 200;
     unsigned int running_speed = DEFAULT_SPEED;
 
     /// to collide with the ball for dribbling
@@ -167,12 +131,6 @@ class Player : public GameLib::StateMachine,
     void update_position(float dt);
 
     /**
-     * @brief where will the player be in teh next time step
-     * @param dt time delta
-     */
-    GameLib::Vector3 project_position(float dt);
-
-    /**
      * @brief helper to normalize the velocity
      */
     void normalize_velocity();
@@ -181,6 +139,16 @@ class Player : public GameLib::StateMachine,
      * @brief helper to set the sprite animation
      */
     void animate();
+
+    /**
+     * @brief player gained possession
+     */
+    void gained_possession();
+
+    /**
+     * @brief player lost possession
+     */
+    void lost_possession();
 
     /**
      * @brief dribble circle must be updated every frame depending on players
@@ -211,7 +179,28 @@ class Player : public GameLib::StateMachine,
     bool ball_under_control();
 
     /**
-     * \breif kick the ball
+     * @brief do a short pass
+     * @param recipient recieving player
+     */
+    void short_pass();
+
+    /**
+     * @brief shoot!!
+     */
+    void shoot();
+
+    /**
+     * @brief clear the ball
+     */
+    void clearance();
+
+    /**
+     * @brief do a sliding tackle
+     */
+    void slide_tackle();
+
+    /**
+     * @brief kick the ball
      * @param force force to kick ball with
      */
     void kick(float force);

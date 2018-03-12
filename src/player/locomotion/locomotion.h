@@ -43,7 +43,7 @@ class Locomotion {
      * @brief constructor
      * @param [in] p pointer back to player
      */
-    explicit Locomotion(Player *p);
+    explicit Locomotion(Player &p);
 
     /**
      * @brief ~Locomotion
@@ -77,7 +77,7 @@ class Locomotion {
 
   protected:
     /// pointer back to player for state machine pattern
-    Player *player;
+    Player &player;
 
     /// track if end condition is met
     bool state_over;

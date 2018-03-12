@@ -6,36 +6,32 @@ namespace SenselessSoccer {
 // ------------------------------------------------------------
 // Constructor
 // ------------------------------------------------------------
-BrainShoot::BrainShoot (Player *p) : BrainState (p) {
-}
+BrainShoot::BrainShoot(Player &p) : BrainState(p) {}
 
 // ------------------------------------------------------------
 // OnStart
 // ------------------------------------------------------------
 void BrainShoot::OnStart() {
-    player->brain.statename = "SHOOT";
+    player.brain.statename = "SHOOT";
     next_state = BRAIN_SUPPORT;
-    player->Shoot();
+    player.shoot();
 }
 
 // ------------------------------------------------------------
 // OnStep
 // ------------------------------------------------------------
-void BrainShoot::OnStep (const float _dt) {
-}
+void BrainShoot::OnStep(const float _dt) {}
 
 // ------------------------------------------------------------
 // OnEnd
 // ------------------------------------------------------------
-void BrainShoot::OnEnd() {
-    BrainState::OnEnd();
-}
+void BrainShoot::OnEnd() { BrainState::OnEnd(); }
 
 // ------------------------------------------------------------
 // StateOver
 // ------------------------------------------------------------
 bool BrainShoot::StateOver() {
-    if (!player->ball_under_control()) {
+    if (!player.ball_under_control()) {
         return true;
     }
 
@@ -45,20 +41,14 @@ bool BrainShoot::StateOver() {
 // ------------------------------------------------------------
 // Modify
 // ------------------------------------------------------------
-void BrainShoot::Modify (modifier mod) {
+void BrainShoot::Modify(modifier mod) {
 
-    switch (mod) {
-            break;
-    }
+    switch (mod) { break; }
 }
 
 // ------------------------------------------------------------
 // Init
 // ------------------------------------------------------------
-void BrainShoot::Init (Player *receiver) {
+void BrainShoot::Init(Player *receiver) {}
 
-}
-
-}// namespace SenselessSoccer
-
-
+} // namespace SenselessSoccer

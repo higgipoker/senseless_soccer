@@ -38,6 +38,10 @@ enum player_state {
 };
 
 class Player;
+
+/**
+ * @brief The PlayerState class
+ */
 class PlayerState : public GameLib::State {
 
   public:

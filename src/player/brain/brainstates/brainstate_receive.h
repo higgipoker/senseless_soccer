@@ -1,16 +1,16 @@
 #pragma once
+#include "../../../metrics/metrics.h"
 #include "brainstate.h"
 #include <gamelib/utils/timer.h>
-#include "../../../metrics/metrics.h"
 namespace SenselessSoccer {
 
 class BrainReceive : public BrainState {
-public:
+  public:
     /**
      * @brief BrainReceive
      * @param p player
      */
-    explicit BrainReceive (Player *p);
+    explicit BrainReceive(Player &p);
 
     /**
      * @brief OnStart
@@ -21,7 +21,7 @@ public:
      * @brief OnStep
      * @param _dt time delta
      */
-    virtual void OnStep (const float _dt) override;
+    virtual void OnStep(const float _dt) override;
 
     /**
      * @brief OnEnd
@@ -36,10 +36,8 @@ public:
     /**
     * @brief modify the state parameters on the fly
     */
-    virtual void Modify (modifier mod) override;
+    virtual void Modify(modifier mod) override;
 
-protected:
-
+  protected:
 };
-}// namespace SenselessSoccer
-
+} // namespace SenselessSoccer

@@ -43,7 +43,7 @@ void Standing::OnStart() { player.player_sprite->SetAnimation("stand_south"); }
 // ------------------------------------------------------------
 void Standing::OnStep(const float dt) {
     GameLib::Vector3 to_ball =
-        player.ball->physical->position - player.physical->position;
+        player.ball->physical.position - player.physical.position;
     player.player_sprite->SetStandingAnimation(to_ball.roundAngle(45));
 }
 

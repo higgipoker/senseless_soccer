@@ -6,13 +6,12 @@ namespace SenselessSoccer {
 
 class Standing : public PlayerState {
 
-public:
-
+  public:
     /**
     * @brief constructor
     * @param p reference to player for sm context
     */
-    explicit Standing (Player &p);
+    explicit Standing(Player &p);
 
     /**
      * @brief onStart
@@ -23,7 +22,7 @@ public:
      * @brief onStep
      * @param dt time delta
      */
-    virtual void OnStep (const float dt) override;
+    virtual void OnStep(const float dt) override;
 
     /**
      * @brief onEnd
@@ -38,12 +37,9 @@ public:
     /**
      * @brief stateName
      */
-    std::string StateName() const {
-        return name;
-    }
+    std::string StateName() const { return name; }
 
-
-protected:
+  protected:
 };
 
-}// SenselessSoccer
+} // SenselessSoccer

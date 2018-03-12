@@ -89,9 +89,9 @@ src/globals.cpp
 # link libs
 # --------------------------------------------------
 target_link_libraries (senseless_soccer gamelib)
-target_link_libraries (senseless_soccer sfml-graphics-d)
-target_link_libraries (senseless_soccer sfml-window-d)
-target_link_libraries (senseless_soccer sfml-system-d)
+target_link_libraries (senseless_soccer sfml-graphics)
+target_link_libraries (senseless_soccer sfml-window)
+target_link_libraries (senseless_soccer sfml-system)
 
 
 #target_link_libraries (senseless_soccer gamelib)

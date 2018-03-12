@@ -38,7 +38,7 @@ class Pursue : public Locomotion {
     /**
      *@brief constructor
      */
-    explicit Pursue(Player *p);
+    explicit Pursue(Player &p);
 
     /**
      *@brief state start
@@ -63,7 +63,7 @@ class Pursue : public Locomotion {
     /**
      *@brief Init
      */
-    void Init(GameLib::Physical *t);
+    void Init(GameLib::Physical &t);
 
     /**
      * @brief some states can be ended manually

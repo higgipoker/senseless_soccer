@@ -31,12 +31,12 @@ namespace SenselessSoccer {
 // ------------------------------------------------------------
 // Intercept
 // ------------------------------------------------------------
-Intercept::Intercept(Player *p) : Locomotion(p) { evader = nullptr; }
+Intercept::Intercept(Player &p) : Locomotion(p) { evader = nullptr; }
 
 // --------------------------------------------------
 // Init
 // --------------------------------------------------
-void Intercept::Init(GameLib::Physical *_evader) { evader = _evader; }
+void Intercept::Init(GameLib::Physical &_evader) { evader = &_evader; }
 
 // ------------------------------------------------------------
 // OnStart
@@ -52,7 +52,7 @@ void Intercept::OnStart() {
 void Intercept::OnStep(const float dt) {
 
     // direction to evader
-    GameLib::Vector3 to_evader = (evader->position) - (player->physical->position);
+    GameLib::Vector3 to_evader = (evader->position) - (player.physical.position);
 
     // this will be set depending on the following 2 possibilities
     GameLib::Vector3 actual_target;
@@ -64,7 +64,7 @@ void Intercept::OnStep(const float dt) {
     float divider = 0;
     float look_ahead_time = 0;
 
-    divider = player->velocity.magnitude() + evader->velocity.magnitude();
+    divider = player.velocity.magnitude() + evader->velocity.magnitude();
 
     if (divider < GameLib::TOL) {
         look_ahead_time = (to_evader.magnitude() / divider);
@@ -105,7 +105,7 @@ void Intercept::Cancel() { state_over = true; }
 // seek
 // --------------------------------------------------
 void Intercept::seek(GameLib::Vector3 _target) {
-    player->velocity = _target - player->physical->position;
+    player.velocity = _target - player.physical.position;
 }
 
 } // namespace SenselessSoccer

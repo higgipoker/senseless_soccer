@@ -41,7 +41,7 @@ class LocomotionManager : public GameLib::StateMachine {
      * @brief constructor
      * @param [in] p pointer back to player for state machine context
      */
-    explicit LocomotionManager(Player *p);
+    explicit LocomotionManager(Player &p);
 
     /**
      * @brief update
@@ -57,7 +57,7 @@ class LocomotionManager : public GameLib::StateMachine {
     /**
      * @brief activate the pursue locomotion
      */
-    void ActivatePursue(GameLib::Physical *follow);
+    void ActivatePursue(GameLib::Physical &follow);
 
     /**
      * @brief activate the head locomotion
@@ -67,7 +67,7 @@ class LocomotionManager : public GameLib::StateMachine {
     /**
      * @brief activate the intercept locomotion
      */
-    void ActivateIntercept(GameLib::Physical *follow);
+    void ActivateIntercept(GameLib::Physical &follow);
 
     /**
      * @brief cancel all locomotion

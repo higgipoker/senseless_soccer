@@ -41,7 +41,7 @@ class Arrive : public Locomotion {
      * @brief constructor
      * @param [in] p pointer back to player
      */
-    explicit Arrive(Player *p);
+    explicit Arrive(Player &p);
 
     /**
      * @brief ~Arrive

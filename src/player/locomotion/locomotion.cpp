@@ -33,8 +33,7 @@ namespace SenselessSoccer {
 // ------------------------------------------------------------
 // Locomotion
 // ------------------------------------------------------------
-Locomotion::Locomotion(Player *p) {
-    player = p;
+Locomotion::Locomotion(Player &p) : player(p) {
     state_over = false;
     destination_reached = false;
 }

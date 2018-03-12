@@ -23,12 +23,12 @@ namespace SenselessSoccer {
  *          drop deeper.
  */
 class BrainCover : public BrainState {
-public:
+  public:
     /**
      * @brief constructor
      * @param [in] p pointer back to player for state machine context
      */
-    explicit BrainCover (Player *p);
+    explicit BrainCover(Player &p);
 
     /**
      * @brief state on start
@@ -39,7 +39,7 @@ public:
      * @brief state on step
      * @param [in] dt time delta
      */
-    virtual void OnStep (const float dt) override;
+    virtual void OnStep(const float dt) override;
 
     /**
      * @brief state on end
@@ -54,9 +54,9 @@ public:
     /**
      * @brief modify the state parameters on the fly
      */
-    virtual void Modify (modifier mod) override;
+    virtual void Modify(modifier mod) override;
 
-protected:
+  protected:
     /// track last ball sector
     int last_ball_sector;
 

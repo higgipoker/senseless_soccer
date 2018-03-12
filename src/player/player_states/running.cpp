@@ -63,7 +63,7 @@ void Running::OnEnd() {}
 // StateOver
 // ------------------------------------------------------------
 bool Running::StateOver() {
-    if (player.velocity.magnitude() == 0) {
+    if (player.velocity.magnitude() < GameLib::TOL) {
         next_state = PLAYER_STATE_STAND;
         return true;
 
@@ -75,6 +75,9 @@ bool Running::StateOver() {
     return false;
 }
 
+// ------------------------------------------------------------
+// HandleEvent
+// ------------------------------------------------------------
 bool Running::HandleEvent(ControllerEvent event) {
 
     if (!PlayerState::HandleEvent(event)) {
@@ -84,7 +87,7 @@ bool Running::HandleEvent(ControllerEvent event) {
             case FIRE_PRESS:
                 if (!player.sliding) {
                     if (!player.ball_under_control()) {
-                        player.DoSlideTackle();
+                        player.slide_tackle();
                         return true;
                     }
                 }
@@ -97,11 +100,10 @@ bool Running::HandleEvent(ControllerEvent event) {
             case FIRE_TAP:
                 break;
 
-            case FIRE_float_TAP:
+            case FIRE_DOUBLE_TAP:
                 break;
 
             case NO_EVENT:
-            default:
                 break;
         }
     }

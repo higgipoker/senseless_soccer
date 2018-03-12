@@ -38,7 +38,7 @@ class Ball : public GameLib::GameEntity {
      * @return
      */
     inline GameLib::Circle GetCollidable() {
-        return GameLib::Circle(physical->position.x, physical->position.y, radius);
+        return GameLib::Circle(physical.position.x, physical.position.y, radius);
     }
 
     /**

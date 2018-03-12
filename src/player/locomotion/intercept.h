@@ -38,7 +38,7 @@ class Intercept : public Locomotion {
     /**
      *@brief constructor
      */
-    explicit Intercept(Player *p);
+    explicit Intercept(Player &p);
 
     /**
      * @brief ~Intercept
@@ -68,7 +68,7 @@ class Intercept : public Locomotion {
     /**
      *@brief Init
      */
-    void Init(GameLib::Physical *_evader);
+    void Init(GameLib::Physical &_evader);
 
     /**
      * @brief some states can be ended manually

@@ -66,7 +66,7 @@ void PlayerState::ChangeToNextState() {
 void PlayerState::handle_input() {
 
     // fresh start
-    player.physical->ResetVelocity();
+    player.physical.ResetVelocity();
 
     // poll for inputs
     player.input->Update();
@@ -96,20 +96,19 @@ void PlayerState::handle_input() {
 // HandleEvent
 // ------------------------------------------------------------
 bool PlayerState::HandleEvent(ControllerEvent event) {
-    switch (event.id) {
 
+    switch (event.id) {
         case FIRE_RELEASE:
             if (player.ball_under_control()) {
                 player.kick(event.param);
                 return true;
             }
-
             break;
 
         case FIRE_TAP:
             break;
 
-        case FIRE_float_TAP:
+        case FIRE_DOUBLE_TAP:
             break;
 
         case FIRE_PRESS:

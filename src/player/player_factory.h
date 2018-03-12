@@ -35,20 +35,23 @@ namespace SenselessSoccer {
 class PlayerFactory {
   public:
     /**
-      * @brief destruct
-      */
-    ~PlayerFactory();
-
-    /**
      * @brief MakePlayer
      * @param entityname
      * @param role_filename
      * @return
      */
-    Player *MakePlayer(const std::string &entityname, const std::string &role_filename);
+    static Player *MakePlayer(const std::string &entityname, const std::string &role_filename);
+
+    /**
+     * @brief Destroy
+     */
+    static void Destroy();
 
   private:
     /// to save for cleaning up
-    std::vector<Player *> players;
+    static std::vector<Player *> players;
+    static std::vector<GameLib::Sprite *> sprites;
+    static std::vector<GameLib::Physical *> physicals;
+    static std::vector<Role *> roles;
 };
-}
+} // namespace SenselessSoccer

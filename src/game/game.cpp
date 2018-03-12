@@ -34,10 +34,7 @@ namespace SenselessSoccer {
 // ------------------------------------------------------------
 struct {
     bool operator()(const GameLib::GameEntity *r1, const GameLib::GameEntity *r2) const {
-        if (r1->renderable && r2->renderable) {
-            return r1->renderable->z_order < r2->renderable->z_order;
-        }
-        return false;
+        return r1->renderable.z_order < r2->renderable.z_order;
     }
 } sort_renderable;
 
@@ -65,14 +62,10 @@ void SenselessGame::on_mouse_click(float x, float y) {
     // get the ball enity
     GameLib::GameEntity *b = GetEntity("ball");
 
-    // get the camera entity (TODO: util function to convert screen->world
-    // coordinates)
-    GameLib::Camera *c = static_cast<GameLib::Camera *>(GetEntity("camera"));
-
-    if (b && c) {
+    if (b) {
         // put the ball there
-        b->SetPosition(x + c->GetViewport().x, y + c->GetViewport().y, 300);
-        b->physical->ResetVelocity();
+        b->SetPosition(x + camera.GetViewport().x, y + camera.GetViewport().y, 300);
+        b->physical.ResetVelocity();
     }
 }
 } // namespace SenselessSoccer

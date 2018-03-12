@@ -17,7 +17,7 @@ bool sort_players(SenselessSoccer::Player *p1, SenselessSoccer::Player *p2) {
 // Construct
 // ------------------------------------------------------------
 Team::Team(GameLib::Physical *p, GameLib::Renderable *r)
-    : GameEntity(p, r), other_team(nullptr) {
+    : GameEntity(*p, *r), other_team(nullptr) {
     short_pass_range.radius = 200;
     InitState(new TeamStatePlay());
     current_state->OnStart();
@@ -76,7 +76,7 @@ void Team::set_key_players(void) {
 
 void Team::SetKit(std::vector<std::pair<GameLib::Color, GameLib::Color>> kit) {
     for (auto it = players.begin(); it != players.end(); ++it) {
-        (*it)->renderable->SwapColors(kit);
+        (*it)->renderable.SwapColors(kit);
     }
 }
 
