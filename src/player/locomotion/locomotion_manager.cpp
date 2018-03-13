@@ -31,10 +31,7 @@ namespace SenselessSoccer {
 // ------------------------------------------------------------
 // LocomotionManager
 // ------------------------------------------------------------
-LocomotionManager::LocomotionManager(Player &p)
-    : player(p), arrive(player), pursue(player), head(player), intercept(player) {
-    behaviour = nullptr;
-}
+LocomotionManager::LocomotionManager(Player &p) : player(p), arrive(player), pursue(player), head(player), intercept(player) { behaviour = nullptr; }
 
 // ------------------------------------------------------------
 // ActivateArrive
@@ -71,7 +68,7 @@ void LocomotionManager::ActivateIntercept(GameLib::Physical &follow) {
 // ------------------------------------------------------------
 // UpdateLocomotion
 // ------------------------------------------------------------
-void LocomotionManager::UpdateLocomotion(float dt) {
+void LocomotionManager::UpdateLocomotion() {
     // check for pending behaviour
     if (!behaviour_queue.empty()) {
         Locomotion *next = behaviour_queue.back();
@@ -80,7 +77,7 @@ void LocomotionManager::UpdateLocomotion(float dt) {
     }
 
     if (behaviour) {
-        behaviour->OnStep(dt);
+        behaviour->OnStep();
 
         if (behaviour->StateOver()) {
             behaviour->OnEnd();
@@ -96,10 +93,10 @@ void LocomotionManager::change_locomotion(Locomotion &b) {
 
     // a behaviour is currently running
     if (behaviour) {
-        // behaviours override the cancel method, so some are not able to be stopped
-        // manually
+        // behaviours override the cancel method, so some are not able to be stopped manually
         behaviour->Cancel();
 
+        // check if was able to be cancelled manually (state over will be true now)
         if (behaviour->StateOver()) {
             behaviour = &b;
 
@@ -108,11 +105,13 @@ void LocomotionManager::change_locomotion(Locomotion &b) {
             }
 
         } else {
+            // current behaviour could not be stopped manually -> queue the next behaviour
             behaviour_queue.push(&b);
         }
+    }
 
-    } else {
-        // no behaviour running
+    // no behaviour unning
+    else {
         behaviour = &b;
         behaviour->OnStart();
     }

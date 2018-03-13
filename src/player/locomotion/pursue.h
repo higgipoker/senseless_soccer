@@ -41,6 +41,11 @@ class Pursue : public Locomotion {
     explicit Pursue(Player &p);
 
     /**
+     *@brief Init
+     */
+    void Init(GameLib::Physical &t);
+
+    /**
      *@brief state start
      */
     virtual void OnStart() override;
@@ -48,7 +53,7 @@ class Pursue : public Locomotion {
     /**
      *@brief state step
      */
-    virtual void OnStep(const float dt) override;
+    virtual void OnStep() override;
 
     /**
      *@brief state end
@@ -59,11 +64,6 @@ class Pursue : public Locomotion {
      *@brief check for state over condition
      */
     virtual bool StateOver() override;
-
-    /**
-     *@brief Init
-     */
-    void Init(GameLib::Physical &t);
 
     /**
      * @brief some states can be ended manually

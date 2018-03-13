@@ -53,7 +53,7 @@ class Intercept : public Locomotion {
     /**
      *@brief state step
      */
-    virtual void OnStep(const float dt) override;
+    virtual void OnStep() override;
 
     /**
      *@brief state end

@@ -56,7 +56,7 @@ class Arrive : public Locomotion {
     /**
      * @brief state on step
      */
-    virtual void OnStep(const float dt) override;
+    virtual void OnStep() override;
 
     /**
      * @brief state on end

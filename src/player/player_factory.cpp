@@ -31,18 +31,18 @@ std::vector<GameLib::Sprite *> PlayerFactory::sprites;
 std::vector<GameLib::Physical *> PlayerFactory::physicals;
 std::vector<Role *> PlayerFactory::roles;
 
+const static std::string FILENAME = "gfx/player/player.png";
+const static std::string FILENAME_SHADOW = "gfx/player/player_shadow.png";
 
 // ------------------------------------------------------------
 // MakePlayer
 // ------------------------------------------------------------
-Player *PlayerFactory::MakePlayer(const std::string &entityname,
-                                  const std::string &role_filename) {
+Player *PlayerFactory::MakePlayer(const std::string &entityname, const std::string &role_filename) {
 
     // things that a player needs
     GameLib::Physical *physical = new GameLib::Physical;
-    PlayerSprite *player_sprite = new PlayerSprite("gfx/player/player.png", 6, 24);
-    PlayerShadowSprite *shadow_sprite =
-        new PlayerShadowSprite("gfx/player/player_shadow.png", 6, 24);
+    PlayerSprite *player_sprite = new PlayerSprite(FILENAME, 6, 24);
+    PlayerShadowSprite *shadow_sprite = new PlayerShadowSprite(FILENAME_SHADOW, 6, 24);
     player_sprite->shadow = shadow_sprite;
     Role *role = new Role("data/" + role_filename);
 

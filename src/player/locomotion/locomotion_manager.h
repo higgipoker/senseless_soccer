@@ -47,7 +47,7 @@ class LocomotionManager : public GameLib::StateMachine {
      * @brief update
      * @param [in] dt time delta
      */
-    void UpdateLocomotion(float dt);
+    void UpdateLocomotion();
 
     /**
      * @brief activate the arrive locomotion

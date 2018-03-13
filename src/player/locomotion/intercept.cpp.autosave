@@ -54,9 +54,6 @@ void Intercept::OnStep() {
     // direction to evader
     GameLib::Vector3 to_evader = (evader->position) - (player.physical.position);
 
-    // this will be set depending on the following 2 possibilities
-    GameLib::Vector3 actual_target;
-
     /*  look ahead time in proportion to distance from evader, and inversely
        proportional
         to the sum of the velocities
@@ -71,7 +68,7 @@ void Intercept::OnStep() {
     }
 
     // seek to the predicted future position of the evader
-    actual_target = (evader->position + evader->velocity * look_ahead_time);
+    GameLib::Vector3 actual_target = (evader->position + evader->velocity * look_ahead_time);
 
     // behaviours dont take ball height into account but 3d vector math does
     // (otherwise -> flying players!)

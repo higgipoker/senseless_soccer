@@ -44,7 +44,7 @@ void Pursue::OnStart() {
 // ------------------------------------------------------------
 // OnStep
 // ------------------------------------------------------------
-void Pursue::OnStep(const float dt) {
+void Pursue::OnStep() {
 
     player.velocity = target->position - player.physical.position;
     last_distance = target->position - player.physical.position;

@@ -58,7 +58,7 @@ class Locomotion {
     /**
      * @brief on state step
      */
-    virtual void OnStep(const float _dt) = 0;
+    virtual void OnStep() = 0;
 
     /**
      * @brief on state end
@@ -80,13 +80,13 @@ class Locomotion {
     Player &player;
 
     /// track if end condition is met
-    bool state_over;
+    bool state_over = false;
+
+    /// hast he destination been reached?
+    bool destination_reached = false;
 
     /// track destination
     GameLib::Vector3 destination;
-
-    /// hast he destination been reached?
-    bool destination_reached;
 };
 
 } // namespace SenselessSoccer

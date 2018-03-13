@@ -38,32 +38,35 @@ Arrive::Arrive(Player &p) : Locomotion(p) {}
 // OnStart
 // ------------------------------------------------------------
 void Arrive::OnStart() {
+    // init
     state_over = false;
     destination_reached = false;
-    player.velocity = destination - player.physical.position;
     last_distance = player.physical.position - destination;
+
+    // set velocity pointing to destination
+    player.velocity = destination - player.physical.position;
 }
 
 // ------------------------------------------------------------
 // OnStep
 // ------------------------------------------------------------
-void Arrive::OnStep(const float dt) {
+void Arrive::OnStep() {
     GameLib::Vector3 new_distance = destination - player.physical.position;
 
-    if (new_distance.magnitude() <= 10) {
-        // reached destination?
+    // reached destination?
+    if (new_distance.magnitude() <= GameLib::TOL) {
         state_over = true;
         destination_reached = true;
         player.physical.ResetVelocity();
 
     } else {
         // adjust for misses due to 45 degree precision
-        if (new_distance.magnitude() <= last_distance.magnitude()) {
+        if (new_distance.magnitude() >= last_distance.magnitude()) {
             player.velocity = destination - player.physical.position;
         }
     }
 
-    last_distance = player.physical.position - destination;
+    last_distance = new_distance;
 }
 
 // ------------------------------------------------------------

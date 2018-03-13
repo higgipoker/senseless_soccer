@@ -45,7 +45,7 @@ Brain::Brain(Player &p) : locomotion(p), player(p) {
 //  --------------------------------------------------
 void Brain::Step(float dt) {
     GameLib::StateMachine::Step(dt);
-    locomotion.UpdateLocomotion(dt);
+    locomotion.UpdateLocomotion();
 }
 
 //  --------------------------------------------------

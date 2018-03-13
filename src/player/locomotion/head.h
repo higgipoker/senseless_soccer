@@ -54,7 +54,7 @@ class Head : public Locomotion {
      * @brief state step
      * @param [in] dt time delta
      */
-    virtual void OnStep(const float dt) override;
+    virtual void OnStep() override;
 
     /**
      * @brief state end

@@ -33,7 +33,7 @@ class Team : public GameLib::StateMachine {
      * @brief constuct
      * @param other teams are always constructed in pairs
      */
-    Team();
+    Team(Compass _side);
 
     /**
      * @brief on step
@@ -62,17 +62,17 @@ class Team : public GameLib::StateMachine {
      */
     void SetKit(std::vector<std::pair<GameLib::Color, GameLib::Color>> kit);
 
+    /// side of pitch
+    Compass side;
+
+    /// the other team
+    Team *other_team;
+
     /// players
     std::vector<Player *> players;
 
     /// encapsulate key players
     KeyPlayers key_players;
-
-    /// the other team
-    Team *other_team;
-
-    /// side of pitch
-    Compass side;
 
   protected:
     /// short pass range

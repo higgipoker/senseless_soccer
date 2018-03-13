@@ -24,9 +24,7 @@
  * @brief description
  */
 #include "head.h"
-
 #include "../player.h"
-#include <gamelib/utils/log.h>
 
 namespace SenselessSoccer {
 
@@ -34,6 +32,14 @@ namespace SenselessSoccer {
 // Head
 // ------------------------------------------------------------
 Head::Head(Player &p) : Locomotion(p) {}
+
+// ------------------------------------------------------------
+// Init
+// ------------------------------------------------------------
+void Head::Init(GameLib::Vector3 dir) {
+    direction = dir;
+    direction.normalizeToUnits();
+}
 
 // ------------------------------------------------------------
 // OnStart
@@ -46,7 +52,7 @@ void Head::OnStart() {
 // ------------------------------------------------------------
 // OnStep
 // ------------------------------------------------------------
-void Head::OnStep(const float dt) {}
+void Head::OnStep() {}
 
 // ------------------------------------------------------------
 // OnEnd
@@ -62,14 +68,6 @@ void Head::OnEnd() {
 // StateOver
 // ------------------------------------------------------------
 bool Head::StateOver() { return state_over; }
-
-// ------------------------------------------------------------
-// Init
-// ------------------------------------------------------------
-void Head::Init(GameLib::Vector3 dir) {
-    direction = dir;
-    direction.normalizeToUnits();
-}
 
 // ------------------------------------------------------------
 // Cancel
