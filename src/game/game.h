@@ -49,12 +49,13 @@ class SenselessGame : public GameLib::Game {
      * @brief ~SenselessGame
      */
     virtual ~SenselessGame() {}
-
-  protected:
+    
     /**
      * @brief keyboard handling
      */
-    void handle_input(GameLib::WindowEvent &event) override;
+    void HandleInput(GameLib::WindowEvent &event) override;
+
+  protected:    
 
     /**
      * @brief on_mouse_click

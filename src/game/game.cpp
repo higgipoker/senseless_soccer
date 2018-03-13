@@ -48,10 +48,10 @@ SenselessGame::SenselessGame(const std::string &gamename, unsigned int x, unsign
 }
 
 // ------------------------------------------------------------
-// handle_input
+// HandleInput
 // ------------------------------------------------------------
-void SenselessGame::handle_input(GameLib::WindowEvent &event) {
-    GameLib::Game::handle_input(event);
+void SenselessGame::HandleInput(GameLib::WindowEvent &event) {
+    GameLib::Game::HandleInput(event);
     // do game specific handling here
 }
 

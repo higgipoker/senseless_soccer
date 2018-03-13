@@ -27,18 +27,13 @@ struct KeyPlayers {
     std::vector<Player *> pressing_players;
 };
 
-class Team : public GameLib::StateMachine, public GameLib::GameEntity {
+class Team : public GameLib::StateMachine {
   public:
     /**
      * @brief constuct
      * @param other teams are always constructed in pairs
      */
-    explicit Team(GameLib::Physical *p, GameLib::Renderable *r);
-
-    /**
-      @brief destruct
-      */
-    ~Team();
+    Team();
 
     /**
      * @brief on step

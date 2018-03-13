@@ -31,10 +31,6 @@ std::vector<GameLib::Sprite *> PlayerFactory::sprites;
 std::vector<GameLib::Physical *> PlayerFactory::physicals;
 std::vector<Role *> PlayerFactory::roles;
 
-// ------------------------------------------------------------
-// destruct
-// ------------------------------------------------------------
-PlayerFactory::~PlayerFactory() {}
 
 // ------------------------------------------------------------
 // MakePlayer
@@ -68,9 +64,9 @@ Player *PlayerFactory::MakePlayer(const std::string &entityname,
 }
 
 // ------------------------------------------------------------
-// Destroy
+// destruct
 // ------------------------------------------------------------
-void PlayerFactory::Destroy() {
+PlayerFactory::~PlayerFactory() {
     for (auto it = roles.begin(); it != roles.end(); ++it) {
         delete *it;
     }

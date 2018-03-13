@@ -43,9 +43,9 @@ class PlayerFactory {
     static Player *MakePlayer(const std::string &entityname, const std::string &role_filename);
 
     /**
-     * @brief Destroy
+     * @brief destruct
      */
-    static void Destroy();
+    ~PlayerFactory();
 
   private:
     /// to save for cleaning up

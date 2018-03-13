@@ -16,17 +16,12 @@ bool sort_players(SenselessSoccer::Player *p1, SenselessSoccer::Player *p2) {
 // ------------------------------------------------------------
 // Construct
 // ------------------------------------------------------------
-Team::Team(GameLib::Physical *p, GameLib::Renderable *r)
-    : GameEntity(*p, *r), other_team(nullptr) {
+Team::Team()
+    : other_team(nullptr) {
     short_pass_range.radius = 200;
     InitState(new TeamStatePlay());
     current_state->OnStart();
 }
-
-// ------------------------------------------------------------
-// Destructor
-// ------------------------------------------------------------
-Team::~Team() {}
 
 // ------------------------------------------------------------
 // Update
@@ -34,10 +29,7 @@ Team::~Team() {}
 void Team::Update(float dt) {
 
     // update key players
-    set_key_players();
-
-    // base entity
-    GameLib::GameEntity::Update(dt);
+    set_key_players();   
 
     // advance state machine
     GameLib::StateMachine::Step(dt);
