@@ -62,9 +62,6 @@ class ControllerSimulator : public Controller {
 
     /// track when to start the action timer
     bool first_action;
-
-    /// debug
-    bool log = true;
 };
 
 } // namespace SenselessSocccer

@@ -28,14 +28,23 @@
 #include <set>
 namespace SenselessSoccer {
 
-/** @brief event ids */
+/**
+ * @brief The ControllerEventID enum
+ */
 enum ControllerEventID {
     NO_EVENT = 0,
-    FIRE_PRESS,
-    FIRE_RELEASE,
-    FIRE_TAP,
-    FIRE_DOUBLE_TAP
+    FIRE,
+
+    DPAD_LEFT,
+    DPAD_RIGHT,
+    DPAD_UP,
+    DPAD_DOWN
 };
+
+/**
+ * @brief The ControllerEventStatus enum
+ */
+enum ControllerEventStatus { PRESSED = 0, RELEASED };
 
 /**
  * @brief The ControllerEvent struct
@@ -43,6 +52,7 @@ enum ControllerEventID {
 struct ControllerEvent {
     ControllerEvent() {
         id = NO_EVENT;
+        status = PRESSED;
         param = 0;
     }
 
@@ -51,13 +61,17 @@ struct ControllerEvent {
      * @param i
      * @param p
      */
-    ControllerEvent(ControllerEventID i, int p = 0) {
+    ControllerEvent(ControllerEventID i, ControllerEventStatus s, int p = 0) {
         id = i;
+        status = s;
         param = p;
     }
 
     /// id
     ControllerEventID id;
+
+    /// status
+    ControllerEventStatus status;
 
     /// param
     int param;

@@ -119,8 +119,7 @@ void Player::Update(float dt) {
     }
 
     // ball control
-    if (changed_direction && ball_under_control() &&
-        velocity.magnitude() > GameLib::TOL) {
+    if (changed_direction && ball_under_control() && velocity.magnitude() > GameLib::TOL) {
         do_close_control();
     }
 
@@ -194,8 +193,7 @@ void Player::animate() {
     // update shadow
     if (player_sprite->shadow) {
         // TODO magic numbers here for shadow offset
-        player_sprite->shadow->SetPosition(player_sprite->GetPosition().x + 3,
-                                           player_sprite->GetPosition().y + 7);
+        player_sprite->shadow->SetPosition(player_sprite->GetPosition().x + 3, player_sprite->GetPosition().y + 7);
     }
 }
 
@@ -286,7 +284,7 @@ void Player::do_close_control() {
     Vector3 t = physical.position;
 
     // ball slighty in front of player in running direction
-    t = t + last_direction.getNormalizedToUnits() * (close_control_circle.radius * 0.8f);
+    t = t + last_direction.getNormalizedToUnits() * (close_control_circle.radius * 0.1f);
 
     // reset ball
     ball->physical.ResetVelocity();
@@ -300,8 +298,7 @@ void Player::do_close_control() {
 // ------------------------------------------------------------
 bool Player::ball_under_control() {
     // true if ball is colliding with the control circle
-    if (GameLib::CollisionDetector::collision(close_control_circle,
-                                              ball->GetCollidable())) {
+    if (GameLib::CollisionDetector::collision(close_control_circle, ball->GetCollidable())) {
         return true;
     }
 
@@ -321,15 +318,13 @@ void Player::kick(float force) {
     direction.normalizeToUnits();
 
     if (my_team->key_players.short_pass_candidates.size()) {
-        Vector3 dist = physical.position -
-                       my_team->key_players.short_pass_candidates[0]->physical.position;
+        Vector3 dist = physical.position - my_team->key_players.short_pass_candidates[0]->physical.position;
         float mag = dist.magnitude();
         float meters = Metrics::PixelsToMeters(mag);
 
         force = Metrics::force_per_meter * meters;
 
-        direction = my_team->key_players.short_pass_candidates[0]->physical.position -
-                    physical.position;
+        direction = my_team->key_players.short_pass_candidates[0]->physical.position - physical.position;
         direction.normalise();
 
     } else {
@@ -347,13 +342,11 @@ void Player::kick(float force) {
 // ------------------------------------------------------------
 void Player::short_pass() {
     float force = 0;
-    Vector3 dist = physical.position -
-                   my_team->key_players.short_pass_candidates[0]->physical.position;
+    Vector3 dist = physical.position - my_team->key_players.short_pass_candidates[0]->physical.position;
     float mag = dist.magnitude();
     float meters = Metrics::PixelsToMeters(mag);
     force = Metrics::force_per_meter * meters;
-    Vector3 direction = my_team->key_players.short_pass_candidates[0]->physical.position -
-                        physical.position;
+    Vector3 direction = my_team->key_players.short_pass_candidates[0]->physical.position - physical.position;
     direction.normalise();
     Vector3 kick_force = direction * force;
     kick_force.z = force * 0.1f;
@@ -464,8 +457,7 @@ void Player::calc_pass_recipients() {
         if ((this->physical.position - (*it)->physical.position).magnitude() < 100)
             continue;
 
-        if (GameLib::CollisionDetector::collision((*it)->physical.position.ToPoint(),
-                                                  player_sprite->triangle1)) {
+        if (GameLib::CollisionDetector::collision((*it)->physical.position.ToPoint(), player_sprite->triangle1)) {
             player_sprite->triangle1_color(0, 255, 0, 100);
             my_team->key_players.short_pass_candidates.push_back(*it);
         }
@@ -480,9 +472,7 @@ void Player::slide_tackle() { sliding = true; }
 // ------------------------------------------------------------
 // OnControllerEvent
 // ------------------------------------------------------------
-void Player::OnControllerEvent(ControllerEvent event) {
-    (static_cast<PlayerState *>(current_state))->HandleEvent(event);
-}
+void Player::OnControllerEvent(ControllerEvent event) { (static_cast<PlayerState *>(current_state))->HandleEvent(event); }
 
 // ------------------------------------------------------------
 // Call
@@ -492,8 +482,7 @@ void Player::Call(std::vector<std::string> params) {
         std::vector<std::string> new_params(params.begin() + 1, params.end());
 
         if (new_params.size() >= 2) {
-            brain.locomotion.ActivateArrive(
-                Vector3(atoi(new_params[0].c_str()), atoi(new_params[1].c_str())));
+            brain.locomotion.ActivateArrive(Vector3(atoi(new_params[0].c_str()), atoi(new_params[1].c_str())));
         }
 
         return;

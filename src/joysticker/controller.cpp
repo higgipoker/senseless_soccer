@@ -36,20 +36,75 @@ ControllerListener::~ControllerListener() {}
 // Update
 // ------------------------------------------------------------
 void Controller::Update() {
-    // to track if fire down has changed, save state before base update
-    int prev_fire_state = event_states[GameLib::FIRE_DOWN];
+    // for comparison for events (chaged statuses)
+    int old_states[GameLib::TOTAL_EVENTS] = {event_states[0], event_states[1], event_states[2], event_states[3], event_states[4], event_states[5],
+                                             event_states[6], event_states[7], event_states[8], event_states[9], event_states[10]};
 
     GameLib::Keyboard::Update();
 
-    if (prev_fire_state) {
+    //
+    // FIRE
+    //
+    if (old_states[GameLib::FIRE_DOWN]) {
         if (event_states[GameLib::FIRE_UP]) {
-            Notify(
-                ControllerEvent(FIRE_RELEASE, event_states[GameLib::FIRE_LENGTH_CACHED]));
+            Notify(ControllerEvent(FIRE, RELEASED, event_states[GameLib::FIRE_LENGTH_CACHED]));
         }
 
     } else {
         if (event_states[GameLib::FIRE_DOWN]) {
-            Notify(ControllerEvent(FIRE_PRESS));
+            Notify(ControllerEvent(FIRE, PRESSED));
+        }
+    }
+
+    //
+    // LEFT
+    //
+    if (!old_states[GameLib::LEFT]) {
+        if (event_states[GameLib::LEFT]) {
+            Notify(ControllerEvent(DPAD_LEFT, PRESSED));
+        }
+    } else {
+        if (!event_states[GameLib::LEFT]) {
+            Notify(ControllerEvent(DPAD_LEFT, RELEASED));
+        }
+    }
+
+    //
+    // RIGHT
+    //
+    if (!old_states[GameLib::RIGHT]) {
+        if (event_states[GameLib::RIGHT]) {
+            Notify(ControllerEvent(DPAD_RIGHT, PRESSED));
+        }
+    } else {
+        if (!event_states[GameLib::RIGHT]) {
+            Notify(ControllerEvent(DPAD_RIGHT, RELEASED));
+        }
+    }
+
+    //
+    // UP
+    //
+    if (!old_states[GameLib::UP]) {
+        if (event_states[GameLib::UP]) {
+            Notify(ControllerEvent(DPAD_UP, PRESSED));
+        }
+    } else {
+        if (!event_states[GameLib::UP]) {
+            Notify(ControllerEvent(DPAD_UP, RELEASED));
+        }
+    }
+
+    //
+    // DOWN
+    //
+    if (!old_states[GameLib::DOWN]) {
+        if (event_states[GameLib::DOWN]) {
+            Notify(ControllerEvent(DPAD_DOWN, PRESSED));
+        }
+    } else {
+        if (!event_states[GameLib::DOWN]) {
+            Notify(ControllerEvent(DPAD_DOWN, RELEASED));
         }
     }
 }
@@ -57,16 +112,12 @@ void Controller::Update() {
 // ------------------------------------------------------------
 // AddListener
 // ------------------------------------------------------------
-void Controller::AddListener(SenselessSoccer::ControllerListener *listener) {
-    listeners.insert(listener);
-}
+void Controller::AddListener(SenselessSoccer::ControllerListener *listener) { listeners.insert(listener); }
 
 // ------------------------------------------------------------
 // RemoveListener
 // ------------------------------------------------------------
-void Controller::RemoveListener(SenselessSoccer::ControllerListener *listener) {
-    listeners.erase(listeners.find(listener));
-}
+void Controller::RemoveListener(SenselessSoccer::ControllerListener *listener) { listeners.erase(listeners.find(listener)); }
 
 // ------------------------------------------------------------
 // Notify

@@ -48,8 +48,7 @@ void Running::OnStep(const float dt) {
     player.player_sprite->SetRunningAnimation(player.velocity.roundAngle(45));
 
     // check for collision with ball (dribble)
-    if (GameLib::CollisionDetector::collision(player.dribble_circle,
-                                              player.ball->GetCollidable())) {
+    if (GameLib::CollisionDetector::collision(player.dribble_circle, player.ball->GetCollidable())) {
         player.do_dribble(player.velocity.normalised());
     }
 }
@@ -84,23 +83,27 @@ bool Running::HandleEvent(ControllerEvent event) {
 
         switch (event.id) {
 
-            case FIRE_PRESS:
-                if (!player.sliding) {
-                    if (!player.ball_under_control()) {
-                        player.slide_tackle();
-                        return true;
+            case FIRE:
+                if (event.status == PRESSED) {
+                    if (!player.sliding) {
+                        if (!player.ball_under_control()) {
+                            player.slide_tackle();
+                            return true;
+                        }
                     }
                 }
-
                 break;
 
-            case FIRE_RELEASE:
+            case DPAD_LEFT:
                 break;
 
-            case FIRE_TAP:
+            case DPAD_RIGHT:
                 break;
 
-            case FIRE_DOUBLE_TAP:
+            case DPAD_UP:
+                break;
+
+            case DPAD_DOWN:
                 break;
 
             case NO_EVENT:

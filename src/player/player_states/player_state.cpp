@@ -98,20 +98,53 @@ void PlayerState::handle_input() {
 bool PlayerState::HandleEvent(ControllerEvent event) {
 
     switch (event.id) {
-        case FIRE_RELEASE:
-            if (player.ball_under_control()) {
-                player.kick(event.param);
-                return true;
+        case FIRE:
+            std::cout << "FIRE ";
+            if (event.status == PRESSED) {
+                std::cout << "PRESSED" << std::endl;
+            } else {
+                std::cout << "RELEASED" << std::endl;
+                if (player.ball_under_control()) {
+                    player.kick(event.param);
+                    return true;
+                }
             }
             break;
 
-        case FIRE_TAP:
+        case DPAD_LEFT:
+            std::cout << "DPAD_LEFT ";
+            if (event.status == PRESSED) {
+                std::cout << "PRESSED" << std::endl;
+            } else {
+                std::cout << "RELEASED" << std::endl;
+            }
             break;
 
-        case FIRE_DOUBLE_TAP:
+        case DPAD_RIGHT:
+            std::cout << "DPAD_RIGHT ";
+            if (event.status == PRESSED) {
+                std::cout << "PRESSED" << std::endl;
+            } else {
+                std::cout << "RELEASED" << std::endl;
+            }
             break;
 
-        case FIRE_PRESS:
+        case DPAD_UP:
+            std::cout << "DPAD_UP ";
+            if (event.status == PRESSED) {
+                std::cout << "PRESSED" << std::endl;
+            } else {
+                std::cout << "RELEASED" << std::endl;
+            }
+            break;
+
+        case DPAD_DOWN:
+            std::cout << "DPAD_DOWN ";
+            if (event.status == PRESSED) {
+                std::cout << "PRESSED" << std::endl;
+            } else {
+                std::cout << "RELEASED" << std::endl;
+            }
             break;
 
         case NO_EVENT:

@@ -45,9 +45,7 @@ void ProgrammedEvent::Reset() { memset(event_states, 0, sizeof(event_states)); }
 // ------------------------------------------------------------
 // SimulatedAction
 // ------------------------------------------------------------
-void SimulatedSequence::SimulateAction(
-    const JoyStickState &action, bool fire_down,
-    int (&event_states)[GameLib::TOTAL_EVENTS]) {
+void SimulatedSequence::SimulateAction(const JoyStickState &action, bool fire_down, int (&event_states)[GameLib::TOTAL_EVENTS]) {
     memset(event_states, 0, sizeof(event_states));
     if (fire_down) {
         event_states[GameLib::FIRE_DOWN] = 1;
@@ -80,6 +78,9 @@ void SimulatedSequence::SimulateAction(
         case STICK_UP_LEFT:
             event_states[GameLib::UP] = 1;
             event_states[GameLib::LEFT] = 1;
+            break;
+        case RESET:
+            memset(event_states, 0, sizeof(event_states));
             break;
     }
 }

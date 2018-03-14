@@ -50,26 +50,21 @@ void ControllerSimulator::Update() {
     // if there is an action in the list
     if (current_sequence->actions.size()) {
 
-        // log when the action changes
-        if (log) {
-            std::cout << current_sequence->actions.back().id << std::endl;
-            log = false;
-        }
-
         // this is the first action in a sequence (so start timer)
         if (first_action) {
             ticks = 0;
             first_action = false;
         }
 
-        // to track if fire down has changed, save state before base update
-        int prev_fire_state = event_states[GameLib::FIRE_DOWN];
+        // track changes
+        int old_states[GameLib::TOTAL_EVENTS] = {event_states[0], event_states[1], event_states[2], event_states[3], event_states[4], event_states[5],
+                                                 event_states[6], event_states[7], event_states[8], event_states[9], event_states[10]};
 
         // reset all inputs back to 0
         Reset();
 
         // copy the simulated actions to live event states
-        for (int i = 0; i < GameLib::TOTAL_EVENTS; ++i) {
+        for (unsigned int i = 0; i < GameLib::TOTAL_EVENTS; ++i) {
             event_states[i] = current_sequence->actions.back().event_states[i];
         }
 
@@ -77,41 +72,80 @@ void ControllerSimulator::Update() {
         if (++ticks >= current_sequence->actions.back().frames) {
             ticks = 0;
             current_sequence->actions.pop_back();
-            Reset();
-            log = true;
         }
 
         // fire press lenght
         if (event_states[GameLib::FIRE_DOWN]) {
-            event_states[GameLib::FIRE_LENGTH] =
-                fire_timer.getElapsedTime().asMilliseconds();
+            event_states[GameLib::FIRE_LENGTH] = fire_timer.getElapsedTime().asMilliseconds();
         }
 
-        // check for fire pressed event
-        if (prev_fire_state == 0) {
+        // FIRE
+        if (!old_states[GameLib::FIRE_DOWN]) {
             if (event_states[GameLib::FIRE_DOWN]) {
                 fire_timer.restart();
-                Notify(FIRE_PRESS);
+                Notify(ControllerEvent(FIRE, PRESSED));
             }
-        }
-
-        // check for fire release
-        else {
-            if (event_states[GameLib::FIRE_DOWN] == 0) {
+        } else {
+            if (!event_states[GameLib::FIRE_DOWN]) {
 
                 // set the fire timer
-                event_states[GameLib::FIRE_LENGTH_CACHED] =
-                    fire_timer.getElapsedTime().asMilliseconds();
+                event_states[GameLib::FIRE_LENGTH_CACHED] = fire_timer.getElapsedTime().asMilliseconds();
 
                 // notify observers of controller event
-                Notify(ControllerEvent(FIRE_RELEASE,
-                                       event_states[GameLib::FIRE_LENGTH_CACHED]));
+                Notify(ControllerEvent(FIRE, RELEASED, event_states[GameLib::FIRE_LENGTH_CACHED]));
             }
         }
-    } else {
-        if (log) {
-            std::cout << "RELEASE ALL" << std::endl;
-            log = false;
+
+        //
+        // LEFT
+        //
+        if (!old_states[GameLib::LEFT]) {
+            if (event_states[GameLib::LEFT]) {
+                Notify(ControllerEvent(DPAD_LEFT, PRESSED));
+            }
+        } else {
+            if (!event_states[GameLib::LEFT]) {
+                Notify(ControllerEvent(DPAD_LEFT, RELEASED));
+            }
+        }
+
+        //
+        // RIGHT
+        //
+        if (!old_states[GameLib::RIGHT]) {
+            if (event_states[GameLib::RIGHT]) {
+                Notify(ControllerEvent(DPAD_RIGHT, PRESSED));
+            }
+        } else {
+            if (!event_states[GameLib::RIGHT]) {
+                Notify(ControllerEvent(DPAD_RIGHT, RELEASED));
+            }
+        }
+
+        //
+        // UP
+        //
+        if (!old_states[GameLib::UP]) {
+            if (event_states[GameLib::UP]) {
+                Notify(ControllerEvent(DPAD_UP, PRESSED));
+            }
+        } else {
+            if (!event_states[GameLib::UP]) {
+                Notify(ControllerEvent(DPAD_UP, RELEASED));
+            }
+        }
+
+        //
+        // DOWN
+        //
+        if (!old_states[GameLib::DOWN]) {
+            if (event_states[GameLib::DOWN]) {
+                Notify(ControllerEvent(DPAD_DOWN, PRESSED));
+            }
+        } else {
+            if (!event_states[GameLib::DOWN]) {
+                Notify(ControllerEvent(DPAD_DOWN, RELEASED));
+            }
         }
     }
 }

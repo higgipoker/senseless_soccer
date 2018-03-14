@@ -33,16 +33,7 @@ namespace SenselessSoccer {
 /**
  * @brief The JoyStickState enum
  */
-enum JoyStickState {
-    STICK_UP,
-    STICK_UP_RIGHT,
-    STICK_RIGHT,
-    STICK_DOWN_RIGHT,
-    STICK_DOWN,
-    STICK_DOWN_LEFT,
-    STICK_LEFT,
-    STICK_UP_LEFT
-};
+enum JoyStickState { STICK_UP, STICK_UP_RIGHT, STICK_RIGHT, STICK_DOWN_RIGHT, STICK_DOWN, STICK_DOWN_LEFT, STICK_LEFT, STICK_UP_LEFT, RESET };
 
 /**
  * @brief a programmed event
@@ -81,8 +72,7 @@ class SimulatedSequence {
      * @brief helper
      * @param action
      */
-    static void SimulateAction(const JoyStickState &action, bool fire_down,
-                               int (&event_states)[GameLib::TOTAL_EVENTS]);
+    static void SimulateAction(const JoyStickState &action, bool fire_down, int (&event_states)[GameLib::TOTAL_EVENTS]);
 };
 
 } // SenselessSoccer

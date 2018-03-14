@@ -34,8 +34,7 @@ SimulateNothing::SimulateNothing() {
 
     // stick down and right
     ProgrammedEvent evt1;
-    SimulatedSequence::SimulateAction(STICK_DOWN_RIGHT, false,
-                                      evt1.event_states);
+    SimulatedSequence::SimulateAction(STICK_DOWN_RIGHT, false, evt1.event_states);
     evt1.frames = 500;
     evt1.id = "DOWN RIGHT";
     actions.push_back(evt1);
@@ -60,6 +59,12 @@ SimulateNothing::SimulateNothing() {
     evt4.frames = 100;
     evt4.id = "DOWN FIRE_RELEASE";
     actions.push_back(evt4);
+
+    // release all
+    ProgrammedEvent evt5;
+    SimulatedSequence::SimulateAction(RESET, false, evt5.event_states);
+    evt5.id = "RESET";
+    actions.push_back(evt5);
 
     // reverse the order
     std::reverse(actions.begin(), actions.end());
