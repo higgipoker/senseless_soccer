@@ -492,8 +492,8 @@ void Player::Call(std::vector<std::string> params) {
         std::vector<std::string> new_params(params.begin() + 1, params.end());
 
         if (new_params.size() >= 1) {
-            GameEntity *entity = Globals::sensi->GetEntity(new_params[0]);
-            brain.locomotion.ActivatePursue(entity->physical);
+            GameEntity entity = Globals::sensi->GetEntity(new_params[0]);
+            brain.locomotion.ActivatePursue(entity.physical);
         }
 
         return;
