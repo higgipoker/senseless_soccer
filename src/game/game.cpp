@@ -33,39 +33,39 @@ namespace SenselessSoccer {
 // sort predicate for renderable objects (for height)
 // ------------------------------------------------------------
 struct {
-    bool operator()(const GameLib::GameEntity *r1, const GameLib::GameEntity *r2) const {
-        return r1->renderable.z_order < r2->renderable.z_order;
-    }
+  bool operator()(const GameLib::GameEntity *r1,
+                  const GameLib::GameEntity *r2) const {
+    return r1->renderable.z_order < r2->renderable.z_order;
+  }
 } sort_renderable;
 
 // ------------------------------------------------------------
 // SenselessGame
 // ------------------------------------------------------------
-SenselessGame::SenselessGame(const std::string &gamename, unsigned int x, unsigned int y,
-                             unsigned int w, unsigned int h, bool fullscreen)
-    : GameLib::Game(gamename, x, y, w, h, fullscreen) {
-    window.SetIcon("gfx/icon.png");
+SenselessGame::SenselessGame(const std::string &gamename, unsigned int x,
+                             unsigned int y, unsigned int w, unsigned int h,
+                             bool fullscreen)
+  : GameLib::Game(gamename, x, y, w, h, fullscreen) {
+  window.SetIcon("gfx/icon.png");
 }
 
 // ------------------------------------------------------------
 // HandleInput
 // ------------------------------------------------------------
 void SenselessGame::handle_input(GameLib::WindowEvent &event) {
-    GameLib::Game::handle_input(event);
-    // do game specific handling here
+  GameLib::Game::handle_input(event);
+  // do game specific handling here
 }
 
 // ------------------------------------------------------------
 // on_mouse_click
 // ------------------------------------------------------------
 void SenselessGame::on_mouse_click(float x, float y) {
-    // get the ball enity
-    GameLib::GameEntity *b = GetEntity("ball");
+  // get the ball enity
+  GameLib::GameEntity ball = GetEntity("ball");
 
-    if (b) {
-        // put the ball there
-        b->SetPosition(x + camera.GetViewport().x, y + camera.GetViewport().y, 300);
-        b->physical.ResetVelocity();
-    }
+  // put the ball there
+  ball.SetPosition(x + camera.GetViewport().x, y + camera.GetViewport().y, 300);
+  ball.physical.ResetVelocity();
 }
 } // namespace SenselessSoccer
