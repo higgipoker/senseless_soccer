@@ -35,28 +35,28 @@ SimulateNothing::SimulateNothing() {
     // stick down and right
     ProgrammedEvent evt1;
     SimulatedSequence::SimulateAction(STICK_DOWN_RIGHT, false, evt1.event_states);
-    evt1.frames = 500;
+    evt1.frames = 200;
     evt1.id = "DOWN RIGHT";
     actions.push_back(evt1);
 
     // stick down
     ProgrammedEvent evt2;
     SimulatedSequence::SimulateAction(STICK_DOWN, false, evt2.event_states);
-    evt2.frames = 100;
+    evt2.frames = 50;
     evt2.id = "DOWN";
     actions.push_back(evt2);
 
     // stick down and fire down
     ProgrammedEvent evt3;
     SimulatedSequence::SimulateAction(STICK_DOWN, true, evt3.event_states);
-    evt3.frames = 100;
+    evt3.frames = 30;
     evt3.id = "DOWN FIRE_PRESS";
     actions.push_back(evt3);
 
     // stick down and fire up
     ProgrammedEvent evt4;
     SimulatedSequence::SimulateAction(STICK_DOWN, false, evt4.event_states);
-    evt4.frames = 100;
+    evt4.frames = 1;
     evt4.id = "DOWN FIRE_RELEASE";
     actions.push_back(evt4);
 
