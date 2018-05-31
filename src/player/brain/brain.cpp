@@ -30,7 +30,7 @@
 
 namespace SenselessSoccer {
 
-ControllerSimulator Brain::joystick;
+// ControllerSimulator Brain::joystick;
 
 //  --------------------------------------------------
 //  Brain

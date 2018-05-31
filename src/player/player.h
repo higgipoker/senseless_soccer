@@ -37,9 +37,7 @@ namespace SenselessSoccer {
 class Team;
 
 /** @brief class to represent a player entity */
-class Player : public GameLib::StateMachine,
-               public GameLib::GameEntity,
-               public ControllerListener {
+class Player : public GameLib::StateMachine, public GameLib::GameEntity, public ControllerListener {
   public:
     /**
      * @brief constructor
@@ -75,11 +73,14 @@ class Player : public GameLib::StateMachine,
      */
     virtual void Call(std::vector<std::string> params) override;
 
-    /// players team
-    Team *my_team;
-
-    /// opposing team
-    Team *other_team;
+    /**
+     * @brief AddtoTeam
+     * @param _my_team
+     * @param _other_team
+     * @param _ball
+     * @param _pitch
+     */
+    void AddtoTeam(Team *_my_team, Team *_other_team, Ball *_ball, Pitch *_pitch);
 
     /// a player can have a playing role (eg right back)
     Role *role;
@@ -87,22 +88,21 @@ class Player : public GameLib::StateMachine,
     /// track distance from ball
     float distance_from_ball = 0;
 
-    /// track if i have the ball
-    bool in_possession = false;
-
-    /// convenient access to match stuff
-    static Ball *ball;
-    static Pitch *pitch;
-
   protected:
     /// to save casting generic sprite to player sprite
-    PlayerSprite *player_sprite;
+    PlayerSprite *player_sprite = nullptr;
 
     /// input controller
-    Controller *input;
+    Controller *input = nullptr;
 
     /// a brain
     Brain brain;
+
+    /// convenient access to match stuff
+    Team *my_team = nullptr;
+    Team *other_team = nullptr;
+    Ball *ball = nullptr;
+    Pitch *pitch = nullptr;
 
     /// how fast can the player run
     const unsigned int DEFAULT_SPEED = 200;
@@ -114,15 +114,14 @@ class Player : public GameLib::StateMachine,
     /// for close control
     GameLib::Circle close_control_circle;
 
-    /// track change direction, so we donthave to calc it multiple times in a
-    /// frame
-    bool changed_direction;
-
-    /// until we think of a better way to transition to slide tackle state
-    bool sliding = false;
+    /// track change direction, so we donthave to calc it multiple times in a frame
+    bool changed_direction = false;
 
     /// for calcing change direction
     GameLib::Vector3 last_direction;
+
+    /// until we think of a better way to transition to slide tackle state
+    bool sliding = false;
 
     /**
      * @brief helper to update player position
@@ -138,7 +137,7 @@ class Player : public GameLib::StateMachine,
     /**
      * @brief helper to set the sprite animation
      */
-    void animate();
+    void animate_sprite();
 
     /**
      * @brief player gained possession
@@ -215,6 +214,9 @@ class Player : public GameLib::StateMachine,
      * @return
      */
     float distance_to_goal();
+
+    /// improves readability when this pointer passed to team
+    Player *me = this;
 
   public:
     // ------------------------------------------------------------

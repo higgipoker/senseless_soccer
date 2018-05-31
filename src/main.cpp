@@ -128,32 +128,22 @@ static int parse_args(int argc, char *argv[]) {
 // ------------------------------------------------------------
 int main(int argc, char *argv[]) {
 
-    //
     // try to parse args, exit if return code
-    //
     if (parse_args(argc, argv)) {
         return 0;
     }
 
-    //
     // show some zlib info
-    //
     print_license_info();
 
-    //
     // main game
-    //
     SenselessGame game("Senseless Soccer", 1980, 0, WINDOW_WIDTH, WINDOW_HEIGHT, false);
     Globals::sensi = &game;
 
-    //
     // a scoped player factory object
-    //
     PlayerFactory player_factory;
 
-    //
     // players
-    //
     std::vector<Player *> players;
     for (unsigned int i = 0; i < 20; ++i) {
         players.push_back(player_factory.MakePlayer(playernames[i], filenames[i % 10]));
@@ -162,13 +152,11 @@ int main(int argc, char *argv[]) {
     // send all players the "support" call
     std::vector<std::string> call;
     call.push_back("support");
-    for (auto it = players.begin(); it != players.end(); ++it) {
-        (*it)->Call(call);
+    for (auto player : players) {
+        player->Call(call);
     }
 
-    //
     // teams
-    //
     Team team1(NORTH);
     Team team2(SOUTH);
     //    for (auto it = players.begin(); it != players.end() - 10; ++it) {
@@ -180,9 +168,7 @@ int main(int argc, char *argv[]) {
     team2.AddPlayer(players[0]);
     team2.SetKit(KitFactory::GetDefaultRedKit());
 
-    //
     // ball
-    //
     BallSprite ball_sprite(game.WorkingDirectory() + "/gfx/ball_new.png", 4, 2);
     BallShadowSprite ball_shadow_sprite(game.WorkingDirectory() + "/gfx/ball_shadow.png", 1, 1);
     ball_sprite.shadow = &ball_shadow_sprite;
@@ -190,19 +176,13 @@ int main(int argc, char *argv[]) {
     Ball ball(&ball_physical, &ball_sprite);
     ball.SetPosition(350, 350, 100);
     Match::ball = &ball;
-    Player::ball = &ball;
 
-    //
     // pitch
-    //
     GameLib::Physical pitch_physical;
     PitchTiled pitch_renderable(game.WorkingDirectory() + "/gfx/grass_horizontal.png", game.camera);
     Pitch pitch(&pitch_physical, &pitch_renderable, 250, 250, Metrics::MetersToPixels(68.5), Metrics::MetersToPixels(100.5f));
-    Player::pitch = &pitch;
 
-    //
     // goals
-    //
     GameLib::Physical goal_north_physical;
     GameLib::Renderable goal_north_sprite(game.WorkingDirectory() + "/gfx/goal_north.png");
     GameLib::GameEntity goal_north(goal_north_physical, goal_north_sprite);
@@ -211,27 +191,23 @@ int main(int argc, char *argv[]) {
     goal_north_sprite.z_order = 20;
     goal_north.SetName("goal1");
 
-    //
     // input
-    //
     Controller keyboard;
     players[0]->AttachInput(&keyboard);
-
     ControllerSimulator cpu;
     players[0]->AttachInput(&cpu);
 
-    //
+    // pick teams!
+    players[0]->AddtoTeam(&team2, &team1, &ball, &pitch);
+
     // test some text
-    //
     GameLib::Physical text_physical;
     GameLib::Label label(game.WorkingDirectory() + "/fonts/swos.ttf", 20, "senseless soccer " + senseless_soccer_version);
     label.SetPosition(12, 12);
     GameLib::GameEntity text(text_physical, label);
     text.hud = true;
 
-    //
     // add entities
-    //
     game.AddEntity(pitch);
     game.AddEntity(*players[0]);
 
@@ -242,9 +218,7 @@ int main(int argc, char *argv[]) {
     game.AddEntity(goal_north);
     game.AddEntity(text);
 
-    //
     // camera
-    //
     game.camera.Init(WINDOW_WIDTH, WINDOW_HEIGHT);
     game.camera.SetWorldRect(GameLib::Rectangle(0, 0, 1900, 2600));
     game.camera.Follow(&ball);
@@ -254,18 +228,16 @@ int main(int argc, char *argv[]) {
 
     // starts timers etc
     game.OnStart();
+    static float dt = 0.01f;
 
-    //
     // main loop
-    //
     while (game.running) {
-
-        // update the teams
-        team1.Update(0);
-        team2.Update(0);
-
-        // update base game stuff
-        game.Tick();
+        game.HandleInput(event);
+        team1.Update(dt);
+        team2.Update(dt);
+        game.Simulate(dt);
+        game.camera.Update(dt);
+        game.OnFrame();
     }
 
     GameLib::Log("s", "Exiting successfully");

@@ -123,8 +123,8 @@ void Controller::RemoveListener(SenselessSoccer::ControllerListener *listener) {
 // Notify
 // ------------------------------------------------------------
 void Controller::Notify(ControllerEvent event) {
-    for (auto it = listeners.begin(); it != listeners.end(); ++it) {
-        (*it)->OnControllerEvent(event);
+    for (auto listener : listeners) {
+        listener->OnControllerEvent(event);
     }
 }
 

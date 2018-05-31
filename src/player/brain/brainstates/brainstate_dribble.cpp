@@ -47,7 +47,7 @@ void BrainDribble::OnStart() {
     change_direction_ticker = 0;
 
     // dribble state needs a joystick simulator
-    player.AttachInput(&(player.brain.joystick));
+    // player.AttachInput(&(player.brain.joystick));
 }
 
 // ------------------------------------------------------------
@@ -99,8 +99,7 @@ bool BrainDribble::StateOver() {
 // change_direction
 // ------------------------------------------------------------
 void BrainDribble::change_direction() {
-    GameLib::Vector3 new_direction =
-        player.velocity.rotated(rand() % 2 == 1 ? 45 : -45).roundAngle(45);
+    GameLib::Vector3 new_direction = player.velocity.rotated(rand() % 2 == 1 ? 45 : -45).roundAngle(45);
     player.brain.locomotion.Cancel();
     player.brain.locomotion.ActivateHead(new_direction);
 }

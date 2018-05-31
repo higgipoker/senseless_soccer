@@ -38,9 +38,6 @@ using GameLib::Vector3;
 
 namespace SenselessSoccer {
 
-Ball *Player::ball = nullptr;
-Pitch *Player::pitch = nullptr;
-
 // ------------------------------------------------------------
 // Constructor
 // ------------------------------------------------------------
@@ -50,29 +47,20 @@ Player::Player(GameLib::Physical *p, GameLib::Renderable *r)
       /// specific player sprite
       player_sprite(static_cast<PlayerSprite *>(r)),
 
-      /// no connected input
-      input(nullptr),
-
       /// a brain
       brain(*this),
-
-      // how fast the player moves
-      running_speed(DEFAULT_SPEED),
 
       // default dribble radius
       dribble_circle(0, 0, 4),
 
       // default control radius
-      close_control_circle(0, 0, 8),
-
-      // tracker
-      changed_direction(false) {
+      close_control_circle(0, 0, 8) {
 
     // player sprites annchor to bottom of image (postion rofers to feet)
     anchor_type = GameLib::ANCHOR_BASELINE;
 
     // initialize state machine
-    InitState(new Standing(*this));
+    InitState(new Standing(*me));
 }
 
 // ------------------------------------------------------------
@@ -100,7 +88,7 @@ void Player::Update(float dt) {
     update_position(dt);
 
     // update the sprite animation
-    animate();
+    animate_sprite();
 
     // update dribble circle
     update_dribble_circle();
@@ -123,7 +111,7 @@ void Player::Update(float dt) {
         do_close_control();
     }
 
-    if (in_possession) {
+    if (my_team->key_players.player_in_possession == me) {
         calc_pass_recipients();
 
     } else {
@@ -147,14 +135,14 @@ void Player::Update(float dt) {
 // ------------------------------------------------------------
 void Player::AttachInput(Controller *i) {
     input = i;
-    input->AddListener(this);
+    input->AddListener(me);
 }
 
 // ------------------------------------------------------------
 // DetatchInput
 // ------------------------------------------------------------
 void Player::DetatchInput() {
-    input->RemoveListener(this);
+    input->RemoveListener(me);
     // null means no input attached to this player
     input = nullptr;
 }
@@ -186,7 +174,7 @@ void Player::normalize_velocity() {
 // ------------------------------------------------------------
 // animate
 // ------------------------------------------------------------
-void Player::animate() {
+void Player::animate_sprite() {
     // poll animation
     player_sprite->Animate();
 
@@ -357,8 +345,7 @@ void Player::short_pass() {
 // OnGainedPosession
 // ------------------------------------------------------------
 void Player::gained_possession() {
-    in_possession = true;
-    my_team->OnGotPossession(this);
+    my_team->OnGotPossession(me);
     running_speed = DEFAULT_SPEED;
 }
 
@@ -366,8 +353,7 @@ void Player::gained_possession() {
 // OnLostPossession
 // ------------------------------------------------------------
 void Player::lost_possession() {
-    in_possession = false;
-    my_team->OnLostPossession(this);
+    my_team->OnLostPossession(me);
     running_speed = DEFAULT_SPEED;
 }
 
@@ -450,16 +436,16 @@ void Player::calc_pass_recipients() {
     player_sprite->triangle1_color(255, 0, 0, 100);
     my_team->key_players.short_pass_candidates.clear();
 
-    for (auto it = my_team->players.begin(); it != my_team->players.end(); ++it) {
-        if (*it == this)
+    for (auto player : my_team->players) {
+        if (player == me)
             continue;
 
-        if ((this->physical.position - (*it)->physical.position).magnitude() < 100)
+        if ((me->physical.position - player->physical.position).magnitude() < 100)
             continue;
 
-        if (GameLib::CollisionDetector::collision((*it)->physical.position.ToPoint(), player_sprite->triangle1)) {
+        if (GameLib::CollisionDetector::collision(player->physical.position.ToPoint(), player_sprite->triangle1)) {
             player_sprite->triangle1_color(0, 255, 0, 100);
-            my_team->key_players.short_pass_candidates.push_back(*it);
+            my_team->key_players.short_pass_candidates.push_back(player);
         }
     }
 }
@@ -579,6 +565,16 @@ float Player::distance_to_goal() {
     Vector3 goal_center(pitch->metrics.north_goal.x1, pitch->metrics.north_goal.y1);
     goal_center.x += (pitch->metrics.north_goal.x2 - pitch->metrics.north_goal.x1) / 2;
     return (physical.position - goal_center).magnitude();
+}
+
+// ------------------------------------------------------------
+// AddtoTeam
+// ------------------------------------------------------------
+void Player::AddtoTeam(Team *_my_team, Team *_other_team, Ball *_ball, Pitch *_pitch) {
+    my_team = _my_team;
+    other_team = _other_team;
+    ball = _ball;
+    pitch = _pitch;
 }
 
 } // SenselessSoccer

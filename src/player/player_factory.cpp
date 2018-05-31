@@ -67,17 +67,17 @@ Player *PlayerFactory::MakePlayer(const std::string &entityname, const std::stri
 // destruct
 // ------------------------------------------------------------
 PlayerFactory::~PlayerFactory() {
-    for (auto it = roles.begin(); it != roles.end(); ++it) {
-        delete *it;
+    for (auto role : roles) {
+        delete role;
     }
-    for (auto it = physicals.begin(); it != physicals.end(); ++it) {
-        delete *it;
+    for (auto physical : physicals) {
+        delete physical;
     }
-    for (auto it = sprites.begin(); it != sprites.end(); ++it) {
-        delete *it;
+    for (auto sprite : sprites) {
+        delete sprite;
     }
-    for (auto it = players.begin(); it != players.end(); ++it) {
-        delete *it;
+    for (auto player : players) {
+        delete player;
     }
 }
 

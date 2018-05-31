@@ -35,11 +35,7 @@ void Team::Update(float dt) {
 // ------------------------------------------------------------
 // AddPlayer
 // ------------------------------------------------------------
-void Team::AddPlayer(Player *player) {
-    players.push_back(player);
-    player->my_team = this;
-    player->other_team = other_team;
-}
+void Team::AddPlayer(Player *player) { players.push_back(player); }
 
 // ------------------------------------------------------------
 // OnGotPossession
@@ -52,17 +48,22 @@ void Team::OnGotPossession(Player *p) { key_players.player_in_possession = p; }
 void Team::OnLostPossession(Player *p) {
     if (key_players.player_in_possession == p) {
         key_players.player_in_possession = nullptr;
+    } else {
+        // something wrong :  player who was not in possession thought he lost possession!
     }
 }
 
 //  --------------------------------------------------
-//  set key players
+//  set key set_key_players
 //  --------------------------------------------------
 void Team::set_key_players(void) { std::sort(key_players.short_pass_candidates.begin(), key_players.short_pass_candidates.end(), sort_players); }
 
+//  --------------------------------------------------
+//  SetKit
+//  --------------------------------------------------
 void Team::SetKit(std::vector<std::pair<GameLib::Color, GameLib::Color>> kit) {
-    for (auto it = players.begin(); it != players.end(); ++it) {
-        (*it)->renderable.SwapColors(kit);
+    for (auto player : players) {
+        player->renderable.SwapColors(kit);
     }
 }
 

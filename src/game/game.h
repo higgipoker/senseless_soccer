@@ -42,13 +42,17 @@ class SenselessGame : public GameLib::Game {
      * \param h window height
      * \brief fullscreen full screen window or now
      */
-    SenselessGame(const std::string &gamename, unsigned int x, unsigned int y, unsigned int w,
-                  unsigned int h, bool fullscreen = false);
+    SenselessGame(const std::string &gamename, unsigned int x, unsigned int y, unsigned int w, unsigned int h, bool fullscreen = false);
 
     /**
      * @brief ~SenselessGame
      */
     virtual ~SenselessGame() {}
+
+    /**
+     * @brief keyboard handling
+     */
+    void HandleInput(GameLib::WindowEvent &event) override;
 
   protected:
     /**
@@ -57,11 +61,6 @@ class SenselessGame : public GameLib::Game {
      * @param y
      */
     void on_mouse_click(float x, float y) override;
-
-    /**
-     * @brief keyboard handling
-     */
-    void handle_input(GameLib::WindowEvent &event) override;
 };
 
 } // namespace SenselessSoccer
