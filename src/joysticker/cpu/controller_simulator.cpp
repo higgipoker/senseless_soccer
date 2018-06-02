@@ -96,9 +96,7 @@ void ControllerSimulator::Update() {
             }
         }
 
-        //
         // LEFT
-        //
         if (!old_states[GameLib::LEFT]) {
             if (event_states[GameLib::LEFT]) {
                 Notify(ControllerEvent(DPAD_LEFT, PRESSED));
@@ -109,9 +107,7 @@ void ControllerSimulator::Update() {
             }
         }
 
-        //
         // RIGHT
-        //
         if (!old_states[GameLib::RIGHT]) {
             if (event_states[GameLib::RIGHT]) {
                 Notify(ControllerEvent(DPAD_RIGHT, PRESSED));
@@ -122,9 +118,7 @@ void ControllerSimulator::Update() {
             }
         }
 
-        //
         // UP
-        //
         if (!old_states[GameLib::UP]) {
             if (event_states[GameLib::UP]) {
                 Notify(ControllerEvent(DPAD_UP, PRESSED));
@@ -135,9 +129,7 @@ void ControllerSimulator::Update() {
             }
         }
 
-        //
         // DOWN
-        //
         if (!old_states[GameLib::DOWN]) {
             if (event_states[GameLib::DOWN]) {
                 Notify(ControllerEvent(DPAD_DOWN, PRESSED));

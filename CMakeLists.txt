@@ -18,19 +18,20 @@ set(LIBRARY_OUTPUT_PATH ${CMAKE_BINARY_DIR})
 # --------------------------------------------------
 # include dirs
 # --------------------------------------------------
-#include_directories(${PROJECT_SOURCE_DIR}/src)
-include_directories(/usr/local/include)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../SFML-2.5.0/include)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../gamelib/src) # tmp
 
 # --------------------------------------------------
 # lib dirs
 # --------------------------------------------------
 link_directories(${PROJECT_SOURCE_DIR}/libs)
-link_directories(/usr/local/lib)
+link_directories(${CMAKE_CURRENT_SOURCE_DIR}/../SFML-2.5.0/build/lib)
+link_directories(${CMAKE_CURRENT_SOURCE_DIR}/../gamelib/lib)
 
 # --------------------------------------------------
 # compiler flags
 # --------------------------------------------------
-add_definitions(-std=c++11 -DSFML_STATIC)
+add_definitions(-std=c++11)
 
 # --------------------------------------------------
 # add files
@@ -92,22 +93,4 @@ target_link_libraries (senseless_soccer gamelib)
 target_link_libraries (senseless_soccer sfml-graphics)
 target_link_libraries (senseless_soccer sfml-window)
 target_link_libraries (senseless_soccer sfml-system)
-
-
-#target_link_libraries (senseless_soccer gamelib)
-#target_link_libraries (senseless_soccer sfml-graphics-s)
-#target_link_libraries (senseless_soccer sfml-window-s)
-#target_link_libraries (senseless_soccer sfml-system-s)
-
-#target_link_libraries (senseless_soccer X11)
-#target_link_libraries (senseless_soccer X11-xcb)
-#target_link_libraries (senseless_soccer xcb)
-#target_link_libraries (senseless_soccer xcb-randr)
-#target_link_libraries (senseless_soccer freetype)
-#target_link_libraries (senseless_soccer Xrandr)
-#target_link_libraries (senseless_soccer GL)
-#target_link_libraries (senseless_soccer jpeg)
-#target_link_libraries (senseless_soccer udev)
-#target_link_libraries (senseless_soccer pthread)
-
 

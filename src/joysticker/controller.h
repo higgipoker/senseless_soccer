@@ -44,7 +44,7 @@ enum ControllerEventID {
 /**
  * @brief The ControllerEventStatus enum
  */
-enum ControllerEventStatus { PRESSED = 0, RELEASED };
+enum ControllerEventStatus { RELEASED = 0, PRESSED };
 
 /**
  * @brief The ControllerEvent struct
@@ -52,7 +52,7 @@ enum ControllerEventStatus { PRESSED = 0, RELEASED };
 struct ControllerEvent {
     ControllerEvent() {
         id = NO_EVENT;
-        status = PRESSED;
+        status = RELEASED;
         param = 0;
     }
 
