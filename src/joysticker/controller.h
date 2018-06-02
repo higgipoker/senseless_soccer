@@ -34,7 +34,6 @@ namespace SenselessSoccer {
 enum ControllerEventID {
     NO_EVENT = 0,
     FIRE,
-
     DPAD_LEFT,
     DPAD_RIGHT,
     DPAD_UP,
@@ -78,7 +77,7 @@ struct ControllerEvent {
 };
 
 /**
- * @brief The ControllerListener class
+ * @brief The ControllerListener interface
  */
 class ControllerListener {
   public:
@@ -95,14 +94,25 @@ class ControllerListener {
 };
 
 /**
- * @brief The SensiController class
+ * @brief The Controller class
  */
-class Controller : public GameLib::Keyboard {
+class Controller {
   public:
+    /**
+     * @brief Controller
+     * @param i
+     */
+    Controller(GameLib::Input *i);
+
+    /**
+     * @brief ~Controller
+     */
+    virtual ~Controller();
+
     /**
      * @brief Update
      */
-    virtual void Update() override;
+    virtual void Update();
 
     /**
      * @brief AddListener
@@ -116,7 +126,14 @@ class Controller : public GameLib::Keyboard {
      */
     void RemoveListener(ControllerListener *listener);
 
+    /// some convenient flags to get the current status
+    bool LEFT = false, RIGHT = false, UP = false, DOWN = false;
+
   protected:
+    /// the hardware this controller is based on (eg keyboard, xbox gamepad,
+    /// joystick etc)
+    GameLib::Input *input;
+
     /**
      * @brief Notify
      * @param event event to handle
