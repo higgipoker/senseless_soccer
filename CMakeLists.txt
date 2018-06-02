@@ -19,7 +19,7 @@ set(LIBRARY_OUTPUT_PATH ${CMAKE_BINARY_DIR})
 # include dirs
 # --------------------------------------------------
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../SFML-2.5.0/include)
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../gamelib/src) # tmp
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../gamelib/include) # tmp
 
 # --------------------------------------------------
 # lib dirs
@@ -78,10 +78,6 @@ src/team/roles/role.cpp
 src/metrics/metrics.cpp
 src/pitch/pitch.cpp
 src/joysticker/controller.cpp
-src/joysticker/cpu/controller_simulator.cpp
-src/joysticker/cpu/simulated_actions/simulated_sequence.cpp
-src/joysticker/cpu/simulated_actions/simulate_clearance.cpp
-src/joysticker/cpu/simulated_actions/simulate_nothing.cpp
 src/game/game.cpp
 src/globals.cpp
 )
