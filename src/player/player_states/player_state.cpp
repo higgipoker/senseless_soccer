@@ -64,32 +64,8 @@ void PlayerState::ChangeToNextState() {
 // handle_input
 // ------------------------------------------------------------
 void PlayerState::handle_input() {
-
-    // fresh start
-    player.physical.ResetVelocity();
-
     // poll for inputs
     player.input->Update();
-
-    // up
-    if (player.input->event_states[GameLib::UP]) {
-        player.velocity.y = -1;
-    }
-
-    // down
-    if (player.input->event_states[GameLib::DOWN]) {
-        player.velocity.y = 1;
-    }
-
-    // left
-    if (player.input->event_states[GameLib::LEFT]) {
-        player.velocity.x = -1;
-    }
-
-    // right
-    if (player.input->event_states[GameLib::RIGHT]) {
-        player.velocity.x = 1;
-    }
 }
 
 // ------------------------------------------------------------
@@ -114,8 +90,10 @@ bool PlayerState::HandleEvent(ControllerEvent event) {
         case DPAD_LEFT:
             std::cout << "DPAD_LEFT ";
             if (event.status == PRESSED) {
+                player.velocity.x = -1;
                 std::cout << "PRESSED" << std::endl;
             } else {
+                player.velocity.x = 0;
                 std::cout << "RELEASED" << std::endl;
             }
             break;
@@ -123,8 +101,10 @@ bool PlayerState::HandleEvent(ControllerEvent event) {
         case DPAD_RIGHT:
             std::cout << "DPAD_RIGHT ";
             if (event.status == PRESSED) {
+                player.velocity.x = 1;
                 std::cout << "PRESSED" << std::endl;
             } else {
+                player.velocity.x = 0;
                 std::cout << "RELEASED" << std::endl;
             }
             break;
@@ -132,8 +112,10 @@ bool PlayerState::HandleEvent(ControllerEvent event) {
         case DPAD_UP:
             std::cout << "DPAD_UP ";
             if (event.status == PRESSED) {
+                player.velocity.y = -1;
                 std::cout << "PRESSED" << std::endl;
             } else {
+                player.velocity.y = 0;
                 std::cout << "RELEASED" << std::endl;
             }
             break;
@@ -141,9 +123,11 @@ bool PlayerState::HandleEvent(ControllerEvent event) {
         case DPAD_DOWN:
             std::cout << "DPAD_DOWN ";
             if (event.status == PRESSED) {
+                player.velocity.y = 1;
                 std::cout << "PRESSED" << std::endl;
             } else {
                 std::cout << "RELEASED" << std::endl;
+                player.velocity.y = 0;
             }
             break;
 

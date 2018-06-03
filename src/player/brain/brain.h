@@ -25,7 +25,6 @@
  */
 #pragma once
 
-#include "../../joysticker/cpu/controller_simulator.h"
 #include "../locomotion/locomotion_manager.h"
 #include <gamelib/statemachine/state_machine.h>
 
@@ -94,9 +93,6 @@ class Brain : public GameLib::StateMachine {
   protected:
     /// pointer back to player for sm context
     Player &player;
-
-    /// brain states need a joysticker to execute their ideas, just like players
-    static ControllerSimulator joystick;
 
     /// is the playe rin the pitch
     bool in_pitch(float dt);

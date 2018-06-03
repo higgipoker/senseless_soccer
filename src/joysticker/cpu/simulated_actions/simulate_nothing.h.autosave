@@ -1,0 +1,20 @@
+#pragma once
+
+#include "simulated_sequence.h"
+
+namespace SenselessSoccer {
+
+/**
+ * @brief default simulated sequence
+ */
+class SimulateNothing : public SimulatedSequence {
+  public:
+	/**
+	 * @brief constructor
+	 */
+	SimulateNothing();
+
+  protected:
+};
+
+} // namespace SenselessSoccer

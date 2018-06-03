@@ -41,16 +41,18 @@ const float BALL_MASS = 12.0f;
 // Ball
 // ------------------------------------------------------------
 Ball::Ball::Ball(GameLib::Physical *p, GameLib::Renderable *r)
-    : GameLib::GameEntity(*p, *r), radius(3), co_friction(2.6f), co_bounciness(0.7f),
-      sprite_scale_factor(0.0) {
+    : GameLib::GameEntity(*p, *r), radius(3), co_friction(2.6f),
+      co_bounciness(0.1f), sprite_scale_factor(0.0) {
 
     // local convenient access to subclassed ballsprite type of renderable
     ball_sprite = static_cast<BallSprite *>(&renderable);
     ball_shadow = static_cast<BallShadowSprite *>(ball_sprite->shadow);
 
     // for rotations
-    ball_sprite->SetOrigin(ball_sprite->GetWidth() / 2, ball_sprite->GetHeight() / 2);
-    ball_shadow->SetOrigin(ball_shadow->GetWidth() / 2, ball_shadow->GetHeight() / 2);
+    ball_sprite->SetOrigin(ball_sprite->GetSize().w / 2,
+                           ball_sprite->GetSize().w / 2);
+    ball_shadow->SetOrigin(ball_shadow->GetSize().h / 2,
+                           ball_shadow->GetSize().h / 2);
 
     name = "ball";
     anchor_type = GameLib::ANCHOR_NONE;
@@ -77,8 +79,8 @@ void Ball::Update(float dt) {
     do_physics(dt);
 
     // scale ball sprite depending on height
-    sprite_scale_factor =
-        radius * 2 / ball_sprite->GetWidth() * (1 + (physical.position.z * 0.02f));
+    sprite_scale_factor = radius * 2 / ball_sprite->GetSize().w *
+                          (1 + (physical.position.z * 0.02f));
     ball_sprite->Scale(sprite_scale_factor);
 
     // the ball only rolls if it's moving
@@ -90,9 +92,10 @@ void Ball::Update(float dt) {
     }
 
     // shadow postion
-    ball_shadow->SetPosition(
-        ball_sprite->GetPosition().x + SHADOW_OFFSET + physical.position.z * 0.5f,
-        ball_sprite->GetPosition().y + SHADOW_OFFSET + physical.position.z * 0.5f);
+    ball_shadow->SetPosition(ball_sprite->GetPosition().x + SHADOW_OFFSET +
+                                 physical.position.z * 0.5f,
+                             ball_sprite->GetPosition().y + SHADOW_OFFSET +
+                                 physical.position.z * 0.5f);
 
     // shadow size
     ball_shadow->Scale(sprite_scale_factor);
@@ -117,7 +120,9 @@ void Ball::Kick(GameLib::Vector3 force) {
 // ------------------------------------------------------------
 // apply_force
 // ------------------------------------------------------------
-void Ball::apply_force(GameLib::Vector3 force) { physical.acceleration += force; }
+void Ball::apply_force(GameLib::Vector3 force) {
+    physical.acceleration += force;
+}
 
 // ------------------------------------------------------------
 // do_physics
@@ -146,15 +151,17 @@ void Ball::do_physics(float dt) {
         apply_force(friction);
     }
 
-    // bounce if sufficiently low,and moving down
-    if (physical.position.z < GameLib::TOL && physical.velocity.z < GameLib::TOL) {
+    // bounce
+    if (physical.position.z < 0) {
         physical.position.z = 0;
-        physical.velocity.z = -(physical.velocity.z * co_bounciness);
+        physical.acceleration.z *= -0.7f;
+        std::cout << "bounce " << physical.velocity.z << std::endl;
     }
 
     // improved euler
     physical.velocity += physical.acceleration * dt;
-    GameLib::Vector3 next_velocity = physical.velocity + physical.acceleration * dt;
+    GameLib::Vector3 next_velocity =
+        physical.velocity + physical.acceleration * dt;
     physical.position += physical.velocity + next_velocity * 0.5 * dt;
     physical.ResetAcceleration();
 }
@@ -184,7 +191,9 @@ void Ball::rebound(GameLib::Vector3 wall, float damp, bool damp_z) {
 // ------------------------------------------------------------
 // Call
 // ------------------------------------------------------------
-void Ball::Call(std::vector<std::string> params) { GameLib::GameEntity::Call(params); }
+void Ball::Call(std::vector<std::string> params) {
+    GameLib::GameEntity::Call(params);
+}
 
 // ------------------------------------------------------------
 // StartRecordDistance

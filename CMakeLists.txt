@@ -25,7 +25,7 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../gamelib/include) # tmp
 # lib dirs
 # --------------------------------------------------
 link_directories(${PROJECT_SOURCE_DIR}/libs)
-link_directories(${CMAKE_CURRENT_SOURCE_DIR}/../SFML-2.5.0/build/lib)
+link_directories(${CMAKE_CURRENT_SOURCE_DIR}/../SFML-2.5.0/Debug/lib)
 link_directories(${CMAKE_CURRENT_SOURCE_DIR}/../gamelib/lib)
 
 # --------------------------------------------------

@@ -40,7 +40,6 @@
 #include "graphics/pitch_renderable.h"
 #include "graphics/player_sprite.h"
 #include "joysticker/controller.h"
-#include "joysticker/cpu/controller_simulator.h"
 #include "kit/kit_factory.h"
 #include "match/match.h"
 #include "metrics/metrics.h"
@@ -70,8 +69,10 @@ static std::string filenames[] = {"LEFT_BACK_POSITIONS.pos",
                                   "RIGHT_CENTER_ATTACKER_POSITIONS.pos"};
 
 static std::string playernames[] = {
-    "player1",  "player2",  "player3",  "player4",  "player5",  "player6",  "player7",  "player8",  "player9",  "player10",
-    "player11", "player12", "player13", "player14", "player15", "player16", "player17", "player18", "player19", "player20",
+    "player1",  "player2",  "player3",  "player4",  "player5",
+    "player6",  "player7",  "player8",  "player9",  "player10",
+    "player11", "player12", "player13", "player14", "player15",
+    "player16", "player17", "player18", "player19", "player20",
 };
 
 void print_license_info() {
@@ -107,14 +108,16 @@ static int parse_args(int argc, char *argv[]) {
 
         if (str == "--gamelib-version") {
             if (argc >= i) {
-                GameLib::Log("ss", "GameLib version: ", GameLib::GAMELIB_VERSION.c_str());
+                GameLib::Log("ss", "GameLib version: ",
+                             GameLib::GAMELIB_VERSION.c_str());
                 return 1;
             }
         }
 
         else if (str == "--version") {
             if (argc >= i) {
-                GameLib::Log("ss", "Senseless Soccer Version: ", senseless_soccer_version.c_str());
+                GameLib::Log("ss", "Senseless Soccer Version: ",
+                             senseless_soccer_version.c_str());
                 return 1;
             }
         }
@@ -137,7 +140,8 @@ int main(int argc, char *argv[]) {
     print_license_info();
 
     // main game
-    SenselessGame game("Senseless Soccer", 1980, 0, WINDOW_WIDTH, WINDOW_HEIGHT, false);
+    SenselessGame game("Senseless Soccer", 1980, 0, WINDOW_WIDTH, WINDOW_HEIGHT,
+                       false);
     Globals::sensi = &game;
 
     // a scoped player factory object
@@ -146,7 +150,8 @@ int main(int argc, char *argv[]) {
     // players
     std::vector<Player *> players;
     for (unsigned int i = 0; i < 20; ++i) {
-        players.push_back(player_factory.MakePlayer(playernames[i], filenames[i % 10]));
+        players.push_back(
+            player_factory.MakePlayer(playernames[i], filenames[i % 10]));
     }
 
     // send all players the "support" call
@@ -170,7 +175,8 @@ int main(int argc, char *argv[]) {
 
     // ball
     BallSprite ball_sprite(game.WorkingDirectory() + "/gfx/ball_new.png", 4, 2);
-    BallShadowSprite ball_shadow_sprite(game.WorkingDirectory() + "/gfx/ball_shadow.png", 1, 1);
+    BallShadowSprite ball_shadow_sprite(
+        game.WorkingDirectory() + "/gfx/ball_shadow.png", 1, 1);
     ball_sprite.shadow = &ball_shadow_sprite;
     GameLib::Physical ball_physical;
     Ball ball(&ball_physical, &ball_sprite);
@@ -179,12 +185,15 @@ int main(int argc, char *argv[]) {
 
     // pitch
     GameLib::Physical pitch_physical;
-    PitchTiled pitch_renderable(game.WorkingDirectory() + "/gfx/grass_horizontal.png", game.camera);
-    Pitch pitch(&pitch_physical, &pitch_renderable, 250, 250, Metrics::MetersToPixels(68.5), Metrics::MetersToPixels(100.5f));
+    PitchTiled pitch_renderable(
+        game.WorkingDirectory() + "/gfx/grass_horizontal.png", game.camera);
+    Pitch pitch(&pitch_physical, &pitch_renderable, 250, 250,
+                Metrics::MetersToPixels(68.5), Metrics::MetersToPixels(100.5f));
 
     // goals
     GameLib::Physical goal_north_physical;
-    GameLib::Renderable goal_north_sprite(game.WorkingDirectory() + "/gfx/goal_north.png");
+    GameLib::Renderable goal_north_sprite(game.WorkingDirectory() +
+                                          "/gfx/goal_north.png");
     GameLib::GameEntity goal_north(goal_north_physical, goal_north_sprite);
     goal_north.anchor_type = GameLib::ANCHOR_NONE;
     goal_north.SetPosition(750, -8);
@@ -192,17 +201,17 @@ int main(int argc, char *argv[]) {
     goal_north.SetName("goal1");
 
     // input
-    Controller keyboard;
+    GameLib::Keyboard kb;
+    Controller keyboard(&kb);
     players[0]->AttachInput(&keyboard);
-    ControllerSimulator cpu;
-    players[0]->AttachInput(&cpu);
 
     // pick teams!
     players[0]->AddtoTeam(&team2, &team1, &ball, &pitch);
 
     // test some text
     GameLib::Physical text_physical;
-    GameLib::Label label(game.WorkingDirectory() + "/fonts/swos.ttf", 20, "senseless soccer " + senseless_soccer_version);
+    GameLib::Label label(game.WorkingDirectory() + "/fonts/swos.ttf", 20,
+                         "senseless soccer " + senseless_soccer_version);
     label.SetPosition(12, 12);
     GameLib::GameEntity text(text_physical, label);
     text.hud = true;

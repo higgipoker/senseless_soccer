@@ -1,5 +1,6 @@
 #pragma once
 
+#include <gamelib/graphics/label.h>
 #include <gamelib/graphics/primitives.h>
 #include <gamelib/graphics/sprite.h>
 #include <gamelib/graphics/text.h>
