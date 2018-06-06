@@ -3,17 +3,38 @@
 namespace SenselessSoccer {
 
 // ------------------------------------------------------------
+// AngularWidth
+// ------------------------------------------------------------
+float Metrics::AngularWidth(float actual_width, float screen_width, float camera_height){
+    float angular_width = 0;
+
+    // if the screen width is 800, then 1 degree is 4.44 pixels
+//    float angular_pixel = 4.4444;
+
+//    float z_position = physical.position.z;
+//    float ball_diameter_at_zero = radius * 2;
+//    float ball_diameter = 2.6;
+//    float camera_height = 100;
+//    float dist_from_camera = camera_height - physical.position.z;
+//    float angular_diameter = 2 * (atanf(actual_width / (2 * dist_from_camera)));
+//    float degs = DEGREES(angular_diameter);
+//    float angular_pixels = degs * angular_pixel;
+
+    return angular_width;
+}
+
+// ------------------------------------------------------------
 // MetersToPixels
 // ------------------------------------------------------------
 int Metrics::MetersToPixels (float meters) {
-    return meters * 22;
+    return meters * 20;
 }
 
 // ------------------------------------------------------------
 // PixelsToMeters
 // ------------------------------------------------------------
 float Metrics::PixelsToMeters (float pixels) {
-    return pixels / 22.0f;
+    return pixels / 20.0f;
 }
 
 // ------------------------------------------------------------

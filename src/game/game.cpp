@@ -60,7 +60,7 @@ void SenselessGame::on_mouse_click(float x, float y) {
     GameLib::GameEntity ball = GetEntity("ball");
 
     // put the ball there
-    ball.SetPosition(x + camera.GetViewport().x, y + camera.GetViewport().y, 300);
+    ball.SetPosition(x + camera.getViewport().left, y + camera.getViewport().top, 300);
     ball.physical.ResetVelocity();
 }
 } // namespace SenselessSoccer
