@@ -31,11 +31,10 @@ static const float INFINITE_SMALL_BOUNCE = 0.35f;
 
 namespace SenselessSoccer {
 
-/// as good as zero
-const float TOL = 0.05f;
-const float GRAVITY = 500;
+const float TOL = 0.05f;     //  +/- as good as zero for float roudning errors
+const float GRAVITY = 9.8f;  // meters per second per second
 const float AIR_FACTOR = 0.01f;
-const float BALL_MASS = 10;
+const float BALL_MASS = 450;  // mass doesnt matter, this is air resitance!
 
 // ------------------------------------------------------------
 // Ball
@@ -43,7 +42,7 @@ const float BALL_MASS = 10;
 Ball::Ball::Ball(GameLib::Physical *p, GameLib::Renderable *r)
     : GameLib::GameEntity(*p, *r),
       radius(4),
-      co_friction(2.6f),
+      co_friction(0.01f),
       co_bounciness(-0.9f),
       sprite_scale_factor(0.0) {
   // local convenient access to subclassed ballsprite type of renderable
@@ -66,7 +65,7 @@ Ball::Ball::Ball(GameLib::Physical *p, GameLib::Renderable *r)
 Ball::~Ball() {}
 
 // tmp
-const int SHADOW_OFFSET = 2;
+const int SHADOW_OFFSET = 1;
 static const float PI = 3.14159265359f;
 #define DEGREES(a) a *(180.0f / PI)
 // ------------------------------------------------------------
@@ -82,41 +81,41 @@ void Ball::Update(float dt) {
   do_physics(dt);
 
   // if the screen width is 800, then 1 degree is 4.44 pixels
-  //  float angular_pixel = 4;
+  float angular_pixel = 4;
 
-  //  float z_position = physical.position.z;
-  //  float ball_diameter_at_zero = radius * 2;
-  //  float ball_diameter = 2.6;
-  //  float camera_height = 100;
-  //  float dist_from_camera = camera_height - physical.position.z;
-  //  float angular_diameter = 2 * (atanf(ball_diameter / (2 *
-  //  dist_from_camera))); float degs = DEGREES(angular_diameter); float
-  //  angular_pixels = degs * angular_pixel;
+  float z_position = physical.position.z;
+  float ball_diameter_at_zero = radius * 2;
+  float ball_diameter = 14.0;
+  float camera_height = 100;
+  float dist_from_camera = camera_height - physical.position.z;
+  float angular_diameter = 2 * (atanf(ball_diameter / (2 * dist_from_camera)));
+  float degs = DEGREES(angular_diameter);
+  float angular_pixels = degs * angular_pixel;
 
-  //  sprite_scale_factor = angular_pixels / 60;
-  //  ball_sprite->Scale(sprite_scale_factor);
+  sprite_scale_factor = angular_pixels / 60;
+  ball_sprite->Scale(sprite_scale_factor);
 
   // scale ball sprite depending on height
-  sprite_scale_factor = radius * 2 / ball_sprite->GetSize().w *
-                        (1 + (physical.position.z * 0.01f));
-  ball_sprite->Scale(sprite_scale_factor);
+  //  sprite_scale_factor = radius * 2 / ball_sprite->GetSize().w *
+  //                        (1 + (physical.position.z * 0.01f));
+  //  ball_sprite->Scale(sprite_scale_factor);
 
   // the ball only rolls if it's moving
   // if (physical.velocity.magnidude2d() > GameLib::TOL) {
 
   // rotate ball sprite depending on roll direction
-  // set_sprite_rotation();
-  // ball_sprite->Animate();
-  // }
+   set_sprite_rotation();
+   ball_sprite->Animate();
+
+
+  // y offset due to height
 
   // shadow postion
-  int shadow_x =
-      ball_sprite->GetPosition().x + SHADOW_OFFSET + physical.position.z * 0.5f;
-  int shadow_y =
-      ball_sprite->GetPosition().y + SHADOW_OFFSET + physical.position.z * 0.5f;
+  int shadow_x = physical.position.x + SHADOW_OFFSET;
+  int shadow_y = physical.position.y + SHADOW_OFFSET;
 
   if (shadow_y < physical.position.y || shadow_x < physical.position.x) {
-    //std::cout << "oops" << std::endl;
+    // std::cout << "oops" << std::endl;
   }
 
   ball_shadow->SetPosition(shadow_x, shadow_y);
@@ -154,12 +153,19 @@ void Ball::apply_force(GameLib::Vector3 force) {
 void Ball::do_physics(float dt) {
   // how many dts in one second?
   float chunk = 1 / dt;
-  float grv = GRAVITY / chunk;
+
+  // change meters into screen pixels
+  float pixels_per_sec_squared = Metrics::MetersToPixels(GRAVITY);
+
+  // find gravity in pixels for one physics frame
+  float grv = pixels_per_sec_squared / chunk;
+
+  float ms = BALL_MASS / chunk;
 
   // either gravity or friction
   if (physical.position.z > GameLib::TOL) {
     // gravity
-    GameLib::Vector3 gravity(0, 0, -grv * BALL_MASS);
+    GameLib::Vector3 gravity(0, 0, -grv * ms);
     apply_force(gravity);
 
     // air resistance
@@ -168,14 +174,14 @@ void Ball::do_physics(float dt) {
       GameLib::Vector3 air = physical.velocity.Reverse() * air_resistance;
       apply_force(air);
     }
-
-    //    else {
-    //      // friction
-    //      GameLib::Vector3 friction = physical.velocity.Reverse();
-    //      friction *= co_friction;
-    //      friction.z = 0;
-    //      apply_force(friction);
-    //    }
+  } else if(physical.velocity.magnidude2d() >TOL){
+    physical.position.z = 0;
+    physical.velocity.z = 0;
+    physical.acceleration.z = 0;
+    // friction
+    GameLib::Vector3 friction = physical.velocity.Reverse();
+    friction *= co_friction;
+    apply_force(friction);
   }
 
   physical.velocity += physical.acceleration * dt;
@@ -184,7 +190,7 @@ void Ball::do_physics(float dt) {
   // bounce
   if (physical.position.z < 0 && physical.velocity.z < 0) {
     physical.position.z = 0;
-    physical.velocity.z = -physical.velocity.z * 0.9f;
+    physical.velocity.z = -physical.velocity.z * 0.98f;
   }
 }
 

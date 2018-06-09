@@ -271,13 +271,13 @@ void PitchTiled::Render(GameLib::Window &window) {
   //
   // test draw goal line
   //
-  GameLib::Primitives::OutlineColor(GameLib::Color(255, 0, 0, 255));
-  GameLib::Primitives::DrawLine(
-      window, GameLib::Vector3(metrics.north_goal.x1, metrics.north_goal.y1),
-      GameLib::Vector3(metrics.north_goal.x2, metrics.north_goal.y2), 4);
-  GameLib::Primitives::DrawLine(
-      window, GameLib::Vector3(metrics.south_goal.x1, metrics.south_goal.y1),
-      GameLib::Vector3(metrics.south_goal.x2, metrics.south_goal.y2), 4);
+//  GameLib::Primitives::OutlineColor(GameLib::Color(255, 0, 0, 255));
+//  GameLib::Primitives::DrawLine(
+//      window, GameLib::Vector3(metrics.north_goal.x1, metrics.north_goal.y1),
+//      GameLib::Vector3(metrics.north_goal.x2, metrics.north_goal.y2), 4);
+//  GameLib::Primitives::DrawLine(
+//      window, GameLib::Vector3(metrics.south_goal.x1, metrics.south_goal.y1),
+//      GameLib::Vector3(metrics.south_goal.x2, metrics.south_goal.y2), 4);
 }
 
 void PitchTiled::InitMetrics(PitchMetrics m) {

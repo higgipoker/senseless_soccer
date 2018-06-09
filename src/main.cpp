@@ -49,8 +49,8 @@
 #include "team/roles/role.h"
 #include "team/team.h"
 
-#define WINDOW_WIDTH 800
-#define WINDOW_HEIGHT 600
+#define WINDOW_WIDTH 640
+#define WINDOW_HEIGHT 480
 
 using namespace SenselessSoccer;
 
@@ -174,9 +174,9 @@ int main(int argc, char *argv[]) {
     team2.SetKit(KitFactory::GetDefaultRedKit());
 
     // ball
-    BallSprite ball_sprite(game.WorkingDirectory() + "/gfx/ball_new.png", 4, 2);
+    BallSprite ball_sprite(game.WorkingDirectory() + "/gfx/ball_act.png", 4, 2);
     BallShadowSprite ball_shadow_sprite(
-        game.WorkingDirectory() + "/gfx/ball_shadow.png", 1, 1);
+        game.WorkingDirectory() + "/gfx/ball_shadow_act.png", 1, 1);
     ball_sprite.shadow = &ball_shadow_sprite;
     GameLib::Physical ball_physical;
     Ball ball(&ball_physical, &ball_sprite);
@@ -187,8 +187,8 @@ int main(int argc, char *argv[]) {
     GameLib::Physical pitch_physical;
     PitchTiled pitch_renderable(
         game.WorkingDirectory() + "/gfx/grass_horizontal.png", game.camera);
-    Pitch pitch(&pitch_physical, &pitch_renderable, 250, 250,
-                Metrics::MetersToPixels(68.5), Metrics::MetersToPixels(100.5f));
+    Pitch pitch(&pitch_physical, &pitch_renderable, 100, 100,
+                Metrics::MetersToPixels(72), Metrics::MetersToPixels(105));
 
     // goals
     GameLib::Physical goal_north_physical;
@@ -196,7 +196,7 @@ int main(int argc, char *argv[]) {
                                           "/gfx/goal_north.png");
     GameLib::GameEntity goal_north(goal_north_physical, goal_north_sprite);
     goal_north.anchor_type = GameLib::ANCHOR_NONE;
-    goal_north.SetPosition(750, -8);
+    goal_north.SetPosition(730, -20);
     goal_north_sprite.z_order = 20;
     goal_north.SetName("goal1");
 

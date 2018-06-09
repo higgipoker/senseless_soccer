@@ -2,6 +2,8 @@
 
 namespace SenselessSoccer {
 
+static const float cm_to_px = 0.2f;
+
 // ------------------------------------------------------------
 // AngularWidth
 // ------------------------------------------------------------
@@ -27,14 +29,14 @@ float Metrics::AngularWidth(float actual_width, float screen_width, float camera
 // MetersToPixels
 // ------------------------------------------------------------
 int Metrics::MetersToPixels (float meters) {
-    return meters * 20;
+    return meters * 100 * cm_to_px;
 }
 
 // ------------------------------------------------------------
 // PixelsToMeters
 // ------------------------------------------------------------
 float Metrics::PixelsToMeters (float pixels) {
-    return pixels / 20.0f;
+    return pixels / cm_to_px / 100;
 }
 
 // ------------------------------------------------------------
