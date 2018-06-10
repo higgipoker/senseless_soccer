@@ -41,13 +41,14 @@ const float BALL_MASS = 450;  // mass doesnt matter, this is air resitance!
 // ------------------------------------------------------------
 Ball::Ball::Ball(GameLib::Physical *p, GameLib::Renderable *r)
     : GameLib::GameEntity(*p, *r),
-      radius(4),
       co_friction(0.01f),
-      co_bounciness(-0.9f),
+      co_bounciness(-0.8f),
       sprite_scale_factor(0.0) {
   // local convenient access to subclassed ballsprite type of renderable
   ball_sprite = static_cast<BallSprite *>(&renderable);
   ball_shadow = static_cast<BallShadowSprite *>(ball_sprite->shadow);
+  // radius = ball_sprite->GetSize().w / 2;
+  radius = 5;
 
   // for rotations
   ball_sprite->SetOrigin(ball_sprite->GetSize().w / 2,
@@ -80,19 +81,22 @@ void Ball::Update(float dt) {
   // ball physics
   do_physics(dt);
 
-  // if the screen width is 800, then 1 degree is 4.44 pixels
-  float angular_pixel = 4;
-
+  // work out the angular diameter of the ball from the perpsective of the
+  // overhead camera
   float z_position = physical.position.z;
-  float ball_diameter_at_zero = radius * 2;
-  float ball_diameter = 14.0;
-  float camera_height = 100;
+  float ball_diameter = radius * 2;
+  float camera_height = 100;  // todo add param to camera class
   float dist_from_camera = camera_height - physical.position.z;
   float angular_diameter = 2 * (atanf(ball_diameter / (2 * dist_from_camera)));
   float degs = DEGREES(angular_diameter);
-  float angular_pixels = degs * angular_pixel;
 
-  sprite_scale_factor = angular_pixels / 60;
+  sprite_scale_factor = degs / ball_diameter;
+
+  // scale down according to act sprite size (allows bigger sprite for high
+  // quality when close to camera)
+  float sprite_ratio = ball_diameter / 64;
+  sprite_scale_factor *= sprite_ratio;
+
   ball_sprite->Scale(sprite_scale_factor);
 
   // scale ball sprite depending on height
@@ -104,9 +108,8 @@ void Ball::Update(float dt) {
   // if (physical.velocity.magnidude2d() > GameLib::TOL) {
 
   // rotate ball sprite depending on roll direction
-   set_sprite_rotation();
-   ball_sprite->Animate();
-
+  set_sprite_rotation();
+  ball_sprite->Animate();
 
   // y offset due to height
 
@@ -174,7 +177,7 @@ void Ball::do_physics(float dt) {
       GameLib::Vector3 air = physical.velocity.Reverse() * air_resistance;
       apply_force(air);
     }
-  } else if(physical.velocity.magnidude2d() >TOL){
+  } else if (physical.velocity.magnidude2d() > TOL) {
     physical.position.z = 0;
     physical.velocity.z = 0;
     physical.acceleration.z = 0;

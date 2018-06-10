@@ -23,10 +23,10 @@
  * @date 2018
  * @brief description
  */
-#include <iostream>
-#include <sstream>
 #include <string.h>
 #include <unistd.h>
+#include <iostream>
+#include <sstream>
 
 #include <gamelib/gamelib.h>
 #include <gamelib/input/keyboard.h>
@@ -76,7 +76,8 @@ static std::string playernames[] = {
 };
 
 void print_license_info() {
-    static const std::string notice = "\
+  static const std::string notice =
+      "\
     ************************************************************************************\n\
     *    Copyright (c) 2018 P. Higgins                                                 *\n\
     ************************************************************************************\n\
@@ -96,159 +97,158 @@ void print_license_info() {
     *       misrepresented as being the original software.                             *\n\
     *    3. This notice may not be removed or altered from any source distribution.    *\n\
     ************************************************************************************";
-    std::cout << notice << std::endl;
+  std::cout << notice << std::endl;
 }
 
 // ------------------------------------------------------------
 // parse_args
 // ------------------------------------------------------------
 static int parse_args(int argc, char *argv[]) {
-    for (int i = 0; i < argc; ++i) {
-        std::string str(argv[i]);
+  for (int i = 0; i < argc; ++i) {
+    std::string str(argv[i]);
 
-        if (str == "--gamelib-version") {
-            if (argc >= i) {
-                GameLib::Log("ss", "GameLib version: ",
-                             GameLib::GAMELIB_VERSION.c_str());
-                return 1;
-            }
-        }
-
-        else if (str == "--version") {
-            if (argc >= i) {
-                GameLib::Log("ss", "Senseless Soccer Version: ",
-                             senseless_soccer_version.c_str());
-                return 1;
-            }
-        }
+    if (str == "--gamelib-version") {
+      if (argc >= i) {
+        GameLib::Log("ss",
+                     "GameLib version: ", GameLib::GAMELIB_VERSION.c_str());
+        return 1;
+      }
     }
 
-    return 0;
+    else if (str == "--version") {
+      if (argc >= i) {
+        GameLib::Log("ss", "Senseless Soccer Version: ",
+                     senseless_soccer_version.c_str());
+        return 1;
+      }
+    }
+  }
+
+  return 0;
 }
 
 // ------------------------------------------------------------
 // main
 // ------------------------------------------------------------
 int main(int argc, char *argv[]) {
-
-    // try to parse args, exit if return code
-    if (parse_args(argc, argv)) {
-        return 0;
-    }
-
-    // show some zlib info
-    print_license_info();
-
-    // main game
-    SenselessGame game("Senseless Soccer", 1980, 0, WINDOW_WIDTH, WINDOW_HEIGHT,
-                       false);
-    Globals::sensi = &game;
-
-    // a scoped player factory object
-    PlayerFactory player_factory;
-
-    // players
-    std::vector<Player *> players;
-    for (unsigned int i = 0; i < 20; ++i) {
-        players.push_back(
-            player_factory.MakePlayer(playernames[i], filenames[i % 10]));
-    }
-
-    // send all players the "support" call
-    std::vector<std::string> call;
-    call.push_back("support");
-    for (auto player : players) {
-        player->Call(call);
-    }
-
-    // teams
-    Team team1(NORTH);
-    Team team2(SOUTH);
-    //    for (auto it = players.begin(); it != players.end() - 10; ++it) {
-    //        team1.AddPlayer(*it);
-    //    }
-    //    for (auto it = players.begin() + 10; it != players.end(); ++it) {
-    //        team2.AddPlayer(*it);
-    //    }
-    team2.AddPlayer(players[0]);
-    team2.SetKit(KitFactory::GetDefaultRedKit());
-
-    // ball
-    BallSprite ball_sprite(game.WorkingDirectory() + "/gfx/ball_act.png", 4, 2);
-    BallShadowSprite ball_shadow_sprite(
-        game.WorkingDirectory() + "/gfx/ball_shadow_act.png", 1, 1);
-    ball_sprite.shadow = &ball_shadow_sprite;
-    GameLib::Physical ball_physical;
-    Ball ball(&ball_physical, &ball_sprite);
-    ball.SetPosition(350, 350, 100);
-    Match::ball = &ball;
-
-    // pitch
-    GameLib::Physical pitch_physical;
-    PitchTiled pitch_renderable(
-        game.WorkingDirectory() + "/gfx/grass_horizontal.png", game.camera);
-    Pitch pitch(&pitch_physical, &pitch_renderable, 100, 100,
-                Metrics::MetersToPixels(72), Metrics::MetersToPixels(105));
-
-    // goals
-    GameLib::Physical goal_north_physical;
-    GameLib::Renderable goal_north_sprite(game.WorkingDirectory() +
-                                          "/gfx/goal_north.png");
-    GameLib::GameEntity goal_north(goal_north_physical, goal_north_sprite);
-    goal_north.anchor_type = GameLib::ANCHOR_NONE;
-    goal_north.SetPosition(730, -20);
-    goal_north_sprite.z_order = 20;
-    goal_north.SetName("goal1");
-
-    // input
-    GameLib::Keyboard kb;
-    Controller keyboard(&kb);
-    players[0]->AttachInput(&keyboard);
-
-    // pick teams!
-    players[0]->AddtoTeam(&team2, &team1, &ball, &pitch);
-
-    // test some text
-    GameLib::Physical text_physical;
-    GameLib::Label label(game.WorkingDirectory() + "/fonts/swos.ttf", 20,
-                         "senseless soccer " + senseless_soccer_version);
-    label.SetPosition(12, 12);
-    GameLib::GameEntity text(text_physical, label);
-    text.hud = true;
-
-    // add entities
-    game.AddEntity(pitch);
-    game.AddEntity(*players[0]);
-
-    //    for (auto it = players.begin(); it != players.end(); ++it) {
-    //        senseless.AddEntity(*(*it));
-    //    }
-    game.AddEntity(ball);
-    game.AddEntity(goal_north);
-    game.AddEntity(text);
-
-    // camera
-    game.camera.Init(WINDOW_WIDTH, WINDOW_HEIGHT);
-    game.camera.SetWorldRect(GameLib::Rectangle(0, 0, 1900, 2600));
-    game.camera.Follow(&ball);
-
-    // to get window events
-    GameLib::WindowEvent event;
-
-    // starts timers etc
-    game.OnStart();
-    static float dt = 0.01f;
-
-    // main loop
-    while (game.running) {
-        game.HandleInput(event);
-        team1.Update(dt);
-        team2.Update(dt);
-        game.Simulate(dt);
-        game.camera.Update(dt);
-        game.OnFrame();
-    }
-
-    GameLib::Log("s", "Exiting successfully");
+  // try to parse args, exit if return code
+  if (parse_args(argc, argv)) {
     return 0;
+  }
+
+  // show some zlib info
+  print_license_info();
+
+  // main game
+  SenselessGame game("Senseless Soccer", 1980, 0, WINDOW_WIDTH, WINDOW_HEIGHT,
+                     false);
+  Globals::sensi = &game;
+
+  // a scoped player factory object
+  PlayerFactory player_factory;
+
+  // players
+  std::vector<Player *> players;
+  for (unsigned int i = 0; i < 20; ++i) {
+    players.push_back(
+        player_factory.MakePlayer(playernames[i], filenames[i % 10]));
+  }
+
+  // send all players the "support" call
+  std::vector<std::string> call;
+  call.push_back("support");
+  for (auto player : players) {
+    player->Call(call);
+  }
+
+  // teams
+  Team team1(NORTH);
+  Team team2(SOUTH);
+  //    for (auto it = players.begin(); it != players.end() - 10; ++it) {
+  //        team1.AddPlayer(*it);
+  //    }
+  //    for (auto it = players.begin() + 10; it != players.end(); ++it) {
+  //        team2.AddPlayer(*it);
+  //    }
+  team2.AddPlayer(players[0]);
+  team2.SetKit(KitFactory::GetDefaultRedKit());
+
+  // ball
+  BallSprite ball_sprite(game.WorkingDirectory() + "/gfx/ball_new.png", 4, 2);
+  BallShadowSprite ball_shadow_sprite(
+      game.WorkingDirectory() + "/gfx/ball_shadow.png", 1, 1);
+  ball_sprite.shadow = &ball_shadow_sprite;
+  GameLib::Physical ball_physical;
+  Ball ball(&ball_physical, &ball_sprite);
+  ball.SetPosition(0, 0, 100);
+  Match::ball = &ball;
+
+  // pitch
+  GameLib::Physical pitch_physical;
+  PitchTiled pitch_renderable(
+      game.WorkingDirectory() + "/gfx/grass_horizontal.png", game.camera);
+  Pitch pitch(&pitch_physical, &pitch_renderable, 100, 100,
+              Metrics::MetersToPixels(72), Metrics::MetersToPixels(105));
+
+  // goals
+  GameLib::Physical goal_north_physical;
+  GameLib::Renderable goal_north_sprite(game.WorkingDirectory() +
+                                        "/gfx/goal_north.png");
+  GameLib::GameEntity goal_north(goal_north_physical, goal_north_sprite);
+  goal_north.anchor_type = GameLib::ANCHOR_NONE;
+  goal_north.SetPosition(710, -24);
+  goal_north_sprite.z_order = 20;
+  goal_north.SetName("goal1");
+
+  // input
+  GameLib::Keyboard kb;
+  Controller keyboard(&kb);
+  players[0]->AttachInput(&keyboard);
+
+  // pick teams!
+  players[0]->AddtoTeam(&team2, &team1, &ball, &pitch);
+
+  // test some text
+  GameLib::Physical text_physical;
+  GameLib::Label label(game.WorkingDirectory() + "/fonts/swos.ttf", 20,
+                       "senseless soccer " + senseless_soccer_version);
+  label.SetPosition(12, 12);
+  GameLib::GameEntity text(text_physical, label);
+  text.hud = true;
+
+  // add entities
+  game.AddEntity(pitch);
+  game.AddEntity(*players[0]);
+
+  //    for (auto it = players.begin(); it != players.end(); ++it) {
+  //        senseless.AddEntity(*(*it));
+  //    }
+  game.AddEntity(ball);
+  game.AddEntity(goal_north);
+  game.AddEntity(text);
+
+  // camera
+  game.camera.Init(WINDOW_WIDTH, WINDOW_HEIGHT);
+  game.camera.SetWorldRect(GameLib::Rectangle(0, 0, 1900, 2600));
+  game.camera.Follow(&ball);
+
+  // to get window events
+  GameLib::WindowEvent event;
+
+  // starts timers etc
+  game.OnStart();
+  static float dt = 0.01f;
+
+  // main loop
+  while (game.running) {
+    game.HandleInput(event);
+    team1.Update(dt);
+    team2.Update(dt);
+    game.Simulate(dt);
+    game.camera.Update(dt);
+    game.OnFrame();
+  }
+
+  GameLib::Log("s", "Exiting successfully");
+  return 0;
 }

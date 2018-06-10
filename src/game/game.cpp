@@ -55,12 +55,23 @@ void SenselessGame::HandleInput(GameLib::WindowEvent &event) {
 // ------------------------------------------------------------
 // on_mouse_click
 // ------------------------------------------------------------
-void SenselessGame::on_mouse_click(float x, float y) {
+void SenselessGame::on_mouse_click(float x, float y) {    
+    // tmp for title bar
+    y-=30;
+
+    std::cout << "click at " << x << ", " << y << std::endl;
+
+    // get the current mouse position in the window
+    sf::Vector2i pixelPos = sf::Mouse::getPosition(window.window);
+
+    // convert it to world coordinates
+    sf::Vector2f worldPos = window.window.mapPixelToCoords(pixelPos);
+
     // get the ball enity
     GameLib::GameEntity ball = GetEntity("ball");
 
     // put the ball there
-    ball.SetPosition(x + camera.getViewport().left, y + camera.getViewport().top, 100);
+    ball.SetPosition(worldPos.x, worldPos.y, 100);
     ball.physical.ResetVelocity();
     ball.physical.ResetAcceleration();
 }
