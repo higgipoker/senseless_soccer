@@ -24,51 +24,40 @@
  * @brief description
  */
 #include "ball.h"
+#include <gamelib/math/constants.h>
 #include <iostream>
 #include "../metrics/metrics.h"
 
-static const float INFINITE_SMALL_BOUNCE = 0.35f;
-
 namespace SenselessSoccer {
 
-const float TOL = 0.05f;     //  +/- as good as zero for float roudning errors
 const float GRAVITY = 9.8f;  // meters per second per second
 const float AIR_FACTOR = 0.01f;
-const float BALL_MASS = 450;  // mass doesnt matter, this is air resitance!
+const float BALL_MASS = 400;  // mass doesnt matter, this is air resitance!
+const int SHADOW_OFFSET = 1;
 
 // ------------------------------------------------------------
 // Ball
 // ------------------------------------------------------------
 Ball::Ball::Ball(GameLib::Physical *p, GameLib::Renderable *r)
     : GameLib::GameEntity(*p, *r),
-      co_friction(0.01f),
-      co_bounciness(-0.8f),
-      sprite_scale_factor(0.0) {
-  // local convenient access to subclassed ballsprite type of renderable
-  ball_sprite = static_cast<BallSprite *>(&renderable);
-  ball_shadow = static_cast<BallShadowSprite *>(ball_sprite->shadow);
-  // radius = ball_sprite->GetSize().w / 2;
+      co_friction(0.98f),
+      co_bounciness(0.7f),
+      sprite_scale_factor(0.0),
+      ball_sprite(static_cast<BallSprite &>(renderable)),
+      ball_shadow(static_cast<BallShadowSprite &>(*ball_sprite.shadow)) {
+  name = "ball";
   radius = 5;
+  physical.dimensions.w = radius * 2;
+  anchor_type = GameLib::ANCHOR_NONE;
+  perspectivize = true;
 
   // for rotations
-  ball_sprite->SetOrigin(ball_sprite->GetSize().w / 2,
-                         ball_sprite->GetSize().w / 2);
-  ball_shadow->SetOrigin(ball_shadow->GetSize().h / 2,
-                         ball_shadow->GetSize().h / 2);
-
-  name = "ball";
-  anchor_type = GameLib::ANCHOR_NONE;
+  ball_sprite.SetOrigin(ball_sprite.GetSize().w / 2,
+                        ball_sprite.GetSize().w / 2);
+  ball_shadow.SetOrigin(ball_shadow.GetSize().h / 2,
+                        ball_shadow.GetSize().h / 2);
 }
 
-// ------------------------------------------------------------
-// ~Ball
-// ------------------------------------------------------------
-Ball::~Ball() {}
-
-// tmp
-const int SHADOW_OFFSET = 1;
-static const float PI = 3.14159265359f;
-#define DEGREES(a) a *(180.0f / PI)
 // ------------------------------------------------------------
 // Update
 // ------------------------------------------------------------
@@ -81,57 +70,12 @@ void Ball::Update(float dt) {
   // ball physics
   do_physics(dt);
 
-  // work out the angular diameter of the ball from the perpsective of the
-  // overhead camera
-  float z_position = physical.position.z;
-  float ball_diameter = radius * 2;
-  float camera_height = 100;  // todo add param to camera class
-  float dist_from_camera = camera_height - physical.position.z;
-  float angular_diameter = 2 * (atanf(ball_diameter / (2 * dist_from_camera)));
-  float degs = DEGREES(angular_diameter);
-
-  sprite_scale_factor = degs / ball_diameter;
-
-  // scale down according to act sprite size (allows bigger sprite for high
-  // quality when close to camera)
-  float sprite_ratio = ball_diameter / 64;
-  sprite_scale_factor *= sprite_ratio;
-
-  ball_sprite->Scale(sprite_scale_factor);
-
-  // scale ball sprite depending on height
-  //  sprite_scale_factor = radius * 2 / ball_sprite->GetSize().w *
-  //                        (1 + (physical.position.z * 0.01f));
-  //  ball_sprite->Scale(sprite_scale_factor);
-
-  // the ball only rolls if it's moving
-  // if (physical.velocity.magnidude2d() > GameLib::TOL) {
-
-  // rotate ball sprite depending on roll direction
-  set_sprite_rotation();
-  ball_sprite->Animate();
-
-  // y offset due to height
+  // rolling animation
+  ball_sprite.Animate();
 
   // shadow postion
-  int shadow_x = physical.position.x + SHADOW_OFFSET;
-  int shadow_y = physical.position.y + SHADOW_OFFSET;
-
-  if (shadow_y < physical.position.y || shadow_x < physical.position.x) {
-    // std::cout << "oops" << std::endl;
-  }
-
-  ball_shadow->SetPosition(shadow_x, shadow_y);
-
-  //  // shadow size
-  ball_shadow->Scale(sprite_scale_factor);
-
-  if (recording) {
-    if (velocity.magnitude() < GameLib::TOL) {
-      recording = false;
-      // GameLib::Vector3 dist = physical.position - start_record;
-    }
-  }
+  ball_shadow.SetPosition(physical.position.x + SHADOW_OFFSET,
+                          physical.position.y + SHADOW_OFFSET);
 }
 
 // ------------------------------------------------------------
@@ -154,54 +98,58 @@ void Ball::apply_force(GameLib::Vector3 force) {
 // do_physics
 // ------------------------------------------------------------
 void Ball::do_physics(float dt) {
-  // how many dts in one second?
-  float chunk = 1 / dt;
+  // formulas are in seconds, physics step is in "dt"
+  float time_slice = dt / 1;
 
-  // change meters into screen pixels
-  float pixels_per_sec_squared = Metrics::MetersToPixels(GRAVITY);
+  // actual acceleration due to gravity for this time slice
+  float gravity_act = GRAVITY * time_slice;
 
-  // find gravity in pixels for one physics frame
-  float grv = pixels_per_sec_squared / chunk;
-
-  float ms = BALL_MASS / chunk;
-
-  // either gravity or friction
+  // gravity
   if (physical.position.z > GameLib::TOL) {
-    // gravity
-    GameLib::Vector3 gravity(0, 0, -grv * ms);
-    apply_force(gravity);
+    // change gravity meters into screen pixels
+    float pixels_per_sec_squared = Metrics::MetersToPixels(gravity_act);
 
-    // air resistance
-    if (physical.velocity.magnidude2d() > GameLib::TOL) {
-      float air_resistance = physical.position.z * AIR_FACTOR;
-      GameLib::Vector3 air = physical.velocity.Reverse() * air_resistance;
-      apply_force(air);
-    }
-  } else if (physical.velocity.magnidude2d() > TOL) {
-    physical.position.z = 0;
-    physical.velocity.z = 0;
-    physical.acceleration.z = 0;
-    // friction
-    GameLib::Vector3 friction = physical.velocity.Reverse();
-    friction *= co_friction;
-    apply_force(friction);
+    // find gravity in pixels for one physics frame
+    float grv = pixels_per_sec_squared;
+
+    // make the gravity vector
+    GameLib::Vector3 gravity(0, 0, -grv * BALL_MASS);
+
+    // accumulate forces
+    apply_force(gravity);
   }
 
+  // friction
+  else if (physical.velocity.z < GameLib::TOL &&
+           physical.velocity.magnidude2d()) {
+    physical.velocity *= co_friction;
+  }
+
+  // bounce
+  else if (physical.position.z <= 0 && physical.velocity.z < 0) {
+    // round off float unlimited bounce
+    if (fabs(physical.position.z) < GameLib::TOL) {
+      physical.position.z = 0;
+      physical.velocity.z = 0;
+      physical.acceleration.z = 0;
+    } else {
+      physical.velocity.z = -physical.velocity.z * co_bounciness;
+    }
+  }
+
+  // basic euler is enough for our purposes
   physical.velocity += physical.acceleration * dt;
   physical.position += physical.velocity * dt;
 
-  // bounce
-  if (physical.position.z < 0 && physical.velocity.z < 0) {
-    physical.position.z = 0;
-    physical.velocity.z = -physical.velocity.z * 0.98f;
-  }
+  // reset acceleration ready for next frame
+  physical.ResetAcceleration();
 }
 
 // ------------------------------------------------------------
 // set_sprite_rotation
 // ------------------------------------------------------------
 void Ball::set_sprite_rotation() {
-  ball_sprite->SetRotation(static_cast<int>(physical.GetAngle()));
+  ball_sprite.SetRotation(static_cast<int>(physical.GetAngle()));
 }
 
 // ------------------------------------------------------------
@@ -224,13 +172,5 @@ void Ball::rebound(GameLib::Vector3 wall, float damp, bool damp_z) {
 // ------------------------------------------------------------
 void Ball::Call(std::vector<std::string> params) {
   GameLib::GameEntity::Call(params);
-}
-
-// ------------------------------------------------------------
-// StartRecordDistance
-// ------------------------------------------------------------
-void Ball::StartRecordDistance() {
-  recording = true;
-  start_record = physical.position;
 }
 }  // namespace SenselessSoccer

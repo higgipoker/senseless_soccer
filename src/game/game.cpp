@@ -57,9 +57,7 @@ void SenselessGame::HandleInput(GameLib::WindowEvent &event) {
 // ------------------------------------------------------------
 void SenselessGame::on_mouse_click(float x, float y) {    
     // tmp for title bar
-    y-=30;
-
-    std::cout << "click at " << x << ", " << y << std::endl;
+    y-=30;   
 
     // get the current mouse position in the window
     sf::Vector2i pixelPos = sf::Mouse::getPosition(window.window);

@@ -220,9 +220,8 @@ void PlayerSprite::Render(GameLib::Window &window) {
     GameLib::Primitives::Triangle(window, static_cast<unsigned int>(triangle1.p1.x), static_cast<unsigned int>(triangle1.p1.y),
                                   static_cast<unsigned int>(triangle1.p2.x), static_cast<unsigned int>(triangle1.p2.y),
                                   static_cast<unsigned int>(triangle1.p3.x), static_cast<unsigned int>(triangle1.p3.y));
-    GameLib::Primitives::RestoreColors();
 
-    if (text.GetText().size()) {
+    if (!text.GetText().empty()) {
         GameLib::Dimension size = text.GetSize();
         GameLib::Primitives::FillColor(GameLib::Color(0, 0, 0, 120));
         GameLib::Primitives::OutlineColor(GameLib::Color(0, 0, 0, 120));

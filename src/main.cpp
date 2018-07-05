@@ -180,13 +180,13 @@ int main(int argc, char *argv[]) {
   ball_sprite.shadow = &ball_shadow_sprite;
   GameLib::Physical ball_physical;
   Ball ball(&ball_physical, &ball_sprite);
-  ball.SetPosition(0, 0, 100);
+  ball.SetPosition(200, 200, 0);
   Match::ball = &ball;
 
   // pitch
   GameLib::Physical pitch_physical;
   PitchTiled pitch_renderable(
-      game.WorkingDirectory() + "/gfx/grass_horizontal.png", game.camera);
+      game.WorkingDirectory() + "/gfx/grass_dry.png", game.camera);
   Pitch pitch(&pitch_physical, &pitch_renderable, 100, 100,
               Metrics::MetersToPixels(72), Metrics::MetersToPixels(105));
 
@@ -236,7 +236,6 @@ int main(int argc, char *argv[]) {
   GameLib::WindowEvent event;
 
   // starts timers etc
-  game.OnStart();
   static float dt = 0.01f;
 
   // main loop

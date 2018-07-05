@@ -223,7 +223,7 @@ void Player::do_dribble(const Vector3 &direction) {
     gained_possession();
 
     // calc force needed for kick
-    float force_needed = running_speed * 1.1f;
+    float force_needed = running_speed * 120.0f;
     Vector3 kick = direction * force_needed;
 
     // normalize for diagonals
@@ -243,9 +243,6 @@ void Player::do_slide_tackle(const Vector3 &direction) {
     // TODO height
     if (ball->physical.position.z > 30)
         return;
-
-    ball->physical.ResetAcceleration();
-    ball->physical.ResetVelocity();
 
     // calc force needed for kick
     float force_needed = running_speed * 1.2f;

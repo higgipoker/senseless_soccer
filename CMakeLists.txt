@@ -27,6 +27,8 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../gamelib/include) # tmp
 link_directories(${PROJECT_SOURCE_DIR}/libs)
 link_directories(${CMAKE_CURRENT_SOURCE_DIR}/../SFML-2.5.0/Debug/lib)
 link_directories(${CMAKE_CURRENT_SOURCE_DIR}/../gamelib/lib)
+link_directories(/usr/lib/x86_64-linux-gnu/)
+
 
 # --------------------------------------------------
 # compiler flags
@@ -86,7 +88,10 @@ src/globals.cpp
 # link libs
 # --------------------------------------------------
 target_link_libraries (senseless_soccer gamelib)
-target_link_libraries (senseless_soccer sfml-graphics)
-target_link_libraries (senseless_soccer sfml-window)
-target_link_libraries (senseless_soccer sfml-system)
+target_link_libraries (senseless_soccer sfml-graphics-d)
+target_link_libraries (senseless_soccer sfml-window-d)
+target_link_libraries (senseless_soccer sfml-system-d)
+target_link_libraries (senseless_soccer GL)
+target_link_libraries (senseless_soccer GLU)
+target_link_libraries (senseless_soccer glut)
 

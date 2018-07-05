@@ -18,11 +18,6 @@ class Ball : public GameLib::GameEntity {
   Ball(GameLib::Physical *p, GameLib::Renderable *r);
 
   /**
-   * @brief ~ball
-   */
-  ~Ball();
-
-  /**
    * @brief Kick
    * @param force
    */
@@ -47,14 +42,6 @@ class Ball : public GameLib::GameEntity {
    * @param params
    */
   virtual void Call(std::vector<std::string> params) override;
-
-  /**
-   * @brief StartRecordDistance
-   */
-  void StartRecordDistance();
-  int distance = 0;
-  bool recording = false;
-  GameLib::Vector3 start_record;
 
  protected:
   /**
@@ -85,11 +72,9 @@ class Ball : public GameLib::GameEntity {
   float radius;
   float co_friction;
   float co_bounciness;
-  BallSprite *ball_sprite;
-  BallShadowSprite *ball_shadow;
   float sprite_scale_factor;
-
-  float time = 0;
+  BallSprite &ball_sprite;
+  BallShadowSprite &ball_shadow;
 };
 
 }  // namespace SenselessSoccer
