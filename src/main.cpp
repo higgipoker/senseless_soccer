@@ -23,10 +23,10 @@
  * @date 2018
  * @brief description
  */
-#include <string.h>
-#include <unistd.h>
 #include <iostream>
 #include <sstream>
+#include <string.h>
+#include <unistd.h>
 
 #include <gamelib/gamelib.h>
 #include <gamelib/input/keyboard.h>
@@ -76,8 +76,7 @@ static std::string playernames[] = {
 };
 
 void print_license_info() {
-  static const std::string notice =
-      "\
+  static const std::string notice = "\
     ************************************************************************************\n\
     *    Copyright (c) 2018 P. Higgins                                                 *\n\
     ************************************************************************************\n\
@@ -140,8 +139,9 @@ int main(int argc, char *argv[]) {
   print_license_info();
 
   // main game
-  SenselessGame game("Senseless Soccer", 1980, 0, WINDOW_WIDTH, WINDOW_HEIGHT,
-                     false);
+  GameLib::WindowAttributes attribs{"Senseless Soccer", 1980,          0,
+                                    WINDOW_WIDTH,       WINDOW_HEIGHT, false};
+  SenselessGame game("Senseless Soccer", attribs);
   Globals::sensi = &game;
 
   // a scoped player factory object
@@ -185,8 +185,8 @@ int main(int argc, char *argv[]) {
 
   // pitch
   GameLib::Physical pitch_physical;
-  PitchTiled pitch_renderable(
-      game.WorkingDirectory() + "/gfx/grass_dry.png", game.camera);
+  PitchTiled pitch_renderable(game.WorkingDirectory() + "/gfx/grass_dry.png",
+                              game.camera);
   Pitch pitch(&pitch_physical, &pitch_renderable, 100, 100,
               Metrics::MetersToPixels(72), Metrics::MetersToPixels(105));
 

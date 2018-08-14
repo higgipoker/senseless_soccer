@@ -32,35 +32,36 @@
 namespace SenselessSoccer {
 
 class SenselessGame : public GameLib::Game {
-  public:
-    /**
-     * \brief construct
-     * \param gamename string name
-     * \param x window x location
-     * \param y window y location
-     * \param w window width
-     * \param h window height
-     * \brief fullscreen full screen window or now
-     */
-    SenselessGame(const std::string &gamename, unsigned int x, unsigned int y, unsigned int w, unsigned int h, bool fullscreen = false);
+public:
+  /**
+   * \brief construct
+   * \param gamename string name
+   * \param x window x location
+   * \param y window y location
+   * \param w window width
+   * \param h window height
+   * \brief fullscreen full screen window or now
+   */
+  SenselessGame(const std::string &gamename,
+                GameLib::WindowAttributes &attribs);
 
-    /**
-     * @brief ~SenselessGame
-     */
-    virtual ~SenselessGame() {}
+  /**
+   * @brief ~SenselessGame
+   */
+  virtual ~SenselessGame() {}
 
-    /**
-     * @brief keyboard handling
-     */
-    void HandleInput(GameLib::WindowEvent &event) override;
+  /**
+   * @brief keyboard handling
+   */
+  void HandleInput(GameLib::WindowEvent &event) override;
 
-  protected:
-    /**
-     * @brief on_mouse_click
-     * @param x
-     * @param y
-     */
-    void on_mouse_click(float x, float y) override;
+protected:
+  /**
+   * @brief on_mouse_click
+   * @param x
+   * @param y
+   */
+  void on_mouse_click(float x, float y) override;
 };
 
 } // namespace SenselessSoccer

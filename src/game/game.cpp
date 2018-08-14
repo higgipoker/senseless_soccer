@@ -39,8 +39,8 @@ struct {
 // ------------------------------------------------------------
 // SenselessGame
 // ------------------------------------------------------------
-SenselessGame::SenselessGame(const std::string &gamename, unsigned int x, unsigned int y, unsigned int w, unsigned int h, bool fullscreen)
-    : GameLib::Game(gamename, x, y, w, h, fullscreen) {
+SenselessGame::SenselessGame(const std::string &gamename, GameLib::WindowAttributes &attribs)
+    : GameLib::Game(gamename, attribs) {
     window.SetIcon("gfx/icon.png");
 }
 
@@ -55,9 +55,9 @@ void SenselessGame::HandleInput(GameLib::WindowEvent &event) {
 // ------------------------------------------------------------
 // on_mouse_click
 // ------------------------------------------------------------
-void SenselessGame::on_mouse_click(float x, float y) {    
+void SenselessGame::on_mouse_click(float x, float y) {
     // tmp for title bar
-    y-=30;   
+    y-=30;
 
     // get the current mouse position in the window
     sf::Vector2i pixelPos = sf::Mouse::getPosition(window.window);
