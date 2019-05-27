@@ -67,9 +67,9 @@ static GameLib::Color green_bright(0, 215, 0);
 static GameLib::Color green_medium(0, 175, 0);
 static GameLib::Color green_dark(0, 135, 0);
 
-// ------------------------------------------------------------
+// -----------------------------------------------------------------------------
 // GetDefaultRedKit
-// ------------------------------------------------------------
+// -----------------------------------------------------------------------------
 std::vector<std::pair<GameLib::Color, GameLib::Color>>
 KitFactory::GetDefaultRedKit() {
     // default kit is already red shirts
@@ -87,14 +87,14 @@ KitFactory::GetDefaultRedKit() {
     //
     // SOCKS
     //
-    p.push_back(std::make_pair(socks_original_bright, original_brightest));
-    p.push_back(std::make_pair(socks_original_dark, original_bright));
+    p.emplace_back(socks_original_bright, original_brightest);
+    p.emplace_back(socks_original_dark, original_bright);
     return p;
 }
 
-// ------------------------------------------------------------
+// -----------------------------------------------------------------------------
 // GetDefaultBlueKit
-// ------------------------------------------------------------
+// -----------------------------------------------------------------------------
 std::vector<std::pair<GameLib::Color, GameLib::Color>>
 KitFactory::GetDefaultBlueKit() {
 
@@ -103,10 +103,10 @@ KitFactory::GetDefaultBlueKit() {
     //
     // SHIRT
     //
-    p.push_back(std::make_pair(original_brightest, blue_brightest));
-    p.push_back(std::make_pair(original_bright, blue_bright));
-    p.push_back(std::make_pair(original_medium, blue_medium));
-    p.push_back(std::make_pair(original_dark, blue_dark));
+    p.emplace_back(original_brightest, blue_brightest);
+    p.emplace_back(original_bright, blue_bright);
+    p.emplace_back(original_medium, blue_medium);
+    p.emplace_back(original_dark, blue_dark);
 
     //
     // SHORTS
@@ -119,16 +119,16 @@ KitFactory::GetDefaultBlueKit() {
     return p;
 }
 
-// ------------------------------------------------------------
+// -----------------------------------------------------------------------------
 // GetKeeperPalette
-// ------------------------------------------------------------
+// -----------------------------------------------------------------------------
 std::vector<std::pair<GameLib::Color, GameLib::Color>>
 KitFactory::GetKeeperPalette() {
     std::vector<std::pair<GameLib::Color, GameLib::Color>> p;
-    p.push_back(std::make_pair(original_brightest, green_brightest));
-    p.push_back(std::make_pair(original_bright, green_bright));
-    p.push_back(std::make_pair(original_medium, green_medium));
-    p.push_back(std::make_pair(original_dark, green_dark));
+    p.emplace_back(original_brightest, green_brightest);
+    p.emplace_back(original_bright, green_bright);
+    p.emplace_back(original_medium, green_medium);
+    p.emplace_back(original_dark, green_dark);
     return p;
 }
 

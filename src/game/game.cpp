@@ -29,48 +29,42 @@
 #include <iostream>
 namespace SenselessSoccer {
 
-// ------------------------------------------------------------
-// sort predicate for renderable objects (for height)
-// ------------------------------------------------------------
-struct {
-    bool operator()(const GameLib::GameEntity *r1, const GameLib::GameEntity *r2) const { return r1->renderable.z_order < r2->renderable.z_order; }
-} sort_renderable;
-
-// ------------------------------------------------------------
+// -----------------------------------------------------------------------------
 // SenselessGame
-// ------------------------------------------------------------
-SenselessGame::SenselessGame(const std::string &gamename, GameLib::WindowAttributes &attribs)
+// -----------------------------------------------------------------------------
+SenselessGame::SenselessGame(const std::string &gamename,
+                             GameLib::WindowAttributes &attribs)
     : GameLib::Game(gamename, attribs) {
-    window.SetIcon("gfx/icon.png");
+  window.SetIcon("gfx/icon.png");
 }
 
-// ------------------------------------------------------------
+// -----------------------------------------------------------------------------
 // HandleInput
-// ------------------------------------------------------------
+// -----------------------------------------------------------------------------
 void SenselessGame::HandleInput(GameLib::WindowEvent &event) {
-    GameLib::Game::HandleInput(event);
-    // do game specific handling here
+  GameLib::Game::HandleInput(event);
+  // do game specific handling here
 }
 
-// ------------------------------------------------------------
+// -----------------------------------------------------------------------------
 // on_mouse_click
-// ------------------------------------------------------------
+// -----------------------------------------------------------------------------
 void SenselessGame::on_mouse_click(float x, float y) {
-    // tmp for title bar
-    y-=30;
+  // tmp for title bar
+  y -= 30;
 
-    // get the current mouse position in the window
-    sf::Vector2i pixelPos = sf::Mouse::getPosition(window.window);
+  // get the current mouse position in the window
+  sf::Vector2i pixelPos = sf::Mouse::getPosition(window.window);
 
-    // convert it to world coordinates
-    sf::Vector2f worldPos = window.window.mapPixelToCoords(pixelPos);
+  // convert it to world coordinates
+  sf::Vector2f worldPos = window.window.mapPixelToCoords(pixelPos);
 
-    // get the ball enity
-    GameLib::GameEntity ball = GetEntity("ball");
+  // get the ball enity
+  GameLib::GameEntity ball = GetEntity("ball");
 
-    // put the ball there
-    ball.SetPosition(worldPos.x, worldPos.y, 100);
-    ball.physical.ResetVelocity();
-    ball.physical.ResetAcceleration();
+  // put the ball there
+  ball.SetPosition(worldPos.x, worldPos.y, 100);
+  ball.physical.ResetVelocity();
+  ball.physical.ResetAcceleration();
 }
 } // namespace SenselessSoccer

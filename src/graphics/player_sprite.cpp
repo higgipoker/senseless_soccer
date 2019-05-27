@@ -7,9 +7,9 @@
 
 namespace SenselessSoccer {
 
-// ------------------------------------------------------------
+// -----------------------------------------------------------------------------
 // PlayerSprite
-// ------------------------------------------------------------
+// -----------------------------------------------------------------------------
 PlayerSprite::PlayerSprite(const std::string &filename, unsigned int number_rows, unsigned int number_cols)
     : GameLib::Sprite(filename, number_rows, number_cols), text("fonts/terminus.ttf", 18, "") {
     text.SetColor(GameLib::Color(200, 200, 200, 120));
@@ -161,9 +161,9 @@ PlayerSprite::PlayerSprite(const std::string &filename, unsigned int number_rows
     SetAnimation("stand_south");
 }
 
-// ------------------------------------------------------------
+// -----------------------------------------------------------------------------
 // SetStandingAnimation
-// ------------------------------------------------------------
+// -----------------------------------------------------------------------------
 void PlayerSprite::SetStandingAnimation(GameLib::Vector3 direction) {
     // face ball
     const int key = static_cast<const int>(roundf(direction.angle()));
@@ -174,9 +174,9 @@ void PlayerSprite::SetStandingAnimation(GameLib::Vector3 direction) {
     }
 }
 
-// ------------------------------------------------------------
+// -----------------------------------------------------------------------------
 // SetRunningAnimation
-// ------------------------------------------------------------
+// -----------------------------------------------------------------------------
 void PlayerSprite::SetRunningAnimation(GameLib::Vector3 direction) {
     float angle = roundf(direction.angle());
     const int key = static_cast<const int>(angle);
@@ -187,9 +187,9 @@ void PlayerSprite::SetRunningAnimation(GameLib::Vector3 direction) {
     }
 }
 
-// ------------------------------------------------------------
+// -----------------------------------------------------------------------------
 // SetSlidingAnimation
-// ------------------------------------------------------------
+// -----------------------------------------------------------------------------
 void PlayerSprite::SetSlidingAnimation(GameLib::Vector3 direction) {
     const int key = static_cast<const int>(roundf(direction.angle()));
     auto it = sliding_animation_map.find(key);
@@ -199,9 +199,9 @@ void PlayerSprite::SetSlidingAnimation(GameLib::Vector3 direction) {
     }
 }
 
-// ------------------------------------------------------------
+// -----------------------------------------------------------------------------
 // Render
-// ------------------------------------------------------------
+// -----------------------------------------------------------------------------
 void PlayerSprite::Render(GameLib::Window &window) {
     GameLib::Sprite::Render(window);
 
@@ -233,9 +233,9 @@ void PlayerSprite::Render(GameLib::Window &window) {
     }
 }
 
-// ------------------------------------------------------------
+// -----------------------------------------------------------------------------
 // PlayerShadowSprite
-// ------------------------------------------------------------
+// -----------------------------------------------------------------------------
 PlayerShadowSprite::PlayerShadowSprite(const std::string &filename, unsigned int number_rows, unsigned int number_cols)
     : PlayerSprite(filename, number_rows, number_cols) {}
 

@@ -34,9 +34,9 @@ std::vector<Role *> PlayerFactory::roles;
 const static std::string FILENAME = "gfx/player/player.png";
 const static std::string FILENAME_SHADOW = "gfx/player/player_shadow.png";
 
-// ------------------------------------------------------------
+// -----------------------------------------------------------------------------
 // MakePlayer
-// ------------------------------------------------------------
+// -----------------------------------------------------------------------------
 Player *PlayerFactory::MakePlayer(const std::string &entityname, const std::string &role_filename) {
 
     // things that a player needs
@@ -63,9 +63,9 @@ Player *PlayerFactory::MakePlayer(const std::string &entityname, const std::stri
     return player;
 }
 
-// ------------------------------------------------------------
+// -----------------------------------------------------------------------------
 // destruct
-// ------------------------------------------------------------
+// -----------------------------------------------------------------------------
 PlayerFactory::~PlayerFactory() {
     for (auto role : roles) {
         delete role;

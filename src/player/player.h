@@ -219,9 +219,9 @@ class Player : public GameLib::StateMachine, public GameLib::GameEntity, public 
     Player *me = this;
 
   public:
-    // ------------------------------------------------------------
+    // -----------------------------------------------------------------------------
     // state machine pattern friends
-    // ------------------------------------------------------------
+    // -----------------------------------------------------------------------------
     friend class PlayerState;
     friend class Standing;
     friend class Running;

@@ -54,21 +54,21 @@
 
 using namespace SenselessSoccer;
 
-const static std::string senseless_soccer_version = "0.0.1";
+const std::string senseless_soccer_version = "0.0.1";
 
 // temp testing
-static std::string filenames[] = {"LEFT_BACK_POSITIONS.pos",
-                                  "RIGHT_BACK_POSITIONS.pos",
-                                  "LEFT_CENTER_BACK_POSITIONS.pos",
-                                  "RIGHT_CENTER_BACK_POSITIONS.pos",
-                                  "LEFT_CENTER_MIDFIELDER_POSITIONS.pos",
-                                  "RIGHT_CENTER_MIDFIELDER_POSITIONS.pos",
-                                  "LEFT_MIDFIELDER_POSITIONS.pos",
-                                  "RIGHT_MIDFIELDER_POSITIONS.pos",
-                                  "LEFT_CENTER_ATTACKER_POSITIONS.pos",
-                                  "RIGHT_CENTER_ATTACKER_POSITIONS.pos"};
+const std::string filenames[] = {"LEFT_BACK_POSITIONS.pos",
+                                 "RIGHT_BACK_POSITIONS.pos",
+                                 "LEFT_CENTER_BACK_POSITIONS.pos",
+                                 "RIGHT_CENTER_BACK_POSITIONS.pos",
+                                 "LEFT_CENTER_MIDFIELDER_POSITIONS.pos",
+                                 "RIGHT_CENTER_MIDFIELDER_POSITIONS.pos",
+                                 "LEFT_MIDFIELDER_POSITIONS.pos",
+                                 "RIGHT_MIDFIELDER_POSITIONS.pos",
+                                 "LEFT_CENTER_ATTACKER_POSITIONS.pos",
+                                 "RIGHT_CENTER_ATTACKER_POSITIONS.pos"};
 
-static std::string playernames[] = {
+const std::string playernames[] = {
     "player1",  "player2",  "player3",  "player4",  "player5",
     "player6",  "player7",  "player8",  "player9",  "player10",
     "player11", "player12", "player13", "player14", "player15",
@@ -99,9 +99,9 @@ void print_license_info() {
   std::cout << notice << std::endl;
 }
 
-// ------------------------------------------------------------
+// -----------------------------------------------------------------------------
 // parse_args
-// ------------------------------------------------------------
+// -----------------------------------------------------------------------------
 static int parse_args(int argc, char *argv[]) {
   for (int i = 0; i < argc; ++i) {
     std::string str(argv[i]);
@@ -126,9 +126,9 @@ static int parse_args(int argc, char *argv[]) {
   return 0;
 }
 
-// ------------------------------------------------------------
+// -----------------------------------------------------------------------------
 // main
-// ------------------------------------------------------------
+// -----------------------------------------------------------------------------
 int main(int argc, char *argv[]) {
   // try to parse args, exit if return code
   if (parse_args(argc, argv)) {
@@ -151,7 +151,7 @@ int main(int argc, char *argv[]) {
   std::vector<Player *> players;
   for (unsigned int i = 0; i < 20; ++i) {
     players.push_back(
-        player_factory.MakePlayer(playernames[i], filenames[i % 10]));
+        PlayerFactory::MakePlayer(playernames[i], filenames[i % 10]));
   }
 
   // send all players the "support" call

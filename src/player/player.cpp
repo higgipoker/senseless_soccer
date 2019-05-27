@@ -38,24 +38,27 @@ using GameLib::Vector3;
 
 namespace SenselessSoccer {
 
-// ------------------------------------------------------------
+// -----------------------------------------------------------------------------
 // Constructor
-// ------------------------------------------------------------
+// -----------------------------------------------------------------------------
 Player::Player(GameLib::Physical *p, GameLib::Renderable *r)
-    : GameLib::GameEntity(*p, *r),
+  : GameLib::GameEntity(*p, *r)
+  ,
 
-      /// specific player sprite
-      player_sprite(static_cast<PlayerSprite *>(r)),
+  /// specific player sprite
+  player_sprite(static_cast<PlayerSprite *>(r))
+  ,
 
-      /// a brain
-      brain(*this),
+  /// a brain
+  brain(*this)
+  ,
 
-      // default dribble radius
-      dribble_circle(0, 0, 4),
+  // default dribble radius
+  dribble_circle(0, 0, 4)
+  ,
 
-      // default control radius
-      close_control_circle(0, 0, 8) {
-
+  // default control radius
+  close_control_circle(0, 0, 8) {
     // player sprites annchor to bottom of image (postion rofers to feet)
     anchor_type = GameLib::ANCHOR_BASELINE;
 
@@ -63,9 +66,9 @@ Player::Player(GameLib::Physical *p, GameLib::Renderable *r)
     InitState(new Standing(*me));
 }
 
-// ------------------------------------------------------------
+// -----------------------------------------------------------------------------
 // Update
-// ------------------------------------------------------------
+// -----------------------------------------------------------------------------
 void Player::Update(float dt) {
     GameLib::GameEntity::Update(dt);
     GameLib::StateMachine::Step(dt);
@@ -74,7 +77,8 @@ void Player::Update(float dt) {
     renderable.z_order = physical.position.y;
 
     // distance from ball
-    distance_from_ball = (physical.position - ball->physical.position).magnitude();
+    distance_from_ball =
+      (physical.position - ball->physical.position).magnitude();
 
     // input is attached
     if (input) {
@@ -107,7 +111,8 @@ void Player::Update(float dt) {
     }
 
     // ball control
-    if (changed_direction && ball_under_control() && velocity.magnitude() > GameLib::TOL) {
+    if (changed_direction && ball_under_control() &&
+        velocity.magnitude() > GameLib::TOL) {
         do_close_control();
     }
 
@@ -130,26 +135,26 @@ void Player::Update(float dt) {
     }
 }
 
-// ------------------------------------------------------------
+// -----------------------------------------------------------------------------
 // AttachInput
-// ------------------------------------------------------------
+// -----------------------------------------------------------------------------
 void Player::AttachInput(Controller *i) {
     input = i;
     input->AddListener(me);
 }
 
-// ------------------------------------------------------------
+// -----------------------------------------------------------------------------
 // DetatchInput
-// ------------------------------------------------------------
+// -----------------------------------------------------------------------------
 void Player::DetatchInput() {
     input->RemoveListener(me);
     // null means no input attached to this player
     input = nullptr;
 }
 
-// ------------------------------------------------------------
+// -----------------------------------------------------------------------------
 // update_position
-// ------------------------------------------------------------
+// -----------------------------------------------------------------------------
 void Player::update_position(float dt) {
     // normalises velocity for consistent speed in diagonals
     normalize_velocity();
@@ -158,9 +163,9 @@ void Player::update_position(float dt) {
     physical.position += velocity * dt * running_speed;
 }
 
-// ------------------------------------------------------------
+// -----------------------------------------------------------------------------
 // normalize_velocity
-// ------------------------------------------------------------
+// -----------------------------------------------------------------------------
 void Player::normalize_velocity() {
     // normalises to units
     velocity.normalise();
@@ -171,9 +176,9 @@ void Player::normalize_velocity() {
     }
 }
 
-// ------------------------------------------------------------
+// -----------------------------------------------------------------------------
 // animate
-// ------------------------------------------------------------
+// -----------------------------------------------------------------------------
 void Player::animate_sprite() {
     // poll animation
     player_sprite->Animate();
@@ -181,13 +186,14 @@ void Player::animate_sprite() {
     // update shadow
     if (player_sprite->shadow) {
         // TODO magic numbers here for shadow offset
-        player_sprite->shadow->SetPosition(player_sprite->GetPosition().x + 3, player_sprite->GetPosition().y + 7);
+        player_sprite->shadow->SetPosition(player_sprite->GetPosition().x + 3,
+                                           player_sprite->GetPosition().y + 7);
     }
 }
 
-// ------------------------------------------------------------
+// -----------------------------------------------------------------------------
 // update_dribble_circle
-// ------------------------------------------------------------
+// -----------------------------------------------------------------------------
 void Player::update_dribble_circle() {
     // set dribble circle to current physical position
     dribble_circle.x = physical.position.x;
@@ -195,7 +201,8 @@ void Player::update_dribble_circle() {
 
     // set the control circle the same, but a bit forward...
     Vector3 t(dribble_circle.x, dribble_circle.y);
-    t = t + last_direction.getNormalizedToUnits() * close_control_circle.radius / 2;
+    t = t +
+      last_direction.getNormalizedToUnits() * close_control_circle.radius / 2;
 
     close_control_circle.x = t.x;
     close_control_circle.y = t.y;
@@ -212,9 +219,9 @@ void Player::update_dribble_circle() {
     //////////////////////////////////////////////////
 }
 
-// ------------------------------------------------------------
+// -----------------------------------------------------------------------------
 // do_dribble
-// ------------------------------------------------------------
+// -----------------------------------------------------------------------------
 void Player::do_dribble(const Vector3 &direction) {
     // TODO height
     if (ball->physical.position.z > 30)
@@ -236,9 +243,9 @@ void Player::do_dribble(const Vector3 &direction) {
     ball->Kick(kick);
 }
 
-// ------------------------------------------------------------
+// -----------------------------------------------------------------------------
 // do_slide_tackle
-// ------------------------------------------------------------
+// -----------------------------------------------------------------------------
 void Player::do_slide_tackle(const Vector3 &direction) {
     // TODO height
     if (ball->physical.position.z > 30)
@@ -260,16 +267,17 @@ void Player::do_slide_tackle(const Vector3 &direction) {
     gained_possession();
 }
 
-// ------------------------------------------------------------
+// -----------------------------------------------------------------------------
 // do_close_control
-// ------------------------------------------------------------
+// -----------------------------------------------------------------------------
 void Player::do_close_control() {
-
     // vector to store new ball position
     Vector3 t = physical.position;
 
     // ball slighty in front of player in running direction
-    t = t + last_direction.getNormalizedToUnits() * (close_control_circle.radius * 0.1f);
+    t = t +
+      last_direction.getNormalizedToUnits() *
+        (close_control_circle.radius * 0.1f);
 
     // reset ball
     ball->physical.ResetVelocity();
@@ -278,12 +286,13 @@ void Player::do_close_control() {
     ball->physical.SetPosition(t);
 }
 
-// ------------------------------------------------------------
+// -----------------------------------------------------------------------------
 // ball_under_control
-// ------------------------------------------------------------
+// -----------------------------------------------------------------------------
 bool Player::ball_under_control() {
     // true if ball is colliding with the control circle
-    if (GameLib::CollisionDetector::collision(close_control_circle, ball->GetCollidable())) {
+    if (GameLib::CollisionDetector::collision(close_control_circle,
+                                              ball->GetCollidable())) {
         return true;
     }
 
@@ -291,11 +300,10 @@ bool Player::ball_under_control() {
     return false;
 }
 
-// ------------------------------------------------------------
+// -----------------------------------------------------------------------------
 // kick
-// ------------------------------------------------------------
+// -----------------------------------------------------------------------------
 void Player::kick(float force) {
-
     std::cout << "force: " << force << std::endl;
 
     // players always kick in the direction they are facing
@@ -303,13 +311,16 @@ void Player::kick(float force) {
     direction.normalizeToUnits();
 
     if (my_team->key_players.short_pass_candidates.size()) {
-        Vector3 dist = physical.position - my_team->key_players.short_pass_candidates[0]->physical.position;
+        Vector3 dist = physical.position -
+          my_team->key_players.short_pass_candidates[0]->physical.position;
         float mag = dist.magnitude();
         float meters = Metrics::PixelsToMeters(mag);
 
         force = Metrics::force_per_meter * meters;
 
-        direction = my_team->key_players.short_pass_candidates[0]->physical.position - physical.position;
+        direction =
+          my_team->key_players.short_pass_candidates[0]->physical.position -
+          physical.position;
         direction.normalise();
 
     } else {
@@ -322,44 +333,48 @@ void Player::kick(float force) {
     ball->Kick(kick_force);
 }
 
-// ------------------------------------------------------------
+// -----------------------------------------------------------------------------
 // ShortPass
-// ------------------------------------------------------------
+// -----------------------------------------------------------------------------
 void Player::short_pass() {
     float force = 0;
-    Vector3 dist = physical.position - my_team->key_players.short_pass_candidates[0]->physical.position;
+    Vector3 dist = physical.position -
+      my_team->key_players.short_pass_candidates[0]->physical.position;
     float mag = dist.magnitude();
     float meters = Metrics::PixelsToMeters(mag);
     force = Metrics::force_per_meter * meters;
-    Vector3 direction = my_team->key_players.short_pass_candidates[0]->physical.position - physical.position;
+    Vector3 direction =
+      my_team->key_players.short_pass_candidates[0]->physical.position -
+      physical.position;
     direction.normalise();
     Vector3 kick_force = direction * force;
     kick_force.z = force * 0.1f;
     ball->Kick(kick_force);
 }
 
-// ------------------------------------------------------------
+// -----------------------------------------------------------------------------
 // OnGainedPosession
-// ------------------------------------------------------------
+// -----------------------------------------------------------------------------
 void Player::gained_possession() {
     my_team->OnGotPossession(me);
     running_speed = DEFAULT_SPEED;
 }
 
-// ------------------------------------------------------------
+// -----------------------------------------------------------------------------
 // OnLostPossession
-// ------------------------------------------------------------
+// -----------------------------------------------------------------------------
 void Player::lost_possession() {
     my_team->OnLostPossession(me);
     running_speed = DEFAULT_SPEED;
 }
 
-// ------------------------------------------------------------
+// -----------------------------------------------------------------------------
 // Shoot
-// ------------------------------------------------------------
+// -----------------------------------------------------------------------------
 void Player::shoot() {
     Vector3 target(pitch->metrics.north_goal.x1, pitch->metrics.north_goal.y1);
-    target.x += rand() % int(pitch->metrics.north_goal.x2 - pitch->metrics.north_goal.x1);
+    target.x +=
+      rand() % int(pitch->metrics.north_goal.x2 - pitch->metrics.north_goal.x1);
     Vector3 shot_direction = (target - physical.position);
     shot_direction.normalise();
     Vector3 force = shot_direction;
@@ -369,13 +384,14 @@ void Player::shoot() {
     ball->Kick(force);
 }
 
-// ------------------------------------------------------------
+// -----------------------------------------------------------------------------
 // Clearance
-// ------------------------------------------------------------
+// -----------------------------------------------------------------------------
 void Player::clearance() {
     // TODO: a clearance direction
     Vector3 target(pitch->metrics.north_goal.x1, pitch->metrics.north_goal.y1);
-    target.x += rand() % int(pitch->metrics.north_goal.x2 - pitch->metrics.north_goal.x1);
+    target.x +=
+      rand() % int(pitch->metrics.north_goal.x2 - pitch->metrics.north_goal.x1);
     Vector3 shot_direction = (target - physical.position);
     shot_direction.normalise();
     Vector3 force = shot_direction;
@@ -385,9 +401,9 @@ void Player::clearance() {
     ball->Kick(force);
 }
 
-// ------------------------------------------------------------
+// -----------------------------------------------------------------------------
 // calc_pass_recipients
-// ------------------------------------------------------------
+// -----------------------------------------------------------------------------
 //  --------------------------------------------------
 //       [PLAYER]
 //
@@ -405,8 +421,10 @@ void Player::calc_pass_recipients() {
     tmp = tmp + velocity.normalised() * 20;
     Vector3 temp1 = last_direction;
     Vector3 temp2 = last_direction;
-    Vector3 t1 = physical.position + (temp1.rotated(35, 0, 0)).normalised() * 400;
-    Vector3 t2 = physical.position + (temp2.rotated(-35, 0, 0)).normalised() * 400;
+    Vector3 t1 =
+      physical.position + (temp1.rotated(35, 0, 0)).normalised() * 400;
+    Vector3 t2 =
+      physical.position + (temp2.rotated(-35, 0, 0)).normalised() * 400;
 
     player_sprite->triangle1.p1 = GameLib::Point(tmp.x, tmp.y);
     player_sprite->triangle1.p2 = GameLib::Point(t1.x, t1.y);
@@ -437,35 +455,42 @@ void Player::calc_pass_recipients() {
         if (player == me)
             continue;
 
-        if ((me->physical.position - player->physical.position).magnitude() < 100)
+        if ((me->physical.position - player->physical.position).magnitude() <
+            100)
             continue;
 
-        if (GameLib::CollisionDetector::collision(player->physical.position.ToPoint(), player_sprite->triangle1)) {
+        if (GameLib::CollisionDetector::collision(
+              player->physical.position.ToPoint(), player_sprite->triangle1)) {
             player_sprite->triangle1_color(0, 255, 0, 100);
             my_team->key_players.short_pass_candidates.push_back(player);
         }
     }
 }
 
-// ------------------------------------------------------------
+// -----------------------------------------------------------------------------
 // DoSlideTackle
-// ------------------------------------------------------------
-void Player::slide_tackle() { sliding = true; }
+// -----------------------------------------------------------------------------
+void Player::slide_tackle() {
+    sliding = true;
+}
 
-// ------------------------------------------------------------
+// -----------------------------------------------------------------------------
 // OnControllerEvent
-// ------------------------------------------------------------
-void Player::OnControllerEvent(ControllerEvent event) { (static_cast<PlayerState *>(current_state))->HandleEvent(event); }
+// -----------------------------------------------------------------------------
+void Player::OnControllerEvent(ControllerEvent event) {
+    (static_cast<PlayerState *>(current_state))->HandleEvent(event);
+}
 
-// ------------------------------------------------------------
+// -----------------------------------------------------------------------------
 // Call
-// ------------------------------------------------------------
+// -----------------------------------------------------------------------------
 void Player::Call(std::vector<std::string> params) {
     if (params[0] == "arrive") {
         std::vector<std::string> new_params(params.begin() + 1, params.end());
 
         if (new_params.size() >= 2) {
-            brain.locomotion.ActivateArrive(Vector3(atoi(new_params[0].c_str()), atoi(new_params[1].c_str())));
+            brain.locomotion.ActivateArrive(Vector3(
+              atoi(new_params[0].c_str()), atoi(new_params[1].c_str())));
         }
 
         return;
@@ -555,23 +580,26 @@ void Player::Call(std::vector<std::string> params) {
     GameLib::GameEntity::Call(params);
 }
 
-// ------------------------------------------------------------
+// -----------------------------------------------------------------------------
 // distance_to_goal
-// ------------------------------------------------------------
+// -----------------------------------------------------------------------------
 float Player::distance_to_goal() {
-    Vector3 goal_center(pitch->metrics.north_goal.x1, pitch->metrics.north_goal.y1);
-    goal_center.x += (pitch->metrics.north_goal.x2 - pitch->metrics.north_goal.x1) / 2;
+    Vector3 goal_center(pitch->metrics.north_goal.x1,
+                        pitch->metrics.north_goal.y1);
+    goal_center.x +=
+      (pitch->metrics.north_goal.x2 - pitch->metrics.north_goal.x1) / 2;
     return (physical.position - goal_center).magnitude();
 }
 
-// ------------------------------------------------------------
+// -----------------------------------------------------------------------------
 // AddtoTeam
-// ------------------------------------------------------------
-void Player::AddtoTeam(Team *_my_team, Team *_other_team, Ball *_ball, Pitch *_pitch) {
+// -----------------------------------------------------------------------------
+void Player::AddtoTeam(Team *_my_team, Team *_other_team, Ball *_ball,
+                       Pitch *_pitch) {
     my_team = _my_team;
     other_team = _other_team;
     ball = _ball;
     pitch = _pitch;
 }
 
-} // SenselessSoccer
+} // namespace SenselessSoccer
